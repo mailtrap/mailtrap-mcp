@@ -22,13 +22,13 @@ describe("sendEmail", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (client!.send as jest.Mock).mockResolvedValue(mockResponse);
+    (client.send as jest.Mock).mockResolvedValue(mockResponse);
   });
 
   it("should send email successfully with default from address", async () => {
     const result = await sendEmail(mockEmailData);
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -55,7 +55,7 @@ describe("sendEmail", () => {
       from: customFrom,
     });
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: customFrom },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -84,7 +84,7 @@ describe("sendEmail", () => {
       bcc,
     });
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -113,7 +113,7 @@ describe("sendEmail", () => {
       html,
     });
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -140,7 +140,7 @@ describe("sendEmail", () => {
       category,
     });
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -171,7 +171,7 @@ describe("sendEmail", () => {
       to: toEmails,
     });
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: toEmails.map((email) => ({ email })),
       subject: mockEmailData.subject,
@@ -200,7 +200,7 @@ describe("sendEmail", () => {
       to: singleEmail,
     });
 
-    expect(client!.send).toHaveBeenCalledWith({
+    expect(client.send).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: singleEmail }],
       subject: mockEmailData.subject,
@@ -227,7 +227,7 @@ describe("sendEmail", () => {
         category: mockEmailData.category,
       });
 
-      expect(client!.send).not.toHaveBeenCalled();
+      expect(client.send).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -245,7 +245,7 @@ describe("sendEmail", () => {
         to: [],
       });
 
-      expect(client!.send).not.toHaveBeenCalled();
+      expect(client.send).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -263,7 +263,7 @@ describe("sendEmail", () => {
         to: "",
       });
 
-      expect(client!.send).not.toHaveBeenCalled();
+      expect(client.send).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -281,7 +281,7 @@ describe("sendEmail", () => {
         to: ["valid@example.com", "", "another@example.com"],
       });
 
-      expect(client!.send).toHaveBeenCalledWith(
+      expect(client.send).toHaveBeenCalledWith(
         expect.objectContaining({
           to: [
             { email: "valid@example.com" },
@@ -301,7 +301,7 @@ describe("sendEmail", () => {
 
     it("should handle client.send failure", async () => {
       const mockError = new Error("Failed to send email");
-      (client!.send as jest.Mock).mockRejectedValue(mockError);
+      (client.send as jest.Mock).mockRejectedValue(mockError);
 
       const result = await sendEmail(mockEmailData);
 
