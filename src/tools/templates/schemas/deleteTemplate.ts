@@ -1,7 +1,13 @@
-import { z } from "zod";
-
 const deleteTemplateSchema = {
-  template_id: z.number().describe("ID of the template to delete"),
+  type: "object",
+  properties: {
+    template_id: {
+      type: "number",
+      description: "ID of the template to delete",
+    },
+  },
+  required: ["template_id"],
+  additionalProperties: false,
 };
 
 export default deleteTemplateSchema;

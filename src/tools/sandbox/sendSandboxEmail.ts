@@ -58,11 +58,7 @@ async function sendSandboxEmail({
       throw new Error("No valid email addresses provided in 'to' field");
     }
 
-    // Debug logging
-    console.log("Original 'to' input:", to);
-    console.log("Parsed toEmails array:", toEmails);
     const toAddresses: Address[] = toEmails.map((email) => ({ email }));
-    console.log("Final toAddresses:", toAddresses);
 
     const emailData: Mail = {
       from: fromAddress,
@@ -76,16 +72,7 @@ async function sendSandboxEmail({
     if (cc && cc.length > 0) emailData.cc = cc.map((email) => ({ email }));
     if (bcc && bcc.length > 0) emailData.bcc = bcc.map((email) => ({ email }));
 
-    // Debug logging to see what we're sending
-    console.log(
-      "Sending email data to Mailtrap API:",
-      JSON.stringify(emailData, null, 2)
-    );
-
     const response = await sandboxClient.send(emailData);
-
-    // Debug logging to see what response we get
-    console.log("Mailtrap API response:", JSON.stringify(response, null, 2));
 
     return {
       content: [

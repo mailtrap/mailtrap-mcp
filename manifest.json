@@ -1,0 +1,62 @@
+{
+  "manifest_version": "0.1",
+  "name": "mailtrap-mcpb",
+  "version": "0.0.3",
+  "description": "MCP Bundle for sending emails and managing templates using Mailtrap",
+  "author": {
+    "name": "Railsware Products Studio LLC",
+    "email": "support@mailtrap.io"
+  },
+  "license": "MIT",
+  "homepage": "https://mailtrap.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/railsware/mailtrap-mcp"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "MAILTRAP_API_TOKEN": "${user_config.mailtrap_api_token}",
+        "DEFAULT_FROM_EMAIL": "${user_config.default_from_email}",
+        "MAILTRAP_ACCOUNT_ID": "${user_config.mailtrap_account_id}",
+        "MAILTRAP_TEST_INBOX_ID": "${user_config.mailtrap_test_inbox_id}"
+      }
+    }
+  },
+  "user_config": {
+    "mailtrap_api_token": {
+      "type": "string",
+      "title": "Mailtrap API Token",
+      "description": "Your Mailtrap API token for authentication",
+      "sensitive": true,
+      "required": true
+    },
+    "default_from_email": {
+      "type": "string",
+      "title": "Default From Email",
+      "description": "Default sender email address (optional)",
+      "sensitive": false,
+      "required": false
+    },
+    "mailtrap_account_id": {
+      "type": "string",
+      "title": "Mailtrap Account ID",
+      "description": "Your Mailtrap account ID (optional)",
+      "sensitive": false,
+      "required": false
+    },
+    "mailtrap_test_inbox_id": {
+      "type": "string",
+      "title": "Mailtrap Test Inbox ID",
+      "description": "Test inbox ID for sandbox mode (optional)",
+      "sensitive": false,
+      "required": false
+    }
+  }
+}

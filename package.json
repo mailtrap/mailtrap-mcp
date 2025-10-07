@@ -8,7 +8,8 @@
   "repository": "https://github.com/railsware/mailtrap-mcp",
   "bugs": "https://github.com/railsware/mailtrap-mcp/issues",
   "bin": {
-    "mcp-mailtrap-server": "dist/index.js"
+    "mcp-mailtrap-server": "dist/index.js",
+    "mcp-mailtrap": "dist/index.js"
   },
   "files": [
     "dist/**/*"
@@ -24,17 +25,22 @@
     "build": "shx rm -rf dist && tsc --project tsconfig.build.json",
     "prepublish": "npm run build && shx chmod +x dist/index.js",
     "dev": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "dev:mcpb": "npx @modelcontextprotocol/inspector node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "mcpb:pack": "npm run build && npx @anthropic-ai/mcpb pack . mailtrap-mcp.mcpb",
+    "mcpb:sign": "npx @anthropic-ai/mcpb sign mailtrap-mcp.mcpb",
+    "mcpb:info": "npx @anthropic-ai/mcpb info mailtrap-mcp.mcpb"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.8.0",
+    "@modelcontextprotocol/sdk": "^1.18.2",
     "dotenv": "^16.4.7",
-    "mailtrap": "^4.2.0",
+    "mailtrap": "^4.3.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@anthropic-ai/mcpb": "^1.1.0",
     "@modelcontextprotocol/inspector": "^0.16.6",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.13.13",

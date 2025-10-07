@@ -5,6 +5,10 @@ async function deleteTemplate({
   template_id,
 }: DeleteTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
+    if (!client) {
+      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+    }
+
     await client.templates.delete(template_id);
 
     return {

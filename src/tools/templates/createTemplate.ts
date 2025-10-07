@@ -9,6 +9,10 @@ async function createTemplate({
   category,
 }: CreateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
+    if (!client) {
+      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+    }
+
     // Validate that at least one of html or text is provided
     if (!html && !text) {
       return {

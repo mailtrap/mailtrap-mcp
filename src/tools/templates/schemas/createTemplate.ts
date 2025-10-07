@@ -1,20 +1,29 @@
-import { z } from "zod";
-
 const createTemplateSchema = {
-  name: z.string().describe("Name of the template"),
-  subject: z.string().describe("Email subject line"),
-  html: z
-    .string()
-    .optional()
-    .describe("HTML content of the template (optional)"),
-  text: z
-    .string()
-    .optional()
-    .describe("Plain text version of the template (optional)"),
-  category: z
-    .string()
-    .optional()
-    .describe("Template category (optional, defaults to 'General')"),
+  type: "object",
+  properties: {
+    name: {
+      type: "string",
+      description: "Name of the template",
+    },
+    subject: {
+      type: "string",
+      description: "Email subject line",
+    },
+    html: {
+      type: "string",
+      description: "HTML content of the template (optional)",
+    },
+    text: {
+      type: "string",
+      description: "Plain text version of the template (optional)",
+    },
+    category: {
+      type: "string",
+      description: "Template category (optional, defaults to 'General')",
+    },
+  },
+  required: ["name", "subject"],
+  additionalProperties: false,
 };
 
 export default createTemplateSchema;

@@ -1,35 +1,76 @@
-import { z } from "zod";
-
 const hasDefaultFromEmail = !!process.env.DEFAULT_FROM_EMAIL;
 
 const sendEmailSchema = {
-  from: hasDefaultFromEmail
-    ? z
-        .string()
-        .email()
-        .optional()
-        .describe("Email address of the sender (optional with default)")
-    : z.string().email().describe("Email address of the sender"),
-  to: z
-    .union([
-      z.string().email().describe("Single email address"),
-      z.array(z.string().email()).describe("Array of email addresses"),
-    ])
-    .describe(
-      "Email address(es) of the recipient(s) - can be a single email or array of emails"
-    ),
-  subject: z.string().describe("Email subject line"),
-  cc: z.array(z.string().email()).optional().describe("Optional CC recipients"),
-  bcc: z
-    .array(z.string().email())
-    .optional()
-    .describe("Optional BCC recipients"),
-  category: z.string().describe("Email category for tracking"),
-  text: z.string().optional().describe("Email body text"),
-  html: z
-    .string()
-    .optional()
-    .describe("Optional HTML version of the email body"),
+  type: "object",
+  properties: {
+    from: {
+      type: "string",
+      format: "email",
+      description: hasDefaultFromEmail
+        ? "Email address of the sender (optional with default)"
+        : "Email address of the sender",
+    },
+    to: {
+      oneOf: [
+        {
+          type: "string",
+          format: "email",
+          description: "Single email address",
+        },
+        {
+          type: "array",
+          items: {
+            type: "string",
+            format: "email",
+          },
+          description: "Array of email addresses",
+        },
+      ],
+      description:
+        "Email address(es) of the recipient(s) - can be a single email or array of emails",
+    },
+    subject: {
+      type: "string",
+      description: "Email subject line",
+    },
+    cc: {
+      type: "array",
+      items: {
+        type: "string",
+        format: "email",
+      },
+      description: "Optional CC recipients",
+    },
+    bcc: {
+      type: "array",
+      items: {
+        type: "string",
+        format: "email",
+      },
+      description: "Optional BCC recipients",
+    },
+    category: {
+      type: "string",
+      description: "Email category for tracking",
+    },
+    text: {
+      type: "string",
+      description: "Email body text",
+    },
+    html: {
+      type: "string",
+      description: "Optional HTML version of the email body",
+    },
+  },
+  required: ["to", "subject", "category"],
+  additionalProperties: false,
 };
+
+if (hasDefaultFromEmail) {
+  // Make from optional when default is available
+  sendEmailSchema.required = sendEmailSchema.required.filter(
+    (field: string) => field !== "from"
+  );
+}
 
 export default sendEmailSchema;

@@ -1,5 +1,7 @@
 const listTemplatesSchema = {
-  // No parameters needed for listing templates
+  type: "object",
+  properties: {},
+  additionalProperties: false,
 };
 
 export default listTemplatesSchema;

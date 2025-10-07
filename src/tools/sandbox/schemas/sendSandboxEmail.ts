@@ -1,23 +1,51 @@
-import { z } from "zod";
-
 const sendSandboxEmailSchema = {
-  from: z.string().email().describe("Email address of the sender"),
-  to: z.string().min(1).describe("Email addresses (comma-separated or single)"),
-  subject: z.string().describe("Email subject line"),
-  cc: z.array(z.string().email()).optional().describe("Optional CC recipients"),
-  bcc: z
-    .array(z.string().email())
-    .optional()
-    .describe("Optional BCC recipients"),
-  category: z
-    .string()
-    .optional()
-    .describe("Optional email category for tracking"),
-  text: z.string().optional().describe("Email body text"),
-  html: z
-    .string()
-    .optional()
-    .describe("Optional HTML version of the email body"),
+  type: "object",
+  properties: {
+    from: {
+      type: "string",
+      format: "email",
+      description: "Email address of the sender",
+    },
+    to: {
+      type: "string",
+      minLength: 1,
+      description: "Email addresses (comma-separated or single)",
+    },
+    subject: {
+      type: "string",
+      description: "Email subject line",
+    },
+    cc: {
+      type: "array",
+      items: {
+        type: "string",
+        format: "email",
+      },
+      description: "Optional CC recipients",
+    },
+    bcc: {
+      type: "array",
+      items: {
+        type: "string",
+        format: "email",
+      },
+      description: "Optional BCC recipients",
+    },
+    category: {
+      type: "string",
+      description: "Optional email category for tracking",
+    },
+    text: {
+      type: "string",
+      description: "Email body text",
+    },
+    html: {
+      type: "string",
+      description: "Optional HTML version of the email body",
+    },
+  },
+  required: ["from", "to", "subject"],
+  additionalProperties: false,
 };
 
 export default sendSandboxEmailSchema;

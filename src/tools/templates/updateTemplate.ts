@@ -10,6 +10,10 @@ async function updateTemplate({
   category,
 }: UpdateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
+    if (!client) {
+      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+    }
+
     // Validate that at least one update field is provided
     if (
       name === undefined &&

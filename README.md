@@ -27,7 +27,22 @@ Before using this MCP server, you need to:
 
 [![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%5D)
 
+### MCP Bundle (MCPB)
 
+For easy installation in hosts that support MCP Bundles, you can distribute an `.mcpb` bundle file.
+
+```bash
+# Build TypeScript and pack the MCPB bundle
+npm run mcpb:pack
+
+# Inspect bundle metadata
+npm run mcpb:info
+
+# Sign the bundle for distribution (optional)
+npm run mcpb:sign
+```
+
+This creates `mailtrap-mcp.mcpb` using the repository `manifest.json` and built artifacts in `dist/`.
 
 ## Setup
 
@@ -311,6 +326,73 @@ You can test the server using the [MCP Inspector](https://github.com/modelcontex
 ```bash
 npm run dev
 ```
+
+### Running the MCPB Server
+
+```bash
+# Run the MCPB server directly
+node dist/mcpb-server.js
+
+# Or use the provided binary
+mailtrap-mcpb-server
+```
+
+> [!TIP]
+> For development with the MCP Inspector:
+
+```bash
+npm run dev:mcpb
+```
+
+## Error Handling
+
+This server uses structured error handling aligned with MCP conventions:
+
+- `VALIDATION_ERROR`: Input validation failures
+- `CONFIGURATION_ERROR`: Missing or invalid configuration
+- `EXECUTION_ERROR`: Runtime execution errors
+- `TIMEOUT`: Operation timeout (30 seconds default)
+
+Errors include actionable messages and are logged in structured form.
+
+## Security
+
+- Input validated via Zod schemas
+- Environment variables handled securely
+- Timeout protection on operations (30 seconds)
+- Sensitive details sanitized in error output
+
+## Logging
+
+Structured JSON logs with levels: INFO, WARN, ERROR, DEBUG.
+
+Enable debug logging by setting `DEBUG=true`.
+
+```bash
+# Example: enable debug logging
+DEBUG=true node dist/mcpb-server.js
+```
+
+> Important: The server writes logs to stderr so stdout remains reserved for JSON-RPC frames. This prevents hosts from encountering JSON parsing errors due to interleaved logs.
+
+Log analysis example using `jq`:
+
+```bash
+# Filter error logs
+node dist/mcpb-server.js 2>&1 | jq 'select(.level == "error")'
+
+# Filter debug logs
+node dist/mcpb-server.js 2>&1 | jq 'select(.level == "debug")'
+```
+
+## Troubleshooting
+
+Common issues:
+
+1. Missing API Token: ensure `MAILTRAP_API_TOKEN` is set
+2. Sandbox not working: verify `MAILTRAP_TEST_INBOX_ID` is configured
+3. Timeout errors: check network connectivity and Mailtrap API status
+4. Validation errors: ensure all required fields are provided
 
 ## Contributing
 
