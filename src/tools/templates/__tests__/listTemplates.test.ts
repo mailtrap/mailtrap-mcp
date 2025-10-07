@@ -42,11 +42,11 @@ describe("listTemplates", () => {
   });
 
   it("should list templates successfully when templates exist", async () => {
-    (client!.templates.getList as jest.Mock).mockResolvedValue(mockTemplates);
+    (client.templates.getList as jest.Mock).mockResolvedValue(mockTemplates);
 
     const result = await listTemplates();
 
-    expect(client!.templates.getList).toHaveBeenCalledWith();
+    expect(client.templates.getList).toHaveBeenCalledWith();
 
     const expectedText = `Found 3 template(s):
 
@@ -77,11 +77,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle empty templates list", async () => {
-    (client!.templates.getList as jest.Mock).mockResolvedValue([]);
+    (client.templates.getList as jest.Mock).mockResolvedValue([]);
 
     const result = await listTemplates();
 
-    expect(client!.templates.getList).toHaveBeenCalledWith();
+    expect(client.templates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -94,11 +94,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle null templates response", async () => {
-    (client!.templates.getList as jest.Mock).mockResolvedValue(null);
+    (client.templates.getList as jest.Mock).mockResolvedValue(null);
 
     const result = await listTemplates();
 
-    expect(client!.templates.getList).toHaveBeenCalledWith();
+    expect(client.templates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -111,11 +111,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle undefined templates response", async () => {
-    (client!.templates.getList as jest.Mock).mockResolvedValue(undefined);
+    (client.templates.getList as jest.Mock).mockResolvedValue(undefined);
 
     const result = await listTemplates();
 
-    expect(client!.templates.getList).toHaveBeenCalledWith();
+    expect(client.templates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -129,11 +129,11 @@ describe("listTemplates", () => {
 
   it("should handle single template", async () => {
     const singleTemplate = [mockTemplates[0]];
-    (client!.templates.getList as jest.Mock).mockResolvedValue(singleTemplate);
+    (client.templates.getList as jest.Mock).mockResolvedValue(singleTemplate);
 
     const result = await listTemplates();
 
-    expect(client!.templates.getList).toHaveBeenCalledWith();
+    expect(client.templates.getList).toHaveBeenCalledWith();
 
     const expectedText = `Found 1 template(s):
 
@@ -156,7 +156,7 @@ describe("listTemplates", () => {
   describe("error handling", () => {
     it("should handle client.templates.getList failure", async () => {
       const mockError = new Error("Failed to fetch templates");
-      (client!.templates.getList as jest.Mock).mockRejectedValue(mockError);
+      (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -173,7 +173,7 @@ describe("listTemplates", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      (client!.templates.getList as jest.Mock).mockRejectedValue(mockError);
+      (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -190,7 +190,7 @@ describe("listTemplates", () => {
 
     it("should handle network error", async () => {
       const mockError = new Error("Network error");
-      (client!.templates.getList as jest.Mock).mockRejectedValue(mockError);
+      (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
