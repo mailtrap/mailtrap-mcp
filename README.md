@@ -1,5 +1,5 @@
 ![TypeScript](https://img.shields.io/npm/types/mailtrap?logo=typescript&logoColor=white&label=%20)
-[![test](https://github.com/railsware/mailtrap-mcp/actions/workflows/main.yml/badge.svg)](https://github.com/railsware/mailtrap-mcp/actions/workflows/main.yml)
+[![test](https://github.com/mailtrap/mailtrap-mcp/actions/workflows/main.yml/badge.svg)](https://github.com/mailtrap/mailtrap-mcp/actions/workflows/main.yml)
 [![NPM](https://shields.io/npm/v/mcp-mailtrap?logo=npm&logoColor=white)](https://www.npmjs.com/package/mcp-mailtrap)
 
 # MCP Mailtrap Server
@@ -236,7 +236,7 @@ Deletes an existing email template.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/railsware/mailtrap-mcp.git
+git clone https://github.com/mailtrap/mailtrap-mcp.git
 cd mailtrap-mcp
 ```
 
@@ -396,7 +396,7 @@ Common issues:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on [GitHub](https://github.com/railsware/mailtrap-mcp). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on [GitHub](https://github.com/mailtrap/mailtrap-mcp). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
