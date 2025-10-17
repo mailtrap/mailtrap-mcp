@@ -14,7 +14,7 @@
     "url": "https://github.com/mailtrap/mailtrap-mcp"
   },
   "icon": "https://mailtrap.io/favicon.ico",
-  "support": "https://mailtrap.io/support",
+  "support": "https://help.mailtrap.io/",
   "documentation": "https://github.com/mailtrap/mailtrap-mcp#readme",
   "server": {
     "type": "node",
