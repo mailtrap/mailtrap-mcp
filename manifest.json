@@ -1,5 +1,5 @@
 {
-  "manifest_version": "0.1",
+  "manifest_version": "0.2",
   "name": "mailtrap-mcpb",
   "version": "0.0.3",
   "description": "MCP Bundle for sending emails and managing templates using Mailtrap",
@@ -11,8 +11,11 @@
   "homepage": "https://mailtrap.io",
   "repository": {
     "type": "git",
-    "url": "https://github.com/railsware/mailtrap-mcp"
+    "url": "https://github.com/mailtrap/mailtrap-mcp"
   },
+  "icon": "https://mailtrap.io/favicon.ico",
+  "support": "https://help.mailtrap.io/",
+  "documentation": "https://github.com/mailtrap/mailtrap-mcp#readme",
   "server": {
     "type": "node",
     "entry_point": "dist/index.js",
