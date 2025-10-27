@@ -6,3 +6,5 @@ coverage
 *.dxt
 dxt-build/
 *.mcpb
+mcpb-certs/
+*.sh
