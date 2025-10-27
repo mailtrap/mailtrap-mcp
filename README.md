@@ -23,28 +23,27 @@ Before using this MCP server, you need to:
 
 ## Quick Install
 
-[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=mailtrap&config=eyJjb21tYW5kIjoibnB4IC15IG1jcC1tYWlsdHJhcCIsImVudiI6eyJNQUlMVFJBUF9BUElfVE9LRU4iOiJ5b3VyX21haWx0cmFwX2FwaV90b2tlbiIsIkRFRkFVTFRfRlJPTV9FTUFJTCI6InlvdXJfc2VuZGVyQGV4YW1wbGUuY29tIiwiTUFJTFRSQVBfQUNDT1VOVF9JRCI6InlvdXJfYWNjb3VudF9pZCJ9fQ%3D%3D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=mailtrap&config=eyJlbnYiOnsiTUFJTFRSQVBfQVBJX1RPS0VOIjoieW91cl9tYWlsdHJhcF9hcGlfdG9rZW4iLCJERUZBVUxUX0ZST01fRU1BSUwiOiJ5b3VyX3NlbmRlckBleGFtcGxlLmNvbSIsIk1BSUxUUkFQX0FDQ09VTlRfSUQiOiJ5b3VyX2FjY291bnRfaWQiLCJNQUlMVFJBUF9URVNUX0lOQk9YX0lEIjoieW91cl90ZXN0X2luYm94X2lkIn0sImNvbW1hbmQiOiJucHggLXkgbWNwLW1haWx0cmFwIn0%3D)
 
-[![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%5D)
+[![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%2C%22MAILTRAP_TEST_INBOX_ID%22%3A%22%24%7Binput%3AmailtrapTestInboxId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapTestInboxId%22%2C%22description%22%3A%22Mailtrap+Test+Inbox+ID+%28optional%29%22%7D%5D)
 
-### MCP Bundle (MCPB)
 
-For easy installation in hosts that support MCP Bundles, you can distribute an `.mcpb` bundle file.
 
-```bash
-# Build TypeScript and pack the MCPB bundle
-npm run mcpb:pack
+### Smithery CLI
 
-# Inspect bundle metadata
-npm run mcpb:info
+[Smithery](https://github.com/smithery-ai/cli) is a registry installer and manager for MCP servers that works with all AI clients.
 
-# Sign the bundle for distribution (optional)
-npm run mcpb:sign
+```
+npx @smithery/cli install mailtrap
 ```
 
-This creates `mailtrap-mcp.mcpb` using the repository `manifest.json` and built artifacts in `dist/`.
+> Smithery automatically handles client configuration and provides an interactive setup process. It's the easiest way to get started with MCP servers locally.
+
+
 
 ## Setup
+### Claude Desktop
+Use MCPB to install the Mailtrap server. You can find those files in [Releases](https://github.com/mailtrap/mailtrap-mcp/releases). <br>Download .MCPB file and open it. If you have Claude Desktop - it will open it and suggest to configure.
 
 ### Claude Desktop or Cursor
 
@@ -105,8 +104,6 @@ If you are using `asdf` for managing Node.js you must use absolute path to execu
 ### VS Code
 
 
-
-
 #### Manually changing config
 
 Run in Command Palette: `Preferences: Open User Settings (JSON)`
@@ -134,6 +131,23 @@ Then, in the settings file, add the following configuration:
 
 > [!TIP]
 > Don't forget to restart your MCP server after changing the "env" section.
+
+### MCP Bundle (MCPB)
+
+For easy installation in hosts that support MCP Bundles, you can distribute an `.mcpb` bundle file.
+
+```bash
+# Build TypeScript and pack the MCPB bundle
+npm run mcpb:pack
+
+# Inspect bundle metadata
+npm run mcpb:info
+
+# Sign the bundle for distribution (optional)
+npm run mcpb:sign
+```
+
+This creates `mailtrap-mcp.mcpb` using the repository `manifest.json` and built artifacts in `dist/`.
 
 ## Usage
 
