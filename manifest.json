@@ -1,21 +1,77 @@
 {
   "manifest_version": "0.2",
   "name": "mailtrap-mcpb",
+  "display_name": "Mailtrap",
   "version": "0.0.3",
-  "description": "MCP Bundle for sending emails and managing templates using Mailtrap",
+  "description": "Send emails and manage templates using Mailtrap",
+  "long_description": "**[Mailtrap.io](https://mailtrap.io)** is a comprehensive email platform that helps developers and teams test, debug, and deliver emails safely. It provides both email testing (sandbox) and email delivery services. \n This MCP (Model Context Protocol) server provides AI assistants with the ability to: \n - **Send emails** via Mailtrap's delivery API \n - **Test emails** using Mailtrap's sandbox environment \n - **Manage email templates** (create, update, delete, list).",
   "author": {
-    "name": "Railsware Products Studio LLC",
+    "name": "Mailtrap.io",
+    "url": "https://mailtrap.io",
     "email": "support@mailtrap.io"
   },
-  "license": "MIT",
   "homepage": "https://mailtrap.io",
+  "documentation": "https://github.com/mailtrap/mailtrap-mcp#readme",
+  "support": "https://help.mailtrap.io/",
+  "icon": "icon.png",
+  "screenshots": [],
   "repository": {
     "type": "git",
     "url": "https://github.com/mailtrap/mailtrap-mcp"
   },
-  "icon": "https://mailtrap.io/favicon.ico",
-  "support": "https://help.mailtrap.io/",
-  "documentation": "https://github.com/mailtrap/mailtrap-mcp#readme",
+  "license": "MIT",
+  "privacy_policies": [
+    "https://mailtrap.io/privacy-policy"
+  ],
+  "keywords": [
+    "email",
+    "mailtrap",
+    "smtp",
+    "email-testing",
+    "email-delivery",
+    "templates",
+    "automation",
+    "ai"
+  ],
+  "tools": [
+    {
+      "name": "send-email",
+      "description": "Send emails via Mailtrap's delivery API with support for HTML/text content and multiple recipients."
+    },
+    {
+      "name": "send-sandbox-email",
+      "description": "Send test emails to Mailtrap's sandbox environment without delivering to real recipients."
+    },
+    {
+      "name": "create-template",
+      "description": "Create a new email template in Mailtrap."
+    },
+    {
+      "name": "update-template",
+      "description": "Update an existing email template in Mailtrap."
+    },
+    {
+      "name": "delete-template",
+      "description": "Delete an email template from Mailtrap."
+    },
+    {
+      "name": "list-templates",
+      "description": "List all email templates in your Mailtrap account."
+    }
+  ],
+  "prompts": [],
+  "tools_generated": false,
+  "prompts_generated": false,
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=16.0.0"
+    }
+  },
   "server": {
     "type": "node",
     "entry_point": "dist/index.js",
@@ -36,28 +92,28 @@
     "mailtrap_api_token": {
       "type": "string",
       "title": "Mailtrap API Token",
-      "description": "Your Mailtrap API token for authentication",
+      "description": "Your Mailtrap API token for authentication. Get your token at: https://mailtrap.io/api-tokens",
       "sensitive": true,
       "required": true
     },
     "default_from_email": {
       "type": "string",
       "title": "Default From Email",
-      "description": "Default sender email address (optional)",
+      "description": "Default sender email address (optional, but required for sending emails). Domain must be verified in Mailtrap: https://mailtrap.io/sending/domains",
       "sensitive": false,
       "required": false
     },
     "mailtrap_account_id": {
       "type": "string",
       "title": "Mailtrap Account ID",
-      "description": "Your Mailtrap account ID (optional)",
+      "description": "Your Mailtrap account ID (optional). Find it at: https://mailtrap.io/account-management",
       "sensitive": false,
       "required": false
     },
     "mailtrap_test_inbox_id": {
       "type": "string",
-      "title": "Mailtrap Test Inbox ID",
-      "description": "Test inbox ID for sandbox mode (optional)",
+      "title": "Mailtrap Sandbox ID",
+      "description": "Sandbox ID for sandbox mode (optional). Find it at: https://mailtrap.io/inboxes",
       "sensitive": false,
       "required": false
     }
