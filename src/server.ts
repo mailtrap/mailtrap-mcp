@@ -31,36 +31,54 @@ const tools = [
     description: "Send transactional email using Mailtrap",
     inputSchema: sendEmailSchema,
     handler: sendEmail,
+    annotations: {
+      destructiveHint: true,
+    },
   },
   {
     name: "create-template",
     description: "Create a new email template",
     inputSchema: createTemplateSchema,
     handler: createTemplate,
+    annotations: {
+      destructiveHint: true,
+    },
   },
   {
     name: "list-templates",
     description: "List all email templates",
     inputSchema: listTemplatesSchema,
     handler: listTemplates,
+    annotations: {
+      readOnlyHint: true,
+    },
   },
   {
     name: "update-template",
     description: "Update an existing email template",
     inputSchema: updateTemplateSchema,
     handler: updateTemplate,
+    annotations: {
+      destructiveHint: true,
+    },
   },
   {
     name: "delete-template",
     description: "Delete an existing email template",
     inputSchema: deleteTemplateSchema,
     handler: deleteTemplate,
+    annotations: {
+      destructiveHint: true,
+    },
   },
   {
     name: "send-sandbox-email",
     description: "Send email in sandbox mode to a test inbox",
     inputSchema: sendSandboxEmailSchema,
     handler: sendSandboxEmail,
+    annotations: {
+      destructiveHint: true,
+    },
   },
 ];
 
@@ -86,6 +104,7 @@ export function createServer(): Server {
         name: tool.name,
         description: tool.description,
         inputSchema: tool.inputSchema,
+        annotations: tool.annotations,
       })),
     };
   });
