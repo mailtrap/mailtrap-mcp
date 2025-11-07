@@ -28,7 +28,7 @@ import { sendSandboxEmail, sendSandboxEmailSchema } from "./tools/sandbox";
 const tools = [
   {
     name: "send-email",
-    description: "Send transactional email using Mailtrap",
+    description: "Send an email to your recipient email address using Mailtrap Email API. You can send emails to multiple recipients at once.",
     inputSchema: sendEmailSchema,
     handler: sendEmail,
     annotations: {
@@ -73,7 +73,7 @@ const tools = [
   },
   {
     name: "send-sandbox-email",
-    description: "Send email in sandbox mode to a test inbox",
+    description: "Send an email in sandbox mode to a test inbox without delivering to your recipients",
     inputSchema: sendSandboxEmailSchema,
     handler: sendSandboxEmail,
     annotations: {
