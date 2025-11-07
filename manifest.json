@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "mailtrap-mcpb",
   "display_name": "Mailtrap",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Send emails and manage templates using Mailtrap",
   "long_description": "**[Mailtrap.io](https://mailtrap.io)** is a comprehensive email platform that helps developers and teams test, debug, and deliver emails safely. It provides both email testing (sandbox) and email delivery services. \n This MCP (Model Context Protocol) server provides AI assistants with the ability to: \n - **Send emails** via Mailtrap's delivery API \n - **Test emails** using Mailtrap's sandbox environment \n - **Manage email templates** (create, update, delete, list).",
   "author": {
@@ -20,9 +20,7 @@
     "url": "https://github.com/mailtrap/mailtrap-mcp"
   },
   "license": "MIT",
-  "privacy_policies": [
-    "https://mailtrap.io/privacy-policy"
-  ],
+  "privacy_policies": ["https://mailtrap.io/privacy-policy"],
   "keywords": [
     "email",
     "mailtrap",
@@ -63,11 +61,7 @@
   "tools_generated": false,
   "prompts_generated": false,
   "compatibility": {
-    "platforms": [
-      "darwin",
-      "win32",
-      "linux"
-    ],
+    "platforms": ["darwin", "win32", "linux"],
     "runtimes": {
       "node": ">=16.0.0"
     }
@@ -77,9 +71,7 @@
     "entry_point": "dist/index.js",
     "mcp_config": {
       "command": "node",
-      "args": [
-        "${__dirname}/dist/index.js"
-      ],
+      "args": ["${__dirname}/dist/index.js"],
       "env": {
         "MAILTRAP_API_TOKEN": "${user_config.mailtrap_api_token}",
         "DEFAULT_FROM_EMAIL": "${user_config.default_from_email}",
