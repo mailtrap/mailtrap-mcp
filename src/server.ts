@@ -77,7 +77,7 @@ const tools = [
     inputSchema: sendSandboxEmailSchema,
     handler: sendSandboxEmail,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
 ];
