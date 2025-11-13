@@ -1,10 +1,10 @@
 {
   "manifest_version": "0.2",
   "name": "mailtrap-mcpb",
-  "display_name": "Mailtrap - Send Emails",
-  "version": "0.0.4",
-  "description": "Send emails to your recipient addresses using Mailtrap Email API",
-  "long_description": "**[Mailtrap.io](https://mailtrap.io)** is a modern email delivery platform for product and developer teams. It allows to send and deliver emails to your recipient inboxes, as well as sandbox functionality to test workflows. \n This MCP (Model Context Protocol) server provides AI assistants with the ability to: \n - **Send emails** via Mailtrap's Email API \n - **Test emails** using Mailtrap's Sandbox \n - **Manage email templates** (create, update, delete, list).",
+  "display_name": "Mailtrap",
+  "version": "0.0.5",
+  "description": "Send emails and manage templates using Mailtrap",
+  "long_description": "**[Mailtrap.io](https://mailtrap.io)** is a comprehensive email platform that helps developers and teams test, debug, and deliver emails safely. It provides both email testing (sandbox) and email delivery services. \n This MCP (Model Context Protocol) server provides AI assistants with the ability to: \n - **Send emails** via Mailtrap's delivery API \n - **Test emails** using Mailtrap's sandbox environment \n - **Manage email templates** (create, update, delete, list).",
   "author": {
     "name": "Mailtrap.io",
     "url": "https://mailtrap.io",
