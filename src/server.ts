@@ -78,7 +78,7 @@ const tools = [
   {
     name: "show-sandbox-email-message",
     description:
-      "Show details and content of a specific email message from the sandbox test inbox",
+      "Show sandbox email message details and content from the sandbox test inbox",
     inputSchema: showEmailMessageSchema,
     handler: showEmailMessage,
   },
