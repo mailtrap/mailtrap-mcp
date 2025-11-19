@@ -55,3 +55,13 @@ export interface SendSandboxEmailRequest {
   bcc?: string[];
   category?: string;
 }
+
+export interface GetMessagesRequest {
+  page?: number;
+  last_id?: number;
+  search?: string;
+}
+
+export interface ShowEmailMessageRequest {
+  message_id: number;
+}
