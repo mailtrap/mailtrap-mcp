@@ -145,6 +145,13 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Email sarah@example.com about the project update, and CC the team at team@example.com"
 - "Send a sandbox email to test@example.com with subject 'Test Template' to preview how our welcome email looks"
 
+**Sandbox Operations:**
+
+- "Get all messages from my sandbox inbox"
+- "Show me the first page of sandbox messages"
+- "Search for messages containing 'test' in my sandbox inbox"
+- "Show me the details of sandbox message with ID 5159037506"
+
 **Template Operations:**
 
 - "List all email templates in my Mailtrap account"
@@ -186,6 +193,30 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 
 > [!NOTE]
 > The `MAILTRAP_TEST_INBOX_ID` environment variable must be configured for sandbox emails to work. This variable is **only** required for sandbox functionality and is not needed for regular transactional emails or template management.
+
+### get-sandbox-messages
+
+Retrieves a list of messages from your Mailtrap test inbox. Useful for checking what emails have been received in your sandbox during testing.
+
+**Parameters:**
+
+- `page` (optional): Page number for pagination (minimum: 1)
+- `last_id` (optional): Pagination using last message ID. Returns messages after the specified message ID (minimum: 1)
+- `search` (optional): Search query to filter messages
+
+> [!NOTE]
+> All parameters are optional. If none are provided, all messages from the inbox will be returned. You can use `page` for traditional pagination, `last_id` for cursor-based pagination, or `search` to filter messages by content.
+
+### show-sandbox-email-message
+
+Shows detailed information and content of a specific email message from your Mailtrap test inbox, including HTML and text body content.
+
+**Parameters:**
+
+- `message_id` (required): ID of the sandbox email message to retrieve
+
+> [!NOTE]
+> Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
 
 ### create-template
 
