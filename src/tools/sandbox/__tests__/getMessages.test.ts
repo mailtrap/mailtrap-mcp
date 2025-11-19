@@ -48,7 +48,8 @@ describe("getMessages", () => {
     const result = await getMessages({});
 
     expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123
+      123,
+      undefined
     );
 
     expect(result).toEqual({
@@ -130,5 +131,50 @@ describe("getMessages", () => {
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Failed to get messages");
     expect(result.content[0].text).toContain("API Error");
+  });
+
+  it("should pass page parameter to SDK", async () => {
+    await getMessages({ page: 2 });
+
+    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
+      123,
+      { page: 2 }
+    );
+  });
+
+  it("should pass last_id parameter to SDK", async () => {
+    await getMessages({ last_id: 100 });
+
+    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
+      123,
+      { last_id: 100 }
+    );
+  });
+
+  it("should pass search parameter to SDK", async () => {
+    await getMessages({ search: "test query" });
+
+    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
+      123,
+      { search: "test query" }
+    );
+  });
+
+  it("should pass multiple parameters to SDK", async () => {
+    await getMessages({ page: 1, search: "test" });
+
+    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
+      123,
+      { page: 1, search: "test" }
+    );
+  });
+
+  it("should pass all parameters to SDK", async () => {
+    await getMessages({ page: 2, last_id: 100, search: "test query" });
+
+    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
+      123,
+      { page: 2, last_id: 100, search: "test query" }
+    );
   });
 });
