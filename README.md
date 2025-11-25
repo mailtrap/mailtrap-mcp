@@ -205,7 +205,7 @@ Retrieves a list of messages from your Mailtrap test inbox. Useful for checking 
 - `search` (optional): Search query to filter messages
 
 > [!NOTE]
-> All parameters are optional. If none are provided, all messages from the inbox will be returned. You can use `page` for traditional pagination, `last_id` for cursor-based pagination, or `search` to filter messages by content.
+> All parameters are optional. If none are provided, the first page of messages from the inbox will be returned. Use page for traditional pagination, last_id for cursor-based pagination, or search to filter messages by content.
 
 ### show-sandbox-email-message
 
