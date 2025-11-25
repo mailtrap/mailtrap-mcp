@@ -5,7 +5,10 @@ async function getMessages({
   page,
   last_id,
   search,
-}: GetMessagesRequest): Promise<{ content: any[]; isError?: boolean }> {
+}: GetMessagesRequest): Promise<{
+  content: { type: string; text: string }[];
+  isError?: boolean;
+}> {
   try {
     const { MAILTRAP_TEST_INBOX_ID } = process.env;
 
@@ -23,6 +26,9 @@ async function getMessages({
     }
 
     const inboxId = Number(MAILTRAP_TEST_INBOX_ID);
+    if (Number.isNaN(inboxId)) {
+      throw new Error("MAILTRAP_TEST_INBOX_ID must be a valid number");
+    }
 
     // Get messages from the inbox
     // MessageListOptions supports: page, last_id, and search
