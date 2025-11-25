@@ -164,7 +164,9 @@ describe("showEmailMessage", () => {
     const result = await showEmailMessage({ message_id: 1 });
 
     expect(result.isError).toBe(true);
-    expect(result.content[0].text).toContain("Failed to show sandbox email message");
+    expect(result.content[0].text).toContain(
+      "Failed to show sandbox email message"
+    );
     expect(result.content[0].text).toContain("API Error");
   });
 });
