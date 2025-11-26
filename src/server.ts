@@ -22,7 +22,14 @@ import {
   updateTemplate,
   updateTemplateSchema,
 } from "./tools/templates";
-import { sendSandboxEmail, sendSandboxEmailSchema } from "./tools/sandbox";
+import {
+  sendSandboxEmail,
+  sendSandboxEmailSchema,
+  getMessages,
+  getMessagesSchema,
+  showEmailMessage,
+  showEmailMessageSchema,
+} from "./tools/sandbox";
 
 // Define the tools registry
 const tools = [
@@ -81,6 +88,19 @@ const tools = [
     annotations: {
       destructiveHint: false,
     },
+  },
+  {
+    name: "get-sandbox-messages",
+    description: "Get list of messages from the sandbox test inbox",
+    inputSchema: getMessagesSchema,
+    handler: getMessages,
+  },
+  {
+    name: "show-sandbox-email-message",
+    description:
+      "Show sandbox email message details and content from the sandbox test inbox",
+    inputSchema: showEmailMessageSchema,
+    handler: showEmailMessage,
   },
 ];
 

@@ -47,6 +47,7 @@ src/tools/{toolName}/
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
 - `DEFAULT_FROM_EMAIL`: Default sender email address
 - `MAILTRAP_ACCOUNT_ID`: Optional account ID for multi-account setups
+- `MAILTRAP_TEST_INBOX_ID`: Required for sandbox tools - test inbox ID for sandbox mode operations
 
 ### Testing Setup
 - Uses Jest with TypeScript support via ts-jest
@@ -60,10 +61,19 @@ src/tools/{toolName}/
 - Output goes to `dist/` directory with proper executable permissions
 
 ### Available MCP Tools
+
+#### Transactional Email
 1. **send-email**: Send transactional emails through Mailtrap
+
+#### Email Templates
 2. **create-template**: Create new email templates
 3. **list-templates**: List all email templates
 4. **update-template**: Update existing email templates
 5. **delete-template**: Delete email templates
+
+#### Sandbox Testing
+6. **send-sandbox-email**: Send email in sandbox mode to a test inbox
+7. **get-sandbox-messages**: Get list of messages from the sandbox test inbox
+8. **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox
 
 Each tool uses Zod schemas for input validation and follows the MCP protocol for response formatting.
