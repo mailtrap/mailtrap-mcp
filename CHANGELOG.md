@@ -1,4 +1,9 @@
+## [Unreleased]
+
+* Add **get-sending-stats** tool: check delivery, bounce, open, click, and spam rates for a date range; optional breakdown by domain, category, email service provider, or date. Requires `MAILTRAP_ACCOUNT_ID`.
+
 ## [0.1.0] - 2025-12-09
+
 * Adjust some info by @yanchuk in https://github.com/mailtrap/mailtrap-mcp/pull/41
 * chore(deps-dev): bump js-yaml from 3.14.1 to 3.14.2 by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/43
 * chore(deps): bump body-parser from 2.2.0 to 2.2.1 by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/45
@@ -9,10 +14,12 @@
 * Update mailtrap version, refresh package-lock by @narekhovhannisyan in https://github.com/mailtrap/mailtrap-mcp/pull/49
 
 ## [0.0.5] - 2025-11-10
+
 * Improve mcpb by @yanchuk in https://github.com/mailtrap/mailtrap-mcp/pull/39
 * Add tool annotation by @yanchuk in https://github.com/mailtrap/mailtrap-mcp/pull/40
 
 ## [0.0.4] - 2025-24-10
+
 * Bump axios from 1.8.4 to 1.12.1 by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/35
 * Bump @modelcontextprotocol/inspector from 0.14.1 to 0.16.6 by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/33
 * mcpb (former dxt) implementation by @narekhovhannisyan in https://github.com/mailtrap/mailtrap-mcp/pull/34

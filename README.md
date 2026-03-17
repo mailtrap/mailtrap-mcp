@@ -4,7 +4,7 @@
 
 # MCP Mailtrap Server
 
-An MCP server that provides tools for sending transactional emails and managing email templates via Mailtrap
+An MCP server that provides tools for sending transactional emails, managing email templates, checking sending statistics, and testing in sandbox via Mailtrap
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 - `MAILTRAP_API_TOKEN` - Required for all functionality
 - `DEFAULT_FROM_EMAIL` - Required for all email sending operations
-- `MAILTRAP_ACCOUNT_ID` - Required for template management operations
+- `MAILTRAP_ACCOUNT_ID` - Required for template management and sending statistics
 - `MAILTRAP_TEST_INBOX_ID` - **Only** required for sandbox email functionality
 
 ## Quick Install
@@ -173,6 +173,12 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Update the template with ID 12345 to change the subject to 'Updated Welcome Message'"
 - "Delete the template with ID 67890"
 
+**Statistics:**
+
+- "Get sending stats for January 2025"
+- "Show delivery rates broken down by domain for last month"
+- "What are my email stats by category from 2025-01-01 to 2025-01-31?"
+
 ## Available Tools
 
 ### send-email
@@ -275,6 +281,23 @@ Deletes an existing email template.
 **Parameters:**
 
 - `template_id` (required): ID of the template to delete
+
+### get-sending-stats
+
+Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date. Check delivery rates without leaving the editor.
+
+**Parameters:**
+
+- `start_date` (required): Start date for the stats range (YYYY-MM-DD)
+- `end_date` (required): End date for the stats range (YYYY-MM-DD)
+- `breakdown` (optional): How to break down the stats: `aggregated` (default), `by_domain`, `by_category`, `by_email_service_provider`, or `by_date`
+- `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
+- `sending_streams` (optional): Limit to `transactional` and/or `bulk` (array of strings)
+- `categories` (optional): Limit to these email categories (array of strings)
+- `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
+
+> [!NOTE]
+> `MAILTRAP_ACCOUNT_ID` must be set for this tool to work.
 
 ## Development
 
