@@ -234,12 +234,28 @@ describe("updateTemplate", () => {
   });
 
   describe("error handling", () => {
+    let consoleErrorSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
     it("should handle client.templates.update failure", async () => {
       const mockError = new Error("Failed to update template");
       (client.templates.update as jest.Mock).mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error updating template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -257,6 +273,10 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error updating template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -274,6 +294,10 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error updating template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -291,6 +315,10 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error updating template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {

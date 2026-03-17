@@ -49,12 +49,28 @@ describe("deleteTemplate", () => {
   });
 
   describe("error handling", () => {
+    let consoleErrorSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
     it("should handle client.templates.delete failure", async () => {
       const mockError = new Error("Failed to delete template");
       (client.templates.delete as jest.Mock).mockRejectedValue(mockError);
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error deleting template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -72,6 +88,10 @@ describe("deleteTemplate", () => {
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error deleting template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -89,6 +109,10 @@ describe("deleteTemplate", () => {
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error deleting template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {

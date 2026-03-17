@@ -74,30 +74,49 @@ describe("showEmailMessage", () => {
   });
 
   it("should handle message without HTML content", async () => {
+    const consoleWarnSpy = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
     (sandboxClient as any).testing.messages.getHtmlMessage.mockRejectedValue(
       new Error("No HTML")
     );
 
     const result = await showEmailMessage({ message_id: 1 });
 
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Could not retrieve HTML content:",
+      expect.any(Error)
+    );
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain("Text Content");
     expect(result.content[0].text).not.toContain("HTML Content");
+    consoleWarnSpy.mockRestore();
   });
 
   it("should handle message without text content", async () => {
+    const consoleWarnSpy = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
     (sandboxClient as any).testing.messages.getTextMessage.mockRejectedValue(
       new Error("No text")
     );
 
     const result = await showEmailMessage({ message_id: 1 });
 
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Could not retrieve text content:",
+      expect.any(Error)
+    );
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain("HTML Content");
     expect(result.content[0].text).not.toContain("Text Content");
+    consoleWarnSpy.mockRestore();
   });
 
   it("should handle message without both HTML and text", async () => {
+    const consoleWarnSpy = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
     (sandboxClient as any).testing.messages.getHtmlMessage.mockRejectedValue(
       new Error("No HTML")
     );
@@ -107,10 +126,19 @@ describe("showEmailMessage", () => {
 
     const result = await showEmailMessage({ message_id: 1 });
 
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Could not retrieve HTML content:",
+      expect.any(Error)
+    );
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Could not retrieve text content:",
+      expect.any(Error)
+    );
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain(
       "Message body content could not be retrieved"
     );
+    consoleWarnSpy.mockRestore();
   });
 
   it("should handle null message response", async () => {
@@ -125,17 +153,28 @@ describe("showEmailMessage", () => {
   });
 
   it("should handle missing MAILTRAP_TEST_INBOX_ID", async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     delete process.env.MAILTRAP_TEST_INBOX_ID;
 
     const result = await showEmailMessage({ message_id: 1 });
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error showing sandbox email message:",
+      expect.anything()
+    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "MAILTRAP_TEST_INBOX_ID environment variable is required"
     );
+    consoleErrorSpy.mockRestore();
   });
 
   it("should handle missing sandbox client", async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     // Mock sandboxClient as null for this test
     jest.doMock("../../../client", () => ({
       sandboxClient: null,
@@ -151,8 +190,13 @@ describe("showEmailMessage", () => {
     jest.dontMock("../../../client");
     jest.resetModules();
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error showing sandbox email message:",
+      expect.anything()
+    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Sandbox client is not available");
+    consoleErrorSpy.mockRestore();
   });
 
   it("should handle API errors", async () => {
@@ -160,13 +204,21 @@ describe("showEmailMessage", () => {
     (sandboxClient as any).testing.messages.showEmailMessage.mockRejectedValue(
       mockError
     );
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     const result = await showEmailMessage({ message_id: 1 });
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error showing sandbox email message:",
+      mockError
+    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "Failed to show sandbox email message"
     );
     expect(result.content[0].text).toContain("API Error");
+    consoleErrorSpy.mockRestore();
   });
 });

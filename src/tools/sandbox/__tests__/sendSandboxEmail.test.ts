@@ -314,11 +314,27 @@ describe("sendSandboxEmail", () => {
   });
 
   describe("errors handling", () => {
+    let consoleErrorSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
     it("should throw error when MAILTRAP_TEST_INBOX_ID is not set", async () => {
       delete process.env.MAILTRAP_TEST_INBOX_ID;
 
       const result = await sendSandboxEmail(mockEmailData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error sending sandbox email:",
+        expect.anything()
+      );
       expect((sandboxClient as any).send).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
@@ -338,6 +354,10 @@ describe("sendSandboxEmail", () => {
         subject: mockEmailData.subject,
       });
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error sending sandbox email:",
+        expect.anything()
+      );
       expect((sandboxClient as any).send).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
@@ -356,6 +376,10 @@ describe("sendSandboxEmail", () => {
 
       const result = await sendSandboxEmail(mockEmailData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error sending sandbox email:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
