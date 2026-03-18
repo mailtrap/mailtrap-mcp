@@ -1,0 +1,51 @@
+src/tools/emailLogs/utils/emailLogMessageSummary.ts
+  c2b7ca3f9ea0ae3b 1-56
+src/tools/emailLogs/__tests__/emailLogEventFormat.test.ts
+  c2b7ca3f9ea0ae3b 1-55
+src/tools/emailLogs/utils/parseEmlBuffer.ts
+  c2b7ca3f9ea0ae3b 1-64
+package.json
+  c2b7ca3f9ea0ae3b 39-40
+src/tools/emailLogs/getEmailLogMessage.ts
+  c2b7ca3f9ea0ae3b 2-4,6-11,15,34,36,38,51-53,56,60,64-93,97
+src/tools/emailLogs/__tests__/parseEmlBuffer.test.ts
+  c2b7ca3f9ea0ae3b 1-48
+src/tools/emailLogs/__tests__/getEmailLogMessage.test.ts
+  c2b7ca3f9ea0ae3b 3,19,35-36,104,112
+src/tools/emailLogs/schemas/getEmailLogMessage.ts
+  c2b7ca3f9ea0ae3b 9-14
+src/mailsplit.d.ts
+  c2b7ca3f9ea0ae3b 1-15
+src/tools/emailLogs/fixtures/emailLogMessageFixtures.ts
+  c2b7ca3f9ea0ae3b 1-38
+README.md
+  c2b7ca3f9ea0ae3b 235,240
+src/tools/emailLogs/__tests__/emailLogMessageSummary.test.ts
+  c2b7ca3f9ea0ae3b 1-61
+src/tools/emailLogs/utils/emailLogEventFormat.ts
+  c2b7ca3f9ea0ae3b 1-71
+src/tools/emailLogs/__tests__/getEmailLogMessage.includeContent.test.ts
+  c2b7ca3f9ea0ae3b 1-167
+src/types/mailtrap.ts
+  c2b7ca3f9ea0ae3b 161-162,164-166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "0773064ac4fb2fb1c3f8ddf7b9942174b9d6647b",
+  "prompts": {
+    "c2b7ca3f9ea0ae3b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1789730e-b44c-4076-a8ff-aa232cad8731",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 1568,
+      "total_deletions": 730,
+      "accepted_lines": 645,
+      "overriden_lines": 0
+    }
+  }
+}
