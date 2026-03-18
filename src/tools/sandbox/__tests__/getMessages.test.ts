@@ -93,17 +93,28 @@ describe("getMessages", () => {
   });
 
   it("should handle missing MAILTRAP_TEST_INBOX_ID", async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     delete process.env.MAILTRAP_TEST_INBOX_ID;
 
     const result = await getMessages({});
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting messages:",
+      expect.anything()
+    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "MAILTRAP_TEST_INBOX_ID environment variable is required"
     );
+    consoleErrorSpy.mockRestore();
   });
 
   it("should handle missing sandbox client", async () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     // Mock sandboxClient as null for this test
     jest.doMock("../../../client", () => ({
       sandboxClient: null,
@@ -118,19 +129,32 @@ describe("getMessages", () => {
     jest.dontMock("../../../client");
     jest.resetModules();
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting messages:",
+      expect.anything()
+    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Sandbox client is not available");
+    consoleErrorSpy.mockRestore();
   });
 
   it("should handle API errors", async () => {
     const mockError = new Error("API Error");
     (sandboxClient as any).testing.messages.get.mockRejectedValue(mockError);
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     const result = await getMessages({});
 
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting messages:",
+      mockError
+    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Failed to get messages");
     expect(result.content[0].text).toContain("API Error");
+    consoleErrorSpy.mockRestore();
   });
 
   it("should pass page parameter to SDK", async () => {

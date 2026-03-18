@@ -30,6 +30,7 @@ import {
   showEmailMessage,
   showEmailMessageSchema,
 } from "./tools/sandbox";
+import { getSendingStats, getSendingStatsSchema } from "./tools/stats";
 
 // Define the tools registry
 const tools = [
@@ -101,6 +102,16 @@ const tools = [
       "Show sandbox email message details and content from the sandbox test inbox",
     inputSchema: showEmailMessageSchema,
     handler: showEmailMessage,
+  },
+  {
+    name: "get-sending-stats",
+    description:
+      "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date.",
+    inputSchema: getSendingStatsSchema,
+    handler: getSendingStats,
+    annotations: {
+      readOnlyHint: true,
+    },
   },
 ];
 

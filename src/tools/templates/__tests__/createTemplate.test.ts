@@ -136,12 +136,28 @@ describe("createTemplate", () => {
   });
 
   describe("error handling", () => {
+    let consoleErrorSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
     it("should handle client.templates.create failure", async () => {
       const mockError = new Error("Failed to create template");
       (client.templates.create as jest.Mock).mockRejectedValue(mockError);
 
       const result = await createTemplate(mockTemplateData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error creating template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -159,6 +175,10 @@ describe("createTemplate", () => {
 
       const result = await createTemplate(mockTemplateData);
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error creating template:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {

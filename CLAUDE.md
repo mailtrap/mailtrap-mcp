@@ -46,7 +46,7 @@ src/tools/{toolName}/
 ### Environment Variables Required
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
 - `DEFAULT_FROM_EMAIL`: Default sender email address
-- `MAILTRAP_ACCOUNT_ID`: Optional account ID for multi-account setups
+- `MAILTRAP_ACCOUNT_ID`: Required for template management and sending stats (optional for send-email only)
 - `MAILTRAP_TEST_INBOX_ID`: Required for sandbox tools - test inbox ID for sandbox mode operations
 
 ### Testing Setup
@@ -75,5 +75,8 @@ src/tools/{toolName}/
 6. **send-sandbox-email**: Send email in sandbox mode to a test inbox
 7. **get-sandbox-messages**: Get list of messages from the sandbox test inbox
 8. **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox
+
+#### Statistics
+9. **get-sending-stats**: Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range; optionally break down by domain, category, email service provider, or date. Requires `MAILTRAP_ACCOUNT_ID`.
 
 Each tool uses Zod schemas for input validation and follows the MCP protocol for response formatting.

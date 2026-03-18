@@ -154,12 +154,28 @@ describe("listTemplates", () => {
   });
 
   describe("error handling", () => {
+    let consoleErrorSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
     it("should handle client.templates.getList failure", async () => {
       const mockError = new Error("Failed to fetch templates");
       (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error listing templates:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -177,6 +193,10 @@ describe("listTemplates", () => {
 
       const result = await listTemplates();
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error listing templates:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
@@ -194,6 +214,10 @@ describe("listTemplates", () => {
 
       const result = await listTemplates();
 
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error listing templates:",
+        mockError
+      );
       expect(result).toEqual({
         content: [
           {
