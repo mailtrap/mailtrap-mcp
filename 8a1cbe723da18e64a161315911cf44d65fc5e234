@@ -1,0 +1,35 @@
+README.md
+  c2b7ca3f9ea0ae3b 240
+src/types/mailtrap.ts
+  c2b7ca3f9ea0ae3b 161-162
+src/tools/emailLogs/schemas/getEmailLogMessage.ts
+  c2b7ca3f9ea0ae3b 9-14
+src/tools/emailLogs/getEmailLogMessage.ts
+  c2b7ca3f9ea0ae3b 1-2,6-24,27-47,49,52,54-65,68,88-89,91,127-154,158
+src/mailsplit.d.ts
+  c2b7ca3f9ea0ae3b 1-15
+package.json
+  c2b7ca3f9ea0ae3b 39-40
+src/tools/emailLogs/__tests__/getEmailLogMessage.test.ts
+  c2b7ca3f9ea0ae3b 130-280
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "8a1cbe723da18e64a161315911cf44d65fc5e234",
+  "prompts": {
+    "c2b7ca3f9ea0ae3b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1789730e-b44c-4076-a8ff-aa232cad8731",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 377,
+      "total_deletions": 90,
+      "accepted_lines": 268,
+      "overriden_lines": 0
+    }
+  }
+}
