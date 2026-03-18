@@ -4,7 +4,7 @@
 
 # MCP Mailtrap Server
 
-An MCP server that provides tools for sending transactional emails, managing email templates, checking sending statistics, and testing in sandbox via Mailtrap
+An MCP server that provides tools for sending and testing in sandbox via Mailtrap.
 
 ## Prerequisites
 
@@ -16,10 +16,11 @@ Before using this MCP server, you need to:
 4. Get your Account ID from [Mailtrap account management](https://mailtrap.io/account-management)
 
 **Required Environment Variables:**
+
 - `MAILTRAP_API_TOKEN` - Required for all functionality
 - `DEFAULT_FROM_EMAIL` - Required for all email sending operations
-- `MAILTRAP_ACCOUNT_ID` - Required for template management and sending statistics
-- `MAILTRAP_TEST_INBOX_ID` - **Only** required for sandbox email functionality
+- `MAILTRAP_ACCOUNT_ID` - Required for almost all tools (templates, stats, email logs, sandbox list/show). Optional only for send-email and send-sandbox-email.
+- `MAILTRAP_TEST_INBOX_ID` - Required for sandbox tools (send, list messages, show message)
 
 ## Quick Install
 
@@ -42,7 +43,9 @@ npx @smithery/cli install mailtrap
 
 
 ## Setup
+
 ### Claude Desktop
+
 Use MCPB to install the Mailtrap server. You can find those files in [Releases](https://github.com/mailtrap/mailtrap-mcp/releases). <br>Download .MCPB file and open it. If you have Claude Desktop - it will open it and suggest to configure.
 
 ### Claude Desktop or Cursor
@@ -153,11 +156,23 @@ This creates `mailtrap-mcp.mcpb` using the repository `manifest.json` and built 
 
 Once configured, you can ask agent to send emails and manage templates, for example:
 
-**Email Operations:**
+**Email Sending Operations:**
 
 - "Send an email to john.doe@example.com with the subject 'Meeting Tomorrow' and a friendly reminder about our upcoming meeting."
 - "Email sarah@example.com about the project update, and CC the team at team@example.com"
 - "Send a sandbox email to test@example.com with subject 'Test Template' to preview how our welcome email looks"
+
+**Email Logs (debug delivery):**
+
+- "List my recent sent email logs"
+- "Show email logs for emails sent to user@example.com"
+- "Get the email log message for ID abc-123-uuid to check delivery status"
+
+**Sending Statistics:**
+
+- "Get sending stats for January 2025"
+- "Show delivery rates broken down by domain for last month"
+- "What are my email stats by category from 2025-01-01 to 2025-01-31?"
 
 **Sandbox Operations:**
 
@@ -172,12 +187,6 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Create a new email template called 'Welcome Email' with subject 'Welcome to our platform!'"
 - "Update the template with ID 12345 to change the subject to 'Updated Welcome Message'"
 - "Delete the template with ID 67890"
-
-**Statistics:**
-
-- "Get sending stats for January 2025"
-- "Show delivery rates broken down by domain for last month"
-- "What are my email stats by category from 2025-01-01 to 2025-01-31?"
 
 ## Available Tools
 
@@ -196,47 +205,53 @@ Sends a transactional email through Mailtrap.
 - `bcc` (optional): Array of BCC recipient email addresses
 - `category` (required): Email category for tracking and analytics
 
-### send-sandbox-email
+### list-email-logs
 
-Sends an email to your Mailtrap test inbox for development and testing purposes. This is perfect for testing email templates without sending emails to real recipients.
-
-**Parameters:**
-
-- `to` (required): Email address(es) of the recipient(s) - can be a single email or array of emails (will be delivered to your test inbox)
-- `subject` (required): Email subject line
-- `from` (optional): Email address of the sender, if not provided "DEFAULT_FROM_EMAIL" will be used
-- `text` (optional): Email body text, required if "html" is empty
-- `html` (optional): HTML version of the email body, required if "text" is empty
-- `cc` (optional): Array of CC recipient email addresses
-- `bcc` (optional): Array of BCC recipient email addresses
-- `category` (optional): Email category for tracking
-
-> [!NOTE]
-> The `MAILTRAP_TEST_INBOX_ID` environment variable must be configured for sandbox emails to work. This variable is **only** required for sandbox functionality and is not needed for regular transactional emails or template management.
-
-### get-sandbox-messages
-
-Retrieves a list of messages from your Mailtrap test inbox. Useful for checking what emails have been received in your sandbox during testing.
+Lists sent email logs (delivery history) with optional pagination and filters. Use to debug delivery issues from the IDE.
 
 **Parameters:**
 
-- `page` (optional): Page number for pagination (minimum: 1)
-- `last_id` (optional): Pagination using last message ID. Returns messages after the specified message ID (minimum: 1)
-- `search` (optional): Search query to filter messages
+- `search_after` (optional): Pagination cursor from the previous response's `next_page_cursor`
+- `sent_after` (optional): ISO 8601 date/time; only logs sent after this time
+- `sent_before` (optional): ISO 8601 date/time; only logs sent before this time
+- `from_email` (optional): Filter by sender email; use with `from_operator` (default: ci_equal)
+- `to_email` (optional): Filter by recipient email; use with `to_operator` (default: ci_equal)
+- `status` (optional): Filter by delivery status: delivered, not_delivered, enqueued, opted_out; use with `status_operator` (default: equal)
+- `subject` (optional): Filter by email subject; use with `subject_operator` (default: ci_contain). Use `subject_operator`: empty/not_empty to filter by presence of subject.
+- `sending_domain_id` (optional): Filter by sending domain ID (number); use with `sending_domain_id_operator` (default: equal)
+- `sending_stream` (optional): Filter by stream: transactional or bulk; use with `sending_stream_operator` (default: equal)
+- `events` (optional): Filter by event type(s): delivery, open, click, bounce, spam, unsubscribe, soft_bounce, reject, suspension; use with `events_operator` (include_event / not_include_event)
+- `clicks_count` / `opens_count` (optional): Filter by click/open count; use with `*_operator`: equal, greater_than, less_than
+- `client_ip` / `sending_ip` (optional): Filter by IP; use with `*_operator`: equal, not_equal, contain, not_contain
+- `email_service_provider_response` (optional): Filter by provider response text; use with `*_operator` (ci_contain, etc.)
+- `email_service_provider` (optional): Filter by provider (exact); use with `*_operator`: equal, not_equal
+- `recipient_mx` (optional): Filter by recipient MX; use with `recipient_mx_operator` (ci_contain, etc.)
+- `category` (optional): Filter by email category; use with `category_operator`: equal, not_equal
 
-> [!NOTE]
-> All parameters are optional. If none are provided, the first page of messages from the inbox will be returned. Use page for traditional pagination, last_id for cursor-based pagination, or search to filter messages by content.
+All parameters are optional.
 
-### show-sandbox-email-message
+### get-email-log-message
 
-Shows detailed information and content of a specific email message from your Mailtrap test inbox, including HTML and text body content.
+Gets a single email log message by ID (UUID): a readable summary (from, to, subject, sent time, status, category, stream, engagement, delivery context), then detailed event history. Optionally, with `include_content: true`, you can also load and show the message body (HTML and plain text) when Mailtrap exposes a raw message URL.
 
 **Parameters:**
 
-- `message_id` (required): ID of the sandbox email message to retrieve
+- `message_id` (required): UUID of the email log message (from send response or list-email-logs). Use `list-email-logs` to find message IDs.
+- `include_content` (optional): When `true`, fetches the raw EML (if `raw_message_url` is available) and appends parsed HTML and plain-text body sections, similar to show-sandbox-email-message.
 
-> [!NOTE]
-> Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
+### get-sending-stats
+
+Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date. Check delivery rates without leaving the editor.
+
+**Parameters:**
+
+- `start_date` (required): Start date for the stats range (YYYY-MM-DD)
+- `end_date` (required): End date for the stats range (YYYY-MM-DD)
+- `breakdown` (optional): How to break down the stats: `aggregated` (default), `by_domain`, `by_category`, `by_email_service_provider`, or `by_date`
+- `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
+- `sending_streams` (optional): Limit to `transactional` and/or `bulk` (array of strings)
+- `categories` (optional): Limit to these email categories (array of strings)
+- `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
 
 ### create-template
 
@@ -282,22 +297,48 @@ Deletes an existing email template.
 
 - `template_id` (required): ID of the template to delete
 
-### get-sending-stats
+### send-sandbox-email
 
-Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date. Check delivery rates without leaving the editor.
+Sends an email to your Mailtrap test inbox for development and testing purposes. This is perfect for testing email templates without sending emails to real recipients.
 
 **Parameters:**
 
-- `start_date` (required): Start date for the stats range (YYYY-MM-DD)
-- `end_date` (required): End date for the stats range (YYYY-MM-DD)
-- `breakdown` (optional): How to break down the stats: `aggregated` (default), `by_domain`, `by_category`, `by_email_service_provider`, or `by_date`
-- `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
-- `sending_streams` (optional): Limit to `transactional` and/or `bulk` (array of strings)
-- `categories` (optional): Limit to these email categories (array of strings)
-- `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
+- `to` (required): Email address(es) of the recipient(s) - can be a single email or array of emails (will be delivered to your test inbox)
+- `subject` (required): Email subject line
+- `from` (optional): Email address of the sender, if not provided "DEFAULT_FROM_EMAIL" will be used
+- `text` (optional): Email body text, required if "html" is empty
+- `html` (optional): HTML version of the email body, required if "text" is empty
+- `cc` (optional): Array of CC recipient email addresses
+- `bcc` (optional): Array of BCC recipient email addresses
+- `category` (optional): Email category for tracking
 
 > [!NOTE]
-> `MAILTRAP_ACCOUNT_ID` must be set for this tool to work.
+> The `MAILTRAP_TEST_INBOX_ID` environment variable must be configured for sandbox emails to work. This variable is **only** required for sandbox functionality and is not needed for regular transactional emails or template management.
+
+### get-sandbox-messages
+
+Retrieves a list of messages from your Mailtrap test inbox. Useful for checking what emails have been received in your sandbox during testing.
+
+**Parameters:**
+
+- `page` (optional): Page number for pagination (minimum: 1)
+- `last_id` (optional): Pagination using last message ID. Returns messages after the specified message ID (minimum: 1)
+- `search` (optional): Search query to filter messages
+
+> [!NOTE]
+> All parameters are optional. If none are provided, the first page of messages from the inbox will be returned. Use page for traditional pagination, last_id for cursor-based pagination, or search to filter messages by content.
+
+### show-sandbox-email-message
+
+Shows detailed information and content of a specific email message from your Mailtrap test inbox, including HTML and text body content.
+
+**Parameters:**
+
+- `message_id` (required): ID of the sandbox email message to retrieve
+
+> [!NOTE]
+> Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
+
 
 ## Development
 

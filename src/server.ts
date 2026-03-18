@@ -31,6 +31,12 @@ import {
   showEmailMessageSchema,
 } from "./tools/sandbox";
 import { getSendingStats, getSendingStatsSchema } from "./tools/stats";
+import {
+  listEmailLogs,
+  listEmailLogsSchema,
+  getEmailLogMessage,
+  getEmailLogMessageSchema,
+} from "./tools/emailLogs";
 
 // Define the tools registry
 const tools = [
@@ -109,6 +115,26 @@ const tools = [
       "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date.",
     inputSchema: getSendingStatsSchema,
     handler: getSendingStats,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-email-logs",
+    description:
+      "List sent email logs (delivery history) with optional pagination and filters; use to debug delivery issues.",
+    inputSchema: listEmailLogsSchema,
+    handler: listEmailLogs,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-email-log-message",
+    description:
+      "Get a single email log message by ID (UUID) to inspect delivery status and event history.",
+    inputSchema: getEmailLogMessageSchema,
+    handler: getEmailLogMessage,
     annotations: {
       readOnlyHint: true,
     },
