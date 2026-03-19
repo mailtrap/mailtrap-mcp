@@ -28,7 +28,7 @@ async function sendEmail({
 
     if (!fromEmail) {
       throw new Error(
-        "No 'from' email provided and no 'DEFAULT_FROM_EMAIL' email set"
+        "Provide 'from' or set DEFAULT_FROM_EMAIL environment variable"
       );
     }
 

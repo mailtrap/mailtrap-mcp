@@ -1,10 +1,9 @@
 import { Address, Mail } from "mailtrap";
-import { sandboxClient } from "../../client";
+import { getSandboxClient } from "../../client";
 import { SendSandboxEmailRequest } from "../../types/mailtrap";
 
-const { DEFAULT_FROM_EMAIL } = process.env;
-
 async function sendSandboxEmail({
+  test_inbox_id,
   from,
   to,
   subject,
@@ -15,11 +14,17 @@ async function sendSandboxEmail({
   html,
 }: SendSandboxEmailRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    const { MAILTRAP_TEST_INBOX_ID } = process.env;
-
-    if (!MAILTRAP_TEST_INBOX_ID) {
+    const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
+    if (inboxIdRaw === undefined || inboxIdRaw === null) {
       throw new Error(
-        "MAILTRAP_TEST_INBOX_ID environment variable is required for sandbox mode"
+        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
+      );
+    }
+
+    const inboxId = Number(inboxIdRaw);
+    if (Number.isNaN(inboxId)) {
+      throw new Error(
+        "test_inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
       );
     }
 
@@ -27,21 +32,14 @@ async function sendSandboxEmail({
       throw new Error("Either HTML or TEXT body is required");
     }
 
-    // Use provided 'from' email or fall back to DEFAULT_FROM_EMAIL
-    const fromEmail = from || DEFAULT_FROM_EMAIL;
-
+    const fromEmail = from ?? process.env.DEFAULT_FROM_EMAIL;
     if (!fromEmail) {
       throw new Error(
-        "No 'from' email provided and no 'DEFAULT_FROM_EMAIL' email set"
+        "Provide 'from' or set DEFAULT_FROM_EMAIL environment variable"
       );
     }
 
-    // Check if sandbox client is available
-    if (!sandboxClient) {
-      throw new Error(
-        "Sandbox client is not available. Please set MAILTRAP_TEST_INBOX_ID environment variable."
-      );
-    }
+    const sandboxClient = getSandboxClient(inboxId);
 
     const fromAddress: Address = {
       email: fromEmail,

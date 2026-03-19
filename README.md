@@ -18,9 +18,12 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `DEFAULT_FROM_EMAIL` - Required for all email sending operations
 - `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email and send-sandbox-email.
-- `MAILTRAP_TEST_INBOX_ID` - Required for sandbox tools (send, list messages, show message)
+
+**Optional (can be passed as tool parameters instead):**
+
+- `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email or send-sandbox-email. Enables switching sender per call via the `from` parameter.
+- `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter.
 
 ## Quick Install
 
@@ -321,7 +324,7 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 - `category` (optional): Email category for tracking
 
 > [!NOTE]
-> The `MAILTRAP_TEST_INBOX_ID` environment variable must be configured for sandbox emails to work. This variable is **only** required for sandbox functionality and is not needed for regular transactional emails or template management.
+> For sandbox tools, provide `test_inbox_id` in the tool call or set the `MAILTRAP_TEST_INBOX_ID` environment variable. You can switch between inboxes per call by passing `test_inbox_id`.
 
 ### get-sandbox-messages
 
@@ -540,7 +543,7 @@ node dist/mcpb-server.js 2>&1 | jq 'select(.level == "debug")'
 Common issues:
 
 1. Missing API Token: ensure `MAILTRAP_API_TOKEN` is set
-2. Sandbox not working: verify `MAILTRAP_TEST_INBOX_ID` is configured
+2. Sandbox not working: provide `test_inbox_id` in the tool call or set `MAILTRAP_TEST_INBOX_ID` env
 3. Timeout errors: check network connectivity and Mailtrap API status
 4. Validation errors: ensure all required fields are provided
 

@@ -1,17 +1,15 @@
 import getMessages from "../getSandboxMessages";
-import { sandboxClient } from "../../../client";
+import { getSandboxClient } from "../../../client";
 
+const mockGet = jest.fn();
 jest.mock("../../../client", () => ({
-  sandboxClient: {
-    testing: {
-      messages: {
-        get: jest.fn(),
-      },
-    },
-  },
+  getSandboxClient: jest.fn(() => ({
+    testing: { messages: { get: mockGet } },
+  })),
 }));
 
 describe("getMessages", () => {
+  const inboxId = 123;
   const mockMessages = [
     {
       id: 1,
@@ -36,8 +34,11 @@ describe("getMessages", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
-    (sandboxClient as any).testing.messages.get.mockResolvedValue(mockMessages);
-    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: "123" });
+    mockGet.mockResolvedValue(mockMessages);
+    (getSandboxClient as jest.Mock).mockReturnValue({
+      testing: { messages: { get: mockGet } },
+    });
+    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: String(inboxId) });
   });
 
   afterEach(() => {
@@ -47,10 +48,7 @@ describe("getMessages", () => {
   it("should get messages successfully", async () => {
     const result = await getMessages({});
 
-    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123,
-      undefined
-    );
+    expect(mockGet).toHaveBeenCalledWith(inboxId, undefined);
 
     expect(result).toEqual({
       content: [
@@ -63,7 +61,7 @@ describe("getMessages", () => {
   });
 
   it("should handle empty messages list", async () => {
-    (sandboxClient as any).testing.messages.get.mockResolvedValue([]);
+    mockGet.mockResolvedValue([]);
 
     const result = await getMessages({});
 
@@ -78,7 +76,7 @@ describe("getMessages", () => {
   });
 
   it("should handle null messages response", async () => {
-    (sandboxClient as any).testing.messages.get.mockResolvedValue(null);
+    mockGet.mockResolvedValue(null);
 
     const result = await getMessages({});
 
@@ -92,7 +90,7 @@ describe("getMessages", () => {
     });
   });
 
-  it("should handle missing MAILTRAP_TEST_INBOX_ID", async () => {
+  it("should handle missing test_inbox_id and MAILTRAP_TEST_INBOX_ID", async () => {
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
@@ -106,41 +104,22 @@ describe("getMessages", () => {
     );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
-      "MAILTRAP_TEST_INBOX_ID environment variable is required"
+      "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID"
     );
     consoleErrorSpy.mockRestore();
   });
 
-  it("should handle missing sandbox client", async () => {
-    const consoleErrorSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
-    // Mock sandboxClient as null for this test
-    jest.doMock("../../../client", () => ({
-      sandboxClient: null,
-    }));
+  it("should use test_inbox_id parameter when provided", async () => {
+    const result = await getMessages({ test_inbox_id: 456 });
 
-    // Re-import the module to get the mocked version
-    jest.resetModules();
-    const getMessagesModule = (await import("../getSandboxMessages")).default;
-    const result = await getMessagesModule({});
-
-    // Restore the original mock
-    jest.dontMock("../../../client");
-    jest.resetModules();
-
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error getting messages:",
-      expect.anything()
-    );
-    expect(result.isError).toBe(true);
-    expect(result.content[0].text).toContain("Sandbox client is not available");
-    consoleErrorSpy.mockRestore();
+    expect(getSandboxClient).toHaveBeenCalledWith(456);
+    expect(mockGet).toHaveBeenCalledWith(456, undefined);
+    expect(result.content[0].text).toContain("Found 2 message(s)");
   });
 
   it("should handle API errors", async () => {
     const mockError = new Error("API Error");
-    (sandboxClient as any).testing.messages.get.mockRejectedValue(mockError);
+    mockGet.mockRejectedValue(mockError);
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
@@ -160,45 +139,34 @@ describe("getMessages", () => {
   it("should pass page parameter to SDK", async () => {
     await getMessages({ page: 2 });
 
-    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123,
-      { page: 2 }
-    );
+    expect(mockGet).toHaveBeenCalledWith(inboxId, { page: 2 });
   });
 
   it("should pass last_id parameter to SDK", async () => {
     await getMessages({ last_id: 100 });
 
-    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123,
-      { last_id: 100 }
-    );
+    expect(mockGet).toHaveBeenCalledWith(inboxId, { last_id: 100 });
   });
 
   it("should pass search parameter to SDK", async () => {
     await getMessages({ search: "test query" });
 
-    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123,
-      { search: "test query" }
-    );
+    expect(mockGet).toHaveBeenCalledWith(inboxId, { search: "test query" });
   });
 
   it("should pass multiple parameters to SDK", async () => {
     await getMessages({ page: 1, search: "test" });
 
-    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123,
-      { page: 1, search: "test" }
-    );
+    expect(mockGet).toHaveBeenCalledWith(inboxId, { page: 1, search: "test" });
   });
 
   it("should pass all parameters to SDK", async () => {
     await getMessages({ page: 2, last_id: 100, search: "test query" });
 
-    expect((sandboxClient as any).testing.messages.get).toHaveBeenCalledWith(
-      123,
-      { page: 2, last_id: 100, search: "test query" }
-    );
+    expect(mockGet).toHaveBeenCalledWith(inboxId, {
+      page: 2,
+      last_id: 100,
+      search: "test query",
+    });
   });
 });

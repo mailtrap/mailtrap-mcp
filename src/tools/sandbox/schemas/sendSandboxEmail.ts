@@ -1,10 +1,16 @@
 const sendSandboxEmailSchema = {
   type: "object",
   properties: {
+    test_inbox_id: {
+      type: "number",
+      description:
+        "Mailtrap test inbox ID. Optional if MAILTRAP_TEST_INBOX_ID env var is set. Use to target a specific inbox.",
+    },
     from: {
       type: "string",
       format: "email",
-      description: "Email address of the sender",
+      description:
+        "Sender email address. Optional if DEFAULT_FROM_EMAIL env var is set.",
     },
     to: {
       type: "string",
@@ -44,7 +50,7 @@ const sendSandboxEmailSchema = {
       description: "Optional HTML version of the email body",
     },
   },
-  required: ["from", "to", "subject"],
+  required: ["to", "subject"],
   additionalProperties: false,
 };
 
