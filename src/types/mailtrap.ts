@@ -46,7 +46,8 @@ export interface DeleteTemplateRequest {
  * The MCP server validates this requirement through runtime checks.
  */
 export interface SendSandboxEmailRequest {
-  from: string;
+  test_inbox_id?: number;
+  from?: string;
   to: string;
   subject: string;
   text?: string;
@@ -57,12 +58,14 @@ export interface SendSandboxEmailRequest {
 }
 
 export interface GetMessagesRequest {
+  test_inbox_id?: number;
   page?: number;
   last_id?: number;
   search?: string;
 }
 
 export interface ShowEmailMessageRequest {
+  test_inbox_id?: number;
   message_id: number;
   /** When true, include spam report (SpamAssassin score and details). Useful for deliverability testing. */
   include_spam_report?: boolean;

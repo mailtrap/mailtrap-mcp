@@ -18,26 +18,25 @@ const client = (
     : null
 ) as MailtrapClient;
 
-// Create a sandbox client instance
-const { MAILTRAP_TEST_INBOX_ID } = process.env;
-
-const sandboxClient = (
-  MAILTRAP_API_TOKEN &&
-  MAILTRAP_TEST_INBOX_ID &&
-  !Number.isNaN(Number(process.env.MAILTRAP_TEST_INBOX_ID))
-    ? new MailtrapClient({
-        token: MAILTRAP_API_TOKEN,
-        userAgent: config.USER_AGENT,
-        testInboxId: Number(process.env.MAILTRAP_TEST_INBOX_ID),
-        sandbox: true,
-        // conditionally set accountId if it's a valid number
-        ...(process.env.MAILTRAP_ACCOUNT_ID &&
-        !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-          ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-          : {}),
-      })
-    : null
-) as MailtrapClient;
+/**
+ * Returns a sandbox MailtrapClient for the given test inbox ID.
+ * Use this when you have an inbox ID from tool parameters or env (MAILTRAP_TEST_INBOX_ID).
+ */
+function getSandboxClient(inboxId: number): MailtrapClient {
+  if (!MAILTRAP_API_TOKEN) {
+    throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+  }
+  return new MailtrapClient({
+    token: MAILTRAP_API_TOKEN,
+    userAgent: config.USER_AGENT,
+    testInboxId: inboxId,
+    sandbox: true,
+    ...(process.env.MAILTRAP_ACCOUNT_ID &&
+    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
+      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
+      : {}),
+  });
+}
 
 // eslint-disable-next-line import/prefer-default-export
-export { client, sandboxClient };
+export { client, getSandboxClient };
