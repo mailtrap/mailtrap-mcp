@@ -64,6 +64,10 @@ export interface GetMessagesRequest {
 
 export interface ShowEmailMessageRequest {
   message_id: number;
+  /** When true, include spam report (SpamAssassin score and details). Useful for deliverability testing. */
+  include_spam_report?: boolean;
+  /** When true, include HTML analysis (compatibility, problematic elements). Useful for email client testing. */
+  include_html_analysis?: boolean;
 }
 
 /** From/to filter operators (case-insensitive). */
