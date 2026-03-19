@@ -1,0 +1,137 @@
+src/tools/emailLogs/utils/emailLogEventFormat.ts
+  c2b7ca3f9ea0ae3b 1-71
+src/tools/emailLogs/__tests__/getEmailLogMessage.test.ts
+  c2b7ca3f9ea0ae3b 3,19,35-36,104,112
+src/tools/emailLogs/utils/parseEmlBuffer.ts
+  5fa2cdcaf209bde0 15,17,19,23,39
+  c2b7ca3f9ea0ae3b 1-14,16,18,20-22,24-38,40-68
+CHANGELOG.md
+  751e9242928b5721 3
+src/tools/emailLogs/schemas/getEmailLogMessage.ts
+  c2b7ca3f9ea0ae3b 11-16
+  751e9242928b5721 1-2,21-27
+src/tools/emailLogs/__tests__/emailLogMessageSummary.test.ts
+  c2b7ca3f9ea0ae3b 1-61
+src/tools/emailLogs/utils/emailLogMessageSummary.ts
+  c2b7ca3f9ea0ae3b 1-56
+src/tools/emailLogs/__tests__/parseEmlBuffer.test.ts
+  c2b7ca3f9ea0ae3b 1-48
+src/tools/emailLogs/schemas/listEmailLogs.ts
+  5fa2cdcaf209bde0 379-385
+  751e9242928b5721 1-2,4,277-378
+src/tools/emailLogs/__tests__/emailLogEventFormat.test.ts
+  c2b7ca3f9ea0ae3b 1-55
+src/tools/emailLogs/getEmailLogMessage.ts
+  5fa2cdcaf209bde0 80-85,87-90,108-114
+  c2b7ca3f9ea0ae3b 2-4,6-9,43,45,47,60-62,65,69,73-78,86,91-107,115-116,120
+  751e9242928b5721 5,11,16-29,44,52,79
+src/types/mailtrap.ts
+  5fa2cdcaf209bde0 166-168,170-193
+  c2b7ca3f9ea0ae3b 161-162,164-165,169
+CLAUDE.md
+  751e9242928b5721 38-40,42,46-49,55,75,77-84,88-91,95-97,99
+src/mailsplit.d.ts
+  5fa2cdcaf209bde0 7
+  c2b7ca3f9ea0ae3b 1-6,8-16
+src/tools/emailLogs/__tests__/getEmailLogMessage.includeContent.test.ts
+  c2b7ca3f9ea0ae3b 1-74,76-90,94-167
+  751e9242928b5721 75
+  5fa2cdcaf209bde0 91-93
+src/tools/emailLogs/fixtures/emailLogMessageFixtures.ts
+  c2b7ca3f9ea0ae3b 1-38
+README.md
+  c2b7ca3f9ea0ae3b 235,240
+  751e9242928b5721 22
+src/tools/emailLogs/listEmailLogs.ts
+  a71c7a97ad470984 9,11-12,18-19,22-24,96,103,220
+  751e9242928b5721 2-3,6-7,57,62-74,93-95,99-100,106-107,111-114,118-119,123-124,126-128,130,137,139,146,148-150,153,160-161,163-165,167,171,173-174,177,179-180,183,185-186,189,191-192,195,198,204,206,212,214,222,229-232,235,273-276
+  e6ce5540c2b2a2bd 43,45-54
+  5fa2cdcaf209bde0 4-5,234,236-250,252
+package.json
+  c2b7ca3f9ea0ae3b 39-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "8a832ec1a04ec0119312e9ae2f9a2a8438022f48",
+  "prompts": {
+    "5fa2cdcaf209bde0": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "0a6f70d8-f0e4-44e9-8f34-df260ca32d88",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 99,
+      "total_deletions": 40,
+      "accepted_lines": 79,
+      "overriden_lines": 0
+    },
+    "751e9242928b5721": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ea6c5f72-cc28-4599-8274-e50c316a2ff3",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 325,
+      "total_deletions": 227,
+      "accepted_lines": 240,
+      "overriden_lines": 0
+    },
+    "a71c7a97ad470984": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c1b6fa9f-6d0d-44e7-91e7-7aa427568540",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 11,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    },
+    "c2b7ca3f9ea0ae3b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1789730e-b44c-4076-a8ff-aa232cad8731",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 1568,
+      "total_deletions": 730,
+      "accepted_lines": 633,
+      "overriden_lines": 0
+    },
+    "dc17d08ea836fa9a": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "78380774-50ba-4d16-82fa-af6ead15df90",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 1055,
+      "total_deletions": 77,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "e6ce5540c2b2a2bd": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "14499b01-60ae-4a0f-bc0f-1418cd7c4075",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 23,
+      "total_deletions": 13,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    }
+  }
+}
