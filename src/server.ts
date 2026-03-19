@@ -115,7 +115,7 @@ const tools = [
   {
     name: "show-sandbox-email-message",
     description:
-      "Show sandbox email message details and content from the sandbox test inbox",
+      "Show sandbox email message details and content from the sandbox test inbox. Optionally include spam report (SpamAssassin score) and HTML analysis (client compatibility) for email testing workflows.",
     inputSchema: showEmailMessageSchema,
     handler: showEmailMessage,
   },

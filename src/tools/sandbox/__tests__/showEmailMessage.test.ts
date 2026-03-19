@@ -8,6 +8,8 @@ jest.mock("../../../client", () => ({
         showEmailMessage: jest.fn(),
         getHtmlMessage: jest.fn(),
         getTextMessage: jest.fn(),
+        getSpamScore: jest.fn(),
+        getHtmlAnalysis: jest.fn(),
       },
     },
   },
@@ -197,6 +199,107 @@ describe("showEmailMessage", () => {
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Sandbox client is not available");
     consoleErrorSpy.mockRestore();
+  });
+
+  it("should include spam report when include_spam_report is true", async () => {
+    const mockSpamReport = {
+      res: {
+        score: 2.5,
+        report: "SpamAssassin report",
+        rules: ["RULE_A", "RULE_B"],
+      },
+    };
+    (sandboxClient as any).testing.messages.getSpamScore.mockResolvedValue(
+      mockSpamReport
+    );
+
+    const result = await showEmailMessage({
+      message_id: 1,
+      include_spam_report: true,
+    });
+
+    expect(
+      (sandboxClient as any).testing.messages.getSpamScore
+    ).toHaveBeenCalledWith(123, 1);
+    expect(result.content[0].text).toContain("--- Spam Report ---");
+    expect(result.content[0].text).toContain("Spam score: 2.5");
+    expect(result.content[0].text).toContain("SpamAssassin report");
+    expect(result.content[0].text).toContain("RULE_A");
+  });
+
+  it("should include HTML analysis when include_html_analysis is true", async () => {
+    const mockHtmlAnalysis = {
+      html_compatibility_score: 85,
+      text_compatibility_score: 100,
+      problematic_elements: ["max-width", "style tag"],
+    };
+    (sandboxClient as any).testing.messages.getHtmlAnalysis.mockResolvedValue(
+      mockHtmlAnalysis
+    );
+
+    const result = await showEmailMessage({
+      message_id: 1,
+      include_html_analysis: true,
+    });
+
+    expect(
+      (sandboxClient as any).testing.messages.getHtmlAnalysis
+    ).toHaveBeenCalledWith(123, 1);
+    expect(result.content[0].text).toContain("--- HTML Analysis ---");
+    expect(result.content[0].text).toContain("HTML compatibility score: 85");
+    expect(result.content[0].text).toContain("Text compatibility score: 100");
+    expect(result.content[0].text).toContain("max-width");
+  });
+
+  it("should not call getSpamScore or getHtmlAnalysis when flags are false", async () => {
+    await showEmailMessage({ message_id: 1 });
+
+    expect(
+      (sandboxClient as any).testing.messages.getSpamScore
+    ).not.toHaveBeenCalled();
+    expect(
+      (sandboxClient as any).testing.messages.getHtmlAnalysis
+    ).not.toHaveBeenCalled();
+  });
+
+  it("should handle spam report fetch failure gracefully", async () => {
+    (sandboxClient as any).testing.messages.getSpamScore.mockRejectedValue(
+      new Error("Spam API error")
+    );
+    const consoleWarnSpy = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    const result = await showEmailMessage({
+      message_id: 1,
+      include_spam_report: true,
+    });
+
+    expect(result.content[0].text).toContain("--- Spam Report ---");
+    expect(result.content[0].text).toContain(
+      "Spam report could not be retrieved"
+    );
+    consoleWarnSpy.mockRestore();
+  });
+
+  it("should handle HTML analysis fetch failure gracefully", async () => {
+    (sandboxClient as any).testing.messages.getHtmlAnalysis.mockRejectedValue(
+      new Error("Analyze API error")
+    );
+    const consoleWarnSpy = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    const result = await showEmailMessage({
+      message_id: 1,
+      include_html_analysis: true,
+    });
+
+    expect(result.content[0].text).toContain("--- HTML Analysis ---");
+    expect(result.content[0].text).toContain(
+      "HTML analysis could not be retrieved"
+    );
+    consoleWarnSpy.mockRestore();
   });
 
   it("should handle API errors", async () => {
