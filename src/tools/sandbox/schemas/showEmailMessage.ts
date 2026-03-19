@@ -1,6 +1,11 @@
 const showEmailMessageSchema = {
   type: "object",
   properties: {
+    test_inbox_id: {
+      type: "number",
+      description:
+        "Mailtrap test inbox ID. Optional if MAILTRAP_TEST_INBOX_ID env var is set. Use to target a specific inbox.",
+    },
     message_id: {
       type: "number",
       description: "ID of the sandbox email message to retrieve",

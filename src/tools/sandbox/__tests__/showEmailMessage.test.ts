@@ -1,21 +1,28 @@
 import showEmailMessage from "../showSandboxEmailMessage";
-import { sandboxClient } from "../../../client";
+import { getSandboxClient } from "../../../client";
+
+const mockShowEmailMessage = jest.fn();
+const mockGetHtmlMessage = jest.fn();
+const mockGetTextMessage = jest.fn();
+const mockGetSpamScore = jest.fn();
+const mockGetHtmlAnalysis = jest.fn();
 
 jest.mock("../../../client", () => ({
-  sandboxClient: {
+  getSandboxClient: jest.fn(() => ({
     testing: {
       messages: {
-        showEmailMessage: jest.fn(),
-        getHtmlMessage: jest.fn(),
-        getTextMessage: jest.fn(),
-        getSpamScore: jest.fn(),
-        getHtmlAnalysis: jest.fn(),
+        showEmailMessage: mockShowEmailMessage,
+        getHtmlMessage: mockGetHtmlMessage,
+        getTextMessage: mockGetTextMessage,
+        getSpamScore: mockGetSpamScore,
+        getHtmlAnalysis: mockGetHtmlAnalysis,
       },
     },
-  },
+  })),
 }));
 
 describe("showEmailMessage", () => {
+  const inboxId = 123;
   const mockMessage = {
     id: 1,
     from_email: "sender@example.com",
@@ -36,16 +43,21 @@ describe("showEmailMessage", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
-    (sandboxClient as any).testing.messages.showEmailMessage.mockResolvedValue(
-      mockMessage
-    );
-    (sandboxClient as any).testing.messages.getHtmlMessage.mockResolvedValue(
-      mockHtmlContent
-    );
-    (sandboxClient as any).testing.messages.getTextMessage.mockResolvedValue(
-      mockTextContent
-    );
-    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: "123" });
+    mockShowEmailMessage.mockResolvedValue(mockMessage);
+    mockGetHtmlMessage.mockResolvedValue(mockHtmlContent);
+    mockGetTextMessage.mockResolvedValue(mockTextContent);
+    (getSandboxClient as jest.Mock).mockReturnValue({
+      testing: {
+        messages: {
+          showEmailMessage: mockShowEmailMessage,
+          getHtmlMessage: mockGetHtmlMessage,
+          getTextMessage: mockGetTextMessage,
+          getSpamScore: mockGetSpamScore,
+          getHtmlAnalysis: mockGetHtmlAnalysis,
+        },
+      },
+    });
+    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: String(inboxId) });
   });
 
   afterEach(() => {
@@ -55,15 +67,9 @@ describe("showEmailMessage", () => {
   it("should show sandbox email message successfully with HTML and text", async () => {
     const result = await showEmailMessage({ message_id: 1 });
 
-    expect(
-      (sandboxClient as any).testing.messages.showEmailMessage
-    ).toHaveBeenCalledWith(123, 1);
-    expect(
-      (sandboxClient as any).testing.messages.getHtmlMessage
-    ).toHaveBeenCalledWith(123, 1);
-    expect(
-      (sandboxClient as any).testing.messages.getTextMessage
-    ).toHaveBeenCalledWith(123, 1);
+    expect(mockShowEmailMessage).toHaveBeenCalledWith(inboxId, 1);
+    expect(mockGetHtmlMessage).toHaveBeenCalledWith(inboxId, 1);
+    expect(mockGetTextMessage).toHaveBeenCalledWith(inboxId, 1);
 
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain("Message ID: 1");
@@ -79,9 +85,7 @@ describe("showEmailMessage", () => {
     const consoleWarnSpy = jest
       .spyOn(console, "warn")
       .mockImplementation(() => {});
-    (sandboxClient as any).testing.messages.getHtmlMessage.mockRejectedValue(
-      new Error("No HTML")
-    );
+    mockGetHtmlMessage.mockRejectedValue(new Error("No HTML"));
 
     const result = await showEmailMessage({ message_id: 1 });
 
@@ -99,9 +103,7 @@ describe("showEmailMessage", () => {
     const consoleWarnSpy = jest
       .spyOn(console, "warn")
       .mockImplementation(() => {});
-    (sandboxClient as any).testing.messages.getTextMessage.mockRejectedValue(
-      new Error("No text")
-    );
+    mockGetTextMessage.mockRejectedValue(new Error("No text"));
 
     const result = await showEmailMessage({ message_id: 1 });
 
@@ -119,12 +121,8 @@ describe("showEmailMessage", () => {
     const consoleWarnSpy = jest
       .spyOn(console, "warn")
       .mockImplementation(() => {});
-    (sandboxClient as any).testing.messages.getHtmlMessage.mockRejectedValue(
-      new Error("No HTML")
-    );
-    (sandboxClient as any).testing.messages.getTextMessage.mockRejectedValue(
-      new Error("No text")
-    );
+    mockGetHtmlMessage.mockRejectedValue(new Error("No HTML"));
+    mockGetTextMessage.mockRejectedValue(new Error("No text"));
 
     const result = await showEmailMessage({ message_id: 1 });
 
@@ -144,9 +142,7 @@ describe("showEmailMessage", () => {
   });
 
   it("should handle null message response", async () => {
-    (sandboxClient as any).testing.messages.showEmailMessage.mockResolvedValue(
-      null
-    );
+    mockShowEmailMessage.mockResolvedValue(null);
 
     const result = await showEmailMessage({ message_id: 999 });
 
@@ -154,7 +150,7 @@ describe("showEmailMessage", () => {
     expect(result.content[0].text).toContain("Message with ID 999 not found");
   });
 
-  it("should handle missing MAILTRAP_TEST_INBOX_ID", async () => {
+  it("should handle missing test_inbox_id and MAILTRAP_TEST_INBOX_ID", async () => {
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
@@ -168,37 +164,20 @@ describe("showEmailMessage", () => {
     );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
-      "MAILTRAP_TEST_INBOX_ID environment variable is required"
+      "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID"
     );
     consoleErrorSpy.mockRestore();
   });
 
-  it("should handle missing sandbox client", async () => {
-    const consoleErrorSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
-    // Mock sandboxClient as null for this test
-    jest.doMock("../../../client", () => ({
-      sandboxClient: null,
-    }));
+  it("should use test_inbox_id parameter when provided", async () => {
+    const result = await showEmailMessage({
+      test_inbox_id: 456,
+      message_id: 1,
+    });
 
-    // Re-import the module to get the mocked version
-    jest.resetModules();
-    const showEmailMessageModule = (await import("../showSandboxEmailMessage"))
-      .default;
-    const result = await showEmailMessageModule({ message_id: 1 });
-
-    // Restore the original mock
-    jest.dontMock("../../../client");
-    jest.resetModules();
-
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error showing sandbox email message:",
-      expect.anything()
-    );
-    expect(result.isError).toBe(true);
-    expect(result.content[0].text).toContain("Sandbox client is not available");
-    consoleErrorSpy.mockRestore();
+    expect(getSandboxClient).toHaveBeenCalledWith(456);
+    expect(mockShowEmailMessage).toHaveBeenCalledWith(456, 1);
+    expect(result.content[0].text).toContain("Sandbox Email Message Details");
   });
 
   it("should include spam report when include_spam_report is true", async () => {
@@ -209,18 +188,14 @@ describe("showEmailMessage", () => {
         rules: ["RULE_A", "RULE_B"],
       },
     };
-    (sandboxClient as any).testing.messages.getSpamScore.mockResolvedValue(
-      mockSpamReport
-    );
+    mockGetSpamScore.mockResolvedValue(mockSpamReport);
 
     const result = await showEmailMessage({
       message_id: 1,
       include_spam_report: true,
     });
 
-    expect(
-      (sandboxClient as any).testing.messages.getSpamScore
-    ).toHaveBeenCalledWith(123, 1);
+    expect(mockGetSpamScore).toHaveBeenCalledWith(inboxId, 1);
     expect(result.content[0].text).toContain("--- Spam Report ---");
     expect(result.content[0].text).toContain("Spam score: 2.5");
     expect(result.content[0].text).toContain("SpamAssassin report");
@@ -233,18 +208,14 @@ describe("showEmailMessage", () => {
       text_compatibility_score: 100,
       problematic_elements: ["max-width", "style tag"],
     };
-    (sandboxClient as any).testing.messages.getHtmlAnalysis.mockResolvedValue(
-      mockHtmlAnalysis
-    );
+    mockGetHtmlAnalysis.mockResolvedValue(mockHtmlAnalysis);
 
     const result = await showEmailMessage({
       message_id: 1,
       include_html_analysis: true,
     });
 
-    expect(
-      (sandboxClient as any).testing.messages.getHtmlAnalysis
-    ).toHaveBeenCalledWith(123, 1);
+    expect(mockGetHtmlAnalysis).toHaveBeenCalledWith(inboxId, 1);
     expect(result.content[0].text).toContain("--- HTML Analysis ---");
     expect(result.content[0].text).toContain("HTML compatibility score: 85");
     expect(result.content[0].text).toContain("Text compatibility score: 100");
@@ -254,18 +225,12 @@ describe("showEmailMessage", () => {
   it("should not call getSpamScore or getHtmlAnalysis when flags are false", async () => {
     await showEmailMessage({ message_id: 1 });
 
-    expect(
-      (sandboxClient as any).testing.messages.getSpamScore
-    ).not.toHaveBeenCalled();
-    expect(
-      (sandboxClient as any).testing.messages.getHtmlAnalysis
-    ).not.toHaveBeenCalled();
+    expect(mockGetSpamScore).not.toHaveBeenCalled();
+    expect(mockGetHtmlAnalysis).not.toHaveBeenCalled();
   });
 
   it("should handle spam report fetch failure gracefully", async () => {
-    (sandboxClient as any).testing.messages.getSpamScore.mockRejectedValue(
-      new Error("Spam API error")
-    );
+    mockGetSpamScore.mockRejectedValue(new Error("Spam API error"));
     const consoleWarnSpy = jest
       .spyOn(console, "warn")
       .mockImplementation(() => {});
@@ -283,9 +248,7 @@ describe("showEmailMessage", () => {
   });
 
   it("should handle HTML analysis fetch failure gracefully", async () => {
-    (sandboxClient as any).testing.messages.getHtmlAnalysis.mockRejectedValue(
-      new Error("Analyze API error")
-    );
+    mockGetHtmlAnalysis.mockRejectedValue(new Error("Analyze API error"));
     const consoleWarnSpy = jest
       .spyOn(console, "warn")
       .mockImplementation(() => {});
@@ -304,9 +267,7 @@ describe("showEmailMessage", () => {
 
   it("should handle API errors", async () => {
     const mockError = new Error("API Error");
-    (sandboxClient as any).testing.messages.showEmailMessage.mockRejectedValue(
-      mockError
-    );
+    mockShowEmailMessage.mockRejectedValue(mockError);
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});

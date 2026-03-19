@@ -1,7 +1,8 @@
-import { sandboxClient } from "../../client";
+import { getSandboxClient } from "../../client";
 import { GetMessagesRequest } from "../../types/mailtrap";
 
 async function getMessages({
+  test_inbox_id,
   page,
   last_id,
   search,
@@ -10,25 +11,21 @@ async function getMessages({
   isError?: boolean;
 }> {
   try {
-    const { MAILTRAP_TEST_INBOX_ID } = process.env;
-
-    if (!MAILTRAP_TEST_INBOX_ID) {
+    const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
+    if (inboxIdRaw === undefined || inboxIdRaw === null) {
       throw new Error(
-        "MAILTRAP_TEST_INBOX_ID environment variable is required for sandbox mode"
+        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
       );
     }
 
-    // Check if sandbox client is available
-    if (!sandboxClient) {
-      throw new Error(
-        "Sandbox client is not available. Please set MAILTRAP_TEST_INBOX_ID environment variable."
-      );
-    }
-
-    const inboxId = Number(MAILTRAP_TEST_INBOX_ID);
+    const inboxId = Number(inboxIdRaw);
     if (Number.isNaN(inboxId)) {
-      throw new Error("MAILTRAP_TEST_INBOX_ID must be a valid number");
+      throw new Error(
+        "test_inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
+      );
     }
+
+    const sandboxClient = getSandboxClient(inboxId);
 
     // Get messages from the inbox
     // MessageListOptions supports: page, last_id, and search
