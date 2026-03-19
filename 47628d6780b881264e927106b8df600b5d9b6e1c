@@ -1,0 +1,89 @@
+src/tools/emailLogs/fixtures/emailLogMessageFixtures.ts
+  c2b7ca3f9ea0ae3b 1-38
+src/tools/emailLogs/utils/emailLogEventFormat.ts
+  c2b7ca3f9ea0ae3b 1-71
+CLAUDE.md
+  751e9242928b5721 38-40,42,46-49,55,75,77-84,88-91,95-97,99
+src/tools/emailLogs/__tests__/emailLogMessageSummary.test.ts
+  c2b7ca3f9ea0ae3b 1-61
+src/mailsplit.d.ts
+  c2b7ca3f9ea0ae3b 1-15
+src/tools/emailLogs/schemas/listEmailLogs.ts
+  751e9242928b5721 1-2,4,277-378
+package.json
+  c2b7ca3f9ea0ae3b 39-40
+src/tools/emailLogs/listEmailLogs.ts
+  751e9242928b5721 2-4,40,45-57,76-79,82-83,86,89-90,94-97,101-102,106-107,109-111,113,120,122,129,131-133,136,143-144,146-148,150,154,156-157,160,162-163,166,168-169,172,174-175,178,181,187,189,195,197,203,205,212-215,218,245-248
+src/tools/emailLogs/__tests__/emailLogEventFormat.test.ts
+  c2b7ca3f9ea0ae3b 1-55
+src/tools/emailLogs/utils/parseEmlBuffer.ts
+  c2b7ca3f9ea0ae3b 1-64
+src/tools/emailLogs/utils/emailLogMessageSummary.ts
+  c2b7ca3f9ea0ae3b 1-56
+src/tools/emailLogs/getEmailLogMessage.ts
+  751e9242928b5721 5,11,16-29,44,52,79
+  c2b7ca3f9ea0ae3b 2-4,6-9,43,45,47,60-62,65,69,73-78,80-102,106
+README.md
+  751e9242928b5721 22
+  c2b7ca3f9ea0ae3b 235,240
+CHANGELOG.md
+  751e9242928b5721 3
+src/tools/emailLogs/__tests__/getEmailLogMessage.test.ts
+  c2b7ca3f9ea0ae3b 3,19,35-36,104,112
+src/types/mailtrap.ts
+  c2b7ca3f9ea0ae3b 161-162,164-166
+src/tools/emailLogs/__tests__/getEmailLogMessage.includeContent.test.ts
+  751e9242928b5721 75
+  c2b7ca3f9ea0ae3b 1-74,76-167
+src/tools/emailLogs/schemas/getEmailLogMessage.ts
+  751e9242928b5721 1-2,21-27
+  c2b7ca3f9ea0ae3b 11-16
+src/tools/emailLogs/__tests__/parseEmlBuffer.test.ts
+  c2b7ca3f9ea0ae3b 1-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "47628d6780b881264e927106b8df600b5d9b6e1c",
+  "prompts": {
+    "751e9242928b5721": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ea6c5f72-cc28-4599-8274-e50c316a2ff3",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 325,
+      "total_deletions": 227,
+      "accepted_lines": 242,
+      "overriden_lines": 0
+    },
+    "c2b7ca3f9ea0ae3b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1789730e-b44c-4076-a8ff-aa232cad8731",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 1568,
+      "total_deletions": 730,
+      "accepted_lines": 640,
+      "overriden_lines": 0
+    },
+    "dc17d08ea836fa9a": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "78380774-50ba-4d16-82fa-af6ead15df90",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 1055,
+      "total_deletions": 77,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
