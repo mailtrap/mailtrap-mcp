@@ -19,7 +19,7 @@ Before using this MCP server, you need to:
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
 - `DEFAULT_FROM_EMAIL` - Required for all email sending operations
-- `MAILTRAP_ACCOUNT_ID` - Required for almost all tools (templates, stats, email logs, sandbox list/show). Optional only for send-email and send-sandbox-email.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email and send-sandbox-email.
 - `MAILTRAP_TEST_INBOX_ID` - Required for sandbox tools (send, list messages, show message)
 
 ## Quick Install
@@ -188,6 +188,14 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Update the template with ID 12345 to change the subject to 'Updated Welcome Message'"
 - "Delete the template with ID 67890"
 
+**Sending Domains:**
+
+- "List my sending domains"
+- "Get sending domain with ID 3938"
+- "Create a sending domain for example.com"
+- "Delete sending domain 3938"
+- "Get sending domain 3938 with DNS setup instructions"
+
 ## Available Tools
 
 ### send-email
@@ -339,6 +347,39 @@ Shows detailed information and content of a specific email message from your Mai
 > [!NOTE]
 > Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
 
+
+### list-sending-domains
+
+List sending domains and their DNS verification status.
+
+**Parameters:**
+
+- No parameters required
+
+### get-sending-domain
+
+Get a sending domain by ID and its verification status (including DNS records). Optionally include DNS setup instructions by setting `include_setup_instructions` to `true`.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `include_setup_instructions` (optional): If `true`, append DNS setup instructions to the response. Default: `false`
+
+### create-sending-domain
+
+Create a new sending domain. After creation, add DNS records to verify the domain (use get-sending-domain with `include_setup_instructions: true` to see the records).
+
+**Parameters:**
+
+- `domain_name` (required): Domain name (e.g. example.com)
+
+### delete-sending-domain
+
+Delete a sending domain.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID to delete
 
 ## Development
 

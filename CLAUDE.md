@@ -52,7 +52,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
 - `DEFAULT_FROM_EMAIL`: Default sender email address
-- `MAILTRAP_ACCOUNT_ID`: Required for almost all tools (templates, stats, email logs, sandbox list/show). Optional only for send-email and send-sandbox-email.
+- `MAILTRAP_ACCOUNT_ID`: Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email and send-sandbox-email.
 - `MAILTRAP_TEST_INBOX_ID`: Required for sandbox tools - test inbox ID for sandbox mode operations
 
 ### Testing Setup
@@ -95,5 +95,13 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **send-sandbox-email**: Send email in sandbox mode to a test inbox.
 - **get-sandbox-messages**: Get list of messages from the sandbox test inbox.
 - **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox.
+
+
+#### Sending Domains
+
+- **list-sending-domains**: List sending domains and their DNS verification status.
+- **get-sending-domain**: Get a sending domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
+- **create-sending-domain**: Create a new sending domain.
+- **delete-sending-domain**: Delete a sending domain.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

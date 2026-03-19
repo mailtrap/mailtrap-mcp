@@ -37,6 +37,16 @@ import {
   getEmailLogMessage,
   getEmailLogMessageSchema,
 } from "./tools/emailLogs";
+import {
+  listSendingDomains,
+  listSendingDomainsSchema,
+  getSendingDomain,
+  getSendingDomainSchema,
+  createSendingDomain,
+  createSendingDomainSchema,
+  deleteSendingDomain,
+  deleteSendingDomainSchema,
+} from "./tools/sendingDomains";
 
 // Define the tools registry
 const tools = [
@@ -137,6 +147,43 @@ const tools = [
     handler: getEmailLogMessage,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-sending-domains",
+    description: "List sending domains and their DNS verification status",
+    inputSchema: listSendingDomainsSchema,
+    handler: listSendingDomains,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sending-domain",
+    description:
+      "Get a sending domain by ID and its verification status. Optionally include DNS setup instructions via include_setup_instructions.",
+    inputSchema: getSendingDomainSchema,
+    handler: getSendingDomain,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-sending-domain",
+    description: "Create a new sending domain",
+    inputSchema: createSendingDomainSchema,
+    handler: createSendingDomain,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-sending-domain",
+    description: "Delete a sending domain",
+    inputSchema: deleteSendingDomainSchema,
+    handler: deleteSendingDomain,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];
