@@ -5,16 +5,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Build and Development
+
 - `npm run build` - Compile TypeScript to JavaScript in the `dist/` directory
 - `npm run dev` - Run the MCP server with the MCP Inspector for testing
 - `npm run prepublish` - Build the project and make the executable script executable
 
 ### Code Quality
+
 - `npm run lint` - Run both ESLint and TypeScript checks
 - `npm run lint:eslint` - Run ESLint for code style checking
 - `npm run lint:tsc` - Run TypeScript compiler for type checking
 
 ### Testing
+
 - `npm test` - Run all Jest tests
 - `npm run test:watch` - Run tests in watch mode during development
 - `npm run test:coverage` - Run tests with coverage reporting
@@ -24,38 +27,43 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is an MCP (Model Context Protocol) server that integrates with Mailtrap's email service. The architecture follows a modular pattern:
 
 ### Core Components
+
 - **src/index.ts**: Main MCP server entry point that registers all tools and handles the server lifecycle
 - **src/client.ts**: Mailtrap client configuration and initialization
 - **src/config/index.ts**: Server configuration constants
 
 ### Tool Architecture
+
 All tools follow a consistent pattern in the `src/tools/` directory:
-- Each tool has its own subdirectory (e.g., `sendEmail/`, `templates/`)
-- Tools export both their implementation function and Zod schema for validation
+
+- Each tool (or tool group) has its own subdirectory (e.g., `sendEmail/`, `templates/`, `emailLogs/`)
+- Tools export an **input schema** (JSON Schema–style object for MCP `inputSchema`) and a **handler** function
 - Template operations are grouped under `templates/` with individual files for each CRUD operation
+- **Runtime validation**: Handlers may validate input with Zod (see `stats/schema.ts` and `getSendingStats.ts`). Other tools use TypeScript types and ad-hoc checks; adding Zod validation in handlers is recommended for consistency
 
 ### Tool Structure Pattern
-```
-src/tools/{toolName}/
-├── index.ts          # Main tool export
-├── schema.ts         # Zod validation schema
-├── {toolName}.ts     # Tool implementation
-└── __tests__/        # Jest test files
-```
+
+- Single-tool dirs (e.g. `sendEmail/`, `stats/`): `index.ts`, `schema.ts` (or `schema.ts` + Zod in handler), implementation file(s), `__tests__/`
+- Multi-tool dirs (e.g. `templates/`, `sandbox/`, `emailLogs/`): `index.ts`, `schemas/*.ts` (one schema per tool), implementation file(s), `__tests__/`
+
+Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas in the same or separate file can be used for runtime validation in the handler.
 
 ### Environment Variables Required
+
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
 - `DEFAULT_FROM_EMAIL`: Default sender email address
-- `MAILTRAP_ACCOUNT_ID`: Required for template management and sending stats (optional for send-email only)
+- `MAILTRAP_ACCOUNT_ID`: Required for almost all tools (templates, stats, email logs, sandbox list/show). Optional only for send-email and send-sandbox-email.
 - `MAILTRAP_TEST_INBOX_ID`: Required for sandbox tools - test inbox ID for sandbox mode operations
 
 ### Testing Setup
+
 - Uses Jest with TypeScript support via ts-jest
 - Test files are located in `__tests__/` directories within each tool
 - Environment variables are set up via `jest/setEnvVars.js`
 - Coverage reports exclude test files and type definitions
 
 ### Build Configuration
+
 - TypeScript compilation targets ES2022 with CommonJS modules
 - Separate build config (`tsconfig.build.json`) excludes test files from distribution
 - Output goes to `dist/` directory with proper executable permissions
@@ -63,20 +71,29 @@ src/tools/{toolName}/
 ### Available MCP Tools
 
 #### Transactional Email
-1. **send-email**: Send transactional emails through Mailtrap
 
-#### Email Templates
-2. **create-template**: Create new email templates
-3. **list-templates**: List all email templates
-4. **update-template**: Update existing email templates
-5. **delete-template**: Delete email templates
+- **send-email**: Send transactional emails through Mailtrap.
 
-#### Sandbox Testing
-6. **send-sandbox-email**: Send email in sandbox mode to a test inbox
-7. **get-sandbox-messages**: Get list of messages from the sandbox test inbox
-8. **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox
+#### Email Logs
+
+- **list-email-logs**: List sent email logs (delivery history) with optional pagination and filters; use to debug delivery issues.
+- **get-email-log-message**: Get a single email log message by ID (UUID) to inspect delivery status and event history; optional `include_content` loads message body when available.
 
 #### Statistics
-9. **get-sending-stats**: Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range; optionally break down by domain, category, email service provider, or date. Requires `MAILTRAP_ACCOUNT_ID`.
 
-Each tool uses Zod schemas for input validation and follows the MCP protocol for response formatting.
+- **get-sending-stats**: Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range; optionally break down by domain, category, email service provider, or date.
+
+#### Email Templates
+
+- **create-template**: Create new email templates.
+- **list-templates**: List all email templates.
+- **update-template**: Update existing email templates.
+- **delete-template**: Delete email templates.
+
+#### Sandbox Testing
+
+- **send-sandbox-email**: Send email in sandbox mode to a test inbox.
+- **get-sandbox-messages**: Get list of messages from the sandbox test inbox.
+- **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox.
+
+Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

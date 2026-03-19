@@ -1,6 +1,7 @@
 ## [Unreleased]
 
-* Add **get-sending-stats** tool: check delivery, bounce, open, click, and spam rates for a date range; optional breakdown by domain, category, email service provider, or date. Requires `MAILTRAP_ACCOUNT_ID`.
+* Add **list-email-logs** and **get-email-log-message** tools: query sent-mail delivery history with filters and pagination; inspect a single log by UUID (summary, event timeline, optional body via `include_content`).
+* Add **get-sending-stats** tool: check delivery, bounce, open, click, and spam rates for a date range; optional breakdown by domain, category, email service provider, or date.
 
 ## [0.1.0] - 2025-12-09
 
