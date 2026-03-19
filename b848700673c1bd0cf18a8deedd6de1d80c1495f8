@@ -1,0 +1,68 @@
+src/tools/sendingDomains/__tests__/createSendingDomain.test.ts
+  6073c76eaaec200e 21-27,37,46-48
+src/tools/sendingDomains/getSendingDomain.ts
+  6073c76eaaec200e 2
+src/tools/sendingDomains/createSendingDomain.ts
+  6073c76eaaec200e 2,26,30-33
+src/tools/sendingDomains/utils/setupInstructions.ts
+  6073c76eaaec200e 1-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "b848700673c1bd0cf18a8deedd6de1d80c1495f8",
+  "prompts": {
+    "6073c76eaaec200e": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "28cb9f9c-78a2-42b4-a2dc-77a9a5ee15fa",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 94,
+      "total_deletions": 85,
+      "accepted_lines": 71,
+      "overriden_lines": 0
+    },
+    "751e9242928b5721": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "ea6c5f72-cc28-4599-8274-e50c316a2ff3",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 325,
+      "total_deletions": 227,
+      "accepted_lines": 26,
+      "overriden_lines": 0
+    },
+    "c2b7ca3f9ea0ae3b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1789730e-b44c-4076-a8ff-aa232cad8731",
+        "model": "default"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 1568,
+      "total_deletions": 730,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    },
+    "dc17d08ea836fa9a": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "78380774-50ba-4d16-82fa-af6ead15df90",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 1055,
+      "total_deletions": 77,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
