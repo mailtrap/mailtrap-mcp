@@ -1,4 +1,4 @@
-import { sandboxClient } from "../../client";
+import { getSandboxClient } from "../../client";
 import { ShowEmailMessageRequest } from "../../types/mailtrap";
 
 function formatSpamReport(data: unknown): string {
@@ -42,27 +42,27 @@ function formatHtmlAnalysis(data: unknown): string {
 }
 
 async function showEmailMessage({
+  test_inbox_id,
   message_id,
   include_spam_report = false,
   include_html_analysis = false,
 }: ShowEmailMessageRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    const { MAILTRAP_TEST_INBOX_ID } = process.env;
-
-    if (!MAILTRAP_TEST_INBOX_ID) {
+    const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
+    if (inboxIdRaw === undefined || inboxIdRaw === null) {
       throw new Error(
-        "MAILTRAP_TEST_INBOX_ID environment variable is required for sandbox mode"
+        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
       );
     }
 
-    // Check if sandbox client is available
-    if (!sandboxClient) {
+    const inboxId = Number(inboxIdRaw);
+    if (Number.isNaN(inboxId)) {
       throw new Error(
-        "Sandbox client is not available. Please set MAILTRAP_TEST_INBOX_ID environment variable."
+        "test_inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
       );
     }
 
-    const inboxId = Number(MAILTRAP_TEST_INBOX_ID);
+    const sandboxClient = getSandboxClient(inboxId);
 
     // Get message details
     // The showEmailMessage method takes inboxId and messageId

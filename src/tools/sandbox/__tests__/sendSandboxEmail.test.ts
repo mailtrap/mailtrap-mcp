@@ -1,14 +1,15 @@
 import sendSandboxEmail from "../sendSandboxEmail";
-import { sandboxClient } from "../../../client";
+import { getSandboxClient } from "../../../client";
 
+const mockSend = jest.fn();
 jest.mock("../../../client", () => ({
-  sandboxClient: {
-    send: jest.fn(),
-  },
+  getSandboxClient: jest.fn(() => ({ send: mockSend })),
 }));
 
 describe("sendSandboxEmail", () => {
+  const inboxId = 123;
   const mockEmailData = {
+    test_inbox_id: inboxId,
     from: "default@example.com",
     to: "recipient@example.com",
     subject: "Test Subject",
@@ -25,8 +26,12 @@ describe("sendSandboxEmail", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
-    (sandboxClient as any).send.mockResolvedValue(mockResponse);
-    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: "123" });
+    mockSend.mockResolvedValue(mockResponse);
+    (getSandboxClient as jest.Mock).mockReturnValue({ send: mockSend });
+    Object.assign(process.env, {
+      MAILTRAP_TEST_INBOX_ID: String(inboxId),
+      DEFAULT_FROM_EMAIL: "default@example.com",
+    });
   });
 
   afterEach(() => {
@@ -36,7 +41,7 @@ describe("sendSandboxEmail", () => {
   it("should send sandbox email successfully with default from address", async () => {
     const result = await sendSandboxEmail(mockEmailData);
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -65,9 +70,10 @@ describe("sendSandboxEmail", () => {
     const result = await sendSandboxEmail({
       ...mockEmailData,
       from: customFrom,
+      test_inbox_id: inboxId,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: customFrom },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -100,7 +106,7 @@ describe("sendSandboxEmail", () => {
       bcc,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -133,7 +139,7 @@ describe("sendSandboxEmail", () => {
       html,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -165,7 +171,7 @@ describe("sendSandboxEmail", () => {
       html,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -196,7 +202,7 @@ describe("sendSandboxEmail", () => {
       category,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: mockEmailData.to }],
       subject: mockEmailData.subject,
@@ -227,7 +233,7 @@ describe("sendSandboxEmail", () => {
       to: toEmails,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [
         { email: "user1@example.com" },
@@ -260,7 +266,7 @@ describe("sendSandboxEmail", () => {
       to: singleEmail,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [{ email: singleEmail }],
       subject: mockEmailData.subject,
@@ -289,7 +295,7 @@ describe("sendSandboxEmail", () => {
       to: multipleRecipients,
     });
 
-    expect((sandboxClient as any).send).toHaveBeenCalledWith({
+    expect(mockSend).toHaveBeenCalledWith({
       from: { email: "default@example.com" },
       to: [
         { email: "recipient1@example.com" },
@@ -326,29 +332,30 @@ describe("sendSandboxEmail", () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it("should throw error when MAILTRAP_TEST_INBOX_ID is not set", async () => {
+    it("should throw error when test_inbox_id and MAILTRAP_TEST_INBOX_ID are not set", async () => {
       delete process.env.MAILTRAP_TEST_INBOX_ID;
 
-      const result = await sendSandboxEmail(mockEmailData);
+      const result = await sendSandboxEmail({
+        from: mockEmailData.from,
+        to: mockEmailData.to,
+        subject: mockEmailData.subject,
+        text: mockEmailData.text,
+      });
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "Error sending sandbox email:",
         expect.anything()
       );
-      expect((sandboxClient as any).send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send sandbox email: MAILTRAP_TEST_INBOX_ID environment variable is required for sandbox mode",
-          },
-        ],
-        isError: true,
-      });
+      expect(mockSend).not.toHaveBeenCalled();
+      expect(result.content[0].text).toContain(
+        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID"
+      );
+      expect(result.isError).toBe(true);
     });
 
     it("should throw error when neither HTML nor TEXT is provided", async () => {
       const result = await sendSandboxEmail({
+        test_inbox_id: inboxId,
         from: "default@example.com",
         to: mockEmailData.to,
         subject: mockEmailData.subject,
@@ -358,7 +365,7 @@ describe("sendSandboxEmail", () => {
         "Error sending sandbox email:",
         expect.anything()
       );
-      expect((sandboxClient as any).send).not.toHaveBeenCalled();
+      expect(mockSend).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -372,7 +379,7 @@ describe("sendSandboxEmail", () => {
 
     it("should handle client.send failure", async () => {
       const mockError = new Error("Failed to send sandbox email");
-      (sandboxClient as any).send.mockRejectedValue(mockError);
+      mockSend.mockRejectedValue(mockError);
 
       const result = await sendSandboxEmail(mockEmailData);
 

@@ -1,14 +1,11 @@
-const hasDefaultFromEmail = !!process.env.DEFAULT_FROM_EMAIL;
-
 const sendEmailSchema = {
   type: "object",
   properties: {
     from: {
       type: "string",
       format: "email",
-      description: hasDefaultFromEmail
-        ? "Email address of the sender (optional with default)"
-        : "Email address of the sender",
+      description:
+        "Sender email address. Optional if DEFAULT_FROM_EMAIL env var is set.",
     },
     to: {
       oneOf: [
@@ -65,12 +62,5 @@ const sendEmailSchema = {
   required: ["to", "subject", "category"],
   additionalProperties: false,
 };
-
-if (hasDefaultFromEmail) {
-  // Make from optional when default is available
-  sendEmailSchema.required = sendEmailSchema.required.filter(
-    (field: string) => field !== "from"
-  );
-}
 
 export default sendEmailSchema;
