@@ -111,6 +111,9 @@ const tools = [
     description: "Get list of messages from the sandbox test inbox",
     inputSchema: getMessagesSchema,
     handler: getMessages,
+    annotations: {
+      readOnlyHint: true,
+    },
   },
   {
     name: "show-sandbox-email-message",
@@ -118,6 +121,9 @@ const tools = [
       "Show sandbox email message details and content from the sandbox test inbox. Optionally include spam report (SpamAssassin score) and HTML analysis (client compatibility) for email testing workflows.",
     inputSchema: showEmailMessageSchema,
     handler: showEmailMessage,
+    annotations: {
+      readOnlyHint: true,
+    },
   },
   {
     name: "get-sending-stats",
