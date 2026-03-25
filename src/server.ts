@@ -29,6 +29,22 @@ import {
   getMessagesSchema,
   showEmailMessage,
   showEmailMessageSchema,
+  listProjects,
+  listProjectsSchema,
+  createProject,
+  createProjectSchema,
+  deleteProject,
+  deleteProjectSchema,
+  createSandboxInbox,
+  createSandboxInboxSchema,
+  getSandboxInbox,
+  getSandboxInboxSchema,
+  updateSandboxInbox,
+  updateSandboxInboxSchema,
+  deleteSandboxInbox,
+  deleteSandboxInboxSchema,
+  cleanSandboxInbox,
+  cleanSandboxInboxSchema,
 } from "./tools/sandbox";
 import { getSendingStats, getSendingStatsSchema } from "./tools/stats";
 import {
@@ -123,6 +139,82 @@ const tools = [
     handler: showEmailMessage,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-sandbox-projects",
+    description:
+      "List all sandbox projects and their inboxes in your Mailtrap account",
+    inputSchema: listProjectsSchema,
+    handler: listProjects,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-sandbox-project",
+    description: "Create a new sandbox project to group test inboxes",
+    inputSchema: createProjectSchema,
+    handler: createProject,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-sandbox-project",
+    description: "Delete a sandbox project and all its inboxes",
+    inputSchema: deleteProjectSchema,
+    handler: deleteProject,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "create-sandbox-inbox",
+    description:
+      "Create a new sandbox test inbox within a project. Returns SMTP credentials for the new inbox.",
+    inputSchema: createSandboxInboxSchema,
+    handler: createSandboxInbox,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-inbox",
+    description:
+      "Get sandbox inbox details including SMTP credentials, email counts, and status",
+    inputSchema: getSandboxInboxSchema,
+    handler: getSandboxInbox,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "update-sandbox-inbox",
+    description: "Update a sandbox inbox name or email username",
+    inputSchema: updateSandboxInboxSchema,
+    handler: updateSandboxInbox,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-sandbox-inbox",
+    description: "Delete a sandbox inbox and all its messages",
+    inputSchema: deleteSandboxInboxSchema,
+    handler: deleteSandboxInbox,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "clean-sandbox-inbox",
+    description:
+      "Delete all messages from a sandbox inbox without deleting the inbox itself",
+    inputSchema: cleanSandboxInboxSchema,
+    handler: cleanSandboxInbox,
+    annotations: {
+      destructiveHint: true,
     },
   },
   {
