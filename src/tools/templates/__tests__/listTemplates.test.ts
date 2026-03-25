@@ -1,12 +1,14 @@
 import listTemplates from "../listTemplates";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  templates: {
+    getList: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    templates: {
-      getList: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(),
 }));
 
 describe("listTemplates", () => {
@@ -39,14 +41,15 @@ describe("listTemplates", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
   });
 
   it("should list templates successfully when templates exist", async () => {
-    (client.templates.getList as jest.Mock).mockResolvedValue(mockTemplates);
+    mockClient.templates.getList.mockResolvedValue(mockTemplates);
 
     const result = await listTemplates();
 
-    expect(client.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith();
 
     const expectedText = `Found 3 template(s):
 
@@ -77,11 +80,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle empty templates list", async () => {
-    (client.templates.getList as jest.Mock).mockResolvedValue([]);
+    mockClient.templates.getList.mockResolvedValue([]);
 
     const result = await listTemplates();
 
-    expect(client.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -94,11 +97,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle null templates response", async () => {
-    (client.templates.getList as jest.Mock).mockResolvedValue(null);
+    mockClient.templates.getList.mockResolvedValue(null);
 
     const result = await listTemplates();
 
-    expect(client.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -111,11 +114,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle undefined templates response", async () => {
-    (client.templates.getList as jest.Mock).mockResolvedValue(undefined);
+    mockClient.templates.getList.mockResolvedValue(undefined);
 
     const result = await listTemplates();
 
-    expect(client.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -129,11 +132,11 @@ describe("listTemplates", () => {
 
   it("should handle single template", async () => {
     const singleTemplate = [mockTemplates[0]];
-    (client.templates.getList as jest.Mock).mockResolvedValue(singleTemplate);
+    mockClient.templates.getList.mockResolvedValue(singleTemplate);
 
     const result = await listTemplates();
 
-    expect(client.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith();
 
     const expectedText = `Found 1 template(s):
 
@@ -168,7 +171,7 @@ describe("listTemplates", () => {
 
     it("should handle client.templates.getList failure", async () => {
       const mockError = new Error("Failed to fetch templates");
-      (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -189,7 +192,7 @@ describe("listTemplates", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -210,7 +213,7 @@ describe("listTemplates", () => {
 
     it("should handle network error", async () => {
       const mockError = new Error("Network error");
-      (client.templates.getList as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 

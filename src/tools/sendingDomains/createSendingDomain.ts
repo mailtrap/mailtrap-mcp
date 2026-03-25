@@ -1,4 +1,4 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 import { buildSetupInstructionsSection } from "./utils/setupInstructions";
 
 async function createSendingDomain({
@@ -10,18 +10,9 @@ async function createSendingDomain({
   isError?: boolean;
 }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("sending domains");
 
-    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-    if (!accountId || Number.isNaN(Number(accountId))) {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sending domains"
-      );
-    }
-
-    const domain = await client.sendingDomains.create({ domain_name });
+    const domain = await mailtrap.sendingDomains.create({ domain_name });
 
     let text = [
       `Sending domain "${domain_name}" created successfully.`,

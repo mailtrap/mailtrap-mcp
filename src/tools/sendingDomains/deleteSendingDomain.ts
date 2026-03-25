@@ -1,4 +1,4 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 async function deleteSendingDomain({
   sending_domain_id,
@@ -9,18 +9,9 @@ async function deleteSendingDomain({
   isError?: boolean;
 }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("sending domains");
 
-    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-    if (!accountId || Number.isNaN(Number(accountId))) {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sending domains"
-      );
-    }
-
-    await client.sendingDomains.delete(sending_domain_id);
+    await mailtrap.sendingDomains.delete(sending_domain_id);
 
     return {
       content: [

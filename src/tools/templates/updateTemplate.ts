@@ -1,5 +1,5 @@
 import { UpdateTemplateRequest } from "../../types/mailtrap";
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 async function updateTemplate({
   template_id,
@@ -10,9 +10,7 @@ async function updateTemplate({
   category,
 }: UpdateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("templates", { requireAccountId: false });
 
     // Validate that at least one update field is provided
     if (
@@ -53,7 +51,7 @@ async function updateTemplate({
     if (text !== undefined) updateData.body_text = text;
     if (category !== undefined) updateData.category = category;
 
-    const template = await client.templates.update(template_id, updateData);
+    const template = await mailtrap.templates.update(template_id, updateData);
 
     return {
       content: [

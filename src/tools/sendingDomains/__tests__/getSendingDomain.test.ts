@@ -1,12 +1,14 @@
 import getSendingDomain from "../getSendingDomain";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  sendingDomains: {
+    get: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    sendingDomains: {
-      get: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(() => mockClient),
 }));
 
 const originalEnv = { ...process.env };
@@ -34,7 +36,8 @@ describe("getSendingDomain", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
-    (client.sendingDomains.get as jest.Mock).mockResolvedValue(mockDomain);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.sendingDomains.get.mockResolvedValue(mockDomain);
   });
 
   afterEach(() => {
@@ -44,7 +47,7 @@ describe("getSendingDomain", () => {
   it("should get sending domain successfully", async () => {
     const result = await getSendingDomain({ sending_domain_id: 3938 });
 
-    expect(client.sendingDomains.get).toHaveBeenCalledWith(3938);
+    expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
     expect(result.content[0].text).toContain("example.com");
     expect(result.content[0].text).toContain("ID: 3938");
     expect(result.content[0].text).toContain("DNS verified: true");
@@ -59,7 +62,7 @@ describe("getSendingDomain", () => {
       include_setup_instructions: true,
     });
 
-    expect(client.sendingDomains.get).toHaveBeenCalledWith(3938);
+    expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
     expect(result.content[0].text).toContain("Domain: example.com");
     expect(result.content[0].text).toContain("Add DNS records for example.com");
     expect(result.content[0].text).toContain("What?");
@@ -81,17 +84,20 @@ describe("getSendingDomain", () => {
 
   it("should require MAILTRAP_ACCOUNT_ID", async () => {
     delete process.env.MAILTRAP_ACCOUNT_ID;
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for sending domains"
+      );
+    });
 
     const result = await getSendingDomain({ sending_domain_id: 3938 });
 
-    expect(client.sendingDomains.get).not.toHaveBeenCalled();
+    expect(mockClient.sendingDomains.get).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    (client.sendingDomains.get as jest.Mock).mockRejectedValue(
-      new Error("Not found")
-    );
+    mockClient.sendingDomains.get.mockRejectedValue(new Error("Not found"));
 
     const result = await getSendingDomain({ sending_domain_id: 999 });
 

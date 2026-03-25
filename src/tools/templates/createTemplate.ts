@@ -1,5 +1,5 @@
 import { CreateTemplateRequest } from "../../types/mailtrap";
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 async function createTemplate({
   name,
@@ -9,9 +9,7 @@ async function createTemplate({
   category,
 }: CreateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("templates");
 
     // Validate that at least one of html or text is provided
     if (!html && !text) {
@@ -39,7 +37,7 @@ async function createTemplate({
       createParams.body_text = text;
     }
 
-    const template = await client.templates.create(createParams);
+    const template = await mailtrap.templates.create(createParams);
 
     return {
       content: [
