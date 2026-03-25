@@ -1,0 +1,34 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "ca7538f0b4e89e24e0327538359c2ca15622f7c9",
+  "prompts": {
+    "18ee1a85bac27505": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "b9a285c6-2196-4d8e-ba20-dc78dbb397be",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 81,
+      "total_deletions": 56,
+      "accepted_lines": 40,
+      "overriden_lines": 0
+    },
+    "46141e79ee924a32": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "01f14ced-878d-42bd-88cf-06fae5d19f0f",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 60,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
