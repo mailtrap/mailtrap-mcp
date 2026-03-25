@@ -1,4 +1,4 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 import { getSendingStatsZod } from "./schema";
 
 type SendingStats = {
@@ -62,16 +62,7 @@ async function getSendingStats(raw: unknown): Promise<{
       email_service_providers: emailServiceProviders,
     } = parsed.data;
 
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
-
-    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-    if (!accountId || Number.isNaN(Number(accountId))) {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sending stats"
-      );
-    }
+    const mailtrap = requireClient("sending stats");
 
     const params = {
       start_date: startDate,
@@ -87,7 +78,7 @@ async function getSendingStats(raw: unknown): Promise<{
     const rangeLabel = `${startDate} to ${endDate}`;
 
     if (breakdown === "aggregated") {
-      const stats = await client.stats.get(params);
+      const stats = await mailtrap.stats.get(params);
       const lines = [
         `Sending stats (aggregated) for ${rangeLabel}:`,
         "",
@@ -101,16 +92,16 @@ async function getSendingStats(raw: unknown): Promise<{
     let groups: SendingStatGroup[];
     switch (breakdown) {
       case "by_domain":
-        groups = await client.stats.byDomain(params);
+        groups = await mailtrap.stats.byDomain(params);
         break;
       case "by_category":
-        groups = await client.stats.byCategory(params);
+        groups = await mailtrap.stats.byCategory(params);
         break;
       case "by_email_service_provider":
-        groups = await client.stats.byEmailServiceProvider(params);
+        groups = await mailtrap.stats.byEmailServiceProvider(params);
         break;
       case "by_date":
-        groups = await client.stats.byDate(params);
+        groups = await mailtrap.stats.byDate(params);
         break;
       default:
         groups = [];

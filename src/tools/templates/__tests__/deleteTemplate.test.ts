@@ -1,12 +1,14 @@
 import deleteTemplate from "../deleteTemplate";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  templates: {
+    delete: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    templates: {
-      delete: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(),
 }));
 
 describe("deleteTemplate", () => {
@@ -14,13 +16,14 @@ describe("deleteTemplate", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (client.templates.delete as jest.Mock).mockResolvedValue(undefined);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.templates.delete.mockResolvedValue(undefined);
   });
 
   it("should delete template successfully", async () => {
     const result = await deleteTemplate({ template_id: mockTemplateId });
 
-    expect(client.templates.delete).toHaveBeenCalledWith(mockTemplateId);
+    expect(mockClient.templates.delete).toHaveBeenCalledWith(mockTemplateId);
 
     expect(result).toEqual({
       content: [
@@ -36,7 +39,9 @@ describe("deleteTemplate", () => {
     const differentTemplateId = 67890;
     const result = await deleteTemplate({ template_id: differentTemplateId });
 
-    expect(client.templates.delete).toHaveBeenCalledWith(differentTemplateId);
+    expect(mockClient.templates.delete).toHaveBeenCalledWith(
+      differentTemplateId
+    );
 
     expect(result).toEqual({
       content: [
@@ -63,7 +68,7 @@ describe("deleteTemplate", () => {
 
     it("should handle client.templates.delete failure", async () => {
       const mockError = new Error("Failed to delete template");
-      (client.templates.delete as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.delete.mockRejectedValue(mockError);
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
@@ -84,7 +89,7 @@ describe("deleteTemplate", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      (client.templates.delete as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.delete.mockRejectedValue(mockError);
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
@@ -105,7 +110,7 @@ describe("deleteTemplate", () => {
 
     it("should handle template not found error", async () => {
       const mockError = new Error("Template not found");
-      (client.templates.delete as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.delete.mockRejectedValue(mockError);
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 

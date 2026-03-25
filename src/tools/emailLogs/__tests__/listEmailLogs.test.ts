@@ -1,12 +1,14 @@
 import listEmailLogs from "../listEmailLogs";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  emailLogs: {
+    getList: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    emailLogs: {
-      getList: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(),
 }));
 
 describe("listEmailLogs", () => {
@@ -34,7 +36,8 @@ describe("listEmailLogs", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "456" });
-    (client as any).emailLogs.getList.mockResolvedValue({ messages: mockLogs });
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.emailLogs.getList.mockResolvedValue({ messages: mockLogs });
   });
 
   afterEach(() => {
@@ -44,7 +47,7 @@ describe("listEmailLogs", () => {
   it("should list email logs successfully", async () => {
     const result = await listEmailLogs({});
 
-    expect((client as any).emailLogs.getList).toHaveBeenCalledWith(undefined);
+    expect(mockClient.emailLogs.getList).toHaveBeenCalledWith(undefined);
     expect(result.content).toHaveLength(1);
     expect(result.content[0].type).toBe("text");
     expect(result.content[0].text).toContain("Found 2 email log message(s)");
@@ -56,7 +59,7 @@ describe("listEmailLogs", () => {
   });
 
   it("should handle empty logs list", async () => {
-    (client as any).emailLogs.getList.mockResolvedValue({ messages: [] });
+    mockClient.emailLogs.getList.mockResolvedValue({ messages: [] });
 
     const result = await listEmailLogs({});
 
@@ -69,6 +72,11 @@ describe("listEmailLogs", () => {
       .spyOn(console, "error")
       .mockImplementation(() => {});
     delete process.env.MAILTRAP_ACCOUNT_ID;
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for email logs"
+      );
+    });
 
     const result = await listEmailLogs({});
 
@@ -78,7 +86,7 @@ describe("listEmailLogs", () => {
     );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
-    expect((client as any).emailLogs.getList).not.toHaveBeenCalled();
+    expect(mockClient.emailLogs.getList).not.toHaveBeenCalled();
     consoleErrorSpy.mockRestore();
   });
 
@@ -87,6 +95,11 @@ describe("listEmailLogs", () => {
       .spyOn(console, "error")
       .mockImplementation(() => {});
     process.env.MAILTRAP_ACCOUNT_ID = "not-a-number";
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for email logs"
+      );
+    });
 
     const result = await listEmailLogs({});
 
@@ -102,7 +115,7 @@ describe("listEmailLogs", () => {
   it("should pass search_after to getList", async () => {
     await listEmailLogs({ search_after: "cursor-abc" });
 
-    expect((client as any).emailLogs.getList).toHaveBeenCalledWith({
+    expect(mockClient.emailLogs.getList).toHaveBeenCalledWith({
       search_after: "cursor-abc",
     });
   });
@@ -114,7 +127,7 @@ describe("listEmailLogs", () => {
       status: "delivered",
     });
 
-    expect((client as any).emailLogs.getList).toHaveBeenCalledWith({
+    expect(mockClient.emailLogs.getList).toHaveBeenCalledWith({
       filters: {
         sent_after: "2024-01-01T00:00:00Z",
         from: { operator: "ci_equal", value: "noreply@example.com" },
@@ -131,7 +144,7 @@ describe("listEmailLogs", () => {
       status_operator: "not_equal",
     });
 
-    expect((client as any).emailLogs.getList).toHaveBeenCalledWith({
+    expect(mockClient.emailLogs.getList).toHaveBeenCalledWith({
       filters: {
         from: { operator: "ci_contain", value: "user@example.com" },
         status: { operator: "not_equal", value: "not_delivered" },
@@ -145,7 +158,7 @@ describe("listEmailLogs", () => {
       category_operator: "equal",
     });
 
-    expect((client as any).emailLogs.getList).toHaveBeenCalledWith({
+    expect(mockClient.emailLogs.getList).toHaveBeenCalledWith({
       filters: {
         category: {
           operator: "equal",
@@ -157,7 +170,7 @@ describe("listEmailLogs", () => {
 
   it("should handle API errors", async () => {
     const mockError = new Error("API Error");
-    (client as any).emailLogs.getList.mockRejectedValue(mockError);
+    mockClient.emailLogs.getList.mockRejectedValue(mockError);
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
@@ -177,7 +190,7 @@ describe("listEmailLogs", () => {
   });
 
   it("should include next_page_cursor when present", async () => {
-    (client as any).emailLogs.getList.mockResolvedValue({
+    mockClient.emailLogs.getList.mockResolvedValue({
       messages: mockLogs,
       next_page_cursor: "next-cursor-xyz",
     });

@@ -1,12 +1,14 @@
 import listSendingDomains from "../listSendingDomains";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  sendingDomains: {
+    getList: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    sendingDomains: {
-      getList: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(() => mockClient),
 }));
 
 const originalEnv = { ...process.env };
@@ -15,6 +17,7 @@ describe("listSendingDomains", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
   });
 
   afterEach(() => {
@@ -38,11 +41,11 @@ describe("listSendingDomains", () => {
         },
       ],
     };
-    (client.sendingDomains.getList as jest.Mock).mockResolvedValue(mockDomains);
+    mockClient.sendingDomains.getList.mockResolvedValue(mockDomains);
 
     const result = await listSendingDomains();
 
-    expect(client.sendingDomains.getList).toHaveBeenCalledWith();
+    expect(mockClient.sendingDomains.getList).toHaveBeenCalledWith();
     expect(result.content).toHaveLength(1);
     expect(result.content[0].type).toBe("text");
     expect(result.content[0].text).toContain("example.com");
@@ -54,7 +57,7 @@ describe("listSendingDomains", () => {
   });
 
   it("should handle empty domains list", async () => {
-    (client.sendingDomains.getList as jest.Mock).mockResolvedValue({
+    mockClient.sendingDomains.getList.mockResolvedValue({
       data: [],
     });
 
@@ -66,16 +69,21 @@ describe("listSendingDomains", () => {
 
   it("should require MAILTRAP_ACCOUNT_ID", async () => {
     delete process.env.MAILTRAP_ACCOUNT_ID;
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for sending domains"
+      );
+    });
 
     const result = await listSendingDomains();
 
-    expect(client.sendingDomains.getList).not.toHaveBeenCalled();
+    expect(mockClient.sendingDomains.getList).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    (client.sendingDomains.getList as jest.Mock).mockRejectedValue(
+    mockClient.sendingDomains.getList.mockRejectedValue(
       new Error("Network error")
     );
 

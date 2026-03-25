@@ -1,15 +1,13 @@
 import { DeleteTemplateRequest } from "../../types/mailtrap";
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 async function deleteTemplate({
   template_id,
 }: DeleteTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("templates");
 
-    await client.templates.delete(template_id);
+    await mailtrap.templates.delete(template_id);
 
     return {
       content: [

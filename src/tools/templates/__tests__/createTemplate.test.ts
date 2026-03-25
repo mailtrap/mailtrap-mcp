@@ -1,12 +1,14 @@
 import createTemplate from "../createTemplate";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  templates: {
+    create: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    templates: {
-      create: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(),
 }));
 
 describe("createTemplate", () => {
@@ -28,13 +30,14 @@ describe("createTemplate", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (client.templates.create as jest.Mock).mockResolvedValue(mockResponse);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.templates.create.mockResolvedValue(mockResponse);
   });
 
   it("should create template successfully with all required fields", async () => {
     const result = await createTemplate(mockTemplateData);
 
-    expect(client.templates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: mockTemplateData.category,
@@ -62,7 +65,7 @@ describe("createTemplate", () => {
 
     const result = await createTemplate(templateDataWithoutCategory);
 
-    expect(client.templates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: "General",
@@ -90,7 +93,7 @@ describe("createTemplate", () => {
 
     const result = await createTemplate(templateDataWithoutText);
 
-    expect(client.templates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: mockTemplateData.category,
@@ -117,7 +120,7 @@ describe("createTemplate", () => {
 
     const result = await createTemplate(templateDataWithCustomCategory);
 
-    expect(client.templates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: customCategory,
@@ -150,7 +153,7 @@ describe("createTemplate", () => {
 
     it("should handle client.templates.create failure", async () => {
       const mockError = new Error("Failed to create template");
-      (client.templates.create as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.create.mockRejectedValue(mockError);
 
       const result = await createTemplate(mockTemplateData);
 
@@ -171,7 +174,7 @@ describe("createTemplate", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      (client.templates.create as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.create.mockRejectedValue(mockError);
 
       const result = await createTemplate(mockTemplateData);
 

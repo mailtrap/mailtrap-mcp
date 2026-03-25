@@ -1,12 +1,10 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 async function listTemplates(): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("templates");
 
-    const templates = await client.templates.getList();
+    const templates = await mailtrap.templates.getList();
 
     if (!templates || templates.length === 0) {
       return {

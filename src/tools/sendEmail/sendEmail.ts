@@ -1,7 +1,7 @@
 import { Address, Mail } from "mailtrap";
 import { SendMailToolRequest } from "../../types/mailtrap";
 
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 const { DEFAULT_FROM_EMAIL } = process.env;
 
@@ -16,9 +16,9 @@ async function sendEmail({
   html,
 }: SendMailToolRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("sending email", {
+      requireAccountId: false,
+    });
 
     if (!html && !text) {
       throw new Error("Either HTML or TEXT body is required");
@@ -79,7 +79,7 @@ async function sendEmail({
       }
     }
 
-    const response = await client.send(emailData);
+    const response = await mailtrap.send(emailData);
 
     return {
       content: [
