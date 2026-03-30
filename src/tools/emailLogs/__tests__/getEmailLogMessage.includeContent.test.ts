@@ -1,13 +1,15 @@
 import getEmailLogMessage from "../getEmailLogMessage";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
 import mockEmailLogWithEvents from "../fixtures/emailLogMessageFixtures";
 
-jest.mock("../../../client", () => ({
-  client: {
-    emailLogs: {
-      get: jest.fn(),
-    },
+const mockClient = {
+  emailLogs: {
+    get: jest.fn(),
   },
+};
+
+jest.mock("../../../client", () => ({
+  requireClient: jest.fn(),
 }));
 
 describe("getEmailLogMessage include_content", () => {
@@ -47,7 +49,8 @@ describe("getEmailLogMessage include_content", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "456" });
-    (client as any).emailLogs.get.mockResolvedValue(mockEmailLogWithEvents);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.emailLogs.get.mockResolvedValue(mockEmailLogWithEvents);
     fetchSpy = jest.spyOn(global, "fetch").mockImplementation();
   });
 
@@ -73,7 +76,7 @@ describe("getEmailLogMessage include_content", () => {
   });
 
   it("should fetch raw message URL and append parsed HTML and text bodies", async () => {
-    (client as any).emailLogs.get.mockResolvedValue({
+    mockClient.emailLogs.get.mockResolvedValue({
       ...mockEmailLogWithEvents,
       raw_message_url: rawUrl,
     });
@@ -100,7 +103,7 @@ describe("getEmailLogMessage include_content", () => {
   });
 
   it("should report fetch failure status when response not ok", async () => {
-    (client as any).emailLogs.get.mockResolvedValue({
+    mockClient.emailLogs.get.mockResolvedValue({
       ...mockEmailLogWithEvents,
       raw_message_url: rawUrl,
     });
@@ -118,7 +121,7 @@ describe("getEmailLogMessage include_content", () => {
   });
 
   it("should report fetch/parse errors in content", async () => {
-    (client as any).emailLogs.get.mockResolvedValue({
+    mockClient.emailLogs.get.mockResolvedValue({
       ...mockEmailLogWithEvents,
       raw_message_url: rawUrl,
     });
@@ -134,7 +137,7 @@ describe("getEmailLogMessage include_content", () => {
   });
 
   it("should report when EML has no text or html parts", async () => {
-    (client as any).emailLogs.get.mockResolvedValue({
+    mockClient.emailLogs.get.mockResolvedValue({
       ...mockEmailLogWithEvents,
       raw_message_url: rawUrl,
     });

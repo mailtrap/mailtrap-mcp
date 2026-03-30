@@ -1,12 +1,14 @@
 import updateTemplate from "../updateTemplate";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  templates: {
+    update: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    templates: {
-      update: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(),
 }));
 
 describe("updateTemplate", () => {
@@ -30,13 +32,14 @@ describe("updateTemplate", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (client.templates.update as jest.Mock).mockResolvedValue(mockResponse);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.templates.update.mockResolvedValue(mockResponse);
   });
 
   it("should update template successfully with all fields", async () => {
     const result = await updateTemplate(mockUpdateData);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       name: mockUpdateData.name,
       subject: mockUpdateData.subject,
       body_html: mockUpdateData.html,
@@ -62,7 +65,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyName);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       name: "New Template Name",
     });
 
@@ -84,7 +87,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlySubject);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       subject: "New Email Subject",
     });
 
@@ -106,7 +109,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyHtml);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       body_html: "<h1>New HTML Content</h1>",
     });
 
@@ -128,7 +131,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyText);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       body_text: "New text content",
     });
 
@@ -150,7 +153,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyCategory);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       category: "New Category",
     });
 
@@ -174,7 +177,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithMultipleFields);
 
-    expect(client.templates.update).toHaveBeenCalledWith(mockTemplateId, {
+    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       name: "Updated Name",
       subject: "Updated Subject",
       category: "Updated Category",
@@ -199,9 +202,12 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithDifferentId);
 
-    expect(client.templates.update).toHaveBeenCalledWith(differentTemplateId, {
-      name: "Different Template",
-    });
+    expect(mockClient.templates.update).toHaveBeenCalledWith(
+      differentTemplateId,
+      {
+        name: "Different Template",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -220,7 +226,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithNoFields);
 
-    expect(client.templates.update).not.toHaveBeenCalled();
+    expect(mockClient.templates.update).not.toHaveBeenCalled();
 
     expect(result).toEqual({
       content: [
@@ -248,7 +254,7 @@ describe("updateTemplate", () => {
 
     it("should handle client.templates.update failure", async () => {
       const mockError = new Error("Failed to update template");
-      (client.templates.update as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
@@ -269,7 +275,7 @@ describe("updateTemplate", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      (client.templates.update as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
@@ -290,7 +296,7 @@ describe("updateTemplate", () => {
 
     it("should handle template not found error", async () => {
       const mockError = new Error("Template not found");
-      (client.templates.update as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
@@ -311,7 +317,7 @@ describe("updateTemplate", () => {
 
     it("should handle validation error", async () => {
       const mockError = new Error("Validation failed");
-      (client.templates.update as jest.Mock).mockRejectedValue(mockError);
+      mockClient.templates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 

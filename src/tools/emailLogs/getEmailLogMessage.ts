@@ -1,4 +1,4 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 import { type EmailLogMessageDetails } from "../../types/mailtrap";
 import { formatEmailLogEvent } from "./utils/emailLogEventFormat";
 import { buildMessageSummaryLines } from "./utils/emailLogMessageSummary";
@@ -27,20 +27,9 @@ async function getEmailLogMessage(raw: unknown): Promise<{
     const { message_id: messageId, include_content: includeContent } =
       parsed.data;
 
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("email logs");
 
-    if (
-      !process.env.MAILTRAP_ACCOUNT_ID ||
-      Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-    ) {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for email logs. Find it at https://mailtrap.io/account-management"
-      );
-    }
-
-    const log = (await client.emailLogs.get(
+    const log = (await mailtrap.emailLogs.get(
       messageId
     )) as EmailLogMessageRow | null;
 

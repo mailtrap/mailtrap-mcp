@@ -1,16 +1,18 @@
 import getSendingStats from "../getSendingStats";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
+
+const mockClient = {
+  stats: {
+    get: jest.fn(),
+    byDomain: jest.fn(),
+    byCategory: jest.fn(),
+    byEmailServiceProvider: jest.fn(),
+    byDate: jest.fn(),
+  },
+};
 
 jest.mock("../../../client", () => ({
-  client: {
-    stats: {
-      get: jest.fn(),
-      byDomain: jest.fn(),
-      byCategory: jest.fn(),
-      byEmailServiceProvider: jest.fn(),
-      byDate: jest.fn(),
-    },
-  },
+  requireClient: jest.fn(),
 }));
 
 const mockStats = {
@@ -34,11 +36,12 @@ describe("getSendingStats", () => {
     Object.assign(process.env, {
       MAILTRAP_ACCOUNT_ID: "12345",
     });
-    (client as any).stats.get.mockResolvedValue(mockStats);
-    (client as any).stats.byDomain.mockResolvedValue([
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.stats.get.mockResolvedValue(mockStats);
+    mockClient.stats.byDomain.mockResolvedValue([
       { name: "sending_domain_id", value: 3938, stats: mockStats },
     ]);
-    (client as any).stats.byDate.mockResolvedValue([
+    mockClient.stats.byDate.mockResolvedValue([
       { name: "date", value: "2025-01-01", stats: mockStats },
     ]);
   });
@@ -54,7 +57,7 @@ describe("getSendingStats", () => {
       end_date: "2025-01-31",
     });
 
-    expect((client as any).stats.get).toHaveBeenCalledWith({
+    expect(mockClient.stats.get).toHaveBeenCalledWith({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
@@ -77,7 +80,7 @@ describe("getSendingStats", () => {
       breakdown: "by_domain",
     });
 
-    expect((client as any).stats.byDomain).toHaveBeenCalledWith({
+    expect(mockClient.stats.byDomain).toHaveBeenCalledWith({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
@@ -94,7 +97,7 @@ describe("getSendingStats", () => {
       breakdown: "by_date",
     });
 
-    expect((client as any).stats.byDate).toHaveBeenCalledWith({
+    expect(mockClient.stats.byDate).toHaveBeenCalledWith({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
@@ -113,7 +116,7 @@ describe("getSendingStats", () => {
       email_service_providers: ["Google"],
     });
 
-    expect((client as any).stats.get).toHaveBeenCalledWith({
+    expect(mockClient.stats.get).toHaveBeenCalledWith({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
       sending_domain_ids: [1, 2],
@@ -125,6 +128,11 @@ describe("getSendingStats", () => {
 
   it("should return error when MAILTRAP_ACCOUNT_ID is missing", async () => {
     delete process.env.MAILTRAP_ACCOUNT_ID;
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for sending stats"
+      );
+    });
 
     const result = await getSendingStats({
       start_date: "2025-01-01",
@@ -135,11 +143,16 @@ describe("getSendingStats", () => {
     expect(result.content[0].text).toContain(
       "MAILTRAP_ACCOUNT_ID environment variable is required for sending stats"
     );
-    expect((client as any).stats.get).not.toHaveBeenCalled();
+    expect(mockClient.stats.get).not.toHaveBeenCalled();
   });
 
   it("should return error when MAILTRAP_ACCOUNT_ID is invalid", async () => {
     process.env.MAILTRAP_ACCOUNT_ID = "not-a-number";
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for sending stats"
+      );
+    });
 
     const result = await getSendingStats({
       start_date: "2025-01-01",
@@ -152,13 +165,11 @@ describe("getSendingStats", () => {
     );
   });
 
-  it("should return error when client is null", async () => {
-    jest.doMock("../../../client", () => ({ client: null }));
-    jest.resetModules();
-    const { default: getSendingStatsWithNullClient } = await import(
-      "../getSendingStats"
-    );
-    const result = await getSendingStatsWithNullClient({
+  it("should return error when requireClient throws", async () => {
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+    });
+    const result = await getSendingStats({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
@@ -167,9 +178,7 @@ describe("getSendingStats", () => {
   });
 
   it("should handle API errors", async () => {
-    (client as any).stats.get.mockRejectedValue(
-      new Error("Rate limit exceeded")
-    );
+    mockClient.stats.get.mockRejectedValue(new Error("Rate limit exceeded"));
 
     const result = await getSendingStats({
       start_date: "2025-01-01",
@@ -182,7 +191,7 @@ describe("getSendingStats", () => {
   });
 
   it("should call byCategory when breakdown is by_category", async () => {
-    (client as any).stats.byCategory.mockResolvedValue([
+    mockClient.stats.byCategory.mockResolvedValue([
       { name: "category", value: "Welcome", stats: mockStats },
     ]);
 
@@ -192,7 +201,7 @@ describe("getSendingStats", () => {
       breakdown: "by_category",
     });
 
-    expect((client as any).stats.byCategory).toHaveBeenCalledWith({
+    expect(mockClient.stats.byCategory).toHaveBeenCalledWith({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
@@ -200,7 +209,7 @@ describe("getSendingStats", () => {
   });
 
   it("should call byEmailServiceProvider when breakdown is by_email_service_provider", async () => {
-    (client as any).stats.byEmailServiceProvider.mockResolvedValue([
+    mockClient.stats.byEmailServiceProvider.mockResolvedValue([
       { name: "email_service_provider", value: "Google", stats: mockStats },
     ]);
 
@@ -210,7 +219,7 @@ describe("getSendingStats", () => {
       breakdown: "by_email_service_provider",
     });
 
-    expect((client as any).stats.byEmailServiceProvider).toHaveBeenCalledWith({
+    expect(mockClient.stats.byEmailServiceProvider).toHaveBeenCalledWith({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });

@@ -1,13 +1,15 @@
 import getEmailLogMessage from "../getEmailLogMessage";
-import { client } from "../../../client";
+import { requireClient } from "../../../client";
 import mockEmailLogWithEvents from "../fixtures/emailLogMessageFixtures";
 
-jest.mock("../../../client", () => ({
-  client: {
-    emailLogs: {
-      get: jest.fn(),
-    },
+const mockClient = {
+  emailLogs: {
+    get: jest.fn(),
   },
+};
+
+jest.mock("../../../client", () => ({
+  requireClient: jest.fn(),
 }));
 
 describe("getEmailLogMessage", () => {
@@ -16,7 +18,8 @@ describe("getEmailLogMessage", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "456" });
-    (client as any).emailLogs.get.mockResolvedValue(mockEmailLogWithEvents);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    mockClient.emailLogs.get.mockResolvedValue(mockEmailLogWithEvents);
   });
 
   afterEach(() => {
@@ -26,7 +29,7 @@ describe("getEmailLogMessage", () => {
   it("should get email log message successfully", async () => {
     const result = await getEmailLogMessage({ message_id: "msg-uuid-123" });
 
-    expect((client as any).emailLogs.get).toHaveBeenCalledWith("msg-uuid-123");
+    expect(mockClient.emailLogs.get).toHaveBeenCalledWith("msg-uuid-123");
     expect(result.content).toHaveLength(1);
     expect(result.content[0].type).toBe("text");
     expect(result.content[0].text).toContain("Email Log Details");
@@ -37,7 +40,7 @@ describe("getEmailLogMessage", () => {
   });
 
   it("should handle not found", async () => {
-    (client as any).emailLogs.get.mockResolvedValue(null);
+    mockClient.emailLogs.get.mockResolvedValue(null);
 
     const result = await getEmailLogMessage({ message_id: "missing-uuid" });
 
@@ -50,6 +53,11 @@ describe("getEmailLogMessage", () => {
       .spyOn(console, "error")
       .mockImplementation(() => {});
     delete process.env.MAILTRAP_ACCOUNT_ID;
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for email logs"
+      );
+    });
 
     const result = await getEmailLogMessage({ message_id: "msg-uuid-123" });
 
@@ -59,7 +67,7 @@ describe("getEmailLogMessage", () => {
     );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
-    expect((client as any).emailLogs.get).not.toHaveBeenCalled();
+    expect(mockClient.emailLogs.get).not.toHaveBeenCalled();
     consoleErrorSpy.mockRestore();
   });
 
@@ -68,6 +76,11 @@ describe("getEmailLogMessage", () => {
       .spyOn(console, "error")
       .mockImplementation(() => {});
     process.env.MAILTRAP_ACCOUNT_ID = "invalid";
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error(
+        "MAILTRAP_ACCOUNT_ID environment variable is required for email logs"
+      );
+    });
 
     const result = await getEmailLogMessage({ message_id: "msg-uuid-123" });
 
@@ -82,7 +95,7 @@ describe("getEmailLogMessage", () => {
 
   it("should handle API errors", async () => {
     const mockError = new Error("Not found");
-    (client as any).emailLogs.get.mockRejectedValue(mockError);
+    mockClient.emailLogs.get.mockRejectedValue(mockError);
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
@@ -100,7 +113,7 @@ describe("getEmailLogMessage", () => {
   });
 
   it("should include error field when present in log", async () => {
-    (client as any).emailLogs.get.mockResolvedValue({
+    mockClient.emailLogs.get.mockResolvedValue({
       ...mockEmailLogWithEvents,
       error: "Recipient mailbox full",
     });

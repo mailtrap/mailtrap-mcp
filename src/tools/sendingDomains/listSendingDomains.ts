@@ -1,22 +1,13 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 
 async function listSendingDomains(): Promise<{
   content: { type: string; text: string }[];
   isError?: boolean;
 }> {
   try {
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
+    const mailtrap = requireClient("sending domains");
 
-    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-    if (!accountId || Number.isNaN(Number(accountId))) {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sending domains"
-      );
-    }
-
-    const response = await client.sendingDomains.getList();
+    const response = await mailtrap.sendingDomains.getList();
     const domains = response?.data ?? [];
 
     if (domains.length === 0) {

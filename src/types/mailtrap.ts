@@ -163,6 +163,41 @@ export interface ListEmailLogsRequest {
   category_operator?: "equal" | "not_equal";
 }
 
+// --- Sandbox management types ---
+
+export interface CreateProjectRequest {
+  name: string;
+}
+
+export interface DeleteProjectRequest {
+  project_id: number;
+}
+
+export interface CreateSandboxInboxRequest {
+  project_id: number;
+  name: string;
+}
+
+export interface GetSandboxInboxRequest {
+  inbox_id?: number;
+}
+
+export interface UpdateSandboxInboxRequest {
+  inbox_id: number;
+  name?: string;
+  email_username?: string;
+}
+
+export interface DeleteSandboxInboxRequest {
+  inbox_id: number;
+}
+
+export interface CleanSandboxInboxRequest {
+  inbox_id: number;
+}
+
+// --- Email log types ---
+
 export interface GetEmailLogMessageRequest {
   message_id: string;
   /** When true, fetch raw EML from raw_message_url (if present) and include parsed HTML and text body. */

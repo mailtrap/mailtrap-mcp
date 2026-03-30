@@ -38,5 +38,34 @@ function getSandboxClient(inboxId: number): MailtrapClient {
   });
 }
 
+/**
+ * Validates that the Mailtrap client is initialised and (optionally) that
+ * MAILTRAP_ACCOUNT_ID is set.  Returns the client so callers can use it
+ * directly:
+ *
+ *   const mailtrap = requireClient("sandbox projects");
+ *   const projects = await mailtrap.testing.projects.getList();
+ *
+ * @param feature  Human-readable label used in error messages, e.g. "sandbox inboxes".
+ * @param opts.requireAccountId  When true (the default), also assert MAILTRAP_ACCOUNT_ID.
+ */
+function requireClient(
+  feature: string,
+  { requireAccountId = true }: { requireAccountId?: boolean } = {}
+): MailtrapClient {
+  if (!client) {
+    throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+  }
+  if (requireAccountId) {
+    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
+    if (!accountId || Number.isNaN(Number(accountId))) {
+      throw new Error(
+        `MAILTRAP_ACCOUNT_ID environment variable is required for ${feature}`
+      );
+    }
+  }
+  return client;
+}
+
 // eslint-disable-next-line import/prefer-default-export
-export { client, getSandboxClient };
+export { client, getSandboxClient, requireClient };

@@ -1,4 +1,4 @@
-import { client } from "../../client";
+import { requireClient } from "../../client";
 import type { EmailLogMessageDetails } from "../../types/mailtrap";
 import {
   listEmailLogsZod,
@@ -72,18 +72,7 @@ async function listEmailLogs(raw: unknown): Promise<{
 
     const params = parsed.data;
 
-    if (!client) {
-      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-    }
-
-    if (
-      !process.env.MAILTRAP_ACCOUNT_ID ||
-      Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-    ) {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for email logs. Find it at https://mailtrap.io/account-management"
-      );
-    }
+    const mailtrap = requireClient("email logs");
 
     type FilterWithValue =
       | { operator: string; value?: string | string[] }
@@ -231,7 +220,7 @@ async function listEmailLogs(raw: unknown): Promise<{
       requestParams.search_after = params.search_after;
     if (Object.keys(filters).length > 0) requestParams.filters = filters;
 
-    const rawResponse = await client.emailLogs.getList(
+    const rawResponse = await mailtrap.emailLogs.getList(
       Object.keys(requestParams).length > 0 ? requestParams : undefined
     );
     const responseParsed = listEmailLogsResponseZod.safeParse(rawResponse);
