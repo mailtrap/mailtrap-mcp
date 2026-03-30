@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "mailtrap-mcpb",
   "display_name": "Mailtrap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Send emails and manage templates using Mailtrap",
   "long_description": "**[Mailtrap.io](https://mailtrap.io)** is a comprehensive email platform that helps developers and teams test, debug, and deliver emails safely. It provides both email testing (sandbox) and email delivery services. \n This MCP (Model Context Protocol) server provides AI assistants with the ability to: \n - **Send emails** via Mailtrap's delivery API \n - **Test emails** using Mailtrap's sandbox environment \n - **Manage email templates** (create, update, delete, list).",
   "author": {
@@ -37,12 +37,12 @@
       "description": "Send emails via Mailtrap's delivery API with support for HTML/text content and multiple recipients."
     },
     {
-      "name": "send-sandbox-email",
-      "description": "Send test emails to Mailtrap's sandbox environment without delivering to real recipients."
-    },
-    {
       "name": "create-template",
       "description": "Create a new email template in Mailtrap."
+    },
+    {
+      "name": "list-templates",
+      "description": "List all email templates in your Mailtrap account."
     },
     {
       "name": "update-template",
@@ -53,8 +53,76 @@
       "description": "Delete an email template from Mailtrap."
     },
     {
-      "name": "list-templates",
-      "description": "List all email templates in your Mailtrap account."
+      "name": "send-sandbox-email",
+      "description": "Send test emails to Mailtrap's sandbox environment without delivering to real recipients."
+    },
+    {
+      "name": "get-sandbox-messages",
+      "description": "Get list of messages from the sandbox test inbox."
+    },
+    {
+      "name": "show-sandbox-email-message",
+      "description": "Show sandbox email message details and content, with optional spam report and HTML analysis."
+    },
+    {
+      "name": "list-sandbox-projects",
+      "description": "List all sandbox projects and their inboxes in your Mailtrap account."
+    },
+    {
+      "name": "create-sandbox-project",
+      "description": "Create a new sandbox project to group test inboxes."
+    },
+    {
+      "name": "delete-sandbox-project",
+      "description": "Delete a sandbox project and all its inboxes."
+    },
+    {
+      "name": "create-sandbox-inbox",
+      "description": "Create a new sandbox test inbox within a project."
+    },
+    {
+      "name": "get-sandbox-inbox",
+      "description": "Get sandbox inbox details including SMTP credentials, email counts, and status."
+    },
+    {
+      "name": "update-sandbox-inbox",
+      "description": "Update a sandbox inbox name or email username."
+    },
+    {
+      "name": "delete-sandbox-inbox",
+      "description": "Delete a sandbox inbox and all its messages."
+    },
+    {
+      "name": "clean-sandbox-inbox",
+      "description": "Delete all messages from a sandbox inbox without deleting the inbox itself."
+    },
+    {
+      "name": "get-sending-stats",
+      "description": "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range with optional breakdowns."
+    },
+    {
+      "name": "list-email-logs",
+      "description": "List sent email logs (delivery history) with optional pagination and filters."
+    },
+    {
+      "name": "get-email-log-message",
+      "description": "Get a single email log message by ID to inspect delivery status and event history."
+    },
+    {
+      "name": "list-sending-domains",
+      "description": "List sending domains and their DNS verification status."
+    },
+    {
+      "name": "get-sending-domain",
+      "description": "Get a sending domain by ID and its verification status, with optional DNS setup instructions."
+    },
+    {
+      "name": "create-sending-domain",
+      "description": "Create a new sending domain."
+    },
+    {
+      "name": "delete-sending-domain",
+      "description": "Delete a sending domain."
     }
   ],
   "prompts": [],
