@@ -1,0 +1,23 @@
+package.json
+  966b9146c9028639 49-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "d347a22cb244ed6e75d4abd61548e8a68ae94080",
+  "prompts": {
+    "966b9146c9028639": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "06be083b-12c5-450b-aa53-bfd77b30cf87",
+        "model": "default"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 0,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
