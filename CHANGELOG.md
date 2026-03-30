@@ -1,8 +1,18 @@
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-30
+
+* Add **sandbox project & inbox management** tools: **list-sandbox-projects**, **create-sandbox-project**, **delete-sandbox-project**, **create-sandbox-inbox**, **get-sandbox-inbox**, **update-sandbox-inbox**, **delete-sandbox-inbox**, **clean-sandbox-inbox**.
+* Extend **show-sandbox-email-message** tool with spam report (SpamAssassin score) and HTML analysis (client compatibility).
+* Add read-only annotations to **get-sandbox-messages** and **show-sandbox-email-message**.
 * Add **list-email-logs** and **get-email-log-message** tools: query sent-mail delivery history with filters and pagination; inspect a single log by UUID (summary, event timeline, optional body via `include_content`).
 * Add **get-sending-stats** tool: check delivery, bounce, open, click, and spam rates for a date range; optional breakdown by domain, category, email service provider, or date.
 * Add **sending domains** tools: **list-sending-domains**, **get-sending-domain**, **create-sending-domain**, **delete-sending-domain**. **get-sending-domain** accepts optional `include_setup_instructions: true` to append DNS setup instructions to the response.
+* Make `DEFAULT_FROM_EMAIL` and `MAILTRAP_TEST_INBOX_ID` config/env params optional so that it's possible to change them in runtime.
+* Reuse `requireClient` helper to reduce client setup validation boilerplate across tools.
+* Bump `mailtrap` SDK to 4.5.1.
+* Update manifest.json tools list to reflect all 23 available tools.
+* Dependency updates.
 
 ## [0.1.0] - 2025-12-09
 
