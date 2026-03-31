@@ -1,3 +1,5 @@
+import mailtrapAddressParamSchema from "../../schemas/mailtrapAddressParam";
+
 const sendSandboxEmailSchema = {
   type: "object",
   properties: {
@@ -7,15 +9,28 @@ const sendSandboxEmailSchema = {
         "Mailtrap test inbox ID. Optional if MAILTRAP_TEST_INBOX_ID env var is set. Use to target a specific inbox.",
     },
     from: {
-      type: "string",
-      format: "email",
+      ...mailtrapAddressParamSchema,
       description:
-        "Sender email address. Optional if DEFAULT_FROM_EMAIL env var is set.",
+        "Sender as an email string or `{ email, name? }`. Omit if DEFAULT_FROM_EMAIL is set.",
     },
     to: {
-      type: "string",
-      minLength: 1,
-      description: "Email addresses (comma-separated or single)",
+      oneOf: [
+        {
+          type: "string",
+          minLength: 1,
+          description:
+            "Comma-separated email addresses (plain emails only; use array form for display names).",
+        },
+        {
+          type: "array",
+          minItems: 1,
+          items: mailtrapAddressParamSchema,
+          description:
+            "Array of recipients as email strings or `{ email, name? }` objects.",
+        },
+      ],
+      description:
+        "Recipients: comma-separated string, or an array of addresses with optional display names.",
     },
     subject: {
       type: "string",
@@ -23,19 +38,13 @@ const sendSandboxEmailSchema = {
     },
     cc: {
       type: "array",
-      items: {
-        type: "string",
-        format: "email",
-      },
-      description: "Optional CC recipients",
+      items: mailtrapAddressParamSchema,
+      description: "Optional CC recipients (email or `{ email, name? }` each)",
     },
     bcc: {
       type: "array",
-      items: {
-        type: "string",
-        format: "email",
-      },
-      description: "Optional BCC recipients",
+      items: mailtrapAddressParamSchema,
+      description: "Optional BCC recipients (email or `{ email, name? }` each)",
     },
     category: {
       type: "string",

@@ -1,5 +1,10 @@
-import { Address, Mail } from "mailtrap";
+import { Mail } from "mailtrap";
 import { SendMailToolRequest } from "../../types/mailtrap";
+import {
+  buildFromAddress,
+  normalizeAddressList,
+  normalizeToRecipients,
+} from "../../utils/mailtrapAddresses";
 
 import { requireClient } from "../../client";
 
@@ -24,34 +29,15 @@ async function sendEmail({
       throw new Error("Either HTML or TEXT body is required");
     }
 
-    const fromEmail = from ?? DEFAULT_FROM_EMAIL;
+    const fromAddress = buildFromAddress(from, DEFAULT_FROM_EMAIL);
 
-    if (!fromEmail) {
-      throw new Error(
-        "Provide 'from' or set DEFAULT_FROM_EMAIL environment variable"
-      );
-    }
+    const toAddresses = normalizeToRecipients(to);
 
-    const fromAddress: Address = {
-      email: fromEmail,
-    };
-
-    // Handle both single email and array of emails
-    // Normalize inputs: convert to array, trim each email, filter empty strings
-    const normalizedToEmails = (Array.isArray(to) ? to : [to])
-      .map((email) => email.trim())
-      .filter((email) => email.length > 0);
-
-    // Validate that we have at least one valid recipient after normalization
-    if (normalizedToEmails.length === 0) {
+    if (toAddresses.length === 0) {
       throw new Error(
         "No valid recipients provided in 'to' field after normalization"
       );
     }
-
-    const toAddresses: Address[] = normalizedToEmails.map((email) => ({
-      email,
-    }));
 
     const emailData: Mail = {
       from: fromAddress,
@@ -63,19 +49,15 @@ async function sendEmail({
     };
 
     if (cc && cc.length > 0) {
-      const normalizedCcEmails = cc
-        .map((email) => email.trim())
-        .filter((email) => email.length > 0);
-      if (normalizedCcEmails.length > 0) {
-        emailData.cc = normalizedCcEmails.map((email) => ({ email }));
+      const ccAddresses = normalizeAddressList(cc);
+      if (ccAddresses.length > 0) {
+        emailData.cc = ccAddresses;
       }
     }
     if (bcc && bcc.length > 0) {
-      const normalizedBccEmails = bcc
-        .map((email) => email.trim())
-        .filter((email) => email.length > 0);
-      if (normalizedBccEmails.length > 0) {
-        emailData.bcc = normalizedBccEmails.map((email) => ({ email }));
+      const bccAddresses = normalizeAddressList(bcc);
+      if (bccAddresses.length > 0) {
+        emailData.bcc = bccAddresses;
       }
     }
 

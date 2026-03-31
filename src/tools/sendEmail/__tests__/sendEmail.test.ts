@@ -77,6 +77,34 @@ describe("sendEmail", () => {
     });
   });
 
+  it("should send email with custom from name when from is an object", async () => {
+    const result = await sendEmail({
+      ...mockEmailData,
+      from: {
+        email: "custom@example.com",
+        name: "Acme Notifications",
+      },
+    });
+
+    expect(mockClient.send).toHaveBeenCalledWith({
+      from: { email: "custom@example.com", name: "Acme Notifications" },
+      to: [{ email: mockEmailData.to }],
+      subject: mockEmailData.subject,
+      text: mockEmailData.text,
+      html: undefined,
+      category: mockEmailData.category,
+    });
+
+    expect(result).toEqual({
+      content: [
+        {
+          type: "text",
+          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
+        },
+      ],
+    });
+  });
+
   it("should handle CC and BCC recipients", async () => {
     const cc = ["cc1@example.com", "cc2@example.com"];
     const bcc = ["bcc@example.com"];
@@ -103,6 +131,63 @@ describe("sendEmail", () => {
         {
           type: "text",
           text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
+        },
+      ],
+    });
+  });
+
+  it("should pass display names for to, cc, and bcc when given as objects", async () => {
+    const result = await sendEmail({
+      ...mockEmailData,
+      to: [{ email: "to1@example.com", name: "To One" }, "to2@example.com"],
+      cc: [{ email: "cc@example.com", name: "CC Name" }],
+      bcc: [{ email: "bcc@example.com", name: "BCC Name" }],
+    });
+
+    expect(mockClient.send).toHaveBeenCalledWith({
+      from: { email: "default@example.com" },
+      to: [
+        { email: "to1@example.com", name: "To One" },
+        { email: "to2@example.com" },
+      ],
+      subject: mockEmailData.subject,
+      text: mockEmailData.text,
+      html: undefined,
+      category: mockEmailData.category,
+      cc: [{ email: "cc@example.com", name: "CC Name" }],
+      bcc: [{ email: "bcc@example.com", name: "BCC Name" }],
+    });
+
+    expect(result).toEqual({
+      content: [
+        {
+          type: "text",
+          text: `Email sent successfully to to1@example.com, to2@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
+        },
+      ],
+    });
+  });
+
+  it("should accept a single to recipient as an object with a display name", async () => {
+    const result = await sendEmail({
+      ...mockEmailData,
+      to: { email: "named@example.com", name: "Named User" },
+    });
+
+    expect(mockClient.send).toHaveBeenCalledWith({
+      from: { email: "default@example.com" },
+      to: [{ email: "named@example.com", name: "Named User" }],
+      subject: mockEmailData.subject,
+      text: mockEmailData.text,
+      html: undefined,
+      category: mockEmailData.category,
+    });
+
+    expect(result).toEqual({
+      content: [
+        {
+          type: "text",
+          text: `Email sent successfully to named@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
         },
       ],
     });

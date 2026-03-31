@@ -1,6 +1,11 @@
-import { Address, Mail } from "mailtrap";
+import { Mail } from "mailtrap";
 import { getSandboxClient } from "../../client";
 import { SendSandboxEmailRequest } from "../../types/mailtrap";
+import {
+  buildFromAddress,
+  normalizeAddressList,
+  parseSandboxTo,
+} from "../../utils/mailtrapAddresses";
 
 async function sendSandboxEmail({
   test_inbox_id,
@@ -32,31 +37,11 @@ async function sendSandboxEmail({
       throw new Error("Either HTML or TEXT body is required");
     }
 
-    const fromEmail = from ?? process.env.DEFAULT_FROM_EMAIL;
-    if (!fromEmail) {
-      throw new Error(
-        "Provide 'from' or set DEFAULT_FROM_EMAIL environment variable"
-      );
-    }
+    const fromAddress = buildFromAddress(from, process.env.DEFAULT_FROM_EMAIL);
 
     const sandboxClient = getSandboxClient(inboxId);
 
-    const fromAddress: Address = {
-      email: fromEmail,
-    };
-
-    // Parse and validate email addresses from the 'to' string
-    const toEmails = to
-      .split(",")
-      .map((email) => email.trim())
-      .filter((email) => email.length > 0)
-      .filter((email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-
-    if (toEmails.length === 0) {
-      throw new Error("No valid email addresses provided in 'to' field");
-    }
-
-    const toAddresses: Address[] = toEmails.map((email) => ({ email }));
+    const toAddresses = parseSandboxTo(to);
 
     const emailData: Mail = {
       from: fromAddress,
@@ -67,8 +52,18 @@ async function sendSandboxEmail({
       category,
     };
 
-    if (cc && cc.length > 0) emailData.cc = cc.map((email) => ({ email }));
-    if (bcc && bcc.length > 0) emailData.bcc = bcc.map((email) => ({ email }));
+    if (cc && cc.length > 0) {
+      const ccAddresses = normalizeAddressList(cc);
+      if (ccAddresses.length > 0) {
+        emailData.cc = ccAddresses;
+      }
+    }
+    if (bcc && bcc.length > 0) {
+      const bccAddresses = normalizeAddressList(bcc);
+      if (bccAddresses.length > 0) {
+        emailData.bcc = bccAddresses;
+      }
+    }
 
     const response = await sandboxClient.send(emailData);
 
@@ -76,11 +71,11 @@ async function sendSandboxEmail({
       content: [
         {
           type: "text",
-          text: `Sandbox email sent successfully to ${toEmails.join(
+          text: `Sandbox email sent successfully to ${toAddresses
+            .map((addr) => addr.email)
+            .join(", ")}.\nMessage IDs: ${response.message_ids.join(
             ", "
-          )}.\nMessage IDs: ${response.message_ids.join(", ")}\nStatus: ${
-            response.success ? "Success" : "Failed"
-          }`,
+          )}\nStatus: ${response.success ? "Success" : "Failed"}`,
         },
       ],
     };

@@ -1,30 +1,24 @@
+import mailtrapAddressParamSchema from "../schemas/mailtrapAddressParam";
+
 const sendEmailSchema = {
   type: "object",
   properties: {
     from: {
-      type: "string",
-      format: "email",
+      ...mailtrapAddressParamSchema,
       description:
-        "Sender email address. Optional if DEFAULT_FROM_EMAIL env var is set.",
+        "Sender as an email string or `{ email, name? }` for a display name. Omit if DEFAULT_FROM_EMAIL is set.",
     },
     to: {
       oneOf: [
-        {
-          type: "string",
-          format: "email",
-          description: "Single email address",
-        },
+        mailtrapAddressParamSchema,
         {
           type: "array",
-          items: {
-            type: "string",
-            format: "email",
-          },
-          description: "Array of email addresses",
+          minItems: 1,
+          items: mailtrapAddressParamSchema,
         },
       ],
       description:
-        "Email address(es) of the recipient(s) - can be a single email or array of emails",
+        "Recipient(s): one address (string or `{ email, name? }`) or a non-empty array of those.",
     },
     subject: {
       type: "string",
@@ -32,19 +26,13 @@ const sendEmailSchema = {
     },
     cc: {
       type: "array",
-      items: {
-        type: "string",
-        format: "email",
-      },
-      description: "Optional CC recipients",
+      items: mailtrapAddressParamSchema,
+      description: "Optional CC recipients (email or `{ email, name? }` each)",
     },
     bcc: {
       type: "array",
-      items: {
-        type: "string",
-        format: "email",
-      },
-      description: "Optional BCC recipients",
+      items: mailtrapAddressParamSchema,
+      description: "Optional BCC recipients (email or `{ email, name? }` each)",
     },
     category: {
       type: "string",

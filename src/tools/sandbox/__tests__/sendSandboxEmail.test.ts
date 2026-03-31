@@ -131,6 +131,41 @@ describe("sendSandboxEmail", () => {
     });
   });
 
+  it("should send with from, to, cc, and bcc display names when using object addresses", async () => {
+    const result = await sendSandboxEmail({
+      ...mockEmailData,
+      from: { email: "from@example.com", name: "From Brand" },
+      to: [{ email: "to1@example.com", name: "User One" }, "to2@example.com"],
+      cc: [{ email: "cc@example.com", name: "CC Person" }],
+      bcc: [{ email: "bcc@example.com", name: "BCC Person" }],
+    });
+
+    expect(mockSend).toHaveBeenCalledWith({
+      from: { email: "from@example.com", name: "From Brand" },
+      to: [
+        { email: "to1@example.com", name: "User One" },
+        { email: "to2@example.com" },
+      ],
+      subject: mockEmailData.subject,
+      text: mockEmailData.text,
+      html: undefined,
+      category: undefined,
+      cc: [{ email: "cc@example.com", name: "CC Person" }],
+      bcc: [{ email: "bcc@example.com", name: "BCC Person" }],
+    });
+
+    expect(result).toEqual({
+      content: [
+        {
+          type: "text",
+          text: `Sandbox email sent successfully to to1@example.com, to2@example.com.\nMessage IDs: ${mockResponse.message_ids.join(
+            ", "
+          )}\nStatus: Success`,
+        },
+      ],
+    });
+  });
+
   it("should handle HTML content", async () => {
     const html = "<p>Test HTML content</p>";
 
