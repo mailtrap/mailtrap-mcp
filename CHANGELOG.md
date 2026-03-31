@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## [0.3.0] - 2026-03-31
+
+* Support optional **display names** on `from`, `to`, `cc`, and `bcc` for **send-email** and **send-sandbox-email** (addresses can be plain email or `Name <email@example.com>` style). See https://github.com/mailtrap/mailtrap-mcp/pull/72
+* Resolve **npm audit** findings; refresh **package-lock.json** accordingly. See https://github.com/mailtrap/mailtrap-mcp/pull/73
+* Add npm **overrides** for `minimatch` and `tmp`; bump **@anthropic-ai/mcpb** dev dependency from 1.1.1 to 2.1.2.
+
 ## [0.2.0] - 2026-03-30
 
 * Add **sandbox project & inbox management** tools: **list-sandbox-projects**, **create-sandbox-project**, **delete-sandbox-project**, **create-sandbox-inbox**, **get-sandbox-inbox**, **update-sandbox-inbox**, **delete-sandbox-inbox**, **clean-sandbox-inbox**.
