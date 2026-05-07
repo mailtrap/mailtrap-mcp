@@ -327,7 +327,7 @@ describe("sendEmail", () => {
       });
     });
 
-    it("should throw error when empty array is provided for 'to' field", async () => {
+    it("should throw error when no recipients are provided across to/cc/bcc", async () => {
       const result = await sendEmail({
         ...mockEmailData,
         to: [],
@@ -338,14 +338,14 @@ describe("sendEmail", () => {
         content: [
           {
             type: "text",
-            text: "Failed to send email: No valid recipients provided in 'to' field after normalization",
+            text: "Failed to send email: Provide at least one recipient via 'to', 'cc', or 'bcc'",
           },
         ],
         isError: true,
       });
     });
 
-    it("should throw error when empty string is provided for 'to' field", async () => {
+    it("should throw error when 'to' is empty string and no cc/bcc are provided", async () => {
       const result = await sendEmail({
         ...mockEmailData,
         to: "",
@@ -356,7 +356,7 @@ describe("sendEmail", () => {
         content: [
           {
             type: "text",
-            text: "Failed to send email: No valid recipients provided in 'to' field after normalization",
+            text: "Failed to send email: Provide at least one recipient via 'to', 'cc', or 'bcc'",
           },
         ],
         isError: true,
@@ -402,6 +402,57 @@ describe("sendEmail", () => {
         ],
         isError: true,
       });
+    });
+  });
+
+  describe("cc/bcc-only sends (no 'to')", () => {
+    it("should send when only cc is provided (no 'to')", async () => {
+      const result = await sendEmail({
+        subject: "Test Subject",
+        text: "Test email body",
+        cc: ["cc@example.com"],
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith({
+        from: { email: "default@example.com" },
+        to: [],
+        subject: "Test Subject",
+        text: "Test email body",
+        html: undefined,
+        category: undefined,
+        cc: [{ email: "cc@example.com" }],
+      });
+
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: `Email sent successfully to cc@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
+          },
+        ],
+      });
+    });
+
+    it("should send when only bcc is provided (no 'to')", async () => {
+      const result = await sendEmail({
+        subject: "Test Subject",
+        text: "Test email body",
+        bcc: [{ email: "bcc@example.com", name: "BCC User" }],
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith({
+        from: { email: "default@example.com" },
+        to: [],
+        subject: "Test Subject",
+        text: "Test email body",
+        html: undefined,
+        category: undefined,
+        bcc: [{ email: "bcc@example.com", name: "BCC User" }],
+      });
+
+      expect(result.content[0].text).toContain(
+        "Email sent successfully to bcc@example.com"
+      );
     });
   });
 });

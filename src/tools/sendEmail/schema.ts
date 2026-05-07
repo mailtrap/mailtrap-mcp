@@ -18,7 +18,7 @@ const sendEmailSchema = {
         },
       ],
       description:
-        "Recipient(s): one address (string or `{ email, name? }`) or a non-empty array of those.",
+        "Recipient(s): one address (string or `{ email, name? }`) or a non-empty array of those. Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.",
     },
     subject: {
       type: "string",
@@ -36,7 +36,7 @@ const sendEmailSchema = {
     },
     category: {
       type: "string",
-      description: "Email category for tracking",
+      description: "Optional email category for tracking",
     },
     text: {
       type: "string",
@@ -47,7 +47,7 @@ const sendEmailSchema = {
       description: "Optional HTML version of the email body",
     },
   },
-  required: ["to", "subject", "category"],
+  required: ["subject"],
   additionalProperties: false,
 };
 

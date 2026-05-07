@@ -31,11 +31,13 @@ async function sendEmail({
 
     const fromAddress = buildFromAddress(from, DEFAULT_FROM_EMAIL);
 
-    const toAddresses = normalizeToRecipients(to);
+    const toAddresses = to !== undefined ? normalizeToRecipients(to) : [];
+    const ccAddresses = cc && cc.length > 0 ? normalizeAddressList(cc) : [];
+    const bccAddresses = bcc && bcc.length > 0 ? normalizeAddressList(bcc) : [];
 
-    if (toAddresses.length === 0) {
+    if (toAddresses.length + ccAddresses.length + bccAddresses.length === 0) {
       throw new Error(
-        "No valid recipients provided in 'to' field after normalization"
+        "Provide at least one recipient via 'to', 'cc', or 'bcc'"
       );
     }
 
@@ -48,30 +50,28 @@ async function sendEmail({
       category,
     };
 
-    if (cc && cc.length > 0) {
-      const ccAddresses = normalizeAddressList(cc);
-      if (ccAddresses.length > 0) {
-        emailData.cc = ccAddresses;
-      }
+    if (ccAddresses.length > 0) {
+      emailData.cc = ccAddresses;
     }
-    if (bcc && bcc.length > 0) {
-      const bccAddresses = normalizeAddressList(bcc);
-      if (bccAddresses.length > 0) {
-        emailData.bcc = bccAddresses;
-      }
+    if (bccAddresses.length > 0) {
+      emailData.bcc = bccAddresses;
     }
 
     const response = await mailtrap.send(emailData);
+
+    const recipientSummary = (
+      toAddresses.length > 0 ? toAddresses : [...ccAddresses, ...bccAddresses]
+    )
+      .map((addr) => addr.email)
+      .join(", ");
 
     return {
       content: [
         {
           type: "text",
-          text: `Email sent successfully to ${toAddresses
-            .map((addr) => addr.email)
-            .join(", ")}.\nMessage IDs: ${response.message_ids}\nStatus: ${
-            response.success ? "Success" : "Failed"
-          }`,
+          text: `Email sent successfully to ${recipientSummary}.\nMessage IDs: ${
+            response.message_ids
+          }\nStatus: ${response.success ? "Success" : "Failed"}`,
         },
       ],
     };

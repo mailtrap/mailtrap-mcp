@@ -5,13 +5,13 @@ export type MailtrapAddressParam = string | { email: string; name?: string };
 
 export interface SendMailToolRequest {
   from?: MailtrapAddressParam;
-  to: MailtrapAddressParam | MailtrapAddressParam[];
+  to?: MailtrapAddressParam | MailtrapAddressParam[];
   subject: string;
   text?: string;
   html?: string;
   cc?: MailtrapAddressParam[];
   bcc?: MailtrapAddressParam[];
-  category: string;
+  category?: string;
 }
 
 export interface CreateTemplateRequest {
@@ -39,7 +39,8 @@ export interface DeleteTemplateRequest {
  * Request interface for sending sandbox emails.
  *
  * @property from - Sender as email string or `{ email, name? }`
- * @property to - Comma-separated emails (legacy), or an array of strings / `{ email, name? }` objects
+ * @property to - Comma-separated emails (legacy), or an array of strings / `{ email, name? }` objects.
+ *                Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.
  * @property subject - Email subject line
  * @property text - Email body text (optional, but either text or html must be provided)
  * @property html - HTML version of the email body (optional, but either text or html must be provided)
@@ -53,7 +54,7 @@ export interface DeleteTemplateRequest {
 export interface SendSandboxEmailRequest {
   test_inbox_id?: number;
   from?: MailtrapAddressParam;
-  to: string | MailtrapAddressParam[];
+  to?: string | MailtrapAddressParam[];
   subject: string;
   text?: string;
   html?: string;
