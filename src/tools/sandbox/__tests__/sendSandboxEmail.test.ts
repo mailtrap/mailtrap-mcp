@@ -504,4 +504,106 @@ describe("sendSandboxEmail", () => {
       );
     });
   });
+
+  describe("template sends", () => {
+    it("should send sandbox email using template_uuid", async () => {
+      const result = await sendSandboxEmail({
+        test_inbox_id: inboxId,
+        to: "recipient@example.com",
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        template_variables: { name: "John", order_id: 1234 },
+      });
+
+      expect(mockSend).toHaveBeenCalledWith({
+        from: { email: "default@example.com" },
+        to: [{ email: "recipient@example.com" }],
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        template_variables: { name: "John", order_id: 1234 },
+      });
+
+      expect(result.content[0].text).toContain(
+        "Sandbox email sent successfully to recipient@example.com"
+      );
+      expect(result.isError).toBeUndefined();
+    });
+
+    it("should reject template_uuid combined with subject/text/html/category", async () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const result = await sendSandboxEmail({
+        test_inbox_id: inboxId,
+        to: "recipient@example.com",
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        subject: "Should not be here",
+        html: "<p>Body</p>",
+      });
+
+      expect(mockSend).not.toHaveBeenCalled();
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: "Failed to send sandbox email: When 'template_uuid' is set, the following fields must be omitted: subject, html",
+          },
+        ],
+        isError: true,
+      });
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it("should reject template_variables without template_uuid", async () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const result = await sendSandboxEmail({
+        test_inbox_id: inboxId,
+        to: "recipient@example.com",
+        subject: "Hello",
+        text: "Body",
+        template_variables: { name: "John" },
+      });
+
+      expect(mockSend).not.toHaveBeenCalled();
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: "Failed to send sandbox email: 'template_variables' can only be used together with 'template_uuid'",
+          },
+        ],
+        isError: true,
+      });
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it("should require subject for inline (non-template) sandbox sends", async () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      const result = await sendSandboxEmail({
+        test_inbox_id: inboxId,
+        to: "recipient@example.com",
+        text: "Body",
+      });
+
+      expect(mockSend).not.toHaveBeenCalled();
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: "Failed to send sandbox email: 'subject' is required when not using a template",
+          },
+        ],
+        isError: true,
+      });
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
 });

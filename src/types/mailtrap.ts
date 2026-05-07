@@ -3,15 +3,40 @@
  */
 export type MailtrapAddressParam = string | { email: string; name?: string };
 
+/**
+ * Values that can appear inside `template_variables`. Mirrors the Mailtrap SDK's
+ * `TemplateValue` (string | number | boolean | nested array/object), without depending
+ * on SDK internals.
+ */
+export type TemplateVariableValue =
+  | string
+  | number
+  | boolean
+  | TemplateVariableValue[]
+  | { [key: string]: TemplateVariableValue };
+
+/**
+ * Request interface for sending transactional emails.
+ *
+ * The Mailtrap Send Email API accepts two mutually exclusive request shapes:
+ *
+ *  - **Inline content**: `subject` + (`text` or `html`), with optional `category`.
+ *  - **Template**: `template_uuid` (and optional `template_variables`); per the API,
+ *    `subject`, `text`, `html`, and `category` must NOT be sent in this case.
+ *
+ * Mutual exclusion is enforced at runtime in the handler.
+ */
 export interface SendMailToolRequest {
   from?: MailtrapAddressParam;
   to?: MailtrapAddressParam | MailtrapAddressParam[];
-  subject: string;
+  subject?: string;
   text?: string;
   html?: string;
   cc?: MailtrapAddressParam[];
   bcc?: MailtrapAddressParam[];
   category?: string;
+  template_uuid?: string;
+  template_variables?: Record<string, TemplateVariableValue>;
 }
 
 export interface CreateTemplateRequest {
@@ -38,29 +63,22 @@ export interface DeleteTemplateRequest {
 /**
  * Request interface for sending sandbox emails.
  *
- * @property from - Sender as email string or `{ email, name? }`
- * @property to - Comma-separated emails (legacy), or an array of strings / `{ email, name? }` objects.
- *                Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.
- * @property subject - Email subject line
- * @property text - Email body text (optional, but either text or html must be provided)
- * @property html - HTML version of the email body (optional, but either text or html must be provided)
- * @property cc - Optional CC recipients
- * @property bcc - Optional BCC recipients
- * @property category - Optional email category for tracking
- *
- * Note: At least one of `text` or `html` must be provided at runtime.
- * The MCP server validates this requirement through runtime checks.
+ * Same two mutually-exclusive request shapes as the production send (see
+ * `SendMailToolRequest`): either inline content (`subject` + `text`/`html`) or
+ * template (`template_uuid`). Mutual exclusion is enforced at runtime.
  */
 export interface SendSandboxEmailRequest {
   test_inbox_id?: number;
   from?: MailtrapAddressParam;
   to?: string | MailtrapAddressParam[];
-  subject: string;
+  subject?: string;
   text?: string;
   html?: string;
   cc?: MailtrapAddressParam[];
   bcc?: MailtrapAddressParam[];
   category?: string;
+  template_uuid?: string;
+  template_variables?: Record<string, TemplateVariableValue>;
 }
 
 export interface GetMessagesRequest {

@@ -19,14 +19,39 @@ async function sendEmail({
   bcc,
   category,
   html,
+  template_uuid,
+  template_variables,
 }: SendMailToolRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
     const mailtrap = requireClient("sending email", {
       requireAccountId: false,
     });
 
-    if (!html && !text) {
-      throw new Error("Either HTML or TEXT body is required");
+    if (template_uuid) {
+      const forbidden = [
+        ["subject", subject],
+        ["text", text],
+        ["html", html],
+        ["category", category],
+      ].filter(([, value]) => value !== undefined && value !== "");
+      if (forbidden.length > 0) {
+        const fields = forbidden.map(([name]) => name).join(", ");
+        throw new Error(
+          `When 'template_uuid' is set, the following fields must be omitted: ${fields}`
+        );
+      }
+    } else {
+      if (!subject) {
+        throw new Error("'subject' is required when not using a template");
+      }
+      if (!html && !text) {
+        throw new Error("Either HTML or TEXT body is required");
+      }
+      if (template_variables !== undefined) {
+        throw new Error(
+          "'template_variables' can only be used together with 'template_uuid'"
+        );
+      }
     }
 
     const fromAddress = buildFromAddress(from, DEFAULT_FROM_EMAIL);
@@ -41,14 +66,21 @@ async function sendEmail({
       );
     }
 
-    const emailData: Mail = {
-      from: fromAddress,
-      to: toAddresses,
-      subject,
-      text,
-      html,
-      category,
-    };
+    const emailData: Mail = template_uuid
+      ? {
+          from: fromAddress,
+          to: toAddresses,
+          template_uuid,
+          template_variables,
+        }
+      : {
+          from: fromAddress,
+          to: toAddresses,
+          subject: subject as string,
+          text,
+          html,
+          category,
+        };
 
     if (ccAddresses.length > 0) {
       emailData.cc = ccAddresses;

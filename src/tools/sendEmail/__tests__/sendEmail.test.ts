@@ -455,4 +455,121 @@ describe("sendEmail", () => {
       );
     });
   });
+
+  describe("template sends", () => {
+    it("should send email using template_uuid", async () => {
+      const result = await sendEmail({
+        to: "recipient@example.com",
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        template_variables: { name: "John", order_id: 1234 },
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith({
+        from: { email: "default@example.com" },
+        to: [{ email: "recipient@example.com" }],
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        template_variables: { name: "John", order_id: 1234 },
+      });
+
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: `Email sent successfully to recipient@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
+          },
+        ],
+      });
+    });
+
+    it("should send template-based email without template_variables", async () => {
+      await sendEmail({
+        to: "recipient@example.com",
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith({
+        from: { email: "default@example.com" },
+        to: [{ email: "recipient@example.com" }],
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        template_variables: undefined,
+      });
+    });
+
+    it("should pass cc and bcc through with template sends", async () => {
+      await sendEmail({
+        to: "recipient@example.com",
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        cc: ["cc@example.com"],
+        bcc: [{ email: "bcc@example.com", name: "BCC User" }],
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith({
+        from: { email: "default@example.com" },
+        to: [{ email: "recipient@example.com" }],
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        template_variables: undefined,
+        cc: [{ email: "cc@example.com" }],
+        bcc: [{ email: "bcc@example.com", name: "BCC User" }],
+      });
+    });
+
+    it("should reject template_uuid combined with subject/text/html/category", async () => {
+      const result = await sendEmail({
+        to: "recipient@example.com",
+        template_uuid: "b81aabcd-1a1e-41cf-91b6-eca0254b3d96",
+        subject: "Should not be here",
+        text: "Body",
+        category: "promo",
+      });
+
+      expect(mockClient.send).not.toHaveBeenCalled();
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: "Failed to send email: When 'template_uuid' is set, the following fields must be omitted: subject, text, category",
+          },
+        ],
+        isError: true,
+      });
+    });
+
+    it("should reject template_variables without template_uuid", async () => {
+      const result = await sendEmail({
+        to: "recipient@example.com",
+        subject: "Hello",
+        text: "Body",
+        template_variables: { name: "John" },
+      });
+
+      expect(mockClient.send).not.toHaveBeenCalled();
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: "Failed to send email: 'template_variables' can only be used together with 'template_uuid'",
+          },
+        ],
+        isError: true,
+      });
+    });
+
+    it("should require subject for inline (non-template) sends", async () => {
+      const result = await sendEmail({
+        to: "recipient@example.com",
+        text: "Body",
+      });
+
+      expect(mockClient.send).not.toHaveBeenCalled();
+      expect(result).toEqual({
+        content: [
+          {
+            type: "text",
+            text: "Failed to send email: 'subject' is required when not using a template",
+          },
+        ],
+        isError: true,
+      });
+    });
+  });
 });
