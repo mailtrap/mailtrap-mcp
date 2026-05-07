@@ -1,0 +1,46 @@
+src/tools/sandbox/sendSandboxEmail.ts
+  s_473b8dffe39796::t_a4523a6a7d279a 44-46,49-52,63-64,66-67,72,74-77,82
+  s_473b8dffe39796::t_a4c945f77e2553 48,73
+CHANGELOG.md
+  s_473b8dffe39796::t_341e82d344d440 3,5
+  s_473b8dffe39796::t_a3246c0a31173d 4
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_473b8dffe39796::t_b71ade2f11d4a9 415-434,456-504
+src/tools/sendEmail/sendEmail.ts
+  s_473b8dffe39796::t_39c1f0136f35cd 62,64
+  s_473b8dffe39796::t_5c44c8fd911cb1 34-36,40,53-54,56-57,65-67,72-74
+  s_473b8dffe39796::t_a4c945f77e2553 38,63
+src/tools/sendEmail/__tests__/sendEmail.test.ts
+  s_473b8dffe39796::t_3a874001bb7d0e 330,341,348,359
+  s_473b8dffe39796::t_8d29ec8dfa6fe0 407
+  s_473b8dffe39796::t_0a7571e39960a2 408-457
+src/tools/sendEmail/schema.ts
+  s_473b8dffe39796::t_c27646054c2e60 39,50
+  s_473b8dffe39796::t_de2dfd46f2a1d3 21
+src/tools/sandbox/schemas/sendSandboxEmail.ts
+  s_473b8dffe39796::t_6061b9e2db8f8d 33
+  s_473b8dffe39796::t_f58fee9397be0b 62
+src/utils/mailtrapAddresses.ts
+  s_473b8dffe39796::t_adf9afe3f1ea63 60-64,74
+src/types/mailtrap.ts
+  s_473b8dffe39796::t_1759e49acd86a7 14
+  s_473b8dffe39796::t_3d18813a5e0736 8
+  s_473b8dffe39796::t_35ce5929458249 57
+  s_473b8dffe39796::t_e93adccee8a2cb 42-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "c2464617a56beb2edf4d12ea085240acc07c6790",
+  "prompts": {},
+  "sessions": {
+    "s_473b8dffe39796": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cb28d6b3-d7e4-4aa7-b036-d20f598f75b3",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
