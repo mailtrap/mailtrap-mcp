@@ -163,6 +163,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 - "Send an email to john.doe@example.com with the subject 'Meeting Tomorrow' and a friendly reminder about our upcoming meeting."
 - "Email sarah@example.com about the project update, and CC the team at team@example.com"
+- "Send the welcome template (uuid `b81aabcd-1a1e-41cf-91b6-eca0254b3d96`) to new@example.com with variables `{ name: 'Alex' }`"
 - "Send a sandbox email to test@example.com with subject 'Test Template' to preview how our welcome email looks"
 
 **Email Logs (debug delivery):**
@@ -203,18 +204,20 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 ### send-email
 
-Sends a transactional email through Mailtrap.
+Sends a transactional email through Mailtrap. Supports two mutually exclusive modes — **inline content** (`subject` + `text`/`html`) or **template-based** (`template_uuid`).
 
 **Parameters:**
 
-- `to` (required): Email address(es) of the recipient(s) - can be a single email or array of emails
-- `subject` (required): Email subject line
-- `from` (optional): Email address of the sender, if not provided "DEFAULT_FROM_EMAIL" will be used
-- `text` (optional): Email body text, required if "html" is empty
-- `html` (optional): HTML version of the email body, required if "text" is empty
-- `cc` (optional): Array of CC recipient email addresses
-- `bcc` (optional): Array of BCC recipient email addresses
-- `category` (required): Email category for tracking and analytics
+- `from` (optional): Sender as an email string or `{ email, name? }`. If not provided, `DEFAULT_FROM_EMAIL` is used.
+- `to` (optional): Recipient(s) — a single email/`{ email, name? }` or an array. Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
+- `cc` (optional): Array of CC recipients (email strings or `{ email, name? }` each).
+- `bcc` (optional): Array of BCC recipients (email strings or `{ email, name? }` each).
+- `subject` (conditional): Email subject line. Required for inline sends; must be omitted when `template_uuid` is set.
+- `text` (conditional): Email body text. Required (alongside or instead of `html`) for inline sends; must be omitted when `template_uuid` is set.
+- `html` (conditional): HTML version of the email body. Required (alongside or instead of `text`) for inline sends; must be omitted when `template_uuid` is set.
+- `category` (optional): Email category for tracking and analytics. Must be omitted when `template_uuid` is set.
+- `template_uuid` (optional): Use a Mailtrap email template instead of inline content. When set, `subject` / `text` / `html` / `category` must be omitted (per Mailtrap API).
+- `template_variables` (optional): Object of variables substituted into the template referenced by `template_uuid`. Only allowed together with `template_uuid`.
 
 ### list-email-logs
 
@@ -310,18 +313,21 @@ Deletes an existing email template.
 
 ### send-sandbox-email
 
-Sends an email to your Mailtrap test inbox for development and testing purposes. This is perfect for testing email templates without sending emails to real recipients.
+Sends an email to your Mailtrap test inbox for development and testing purposes. This is perfect for testing email templates without sending emails to real recipients. Supports the same two modes as `send-email` — **inline content** or **template-based** (`template_uuid`).
 
 **Parameters:**
 
-- `to` (required): Email address(es) of the recipient(s) - can be a single email or array of emails (will be delivered to your test inbox)
-- `subject` (required): Email subject line
-- `from` (optional): Email address of the sender, if not provided "DEFAULT_FROM_EMAIL" will be used
-- `text` (optional): Email body text, required if "html" is empty
-- `html` (optional): HTML version of the email body, required if "text" is empty
-- `cc` (optional): Array of CC recipient email addresses
-- `bcc` (optional): Array of BCC recipient email addresses
-- `category` (optional): Email category for tracking
+- `test_inbox_id` (optional): Mailtrap test inbox ID. Required unless `MAILTRAP_TEST_INBOX_ID` is set; pass per call to target a specific inbox.
+- `from` (optional): Sender as an email string or `{ email, name? }`. If not provided, `DEFAULT_FROM_EMAIL` is used.
+- `to` (optional): Recipients as a comma-separated string, or an array of email strings / `{ email, name? }` objects. Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
+- `cc` (optional): Array of CC recipients (email strings or `{ email, name? }` each).
+- `bcc` (optional): Array of BCC recipients (email strings or `{ email, name? }` each).
+- `subject` (conditional): Email subject line. Required for inline sends; must be omitted when `template_uuid` is set.
+- `text` (conditional): Email body text. Required (alongside or instead of `html`) for inline sends; must be omitted when `template_uuid` is set.
+- `html` (conditional): HTML version of the email body. Required (alongside or instead of `text`) for inline sends; must be omitted when `template_uuid` is set.
+- `category` (optional): Email category for tracking. Must be omitted when `template_uuid` is set.
+- `template_uuid` (optional): Use a Mailtrap email template instead of inline content. When set, `subject` / `text` / `html` / `category` must be omitted.
+- `template_variables` (optional): Object of variables substituted into the template referenced by `template_uuid`. Only allowed together with `template_uuid`.
 
 > [!NOTE]
 > For sandbox tools, provide `test_inbox_id` in the tool call or set the `MAILTRAP_TEST_INBOX_ID` environment variable. You can switch between inboxes per call by passing `test_inbox_id`.
