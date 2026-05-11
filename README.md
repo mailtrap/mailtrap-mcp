@@ -215,6 +215,65 @@ Sends a transactional email through Mailtrap.
 - `cc` (optional): Array of CC recipient email addresses
 - `bcc` (optional): Array of BCC recipient email addresses
 - `category` (required): Email category for tracking and analytics
+- `attachments` (optional): Array of attachment objects — see [Attachments](#attachments) below.
+
+### Attachments
+
+`send-email` and `send-sandbox-email` accept an optional `attachments` array. Each entry uses Mailtrap's wire-format field names:
+
+| Field         | Required             | Description                                                                                                              |
+| ------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `content`     | yes                  | Base64-encoded file content (no whitespace, standard padding). Files are never read from disk by this tool.              |
+| `filename`    | yes                  | Filename shown to the recipient.                                                                                         |
+| `type`        | no                   | MIME type, e.g. `image/png`, `application/pdf`. Defaults to `application/octet-stream`.                                  |
+| `disposition` | no                   | `"attachment"` (default) for a downloadable file. `"inline"` to embed in HTML — requires `content_id`.                   |
+| `content_id`  | yes (when `inline`)  | CID referenced from the HTML body as `<img src="cid:{content_id}">`. Letters, digits, `.`, `_`, `-` only.                |
+
+**Example — inline image:**
+
+```jsonc
+{
+  "to": "user@example.com",
+  "subject": "Logo embed",
+  "html": "<p>Branded header:</p><img src=\"cid:logo\"><p>...</p>",
+  "category": "marketing",
+  "attachments": [
+    {
+      "content": "<base64 of logo.png>",
+      "filename": "logo.png",
+      "type": "image/png",
+      "disposition": "inline",
+      "content_id": "logo"
+    }
+  ]
+}
+```
+
+**Example — downloadable PDF:**
+
+```jsonc
+{
+  "to": "user@example.com",
+  "subject": "Invoice",
+  "text": "Your invoice is attached.",
+  "category": "billing",
+  "attachments": [
+    {
+      "content": "<base64 of invoice.pdf>",
+      "filename": "invoice-2026-001.pdf",
+      "type": "application/pdf"
+    }
+  ]
+}
+```
+
+**Safety limits**
+
+- Per-attachment cap: **10 MB** (decoded). Override with `MAILTRAP_MAX_ATTACHMENT_SIZE_BYTES`.
+- Total across all attachments: **15 MB** (decoded). Override with `MAILTRAP_MAX_ATTACHMENTS_TOTAL_BYTES`. Mailtrap's hard API ceiling is ~20 MB per message after base64 encoding.
+- Executable filename extensions are rejected by default (`.exe`, `.bat`, `.cmd`, `.com`, `.scr`, `.pif`, `.lnk`, `.vbs`, `.vbe`, `.js`, `.jse`, `.wsf`, `.wsh`, `.ps1`, `.msi`, `.reg`, `.hta`, `.scf`, `.jar`, `.dll`, `.sh`). Override with `MAILTRAP_ATTACHMENT_BLOCKED_EXTENSIONS` (comma-separated, lowercase, with or without leading dots).
+- Blocked MIME types: `application/x-msdownload`, `application/x-msdos-program`, `application/x-exe`, `application/x-executable`, `application/x-shellscript`, `application/x-sh`, `text/x-shellscript`. Override with `MAILTRAP_ATTACHMENT_BLOCKED_MIME_TYPES`.
+- Filenames are never resolved to paths — the tool only handles in-memory base64 content. To attach a file from disk, read it via a separate filesystem MCP and pass the encoded bytes.
 
 ### list-email-logs
 
@@ -322,6 +381,7 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 - `cc` (optional): Array of CC recipient email addresses
 - `bcc` (optional): Array of BCC recipient email addresses
 - `category` (optional): Email category for tracking
+- `attachments` (optional): Array of attachment objects — see [Attachments](#attachments) above.
 
 > [!NOTE]
 > For sandbox tools, provide `test_inbox_id` in the tool call or set the `MAILTRAP_TEST_INBOX_ID` environment variable. You can switch between inboxes per call by passing `test_inbox_id`.

@@ -354,6 +354,76 @@ describe("sendSandboxEmail", () => {
     });
   });
 
+  describe("attachments", () => {
+    const TINY_B64 = "aGVsbG8gd29ybGQ=";
+
+    it("forwards a regular attachment to the SDK in Nodemailer shape", async () => {
+      await sendSandboxEmail({
+        ...mockEmailData,
+        attachments: [
+          {
+            content: TINY_B64,
+            filename: "report.pdf",
+            type: "application/pdf",
+          },
+        ],
+      });
+
+      expect(mockSend).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attachments: [
+            {
+              content: TINY_B64,
+              filename: "report.pdf",
+              contentType: "application/pdf",
+            },
+          ],
+        })
+      );
+    });
+
+    it("forwards an inline image with cid", async () => {
+      await sendSandboxEmail({
+        ...mockEmailData,
+        html: '<p><img src="cid:logo"></p>',
+        attachments: [
+          {
+            content: TINY_B64,
+            filename: "logo.png",
+            type: "image/png",
+            disposition: "inline",
+            content_id: "logo",
+          },
+        ],
+      });
+
+      expect(mockSend).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attachments: [
+            {
+              content: TINY_B64,
+              filename: "logo.png",
+              contentType: "image/png",
+              contentDisposition: "inline",
+              cid: "logo",
+            },
+          ],
+        })
+      );
+    });
+
+    it("returns isError when an attachment fails validation", async () => {
+      const result = await sendSandboxEmail({
+        ...mockEmailData,
+        attachments: [{ content: TINY_B64, filename: "payload.exe" }],
+      });
+
+      expect(mockSend).not.toHaveBeenCalled();
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toMatch(/blocked/);
+    });
+  });
+
   describe("errors handling", () => {
     let consoleErrorSpy: jest.SpyInstance;
 

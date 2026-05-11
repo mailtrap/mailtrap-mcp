@@ -6,6 +6,7 @@ import {
   normalizeAddressList,
   parseSandboxTo,
 } from "../../utils/mailtrapAddresses";
+import { validateAndAdaptAttachments } from "../../utils/attachments";
 
 async function sendSandboxEmail({
   test_inbox_id,
@@ -17,6 +18,7 @@ async function sendSandboxEmail({
   bcc,
   category,
   html,
+  attachments,
 }: SendSandboxEmailRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
     const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
@@ -63,6 +65,11 @@ async function sendSandboxEmail({
       if (bccAddresses.length > 0) {
         emailData.bcc = bccAddresses;
       }
+    }
+
+    const adaptedAttachments = validateAndAdaptAttachments(attachments);
+    if (adaptedAttachments) {
+      emailData.attachments = adaptedAttachments;
     }
 
     const response = await sandboxClient.send(emailData);

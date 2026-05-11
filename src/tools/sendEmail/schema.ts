@@ -1,4 +1,5 @@
 import mailtrapAddressParamSchema from "../schemas/mailtrapAddressParam";
+import attachmentParamSchema from "../schemas/attachmentParam";
 
 const sendEmailSchema = {
   type: "object",
@@ -45,6 +46,17 @@ const sendEmailSchema = {
     html: {
       type: "string",
       description: "Optional HTML version of the email body",
+    },
+    attachments: {
+      type: "array",
+      minItems: 1,
+      items: attachmentParamSchema,
+      description:
+        "Optional attachments. Each entry must include base64 `content` and `filename`. " +
+        "Set `disposition: 'inline'` plus `content_id` to embed images referenced from HTML " +
+        'as `<img src="cid:{content_id}">`; otherwise the file is delivered as a download. ' +
+        "Size limits: 10 MB per attachment and 15 MB total by default; executable filename " +
+        "extensions are rejected.",
     },
   },
   required: ["to", "subject", "category"],

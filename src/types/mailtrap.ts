@@ -3,6 +3,24 @@
  */
 export type MailtrapAddressParam = string | { email: string; name?: string };
 
+/**
+ * One attachment in the MCP wire format. Field names match the Mailtrap REST
+ * API at https://api-docs.mailtrap.io/. Use `disposition: "inline"` together
+ * with `content_id` to embed an image referenced from HTML as
+ * `<img src="cid:{content_id}">`; otherwise the file shows as a download.
+ */
+export interface AttachmentParam {
+  /** Base64-encoded content. The tool never reads files from disk. */
+  content: string;
+  filename: string;
+  /** MIME type. Defaults to `application/octet-stream` when omitted. */
+  type?: string;
+  /** Defaults to `attachment` when omitted. */
+  disposition?: "attachment" | "inline";
+  /** Required when `disposition === "inline"`. */
+  content_id?: string;
+}
+
 export interface SendMailToolRequest {
   from?: MailtrapAddressParam;
   to: MailtrapAddressParam | MailtrapAddressParam[];
@@ -12,6 +30,7 @@ export interface SendMailToolRequest {
   cc?: MailtrapAddressParam[];
   bcc?: MailtrapAddressParam[];
   category: string;
+  attachments?: AttachmentParam[];
 }
 
 export interface CreateTemplateRequest {
@@ -60,6 +79,7 @@ export interface SendSandboxEmailRequest {
   cc?: MailtrapAddressParam[];
   bcc?: MailtrapAddressParam[];
   category?: string;
+  attachments?: AttachmentParam[];
 }
 
 export interface GetMessagesRequest {

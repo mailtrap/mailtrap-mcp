@@ -307,6 +307,82 @@ describe("sendEmail", () => {
     });
   });
 
+  describe("attachments", () => {
+    const TINY_B64 = "aGVsbG8gd29ybGQ=";
+
+    it("forwards a regular attachment to the SDK in Nodemailer shape", async () => {
+      await sendEmail({
+        ...mockEmailData,
+        attachments: [
+          {
+            content: TINY_B64,
+            filename: "report.pdf",
+            type: "application/pdf",
+          },
+        ],
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attachments: [
+            {
+              content: TINY_B64,
+              filename: "report.pdf",
+              contentType: "application/pdf",
+            },
+          ],
+        })
+      );
+    });
+
+    it("forwards an inline image with cid for HTML <img src='cid:...'> embedding", async () => {
+      await sendEmail({
+        ...mockEmailData,
+        html: '<p><img src="cid:logo"></p>',
+        attachments: [
+          {
+            content: TINY_B64,
+            filename: "logo.png",
+            type: "image/png",
+            disposition: "inline",
+            content_id: "logo",
+          },
+        ],
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          attachments: [
+            {
+              content: TINY_B64,
+              filename: "logo.png",
+              contentType: "image/png",
+              contentDisposition: "inline",
+              cid: "logo",
+            },
+          ],
+        })
+      );
+    });
+
+    it("returns isError when an attachment fails validation (blocked extension)", async () => {
+      const result = await sendEmail({
+        ...mockEmailData,
+        attachments: [{ content: TINY_B64, filename: "payload.exe" }],
+      });
+
+      expect(mockClient.send).not.toHaveBeenCalled();
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toMatch(/blocked/);
+    });
+
+    it("omits the attachments field on the SDK call when none are provided", async () => {
+      await sendEmail(mockEmailData);
+      const sent = mockClient.send.mock.calls[0][0];
+      expect(sent.attachments).toBeUndefined();
+    });
+  });
+
   describe("errors handling", () => {
     it("should throw error when neither HTML nor TEXT is provided", async () => {
       const result = await sendEmail({

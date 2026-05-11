@@ -5,6 +5,7 @@ import {
   normalizeAddressList,
   normalizeToRecipients,
 } from "../../utils/mailtrapAddresses";
+import { validateAndAdaptAttachments } from "../../utils/attachments";
 
 import { requireClient } from "../../client";
 
@@ -19,6 +20,7 @@ async function sendEmail({
   bcc,
   category,
   html,
+  attachments,
 }: SendMailToolRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
     const mailtrap = requireClient("sending email", {
@@ -59,6 +61,11 @@ async function sendEmail({
       if (bccAddresses.length > 0) {
         emailData.bcc = bccAddresses;
       }
+    }
+
+    const adaptedAttachments = validateAndAdaptAttachments(attachments);
+    if (adaptedAttachments) {
+      emailData.attachments = adaptedAttachments;
     }
 
     const response = await mailtrap.send(emailData);
