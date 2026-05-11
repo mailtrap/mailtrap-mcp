@@ -57,7 +57,11 @@ export function normalizeToRecipients(
   return normalizeAddressList(list);
 }
 
-/** Sandbox `to` as comma-separated string (plain emails) or an array of address params. */
+/**
+ * Sandbox `to` as comma-separated string (plain emails) or an array of address params.
+ * Returns an empty array if no valid recipients are present; callers are responsible
+ * for validating that the combined to/cc/bcc has at least one recipient.
+ */
 export function parseSandboxTo(to: string | MailtrapAddressParam[]): Address[] {
   if (typeof to === "string") {
     const toEmails = to
@@ -65,14 +69,7 @@ export function parseSandboxTo(to: string | MailtrapAddressParam[]): Address[] {
       .map((email) => email.trim())
       .filter((email) => email.length > 0)
       .filter((email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-    if (toEmails.length === 0) {
-      throw new Error("No valid email addresses provided in 'to' field");
-    }
     return toEmails.map((email) => ({ email }));
   }
-  const addresses = normalizeAddressList(to);
-  if (addresses.length === 0) {
-    throw new Error("No valid recipients in 'to' field");
-  }
-  return addresses;
+  return normalizeAddressList(to);
 }

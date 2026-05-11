@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+* Fix **send-email** input schema: `category` is no longer marked as required (it is an optional tracking tag per the Send Email REST API).
+* Add **template-based sending** to **send-email** and **send-sandbox-email**: pass `template_uuid` (with optional `template_variables`) to send via a Mailtrap template. Per the Mailtrap API, when `template_uuid` is set, `subject`, `text`, `html`, and `category` must be omitted; this is enforced at runtime. `subject` is no longer in the schema's `required` array since it does not apply to template sends.
+* Make `to` optional for **send-email** and **send-sandbox-email**: at least one of `to`, `cc`, or `bcc` must contain a recipient (validated at runtime). Previously `to` was schema-required, which over-declared the API's actual requirements.
+
 ## [0.3.0] - 2026-03-31
 
 * Support optional **display names** on `from`, `to`, `cc`, and `bcc` for **send-email** and **send-sandbox-email** (addresses can be plain email or `Name <email@example.com>` style). See https://github.com/mailtrap/mailtrap-mcp/pull/72
