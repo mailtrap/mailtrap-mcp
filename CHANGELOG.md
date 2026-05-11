@@ -1,8 +1,11 @@
 ## [Unreleased]
 
-* Fix **send-email** input schema: `category` is no longer marked as required (it is an optional tracking tag per the Send Email REST API).
-* Add **template-based sending** to **send-email** and **send-sandbox-email**: pass `template_uuid` (with optional `template_variables`) to send via a Mailtrap template. Per the Mailtrap API, when `template_uuid` is set, `subject`, `text`, `html`, and `category` must be omitted; this is enforced at runtime. `subject` is no longer in the schema's `required` array since it does not apply to template sends.
-* Make `to` optional for **send-email** and **send-sandbox-email**: at least one of `to`, `cc`, or `bcc` must contain a recipient (validated at runtime). Previously `to` was schema-required, which over-declared the API's actual requirements.
+## [0.4.0] - 2026-05-11
+
+* Add **template-based sending** to **send-email** and **send-sandbox-email**: pass `template_uuid` (with optional `template_variables`) to send via a Mailtrap template. Per the Mailtrap API, when `template_uuid` is set, `subject`, `text`, `html`, and `category` must be omitted; this is enforced at runtime. `subject` is no longer in the schema's `required` array since it does not apply to template sends. See https://github.com/mailtrap/mailtrap-mcp/pull/82
+* Align **send-email** input schema with the Mailtrap REST API: `category` and `to` removed from `required`; runtime check enforces that at least one of `to`/`cc`/`bcc` contains a recipient. Previously the schema over-declared the API's actual requirements. See https://github.com/mailtrap/mailtrap-mcp/pull/82
+* Docs: rewrite README sections for **send-email** and **send-sandbox-email** to document the inline-vs-template modes; fix `template_variables` description to match runtime behavior. See https://github.com/mailtrap/mailtrap-mcp/pull/86
+* Dependency updates via dependabot. See https://github.com/mailtrap/mailtrap-mcp/pull/81, https://github.com/mailtrap/mailtrap-mcp/pull/83, https://github.com/mailtrap/mailtrap-mcp/pull/84
 
 ## [0.3.0] - 2026-03-31
 
