@@ -8,6 +8,10 @@ import listProjectsSchema from "./schemas/listProjects";
 import listProjects from "./listProjects";
 import createProjectSchema from "./schemas/createProject";
 import createProject from "./createProject";
+import getProjectSchema from "./schemas/getProject";
+import getProject from "./getProject";
+import updateProjectSchema from "./schemas/updateProject";
+import updateProject from "./updateProject";
 import deleteProjectSchema from "./schemas/deleteProject";
 import deleteProject from "./deleteProject";
 import createSandboxInboxSchema from "./schemas/createSandboxInbox";
@@ -32,6 +36,10 @@ export {
   listProjects,
   createProjectSchema,
   createProject,
+  getProjectSchema,
+  getProject,
+  updateProjectSchema,
+  updateProject,
   deleteProjectSchema,
   deleteProject,
   createSandboxInboxSchema,

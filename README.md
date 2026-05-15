@@ -287,6 +287,14 @@ Lists all email templates in your Mailtrap account.
 
 - No parameters required
 
+### get-template
+
+Get a single email template by ID, including subject, category, and HTML/text body.
+
+**Parameters:**
+
+- `template_id` (required): ID of the template to fetch
+
 ### update-template
 
 Updates an existing email template.
@@ -357,6 +365,23 @@ Shows detailed information and content of a specific email message from your Mai
 > Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
 
 
+### get-sandbox-project
+
+Get a sandbox project by ID, including its inboxes and email counts.
+
+**Parameters:**
+
+- `project_id` (required): ID of the project to fetch
+
+### update-sandbox-project
+
+Rename an existing sandbox project.
+
+**Parameters:**
+
+- `project_id` (required): ID of the project to update
+- `name` (required): New name for the project (2–100 characters)
+
 ### list-sending-domains
 
 List sending domains and their DNS verification status.
@@ -389,6 +414,15 @@ Delete a sending domain.
 **Parameters:**
 
 - `sending_domain_id` (required): Sending domain ID to delete
+
+### send-sending-domain-setup-instructions
+
+Email DNS setup instructions for a sending domain to a given address. Useful for forwarding DNS records to a DevOps teammate.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `email` (required): Email address to send DNS setup instructions to
 
 ## Development
 

@@ -87,6 +87,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 
 - **create-template**: Create new email templates.
 - **list-templates**: List all email templates.
+- **get-template**: Get a single email template by ID, including subject, category, and HTML/text body.
 - **update-template**: Update existing email templates.
 - **delete-template**: Delete email templates.
 
@@ -95,6 +96,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **send-sandbox-email**: Send email in sandbox mode to a test inbox.
 - **get-sandbox-messages**: Get list of messages from the sandbox test inbox.
 - **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox.
+- **list-sandbox-projects** / **create-sandbox-project** / **get-sandbox-project** / **update-sandbox-project** / **delete-sandbox-project**: Manage sandbox projects (group of inboxes).
 
 
 #### Sending Domains
@@ -103,5 +105,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **get-sending-domain**: Get a sending domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
 - **create-sending-domain**: Create a new sending domain.
 - **delete-sending-domain**: Delete a sending domain.
+- **send-sending-domain-setup-instructions**: Email DNS setup instructions for a sending domain to a given address.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

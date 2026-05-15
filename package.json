@@ -37,7 +37,7 @@
     "@modelcontextprotocol/sdk": "^1.18.2",
     "dotenv": "^16.4.7",
     "mailsplit": "^5.4.6",
-    "mailtrap": "^4.5.1",
+    "mailtrap": "^4.6.0",
     "zod": "^3.24.2"
   },
   "overrides": {
