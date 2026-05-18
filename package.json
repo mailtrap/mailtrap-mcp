@@ -26,6 +26,7 @@
     "prepublish": "npm run build && shx chmod +x dist/index.js",
     "dev": "npx @modelcontextprotocol/inspector node dist/index.js",
     "dev:mcpb": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "mcp:cli": "npx @modelcontextprotocol/inspector --cli  node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
