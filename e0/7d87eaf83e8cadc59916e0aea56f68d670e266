@@ -1,0 +1,71 @@
+src/tools/sendingDomains/schema.ts
+  s_864d71f73b74d9::t_2173fb1e034cec 48-64,70
+src/tools/sandbox/schemas/getProject.ts
+  s_864d71f73b74d9::t_1b3a7864a2c570 1-13
+src/tools/sandbox/getProject.ts
+  s_864d71f73b74d9::t_044c778b57d182 1-49
+src/tools/sandbox/updateProject.ts
+  s_864d71f73b74d9::t_de073e21c664b7 1-38
+src/tools/sandbox/schemas/updateProject.ts
+  s_864d71f73b74d9::t_e58bf01e609e0d 1-19
+src/tools/templates/index.ts
+  s_864d71f73b74d9::t_2173fb1e034cec 5-6,17-18
+src/tools/sandbox/__tests__/getProject.test.ts
+  s_864d71f73b74d9::t_eb79bcb8d3e281 1-47,50-77
+  s_864d71f73b74d9::t_fccc3f51c2afd1 48-49
+CLAUDE.md
+  s_864d71f73b74d9::t_2173fb1e034cec 90,99,108
+src/tools/sendingDomains/__tests__/sendSetupInstructions.test.ts
+  s_864d71f73b74d9::t_64da4eaae41fa1 1-80
+src/server.ts
+  s_864d71f73b74d9::t_2173fb1e034cec 22-23,38-41,71-72,105-114,181-195,324-331
+  s_864d71f73b74d9::t_aca4c93c0e51d0 196-199
+  s_864d71f73b74d9::t_67c5af84a38d30 332-333
+.gitignore
+  s_864d71f73b74d9::t_2173fb1e034cec 10-11
+package.json
+  s_864d71f73b74d9::t_7e6d6e903e65ba 40
+src/tools/templates/getTemplate.ts
+  s_864d71f73b74d9::t_b4940c15dba5b1 1-47
+src/tools/sendingDomains/sendSetupInstructions.ts
+  s_864d71f73b74d9::t_82c870694242ed 1-43
+src/tools/sendingDomains/index.ts
+  s_864d71f73b74d9::t_2173fb1e034cec 6,12,23-24
+src/tools/templates/__tests__/getTemplate.test.ts
+  s_864d71f73b74d9::t_f4f8f1bc521b4a 1-110
+src/types/mailtrap.ts
+  s_864d71f73b74d9::t_2173fb1e034cec 63-66,204-208,210
+  s_864d71f73b74d9::t_4372c9ac15e8b8 209,211-212
+src/tools/sandbox/index.ts
+  s_864d71f73b74d9::t_2173fb1e034cec 11-14,39-42
+README.md
+  s_864d71f73b74d9::t_2173fb1e034cec 290-297,368-380,382-383
+  s_864d71f73b74d9::t_c8dbef3b6821ce 381,384
+  s_864d71f73b74d9::t_46ebcf812b121b 418-426
+src/tools/templates/schemas/getTemplate.ts
+  s_864d71f73b74d9::t_fccc3f51c2afd1 13
+  s_864d71f73b74d9::t_6cabafd922a4a2 1-12
+src/tools/sandbox/__tests__/updateProject.test.ts
+  s_864d71f73b74d9::t_dc58f04fa074d6 1-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "e07d87eaf83e8cadc59916e0aea56f68d670e266",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_864d71f73b74d9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3c965254-de94-4a0c-9ac3-e173db0a813b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": null
+    }
+  }
+}
