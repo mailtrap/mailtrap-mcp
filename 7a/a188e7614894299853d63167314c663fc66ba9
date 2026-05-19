@@ -1,0 +1,65 @@
+src/tools/sandbox/getSandboxMessageText.ts
+  s_4a1992e0a36a14::t_6e3b22d9165963 4-8,13,23,25
+src/tools/sandbox/markSandboxAsRead.ts
+  s_4a1992e0a36a14::t_b1bcf4f7a9def6 3-7,9-11,17-19,21
+src/tools/sandbox/getSandboxMessageRaw.ts
+  s_4a1992e0a36a14::t_f614af86d95315 4-8,13,23,25
+src/tools/sandbox/resetSandboxCredentials.ts
+  s_4a1992e0a36a14::t_9ba73604a1ca81 3-7,11,17-23,25
+src/tools/sandbox/getSandboxMessageEml.ts
+  s_4a1992e0a36a14::t_a9582244d6c865 4-8,13,23,25
+src/tools/sandbox/getSandboxMessageHtmlSource.ts
+  s_4a1992e0a36a14::t_110a05f9a2e6ae 4-8,13,23,25
+src/tools/sandbox/utils/__tests__/responses.test.ts
+  s_4a1992e0a36a14::t_70ffab572a6690 2-71
+  s_4a1992e0a36a14::t_7cad4df4e3d064 1
+src/tools/sandbox/listSandboxes.ts
+  s_4a1992e0a36a14::t_b63eecba5d3e4e 2-6,8,27-29,31
+  s_4a1992e0a36a14::t_98fc3ea86b63d2 15-17
+src/tools/sandbox/getSandboxMessageHtmlAnalysis.ts
+  s_4a1992e0a36a14::t_2cdd2fa4d9353e 4-8,13,23,25
+src/tools/sandbox/deleteSandboxMessage.ts
+  s_4a1992e0a36a14::t_ca67bf51ecce98 4-8,13,20,22
+src/tools/sandbox/enableSandboxEmailAddress.ts
+  s_4a1992e0a36a14::t_b808919d70ed1e 3-7,11,19-21,23
+src/tools/sandbox/utils/responses.ts
+  s_4a1992e0a36a14::t_c6afdf30510606 1-17,19-21
+  s_4a1992e0a36a14::t_98fc3ea86b63d2 18
+src/tools/sandbox/listSandboxAttachments.ts
+  s_4a1992e0a36a14::t_f984240c1145b1 4-8,13,24-26,36-40,42
+src/tools/sandbox/forwardSandboxMessage.ts
+  s_4a1992e0a36a14::t_222d7221c09a73 4-8,14,21-23,25
+src/tools/sandbox/resetSandboxEmailAddress.ts
+  s_4a1992e0a36a14::t_0a956d4515c969 3-7,11,19-21,23
+src/tools/sandbox/getSandboxAttachment.ts
+  s_4a1992e0a36a14::t_54c1081f5e782f 4-8,14,25,27
+src/tools/sandbox/getSandboxMessageHeaders.ts
+  s_4a1992e0a36a14::t_081666d6da1bf6 4-8,13,23,25
+src/tools/sandbox/getSandboxMessageHtml.ts
+  s_4a1992e0a36a14::t_8f95f99c2b80ce 4-8,13,23,25
+src/tools/sandbox/updateSandboxMessage.ts
+  s_4a1992e0a36a14::t_bb42e8c990630b 4-8,14,25-29,31
+src/tools/sandbox/getSandboxMessageSpamScore.ts
+  s_4a1992e0a36a14::t_46bdf8c6eb568d 4-8,13,23,25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "7aa188e7614894299853d63167314c663fc66ba9",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
