@@ -726,6 +726,15 @@ Create a new contact list.
 
 - `name` (required): Name for the new list
 
+### update-contact-list
+
+Rename an existing contact list.
+
+**Parameters:**
+
+- `list_id` (required): ID of the contact list
+- `name` (required): New name for the list
+
 ## Development
 
 1. Clone the repository:

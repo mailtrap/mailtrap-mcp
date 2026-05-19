@@ -4,6 +4,8 @@ import getContactListSchema from "./schemas/getContactList";
 import getContactList from "./getContactList";
 import createContactListSchema from "./schemas/createContactList";
 import createContactList from "./createContactList";
+import updateContactListSchema from "./schemas/updateContactList";
+import updateContactList from "./updateContactList";
 
 export {
   listContactListsSchema,
@@ -12,4 +14,6 @@ export {
   getContactList,
   createContactListSchema,
   createContactList,
+  updateContactListSchema,
+  updateContactList,
 };
