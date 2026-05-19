@@ -710,6 +710,14 @@ List all contact lists for the account.
 
 - No parameters required
 
+### get-contact-list
+
+Get a contact list by ID.
+
+**Parameters:**
+
+- `list_id` (required): ID of the contact list to fetch
+
 ## Development
 
 1. Clone the repository:
