@@ -128,6 +128,7 @@ import {
   createContactEvent,
   createContactEventSchema,
 } from "./tools/contacts";
+import { listContactLists, listContactListsSchema } from "./tools/contactLists";
 
 // Define the tools registry
 const tools = [
@@ -671,6 +672,15 @@ const tools = [
     handler: createContactEvent,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "list-contact-lists",
+    description: "List all contact lists for the account.",
+    inputSchema: listContactListsSchema,
+    handler: listContactLists,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

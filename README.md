@@ -702,6 +702,14 @@ Record a contact event against a contact (by ID or email). Used to trigger conta
 - `name` (required): Event name (matches automation triggers)
 - `params` (required): Object of arbitrary key/value pairs. Values may be string, number, boolean, or null
 
+### list-contact-lists
+
+List all contact lists for the account.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

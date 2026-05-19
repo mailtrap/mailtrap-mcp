@@ -137,4 +137,9 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **delete-contact**: Permanently delete a contact by ID or email.
 - **create-contact-event**: Record a contact event (`name` + `params`) for a contact. Triggers automations.
 
+
+#### Contact Lists
+
+- **list-contact-lists**: List all contact lists for the account.
+
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
