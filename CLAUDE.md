@@ -117,5 +117,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Suppressions
 
 - **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
+- **delete-suppression**: Delete a suppression by ID.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

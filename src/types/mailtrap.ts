@@ -324,3 +324,7 @@ export interface Suppression {
 export interface ListSuppressionsRequest {
   email?: string;
 }
+
+export interface DeleteSuppressionRequest {
+  suppression_id: string;
+}

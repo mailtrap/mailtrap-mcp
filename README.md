@@ -593,6 +593,14 @@ List or search suppressions (hard bounces, spam complaints, unsubscriptions, man
 
 - `email` (optional): Email filter. Returns only suppressions matching this address.
 
+### delete-suppression
+
+Delete a suppression by ID. Mailtrap will resume delivery to this email unless it gets suppressed again.
+
+**Parameters:**
+
+- `suppression_id` (required): ID of the suppression to delete
+
 ## Development
 
 1. Clone the repository:

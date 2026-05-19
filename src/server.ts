@@ -98,7 +98,12 @@ import {
   sendSendingDomainSetupInstructions,
   sendSendingDomainSetupInstructionsSchema,
 } from "./tools/sendingDomains";
-import { listSuppressions, listSuppressionsSchema } from "./tools/suppressions";
+import {
+  listSuppressions,
+  listSuppressionsSchema,
+  deleteSuppression,
+  deleteSuppressionSchema,
+} from "./tools/suppressions";
 
 // Define the tools registry
 const tools = [
@@ -534,6 +539,16 @@ const tools = [
     handler: listSuppressions,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "delete-suppression",
+    description:
+      "Delete a suppression by ID. Mailtrap will resume delivery to this email unless it gets suppressed again.",
+    inputSchema: deleteSuppressionSchema,
+    handler: deleteSuppression,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];
