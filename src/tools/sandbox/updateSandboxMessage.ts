@@ -1,15 +1,17 @@
 import { getSandboxClient } from "../../client";
 import { UpdateSandboxMessageRequest } from "../../types/mailtrap";
 import resolveSandboxId from "./utils/resolveSandboxId";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function updateSandboxMessage({
   sandbox_id,
   message_id,
   is_read,
-}: UpdateSandboxMessageRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}: UpdateSandboxMessageRequest): Promise<ToolResponse> {
   try {
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
@@ -20,27 +22,13 @@ async function updateSandboxMessage({
       { isRead: is_read }
     );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox message ${message.id} marked as ${
-            message.is_read ? "read" : "unread"
-          }.`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sandbox message ${message.id} marked as ${
+        message.is_read ? "read" : "unread"
+      }.`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to update sandbox message: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("update sandbox message", error);
   }
 }
 

@@ -1,23 +1,20 @@
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
-async function listSandboxes(): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function listSandboxes(): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandboxes");
 
     const sandboxes = await mailtrap.testing.inboxes.getList();
 
     if (!sandboxes || sandboxes.length === 0) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "No sandboxes found in your Mailtrap account.",
-          },
-        ],
-      };
+      return buildSuccessResponse(
+        "No sandboxes found in your Mailtrap account."
+      );
     }
 
     const lines = sandboxes.map(
@@ -27,25 +24,11 @@ async function listSandboxes(): Promise<{
         }, emails: ${sandbox.emails_count ?? 0})`
     );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandboxes (${sandboxes.length}):\n\n${lines.join("\n")}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sandboxes (${sandboxes.length}):\n\n${lines.join("\n")}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list sandboxes: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list sandboxes", error);
   }
 }
 

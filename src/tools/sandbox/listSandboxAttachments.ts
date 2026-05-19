@@ -1,14 +1,16 @@
 import { getSandboxClient } from "../../client";
 import { SandboxMessageRequest } from "../../types/mailtrap";
 import resolveSandboxId from "./utils/resolveSandboxId";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function listSandboxAttachments({
   sandbox_id,
   message_id,
-}: SandboxMessageRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}: SandboxMessageRequest): Promise<ToolResponse> {
   try {
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
@@ -19,14 +21,9 @@ async function listSandboxAttachments({
     );
 
     if (!attachments || attachments.length === 0) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: `No attachments on sandbox message ${message_id}.`,
-          },
-        ],
-      };
+      return buildSuccessResponse(
+        `No attachments on sandbox message ${message_id}.`
+      );
     }
 
     const lines = attachments.map(
@@ -36,27 +33,13 @@ async function listSandboxAttachments({
         }, size: ${att.attachment_size ?? "?"} bytes)`
     );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Attachments on sandbox message ${message_id} (${
-            attachments.length
-          }):\n\n${lines.join("\n")}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Attachments on sandbox message ${message_id} (${
+        attachments.length
+      }):\n\n${lines.join("\n")}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list sandbox attachments: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list sandbox attachments", error);
   }
 }
 
