@@ -116,6 +116,7 @@ import {
   deleteWebhook,
   deleteWebhookSchema,
 } from "./tools/webhooks";
+import { getContact, getContactSchema } from "./tools/contacts";
 
 // Define the tools registry
 const tools = [
@@ -609,6 +610,16 @@ const tools = [
     handler: deleteWebhook,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "get-contact",
+    description:
+      "Get a contact by ID or email address. Returns the full contact record including list memberships, status, and custom fields.",
+    inputSchema: getContactSchema,
+    handler: getContact,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

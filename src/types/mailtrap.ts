@@ -388,3 +388,54 @@ export interface UpdateWebhookRequest {
   payload_format?: WebhookPayloadFormat;
   event_types?: WebhookEventType[];
 }
+
+// --- Contact types ---
+
+export type ContactFieldValue = string | number | boolean;
+export type ContactFields = Record<string, ContactFieldValue>;
+
+export type ContactStatus = "subscribed" | "unsubscribed";
+
+export interface Contact {
+  id: string;
+  email: string;
+  created_at: number;
+  updated_at: number;
+  list_ids: number[];
+  status: ContactStatus;
+  fields: ContactFields;
+}
+
+export interface GetContactRequest {
+  contact_identifier: string;
+}
+
+export interface DeleteContactRequest {
+  contact_identifier: string;
+}
+
+export interface CreateContactRequest {
+  email: string;
+  fields?: ContactFields;
+  list_ids?: number[];
+  unsubscribed?: boolean;
+}
+
+export interface UpdateContactRequest {
+  contact_identifier: string;
+  email?: string;
+  fields?: ContactFields;
+  list_ids?: number[];
+  list_ids_included?: number[];
+  list_ids_excluded?: number[];
+  unsubscribed?: boolean;
+}
+
+export type ContactEventParamValue = string | number | boolean | null;
+export type ContactEventParams = Record<string, ContactEventParamValue>;
+
+export interface CreateContactEventRequest {
+  contact_identifier: string;
+  name: string;
+  params: ContactEventParams;
+}

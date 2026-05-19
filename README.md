@@ -651,6 +651,14 @@ Permanently delete a webhook by ID. Returns the deleted webhook record.
 
 - `webhook_id` (required): ID of the webhook to delete
 
+### get-contact
+
+Get a contact by ID or email. Returns the full contact record (list memberships, status, custom fields).
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email address
+
 ## Development
 
 1. Clone the repository:
