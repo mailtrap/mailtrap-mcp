@@ -659,6 +659,17 @@ Get a contact by ID or email. Returns the full contact record (list memberships,
 
 - `contact_identifier` (required): Contact ID or email address
 
+### create-contact
+
+Create a new contact.
+
+**Parameters:**
+
+- `email` (required): Email address
+- `fields` (optional): Custom field values keyed by merge tag (e.g. `first_name`). String, number, or boolean values
+- `list_ids` (optional): IDs of contact lists to subscribe this contact to
+- `unsubscribed` (optional, boolean): Create the contact in `unsubscribed` status
+
 ## Development
 
 1. Clone the repository:

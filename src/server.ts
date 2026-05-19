@@ -116,7 +116,12 @@ import {
   deleteWebhook,
   deleteWebhookSchema,
 } from "./tools/webhooks";
-import { getContact, getContactSchema } from "./tools/contacts";
+import {
+  getContact,
+  getContactSchema,
+  createContact,
+  createContactSchema,
+} from "./tools/contacts";
 
 // Define the tools registry
 const tools = [
@@ -620,6 +625,16 @@ const tools = [
     handler: getContact,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact",
+    description:
+      "Create a new contact. Requires `email`; optionally accepts custom `fields`, `list_ids` to subscribe to, and `unsubscribed` to start in unsubscribed status.",
+    inputSchema: createContactSchema,
+    handler: createContact,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];
