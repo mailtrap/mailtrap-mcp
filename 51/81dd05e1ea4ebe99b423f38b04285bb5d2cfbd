@@ -1,0 +1,149 @@
+src/tools/sandbox/getSandboxMessageSpamScore.ts
+  s_4a1992e0a36a14::t_86fa21dc5ef358 3,6,13-14,17
+  s_864d71f73b74d9::t_0dcc40f9545fee 1-2,4-5,7-12,15-16,18-43
+src/server.ts
+  s_864d71f73b74d9::t_734b9b0821acff 443-444
+  s_864d71f73b74d9::t_0194f3a2ead80f 62-80
+  s_864d71f73b74d9::t_78fc6c1a392bc3 54-61
+  s_864d71f73b74d9::t_d150bca0764a9b 285,287-289,295-298,304-307,313-316,322-325
+  s_864d71f73b74d9::t_bce2956963b191 286,290-294,299-303,308-312,317-321,326-442,445-450
+src/tools/sandbox/getSandboxMessageHtmlAnalysis.ts
+  s_4a1992e0a36a14::t_df9dd3f28d62c2 3,6,13-14,17
+  s_864d71f73b74d9::t_0248dd113b385a 1-2,4-5,7-12,15-16,18-43
+src/tools/sandbox/schemas/sandboxMessage.ts
+  s_864d71f73b74d9::t_8bc3e493a94b5f 1-2,4-9,11-12,14-24
+  s_4a1992e0a36a14::t_0183ef9edda341 3,10,13
+src/tools/sandbox/listSandboxes.ts
+  s_864d71f73b74d9::t_5b415d53472b7a 3-52
+src/tools/sandbox/schemas/updateSandboxMessage.ts
+  s_4a1992e0a36a14::t_4a325e0c6a1620 4,7
+  s_864d71f73b74d9::t_df1ade210fe8a3 1-3,5-6,8-22
+src/tools/sandbox/updateSandboxMessage.ts
+  s_864d71f73b74d9::t_56763f3bea7a70 1-2,4-5,7-13,16-17,19-47
+  s_4a1992e0a36a14::t_f55f22953f8230 3,6,14-15,18
+src/tools/sandbox/getSandboxMessageEml.ts
+  s_864d71f73b74d9::t_9f34eb6f665705 1-2,4-5,7-12,15-16,18-38
+  s_4a1992e0a36a14::t_187a6b2921673c 3,6,13-14,17
+src/tools/sandbox/schemas/forwardSandboxMessage.ts
+  s_864d71f73b74d9::t_8de3cda77dd6b9 1-3,5-6,8-23
+  s_4a1992e0a36a14::t_934e78988ebc40 4,7
+src/tools/sandbox/__tests__/updateSandboxMessage.test.ts
+  s_864d71f73b74d9::t_3e312fa61f9c41 1-21,23-76
+  s_4a1992e0a36a14::t_701023ef67bbf6 22
+src/tools/sandbox/index.ts
+  s_864d71f73b74d9::t_aab3c8032b48a2 28-35
+  s_864d71f73b74d9::t_eed19dd04272db 36-57,93-111
+  s_864d71f73b74d9::t_4f9e29120b341c 85-92
+src/tools/sandbox/deleteSandboxMessage.ts
+  s_864d71f73b74d9::t_8404969146216e 1-2,4-5,7-12,15,17-40
+  s_4a1992e0a36a14::t_bdcf4368ef88ba 3,6,13-14,16
+CLAUDE.md
+  s_864d71f73b74d9::t_7fb150f872cc26 100-101
+  s_864d71f73b74d9::t_8cb3b5ac012ed3 102-105
+src/tools/sandbox/getSandboxMessageHtmlSource.ts
+  s_864d71f73b74d9::t_ea3fd3b362c5da 1-2,4-5,7-12,15-16,18-38
+  s_4a1992e0a36a14::t_fe9ea2d82df224 3,6,13-14,17
+src/tools/sandbox/enableSandboxEmailAddress.ts
+  s_4a1992e0a36a14::t_f80787a5273a8f 2,5-6
+  s_4a1992e0a36a14::t_978d1e354d8240 13-15
+  s_864d71f73b74d9::t_88ac0d5d63b670 4,11,21-39
+src/tools/sandbox/__tests__/sandboxActions.test.ts
+  s_4a1992e0a36a14::t_c1137dd038e1fd 23,33-40,52,60-69,79-89,97-103
+  s_864d71f73b74d9::t_8c5d8107f2ac9a 1-22,30-31,43,57,76,94
+src/tools/sandbox/markSandboxAsRead.ts
+  s_4a1992e0a36a14::t_296c01cea06946 2-4,11
+  s_864d71f73b74d9::t_4ddfffb027a779 9,17-35
+src/tools/sandbox/schemas/getSandboxAttachment.ts
+  s_864d71f73b74d9::t_4011f389f56c5a 1-3,5-6,8-22
+  s_4a1992e0a36a14::t_d31197b8740a6e 4,7
+src/tools/sandbox/getSandboxMessageHeaders.ts
+  s_4a1992e0a36a14::t_35695edd8b0c9f 3,6,13-14,17
+  s_864d71f73b74d9::t_eaaf81ce66c33b 1-2,4-5,7-12,15-16,18-43
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_4a1992e0a36a14::t_e030def291ffc4 1-18,22-25
+  s_4a1992e0a36a14::t_978d1e354d8240 19-21,26
+src/tools/sandbox/__tests__/sandboxAttachments.test.ts
+  s_864d71f73b74d9::t_d016f893ae2943 1-23,25-107
+  s_4a1992e0a36a14::t_0f7b793adfb74f 24
+src/tools/sandbox/getSandboxMessageText.ts
+  s_4a1992e0a36a14::t_b91976df83efa7 3,6,13-14,17
+  s_864d71f73b74d9::t_b556ba33b887a4 1-2,4-5,7-12,15-16,18-38
+src/tools/sandbox/resetSandboxEmailAddress.ts
+  s_864d71f73b74d9::t_70b243a625d822 11,21-39
+  s_4a1992e0a36a14::t_978d1e354d8240 4-6,13-15
+  s_4a1992e0a36a14::t_904629ccbab59a 2
+src/tools/sandbox/__tests__/listSandboxes.test.ts
+  s_864d71f73b74d9::t_1d8fdb825bbcbb 1-54
+src/tools/sandbox/listSandboxAttachments.ts
+  s_4a1992e0a36a14::t_b1ea902c4c9377 3,6,13-14,17
+  s_864d71f73b74d9::t_734b9b0821acff 43-45
+  s_864d71f73b74d9::t_cf1801a470604e 1-2,4-5,7-12,15-16,18-42,46-63
+src/tools/sandbox/getSandboxAttachment.ts
+  s_864d71f73b74d9::t_e8b482d526249d 1-2,4-5,7-13,16-17,19-45
+  s_4a1992e0a36a14::t_edd1b72db8b715 3,6,14-15,18
+src/tools/sandbox/schemas/listSandboxes.ts
+  s_864d71f73b74d9::t_831777711a1d6c 1-7
+README.md
+  s_4a1992e0a36a14::t_4db41c98eb6f71 27
+  s_4a1992e0a36a14::t_972660aa863ec1 432,442,452,461,470,479,488,497,506,515,524,533,542
+  s_864d71f73b74d9::t_b1c01c9b40e586 386,388,394,396,402,404,410,418,420
+  s_864d71f73b74d9::t_85ccea43a3b9ef 387,389-393,395,397-399,401,403,405-407,409,411,413-415,417,419,421-423,425-431,433-441,443-451,453-460,462-469,471-478,480-487,489-496,498-505,507-514,516-523,525-532,534-541,543-545
+  s_4a1992e0a36a14::t_ec4af348f6bd2c 400,408,416,424
+  s_4a1992e0a36a14::t_2b8955ab779d5a 412
+src/tools/sandbox/getSandboxMessageHtml.ts
+  s_864d71f73b74d9::t_6323f06975dcba 1-2,4-5,7-12,15-16,18-38
+  s_4a1992e0a36a14::t_c5657a036c8808 3,6,13-14,17
+src/tools/sandbox/__tests__/forwardSandboxMessage.test.ts
+  s_4a1992e0a36a14::t_75005b20403ef2 22,48,52,60-61,68
+  s_864d71f73b74d9::t_16dd1e327607ca 1-21,23-47,49-51,53-59,62-67,69-72
+src/tools/sandbox/forwardSandboxMessage.ts
+  s_864d71f73b74d9::t_2599a69f8b7b12 1-2,4-5,7-13,16,18-41
+  s_4a1992e0a36a14::t_e9e2fa5b09f1e7 3,6,14-15,17
+src/tools/sandbox/resetSandboxCredentials.ts
+  s_4a1992e0a36a14::t_d282dd96dcbd9a 2,13
+  s_4a1992e0a36a14::t_978d1e354d8240 4-6
+  s_864d71f73b74d9::t_793fed6235d3f0 11,20-41
+src/tools/sandbox/getSandboxMessageRaw.ts
+  s_864d71f73b74d9::t_99151f6f6468cf 1-2,4-5,7-12,15-16,18-38
+  s_4a1992e0a36a14::t_3ea5165ba728e3 3,6,13-14,17
+src/types/mailtrap.ts
+  s_4a1992e0a36a14::t_594e5363b851f7 232-234,237,239
+  s_864d71f73b74d9::t_70e85d2e509422 235-236,238,240-254
+src/tools/sandbox/schemas/sandboxAction.ts
+  s_4a1992e0a36a14::t_978d1e354d8240 2,17
+  s_864d71f73b74d9::t_424ace1851bf0d 5,10
+  s_4a1992e0a36a14::t_8b5cbb4164c6d9 8,13
+src/tools/sandbox/__tests__/sandboxMessageGetters.test.ts
+  s_4a1992e0a36a14::t_72f06f2794bf26 110
+  s_864d71f73b74d9::t_a8254b38c7ec9d 1-109,111-119,123-134,139,141,145
+  s_864d71f73b74d9::t_e197788be5660f 120-122,135-138,140,142-144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5181dd05e1ea4ebe99b423f38b04285bb5d2cfbd",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": null
+    },
+    "s_864d71f73b74d9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3c965254-de94-4a0c-9ac3-e173db0a813b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
