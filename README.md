@@ -780,6 +780,14 @@ Update a contact field definition. Any combination of `name`, `merge_tag`, and `
 - `merge_tag` (optional): New merge tag (must remain unique)
 - `data_type` (optional): One of `text`, `number`, `boolean`, `date`
 
+### delete-contact-field
+
+Permanently delete a contact field definition by ID.
+
+**Parameters:**
+
+- `field_id` (required): ID of the contact field to delete
+
 ## Development
 
 1. Clone the repository:

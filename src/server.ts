@@ -149,6 +149,8 @@ import {
   createContactFieldSchema,
   updateContactField,
   updateContactFieldSchema,
+  deleteContactField,
+  deleteContactFieldSchema,
 } from "./tools/contactFields";
 
 // Define the tools registry
@@ -774,6 +776,15 @@ const tools = [
       "Update a contact field definition. Any combination of `name`, `merge_tag`, or `data_type` can be changed.",
     inputSchema: updateContactFieldSchema,
     handler: updateContactField,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-contact-field",
+    description: "Permanently delete a contact field definition by ID.",
+    inputSchema: deleteContactFieldSchema,
+    handler: deleteContactField,
     annotations: {
       destructiveHint: true,
     },

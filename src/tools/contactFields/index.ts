@@ -6,6 +6,8 @@ import createContactFieldSchema from "./schemas/createContactField";
 import createContactField from "./createContactField";
 import updateContactFieldSchema from "./schemas/updateContactField";
 import updateContactField from "./updateContactField";
+import deleteContactFieldSchema from "./schemas/deleteContactField";
+import deleteContactField from "./deleteContactField";
 
 export {
   listContactFieldsSchema,
@@ -16,4 +18,6 @@ export {
   createContactField,
   updateContactFieldSchema,
   updateContactField,
+  deleteContactFieldSchema,
+  deleteContactField,
 };
