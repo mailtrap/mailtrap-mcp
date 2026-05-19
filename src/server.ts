@@ -140,6 +140,10 @@ import {
   deleteContactList,
   deleteContactListSchema,
 } from "./tools/contactLists";
+import {
+  listContactFields,
+  listContactFieldsSchema,
+} from "./tools/contactFields";
 
 // Define the tools registry
 const tools = [
@@ -728,6 +732,15 @@ const tools = [
     handler: deleteContactList,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "list-contact-fields",
+    description: "List all contact field definitions for the account.",
+    inputSchema: listContactFieldsSchema,
+    handler: listContactFields,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

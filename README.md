@@ -743,6 +743,14 @@ Permanently delete a contact list by ID.
 
 - `list_id` (required): ID of the contact list to delete
 
+### list-contact-fields
+
+List all contact field definitions for the account.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

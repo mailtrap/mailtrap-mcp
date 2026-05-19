@@ -463,3 +463,37 @@ export interface UpdateContactListRequest {
   list_id: number;
   name: string;
 }
+
+// --- Contact field types ---
+
+export type ContactFieldDataType = "text" | "number" | "boolean" | "date";
+
+export interface ContactField {
+  id: number;
+  name: string;
+  merge_tag: string;
+  data_type: ContactFieldDataType;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface GetContactFieldRequest {
+  field_id: number;
+}
+
+export interface DeleteContactFieldRequest {
+  field_id: number;
+}
+
+export interface CreateContactFieldRequest {
+  name: string;
+  merge_tag: string;
+  data_type: ContactFieldDataType;
+}
+
+export interface UpdateContactFieldRequest {
+  field_id: number;
+  name?: string;
+  merge_tag?: string;
+  data_type?: ContactFieldDataType;
+}
