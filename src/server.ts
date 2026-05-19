@@ -104,7 +104,12 @@ import {
   deleteSuppression,
   deleteSuppressionSchema,
 } from "./tools/suppressions";
-import { listWebhooks, listWebhooksSchema } from "./tools/webhooks";
+import {
+  listWebhooks,
+  listWebhooksSchema,
+  getWebhook,
+  getWebhookSchema,
+} from "./tools/webhooks";
 
 // Define the tools registry
 const tools = [
@@ -557,6 +562,15 @@ const tools = [
     description: "List all webhooks for the account.",
     inputSchema: listWebhooksSchema,
     handler: listWebhooks,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-webhook",
+    description: "Get a single webhook by ID.",
+    inputSchema: getWebhookSchema,
+    handler: getWebhook,
     annotations: {
       readOnlyHint: true,
     },

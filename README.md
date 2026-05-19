@@ -609,6 +609,14 @@ List all webhooks configured for the account. Returns the full webhook records a
 
 - No parameters required
 
+### get-webhook
+
+Get a single webhook by ID. Returns the full webhook record as JSON. Note: `signing_secret` is **not** returned here — it is only available in the response from `create-webhook`.
+
+**Parameters:**
+
+- `webhook_id` (required): ID of the webhook to fetch
+
 ## Development
 
 1. Clone the repository:
