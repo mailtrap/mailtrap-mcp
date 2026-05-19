@@ -735,6 +735,14 @@ Rename an existing contact list.
 - `list_id` (required): ID of the contact list
 - `name` (required): New name for the list
 
+### delete-contact-list
+
+Permanently delete a contact list by ID.
+
+**Parameters:**
+
+- `list_id` (required): ID of the contact list to delete
+
 ## Development
 
 1. Clone the repository:

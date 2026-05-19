@@ -6,6 +6,8 @@ import createContactListSchema from "./schemas/createContactList";
 import createContactList from "./createContactList";
 import updateContactListSchema from "./schemas/updateContactList";
 import updateContactList from "./updateContactList";
+import deleteContactListSchema from "./schemas/deleteContactList";
+import deleteContactList from "./deleteContactList";
 
 export {
   listContactListsSchema,
@@ -16,4 +18,6 @@ export {
   createContactList,
   updateContactListSchema,
   updateContactList,
+  deleteContactListSchema,
+  deleteContactList,
 };
