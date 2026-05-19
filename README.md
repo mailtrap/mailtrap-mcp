@@ -684,6 +684,14 @@ Update an existing contact identified by ID or email. `list_ids` replaces the co
 - `list_ids_excluded` (optional): List IDs to remove
 - `unsubscribed` (optional, boolean): Set to `unsubscribed` (true) or `subscribed` (false)
 
+### delete-contact
+
+Permanently delete a contact by ID or email. Returns the deleted contact record when the API responds with one; otherwise returns a confirmation payload.
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email
+
 ## Development
 
 1. Clone the repository:

@@ -123,6 +123,8 @@ import {
   createContactSchema,
   updateContact,
   updateContactSchema,
+  deleteContact,
+  deleteContactSchema,
 } from "./tools/contacts";
 
 // Define the tools registry
@@ -645,6 +647,16 @@ const tools = [
       "Update a contact (identified by ID or email). `list_ids` replaces the membership set; `list_ids_included`/`list_ids_excluded` add/remove without disturbing the rest.",
     inputSchema: updateContactSchema,
     handler: updateContact,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-contact",
+    description:
+      "Permanently delete a contact by ID or email. Returns the deleted contact record when available.",
+    inputSchema: deleteContactSchema,
+    handler: deleteContact,
     annotations: {
       destructiveHint: true,
     },
