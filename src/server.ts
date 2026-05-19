@@ -109,6 +109,8 @@ import {
   listWebhooksSchema,
   getWebhook,
   getWebhookSchema,
+  createWebhook,
+  createWebhookSchema,
 } from "./tools/webhooks";
 
 // Define the tools registry
@@ -573,6 +575,16 @@ const tools = [
     handler: getWebhook,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-webhook",
+    description:
+      "Create a webhook. The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned only on creation, so store it now.",
+    inputSchema: createWebhookSchema,
+    handler: createWebhook,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

@@ -124,5 +124,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 
 - **list-webhooks**: List all webhooks for the account.
 - **get-webhook**: Get a single webhook by ID. `signing_secret` is not returned (only on create).
+- **create-webhook**: Create a webhook. Response includes `signing_secret` (returned only on creation — must be stored by caller).
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

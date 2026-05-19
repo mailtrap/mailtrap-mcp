@@ -617,6 +617,20 @@ Get a single webhook by ID. Returns the full webhook record as JSON. Note: `sign
 
 - `webhook_id` (required): ID of the webhook to fetch
 
+### create-webhook
+
+Create a webhook. The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned **only on creation**, so store it now. If you lose it, recreate the webhook.
+
+**Parameters:**
+
+- `url` (required): URL Mailtrap will POST webhook events to
+- `webhook_type` (required): `"email_sending"` or `"audit_log"`
+- `active` (optional, boolean): defaults to `true`
+- `payload_format` (optional): `"json"` or `"jsonlines"`. Defaults to `"json"`
+- `sending_stream` (optional, `email_sending` only): `"transactional"` or `"bulk"`
+- `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
+- `domain_id` (optional, `email_sending` only): sending domain ID to scope this webhook to
+
 ## Development
 
 1. Clone the repository:
