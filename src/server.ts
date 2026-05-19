@@ -98,6 +98,7 @@ import {
   sendSendingDomainSetupInstructions,
   sendSendingDomainSetupInstructionsSchema,
 } from "./tools/sendingDomains";
+import { listSuppressions, listSuppressionsSchema } from "./tools/suppressions";
 
 // Define the tools registry
 const tools = [
@@ -523,6 +524,16 @@ const tools = [
     handler: sendSendingDomainSetupInstructions,
     annotations: {
       destructiveHint: false,
+    },
+  },
+  {
+    name: "list-suppressions",
+    description:
+      "List or search suppressions. Optionally filter by email. Returns up to 1000 suppressions per call.",
+    inputSchema: listSuppressionsSchema,
+    handler: listSuppressions,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

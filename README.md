@@ -585,6 +585,14 @@ Email DNS setup instructions for a sending domain to a given address. Useful for
 - `sending_domain_id` (required): Sending domain ID
 - `email` (required): Email address to send DNS setup instructions to
 
+### list-suppressions
+
+List or search suppressions (hard bounces, spam complaints, unsubscriptions, manual imports). Returns up to 1000 results per call.
+
+**Parameters:**
+
+- `email` (optional): Email filter. Returns only suppressions matching this address.
+
 ## Development
 
 1. Clone the repository:

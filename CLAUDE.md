@@ -113,4 +113,9 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **delete-sending-domain**: Delete a sending domain.
 - **send-sending-domain-setup-instructions**: Email DNS setup instructions for a sending domain to a given address.
 
+
+#### Suppressions
+
+- **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
+
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
