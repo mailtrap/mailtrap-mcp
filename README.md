@@ -769,6 +769,17 @@ Create a new contact field definition. `merge_tag` must be unique within the acc
 - `merge_tag` (required): Unique placeholder name (e.g. `first_name`)
 - `data_type` (required): One of `text`, `number`, `boolean`, `date`
 
+### update-contact-field
+
+Update a contact field definition. Any combination of `name`, `merge_tag`, and `data_type` can be changed.
+
+**Parameters:**
+
+- `field_id` (required): ID of the contact field
+- `name` (optional): New display name
+- `merge_tag` (optional): New merge tag (must remain unique)
+- `data_type` (optional): One of `text`, `number`, `boolean`, `date`
+
 ## Development
 
 1. Clone the repository:
