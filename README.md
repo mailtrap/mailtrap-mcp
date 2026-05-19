@@ -692,6 +692,16 @@ Permanently delete a contact by ID or email. Returns the deleted contact record 
 
 - `contact_identifier` (required): Contact ID or email
 
+### create-contact-event
+
+Record a contact event against a contact (by ID or email). Used to trigger contact-list automations.
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email
+- `name` (required): Event name (matches automation triggers)
+- `params` (required): Object of arbitrary key/value pairs. Values may be string, number, boolean, or null
+
 ## Development
 
 1. Clone the repository:

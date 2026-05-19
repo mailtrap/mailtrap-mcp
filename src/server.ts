@@ -125,6 +125,8 @@ import {
   updateContactSchema,
   deleteContact,
   deleteContactSchema,
+  createContactEvent,
+  createContactEventSchema,
 } from "./tools/contacts";
 
 // Define the tools registry
@@ -657,6 +659,16 @@ const tools = [
       "Permanently delete a contact by ID or email. Returns the deleted contact record when available.",
     inputSchema: deleteContactSchema,
     handler: deleteContact,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "create-contact-event",
+    description:
+      "Record a contact event (by `name` + arbitrary `params`) against a contact ID or email. Used to trigger automations.",
+    inputSchema: createContactEventSchema,
+    handler: createContactEvent,
     annotations: {
       destructiveHint: true,
     },

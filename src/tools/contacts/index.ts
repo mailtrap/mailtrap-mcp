@@ -6,6 +6,8 @@ import updateContactSchema from "./schemas/updateContact";
 import updateContact from "./updateContact";
 import deleteContactSchema from "./schemas/deleteContact";
 import deleteContact from "./deleteContact";
+import createContactEventSchema from "./schemas/createContactEvent";
+import createContactEvent from "./createContactEvent";
 
 export {
   getContactSchema,
@@ -16,4 +18,6 @@ export {
   updateContact,
   deleteContactSchema,
   deleteContact,
+  createContactEventSchema,
+  createContactEvent,
 };
