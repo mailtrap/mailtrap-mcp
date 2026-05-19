@@ -133,6 +133,8 @@ import {
   listContactListsSchema,
   getContactList,
   getContactListSchema,
+  createContactList,
+  createContactListSchema,
 } from "./tools/contactLists";
 
 // Define the tools registry
@@ -695,6 +697,15 @@ const tools = [
     handler: getContactList,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact-list",
+    description: "Create a new contact list.",
+    inputSchema: createContactListSchema,
+    handler: createContactList,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

@@ -718,6 +718,14 @@ Get a contact list by ID.
 
 - `list_id` (required): ID of the contact list to fetch
 
+### create-contact-list
+
+Create a new contact list.
+
+**Parameters:**
+
+- `name` (required): Name for the new list
+
 ## Development
 
 1. Clone the repository:
