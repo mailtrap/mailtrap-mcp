@@ -1,0 +1,37 @@
+src/tools/contactLists/deleteContactList.ts
+  s_4a1992e0a36a14::t_f1586f70ad4903 1-25
+src/tools/contactLists/index.ts
+  s_4a1992e0a36a14::t_5f729515a60a39 9-10,21-22
+src/tools/contactLists/__tests__/deleteContactList.test.ts
+  s_4a1992e0a36a14::t_f5480611db1965 1-42
+README.md
+  s_4a1992e0a36a14::t_7c82d9ee7a6328 738-745
+CLAUDE.md
+  s_4a1992e0a36a14::t_0d95c468ad8a07 147
+src/tools/contactLists/schemas/deleteContactList.ts
+  s_4a1992e0a36a14::t_43a8c7d61544c9 1-13
+src/server.ts
+  s_4a1992e0a36a14::t_69b4ca759c9b03 724-732
+  s_4a1992e0a36a14::t_f2e90c310a6587 140-141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "b40cfeb5579fc37693c358179d4f7a5e7d0b22bb",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
