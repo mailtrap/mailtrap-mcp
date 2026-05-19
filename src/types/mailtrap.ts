@@ -229,6 +229,29 @@ export interface DeleteSandboxInboxRequest {
   inbox_id: number;
 }
 
+/** Common shape for sandbox-scoped actions identified by sandbox_id only. */
+export interface SandboxIdRequest {
+  sandbox_id: number;
+}
+
+/** Common shape for message-scoped sandbox actions. `sandbox_id` is optional; falls back to env. */
+export interface SandboxMessageRequest {
+  sandbox_id?: number;
+  message_id: number;
+}
+
+export interface ForwardSandboxMessageRequest extends SandboxMessageRequest {
+  email: string;
+}
+
+export interface UpdateSandboxMessageRequest extends SandboxMessageRequest {
+  is_read: boolean;
+}
+
+export interface SandboxAttachmentRequest extends SandboxMessageRequest {
+  attachment_id: number;
+}
+
 export interface CleanSandboxInboxRequest {
   inbox_id: number;
 }

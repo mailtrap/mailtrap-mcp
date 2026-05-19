@@ -24,6 +24,7 @@ Before using this MCP server, you need to:
 
 - `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email or send-sandbox-email. Enables switching sender per call via the `from` parameter.
 - `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter.
+- `MAILTRAP_SANDBOX_ID` - Default sandbox ID for sandbox tools when `sandbox_id` is not provided. Enables switching between sandboxes per call via the `sandbox_id` parameter.
 
 ## Quick Install
 
@@ -381,6 +382,166 @@ Rename an existing sandbox project.
 
 - `project_id` (required): ID of the project to update
 - `name` (required): New name for the project (2–100 characters)
+
+### list-sandboxes
+
+List every sandbox accessible to the API token across all projects.
+
+**Parameters:**
+
+- No parameters required
+
+### mark-sandbox-as-read
+
+Mark all messages in a sandbox as read.
+
+**Parameters:**
+
+- `sandbox_id` (required): ID of the sandbox to act on
+
+### reset-sandbox-credentials
+
+Reset the SMTP credentials for a sandbox. Returns the new username/password.
+
+**Parameters:**
+
+- `sandbox_id` (required): ID of the sandbox to act on
+
+### enable-sandbox-email-address
+
+Enable the receive-by-email address for a sandbox (turns on the Mailtrap address that delivers messages to the sandbox via SMTP).
+
+**Parameters:**
+
+- `sandbox_id` (required): ID of the sandbox to act on
+
+### reset-sandbox-email-address
+
+Generate a new receive-by-email address for a sandbox.
+
+**Parameters:**
+
+- `sandbox_id` (required): ID of the sandbox to act on
+
+### forward-sandbox-message
+
+Forward a sandbox message to an external email address. Counts against your monthly forwarding quota.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message to forward
+- `email` (required): Email address to forward the message to
+
+### update-sandbox-message
+
+Mark a sandbox message as read or unread.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message to update
+- `is_read` (required): `true` marks as read, `false` marks as unread
+
+### delete-sandbox-message
+
+Delete a single sandbox message.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message to delete
+
+### get-sandbox-message-spam-score
+
+Get the SpamAssassin spam report for a sandbox message (score, rules, full report). Standalone alternative to `include_spam_report: true` on `show-sandbox-email-message`.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-html-analysis
+
+Get the HTML analysis report for a sandbox message (client compatibility scores, problematic elements). Standalone alternative to `include_html_analysis: true` on `show-sandbox-email-message`.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-headers
+
+Get the parsed mail headers for a sandbox message.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-html
+
+Get the rendered HTML body of a sandbox message.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-text
+
+Get the plain-text body of a sandbox message.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-raw
+
+Get the raw, MIME-formatted message (headers + body) for a sandbox message.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-eml
+
+Get the message rendered as an EML file payload (suitable for attaching to a ticket or importing into another mail client).
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-message-html-source
+
+Get the unrendered HTML source of a sandbox message (HTML before any Mailtrap-side transformations like CID-link rewrites).
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### list-sandbox-attachments
+
+List all attachments on a sandbox message (filename, content type, size, download path).
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message
+
+### get-sandbox-attachment
+
+Get metadata and download URL for a single attachment.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Falls back to `MAILTRAP_SANDBOX_ID`.
+- `message_id` (required): ID of the sandbox message that contains the attachment
+- `attachment_id` (required): ID of the attachment to fetch
 
 ### list-sending-domains
 
