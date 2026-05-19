@@ -151,5 +151,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 
 - **list-contact-fields**: List all contact field definitions for the account.
 - **get-contact-field**: Get a contact field definition by ID.
+- **create-contact-field**: Create a new contact field. Requires `name`, unique `merge_tag`, and `data_type` (text/number/boolean/date).
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

@@ -759,6 +759,16 @@ Get a contact field definition by ID.
 
 - `field_id` (required): ID of the contact field
 
+### create-contact-field
+
+Create a new contact field definition. `merge_tag` must be unique within the account and is used as the placeholder name in template variables.
+
+**Parameters:**
+
+- `name` (required): Display name (e.g. "First Name")
+- `merge_tag` (required): Unique placeholder name (e.g. `first_name`)
+- `data_type` (required): One of `text`, `number`, `boolean`, `date`
+
 ## Development
 
 1. Clone the repository:

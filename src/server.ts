@@ -145,6 +145,8 @@ import {
   listContactFieldsSchema,
   getContactField,
   getContactFieldSchema,
+  createContactField,
+  createContactFieldSchema,
 } from "./tools/contactFields";
 
 // Define the tools registry
@@ -752,6 +754,16 @@ const tools = [
     handler: getContactField,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact-field",
+    description:
+      "Create a new contact field definition. `merge_tag` must be unique and is used in template variables.",
+    inputSchema: createContactFieldSchema,
+    handler: createContactField,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];
