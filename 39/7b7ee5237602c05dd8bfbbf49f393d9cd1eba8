@@ -1,0 +1,37 @@
+src/tools/contactLists/schemas/getContactList.ts
+  s_4a1992e0a36a14::t_f0d444cc237f75 1-13
+src/tools/contactLists/__tests__/getContactList.test.ts
+  s_4a1992e0a36a14::t_471aedfe935f76 1-45
+src/tools/contactLists/index.ts
+  s_4a1992e0a36a14::t_4de8de97998444 3-4,6-11
+README.md
+  s_4a1992e0a36a14::t_3af33438811042 713-720
+src/tools/contactLists/getContactList.ts
+  s_4a1992e0a36a14::t_99e679b5ecf74e 1-23
+src/server.ts
+  s_4a1992e0a36a14::t_9ba4670c3740e9 691-699
+  s_4a1992e0a36a14::t_cfb92422886b22 131-136
+CLAUDE.md
+  s_4a1992e0a36a14::t_af15a0dbd60485 144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "397b7ee5237602c05dd8bfbbf49f393d9cd1eba8",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
