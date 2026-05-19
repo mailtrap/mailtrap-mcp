@@ -631,6 +631,18 @@ Create a webhook. The response includes a `signing_secret` for verifying webhook
 - `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
 - `domain_id` (optional, `email_sending` only): sending domain ID to scope this webhook to
 
+### update-webhook
+
+Update a webhook's mutable fields. `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation — recreate the webhook if you need to change those.
+
+**Parameters:**
+
+- `webhook_id` (required): ID of the webhook to update
+- `url` (optional): New webhook URL
+- `active` (optional, boolean): Enable or disable the webhook
+- `payload_format` (optional): `"json"` or `"jsonlines"`
+- `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
+
 ## Development
 
 1. Clone the repository:

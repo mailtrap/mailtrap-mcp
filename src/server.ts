@@ -111,6 +111,8 @@ import {
   getWebhookSchema,
   createWebhook,
   createWebhookSchema,
+  updateWebhook,
+  updateWebhookSchema,
 } from "./tools/webhooks";
 
 // Define the tools registry
@@ -583,6 +585,16 @@ const tools = [
       "Create a webhook. The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned only on creation, so store it now.",
     inputSchema: createWebhookSchema,
     handler: createWebhook,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "update-webhook",
+    description:
+      "Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`). `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation.",
+    inputSchema: updateWebhookSchema,
+    handler: updateWebhook,
     annotations: {
       destructiveHint: true,
     },
