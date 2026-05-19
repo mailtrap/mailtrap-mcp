@@ -1,0 +1,37 @@
+src/tools/contactFields/__tests__/deleteContactField.test.ts
+  s_4a1992e0a36a14::t_1511e4779e8b18 1-42
+CLAUDE.md
+  s_4a1992e0a36a14::t_8aaee67f8a3671 156
+src/tools/contactFields/index.ts
+  s_4a1992e0a36a14::t_68c008ceef7d57 9-10,21-22
+src/tools/contactFields/deleteContactField.ts
+  s_4a1992e0a36a14::t_35ae09138a43f3 1-25
+src/server.ts
+  s_4a1992e0a36a14::t_4c19bbf555a6ca 152-153
+  s_4a1992e0a36a14::t_d67eacaaa35d46 783-791
+README.md
+  s_4a1992e0a36a14::t_47de9ec19fe0e3 783-790
+src/tools/contactFields/schemas/deleteContactField.ts
+  s_4a1992e0a36a14::t_ce93d878d55025 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "403ba00b958bff326fc745eaca035a3d08171e60",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
