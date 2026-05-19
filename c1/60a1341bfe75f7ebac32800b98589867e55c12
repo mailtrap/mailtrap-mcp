@@ -1,0 +1,38 @@
+src/tools/webhooks/schemas/createWebhook.ts
+  s_4a1992e0a36a14::t_0ff86c7da9f48f 1-58
+CLAUDE.md
+  s_4a1992e0a36a14::t_41d817554d20cb 127
+src/tools/webhooks/__tests__/createWebhook.test.ts
+  s_4a1992e0a36a14::t_a17f16b212b125 1-48,52-91
+  s_4a1992e0a36a14::t_37a5a77b067430 49-51
+src/tools/webhooks/index.ts
+  s_4a1992e0a36a14::t_5cc80dd26b6dae 5-6,8-15
+src/server.ts
+  s_4a1992e0a36a14::t_8deff18505679c 112-113
+  s_4a1992e0a36a14::t_d5cbe2f62769a8 580-589
+src/tools/webhooks/createWebhook.ts
+  s_4a1992e0a36a14::t_8cbde73a3ba092 1-28
+README.md
+  s_4a1992e0a36a14::t_6ba8ee97b068e1 620-633
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "c160a1341bfe75f7ebac32800b98589867e55c12",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
