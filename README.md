@@ -643,6 +643,14 @@ Update a webhook's mutable fields. `webhook_type`, `sending_stream`, and `domain
 - `payload_format` (optional): `"json"` or `"jsonlines"`
 - `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
 
+### delete-webhook
+
+Permanently delete a webhook by ID. Returns the deleted webhook record.
+
+**Parameters:**
+
+- `webhook_id` (required): ID of the webhook to delete
+
 ## Development
 
 1. Clone the repository:

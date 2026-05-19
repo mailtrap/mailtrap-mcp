@@ -113,6 +113,8 @@ import {
   createWebhookSchema,
   updateWebhook,
   updateWebhookSchema,
+  deleteWebhook,
+  deleteWebhookSchema,
 } from "./tools/webhooks";
 
 // Define the tools registry
@@ -595,6 +597,16 @@ const tools = [
       "Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`). `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation.",
     inputSchema: updateWebhookSchema,
     handler: updateWebhook,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-webhook",
+    description:
+      "Permanently delete a webhook by ID. Returns the deleted webhook record.",
+    inputSchema: deleteWebhookSchema,
+    handler: deleteWebhook,
     annotations: {
       destructiveHint: true,
     },

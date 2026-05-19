@@ -6,6 +6,8 @@ import createWebhookSchema from "./schemas/createWebhook";
 import createWebhook from "./createWebhook";
 import updateWebhookSchema from "./schemas/updateWebhook";
 import updateWebhook from "./updateWebhook";
+import deleteWebhookSchema from "./schemas/deleteWebhook";
+import deleteWebhook from "./deleteWebhook";
 
 export {
   listWebhooksSchema,
@@ -16,4 +18,6 @@ export {
   createWebhook,
   updateWebhookSchema,
   updateWebhook,
+  deleteWebhookSchema,
+  deleteWebhook,
 };
