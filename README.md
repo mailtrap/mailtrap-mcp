@@ -601,6 +601,14 @@ Delete a suppression by ID. Mailtrap will resume delivery to this email unless i
 
 - `suppression_id` (required): ID of the suppression to delete
 
+### list-webhooks
+
+List all webhooks configured for the account. Returns the full webhook records as JSON.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

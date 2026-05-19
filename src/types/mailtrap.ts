@@ -328,3 +328,63 @@ export interface ListSuppressionsRequest {
 export interface DeleteSuppressionRequest {
   suppression_id: string;
 }
+
+// --- Webhook types ---
+
+export type WebhookType = "email_sending" | "audit_log";
+
+export type WebhookPayloadFormat = "json" | "jsonlines";
+
+export type WebhookSendingStream = "transactional" | "bulk";
+
+export type WebhookEventType =
+  | "delivery"
+  | "soft_bounce"
+  | "bounce"
+  | "suspension"
+  | "unsubscribe"
+  | "open"
+  | "spam_complaint"
+  | "click"
+  | "reject";
+
+export interface Webhook {
+  id: number;
+  url: string;
+  active: boolean;
+  webhook_type: WebhookType;
+  payload_format: WebhookPayloadFormat;
+  sending_stream?: WebhookSendingStream | null;
+  domain_id?: number | null;
+  event_types?: WebhookEventType[];
+}
+
+export interface WebhookWithSigningSecret extends Webhook {
+  signing_secret: string;
+}
+
+export interface GetWebhookRequest {
+  webhook_id: number;
+}
+
+export interface DeleteWebhookRequest {
+  webhook_id: number;
+}
+
+export interface CreateWebhookRequest {
+  url: string;
+  webhook_type: WebhookType;
+  active?: boolean;
+  payload_format?: WebhookPayloadFormat;
+  sending_stream?: WebhookSendingStream;
+  event_types?: WebhookEventType[];
+  domain_id?: number;
+}
+
+export interface UpdateWebhookRequest {
+  webhook_id: number;
+  url?: string;
+  active?: boolean;
+  payload_format?: WebhookPayloadFormat;
+  event_types?: WebhookEventType[];
+}
