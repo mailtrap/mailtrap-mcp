@@ -143,6 +143,8 @@ import {
 import {
   listContactFields,
   listContactFieldsSchema,
+  getContactField,
+  getContactFieldSchema,
 } from "./tools/contactFields";
 
 // Define the tools registry
@@ -739,6 +741,15 @@ const tools = [
     description: "List all contact field definitions for the account.",
     inputSchema: listContactFieldsSchema,
     handler: listContactFields,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-contact-field",
+    description: "Get a contact field definition by ID.",
+    inputSchema: getContactFieldSchema,
+    handler: getContactField,
     annotations: {
       readOnlyHint: true,
     },

@@ -751,6 +751,14 @@ List all contact field definitions for the account.
 
 - No parameters required
 
+### get-contact-field
+
+Get a contact field definition by ID.
+
+**Parameters:**
+
+- `field_id` (required): ID of the contact field
+
 ## Development
 
 1. Clone the repository:
