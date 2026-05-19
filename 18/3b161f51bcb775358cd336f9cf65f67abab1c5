@@ -1,0 +1,81 @@
+src/tools/sandbox/getSandboxMessageRaw.ts
+  s_4a1992e0a36a14::t_f614af86d95315 4-7,13,23,25
+  s_4a1992e0a36a14::t_60a76ba19e46da 8
+src/tools/sandbox/updateSandboxMessage.ts
+  s_4a1992e0a36a14::t_bb42e8c990630b 4-7,14,25-29,31
+  s_4a1992e0a36a14::t_8224794fe0a6db 8
+src/tools/sandbox/getSandboxMessageHeaders.ts
+  s_4a1992e0a36a14::t_081666d6da1bf6 4-7,13,23,25
+  s_4a1992e0a36a14::t_c817eec6b35dd7 8
+src/tools/sandbox/getSandboxMessageSpamScore.ts
+  s_4a1992e0a36a14::t_9598a806f549ea 8
+  s_4a1992e0a36a14::t_46bdf8c6eb568d 4-7,13,23,25
+src/tools/utils/__tests__/responses.test.ts
+  s_4a1992e0a36a14::t_f2917c2c2a2420 1-71
+src/tools/sandbox/listSandboxes.ts
+  s_4a1992e0a36a14::t_b63eecba5d3e4e 2-5,8,27-29,31
+  s_4a1992e0a36a14::t_ecde3ffd2efaa5 6
+  s_4a1992e0a36a14::t_98fc3ea86b63d2 15-17
+src/tools/sandbox/getSandboxMessageHtmlAnalysis.ts
+  s_4a1992e0a36a14::t_6ae0e4aab3c3c1 8
+  s_4a1992e0a36a14::t_2cdd2fa4d9353e 4-7,13,23,25
+src/tools/sandbox/getSandboxMessageHtml.ts
+  s_4a1992e0a36a14::t_89f702ac096062 8
+  s_4a1992e0a36a14::t_8f95f99c2b80ce 4-7,13,23,25
+src/tools/sandbox/getSandboxMessageEml.ts
+  s_4a1992e0a36a14::t_a9582244d6c865 4-7,13,23,25
+  s_4a1992e0a36a14::t_2cb977fb686e3d 8
+src/tools/utils/responses.ts
+  s_4a1992e0a36a14::t_a46d58998155e7 1-21
+src/tools/sandbox/resetSandboxCredentials.ts
+  s_4a1992e0a36a14::t_9ba73604a1ca81 3-6,11,17-23,25
+  s_4a1992e0a36a14::t_c52de91e0b1d1f 7
+src/tools/sandbox/getSandboxMessageHtmlSource.ts
+  s_4a1992e0a36a14::t_110a05f9a2e6ae 4-7,13,23,25
+  s_4a1992e0a36a14::t_439d7909815f53 8
+src/tools/sandbox/forwardSandboxMessage.ts
+  s_4a1992e0a36a14::t_222d7221c09a73 4-7,14,21-23,25
+  s_4a1992e0a36a14::t_71e154a3de8877 8
+src/tools/sandbox/markSandboxAsRead.ts
+  s_4a1992e0a36a14::t_855446460f6749 7
+  s_4a1992e0a36a14::t_b1bcf4f7a9def6 3-6,9-11,17-19,21
+src/tools/sandbox/resetSandboxEmailAddress.ts
+  s_4a1992e0a36a14::t_63506f154410a5 7
+  s_4a1992e0a36a14::t_0a956d4515c969 3-6,11,19-21,23
+src/tools/sandbox/listSandboxAttachments.ts
+  s_4a1992e0a36a14::t_f984240c1145b1 4-7,13,24-26,36-40,42
+  s_4a1992e0a36a14::t_796f44e533d7ca 8
+src/tools/sandbox/getSandboxMessageText.ts
+  s_4a1992e0a36a14::t_6e3b22d9165963 4-7,13,23,25
+  s_4a1992e0a36a14::t_89c0f78b7adc36 8
+src/tools/sandbox/deleteSandboxMessage.ts
+  s_4a1992e0a36a14::t_ca67bf51ecce98 4-7,13,20,22
+  s_4a1992e0a36a14::t_6732b353482a60 8
+src/tools/sandbox/enableSandboxEmailAddress.ts
+  s_4a1992e0a36a14::t_b808919d70ed1e 3-6,11,19-21,23
+  s_4a1992e0a36a14::t_897a24e4d54adf 7
+src/tools/sandbox/getSandboxAttachment.ts
+  s_4a1992e0a36a14::t_54c1081f5e782f 4-7,14,25,27
+  s_4a1992e0a36a14::t_cd077010ae2633 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "183b161f51bcb775358cd336f9cf65f67abab1c5",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": null
+    }
+  }
+}
