@@ -121,6 +121,8 @@ import {
   getContactSchema,
   createContact,
   createContactSchema,
+  updateContact,
+  updateContactSchema,
 } from "./tools/contacts";
 
 // Define the tools registry
@@ -633,6 +635,16 @@ const tools = [
       "Create a new contact. Requires `email`; optionally accepts custom `fields`, `list_ids` to subscribe to, and `unsubscribed` to start in unsubscribed status.",
     inputSchema: createContactSchema,
     handler: createContact,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "update-contact",
+    description:
+      "Update a contact (identified by ID or email). `list_ids` replaces the membership set; `list_ids_included`/`list_ids_excluded` add/remove without disturbing the rest.",
+    inputSchema: updateContactSchema,
+    handler: updateContact,
     annotations: {
       destructiveHint: true,
     },

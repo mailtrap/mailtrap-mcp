@@ -670,6 +670,20 @@ Create a new contact.
 - `list_ids` (optional): IDs of contact lists to subscribe this contact to
 - `unsubscribed` (optional, boolean): Create the contact in `unsubscribed` status
 
+### update-contact
+
+Update an existing contact identified by ID or email. `list_ids` replaces the contact's full membership set; `list_ids_included`/`list_ids_excluded` add/remove without disturbing the rest.
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email
+- `email` (optional): New email address
+- `fields` (optional): Custom field values keyed by merge tag
+- `list_ids` (optional): Replace membership set with this exact list
+- `list_ids_included` (optional): List IDs to add (additive)
+- `list_ids_excluded` (optional): List IDs to remove
+- `unsubscribed` (optional, boolean): Set to `unsubscribed` (true) or `subscribed` (false)
+
 ## Development
 
 1. Clone the repository:

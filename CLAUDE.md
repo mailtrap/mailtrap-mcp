@@ -133,5 +133,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 
 - **get-contact**: Get a contact by ID or email. Returns list memberships, status, custom fields.
 - **create-contact**: Create a contact. Requires `email`; optional `fields`, `list_ids`, `unsubscribed`.
+- **update-contact**: Update a contact by ID or email. `list_ids` replaces; `list_ids_included`/`_excluded` add/remove.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
