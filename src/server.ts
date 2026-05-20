@@ -164,6 +164,7 @@ import {
   getContactExport,
   getContactExportSchema,
 } from "./tools/contactExports";
+import { listAccounts, listAccountsSchema } from "./tools/accounts";
 
 // Define the tools registry
 const tools = [
@@ -837,6 +838,16 @@ const tools = [
       "Get the status of a contact export job. Once `status` is `finished`, the `url` field holds the download link.",
     inputSchema: getContactExportSchema,
     handler: getContactExport,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-accounts",
+    description:
+      "List Mailtrap accounts accessible to the API token, with each account's access levels.",
+    inputSchema: listAccountsSchema,
+    handler: listAccounts,
     annotations: {
       readOnlyHint: true,
     },

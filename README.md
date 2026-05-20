@@ -827,6 +827,14 @@ Get the status of a contact export job. Once `status` is `finished`, the `url` f
 
 - `export_id` (required): ID of the contact export job
 
+### list-accounts
+
+List Mailtrap accounts the current API token can access, with each account's access levels.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

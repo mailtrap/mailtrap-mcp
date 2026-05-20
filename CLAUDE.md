@@ -163,4 +163,9 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **create-contact-export**: Export contacts matching AND-combined filters (`name`/`operator`/`value`). Returns an export job; poll for download URL.
 - **get-contact-export**: Get the status of a contact export job. `url` is populated when `status: finished`.
 
+
+#### General / Account-admin
+
+- **list-accounts**: List Mailtrap accounts the API token can access (with each account's `access_levels`).
+
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
