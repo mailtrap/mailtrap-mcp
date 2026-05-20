@@ -1,0 +1,38 @@
+src/tools/contactFields/__tests__/listContactFields.test.ts
+  s_4a1992e0a36a14::t_57e1b31c12cbf8 72-100
+src/tools/contactFields/__tests__/getContactField.test.ts
+  s_4a1992e0a36a14::t_e1cab5979a793d 41-57
+src/tools/contactFields/__tests__/createContactField.test.ts
+  s_4a1992e0a36a14::t_1232574efe46b0 49-69
+src/tools/contactFields/updateContactField.ts
+  s_4a1992e0a36a14::t_9f4d6b462a38f3 16-24,26
+src/tools/contactFields/getContactField.ts
+  s_4a1992e0a36a14::t_6c8b00f238b098 15-23,25
+src/tools/contactFields/__tests__/updateContactField.test.ts
+  s_4a1992e0a36a14::t_5951a64591be96 59-78
+src/tools/contactFields/listContactFields.ts
+  s_4a1992e0a36a14::t_050039e431393e 13-18
+src/tools/contactFields/createContactField.ts
+  s_4a1992e0a36a14::t_477596039187d4 15-23,25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "6db92490e2f79efac5f9b113aed6a875f8759890",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
