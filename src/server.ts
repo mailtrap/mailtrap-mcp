@@ -186,6 +186,7 @@ import {
   apiTokenSchema,
   getApiToken,
   resetApiToken,
+  deleteApiToken,
 } from "./tools/apiTokens";
 
 // Define the tools registry
@@ -959,6 +960,16 @@ const tools = [
       "Reset (rotate) an API token by ID. The response includes the **new** secret `token` value — returned only on this call, so store it immediately. The previous token is invalidated.",
     inputSchema: apiTokenSchema,
     handler: resetApiToken,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-api-token",
+    description:
+      "Permanently delete an API token by ID. The token can no longer authenticate after deletion.",
+    inputSchema: apiTokenSchema,
+    handler: deleteApiToken,
     annotations: {
       destructiveHint: true,
     },

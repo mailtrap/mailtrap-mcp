@@ -5,6 +5,7 @@ import createApiToken from "./createApiToken";
 import apiTokenSchema from "./schemas/apiToken";
 import getApiToken from "./getApiToken";
 import resetApiToken from "./resetApiToken";
+import deleteApiToken from "./deleteApiToken";
 
 export {
   listApiTokensSchema,
@@ -14,4 +15,5 @@ export {
   apiTokenSchema,
   getApiToken,
   resetApiToken,
+  deleteApiToken,
 };

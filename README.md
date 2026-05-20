@@ -918,6 +918,14 @@ Reset (rotate) an API token by ID. The response includes the **new** secret `tok
 
 - `api_token_id` (required): ID of the API token to reset
 
+### delete-api-token
+
+Permanently delete an API token by ID. The token can no longer authenticate after deletion.
+
+**Parameters:**
+
+- `api_token_id` (required): ID of the API token to delete
+
 ## Development
 
 1. Clone the repository:
