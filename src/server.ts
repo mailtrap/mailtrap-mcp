@@ -183,6 +183,8 @@ import {
   listApiTokensSchema,
   createApiToken,
   createApiTokenSchema,
+  apiTokenSchema,
+  getApiToken,
 } from "./tools/apiTokens";
 
 // Define the tools registry
@@ -938,6 +940,16 @@ const tools = [
     handler: createApiToken,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "get-api-token",
+    description:
+      "Get an API token by ID. The secret token value is NOT returned here — only the metadata (name, last 4 digits, resources).",
+    inputSchema: apiTokenSchema,
+    handler: getApiToken,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

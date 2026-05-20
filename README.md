@@ -902,6 +902,14 @@ Create a new API token. The response includes the secret `token` value — this 
   - `resource_id` (required): ID of the resource
   - `access_level` (required): `100` (admin) or `10` (viewer)
 
+### get-api-token
+
+Get an API token by ID. Returns metadata only — the secret token value is **not** returned here (only from `create-api-token` / `reset-api-token`).
+
+**Parameters:**
+
+- `api_token_id` (required): ID of the API token
+
 ## Development
 
 1. Clone the repository:
