@@ -172,6 +172,10 @@ import {
   removeAccountAccess,
   removeAccountAccessSchema,
 } from "./tools/accountAccesses";
+import {
+  getPermissionResources,
+  getPermissionResourcesSchema,
+} from "./tools/permissions";
 
 // Define the tools registry
 const tools = [
@@ -887,6 +891,16 @@ const tools = [
     handler: removeAccountAccess,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "get-permission-resources",
+    description:
+      "Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.",
+    inputSchema: getPermissionResourcesSchema,
+    handler: getPermissionResources,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

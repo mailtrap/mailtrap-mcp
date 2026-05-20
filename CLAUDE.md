@@ -170,5 +170,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **get-billing-usage**: Current billing cycle usage (plans, limits, current counts) for the account.
 - **list-account-accesses**: List users/invites/tokens with access to the account, optional filters by domain/inbox/project. Requires admin.
 - **remove-account-access**: Revoke permissions (User) or delete the specifier (Invite/ApiToken). Requires admin.
+- **get-permission-resources**: Hierarchical list of inboxes/projects/domains/billing/account the token has admin access to.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

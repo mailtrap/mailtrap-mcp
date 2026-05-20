@@ -861,6 +861,14 @@ Remove an account access by ID. For `User` specifiers this revokes their permiss
 
 - `account_access_id` (required): ID of the access record to remove
 
+### get-permission-resources
+
+Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:
