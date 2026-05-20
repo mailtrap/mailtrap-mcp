@@ -12,11 +12,17 @@ async function getContactField({
   try {
     const mailtrap = requireClient("contact fields");
 
-    const response = (await mailtrap.contactFields.get(field_id)) as {
-      data: ContactField;
-    };
+    const raw = (await mailtrap.contactFields.get(field_id)) as
+      | ContactField
+      | { data?: ContactField }
+      | null
+      | undefined;
+    const field =
+      raw && typeof raw === "object" && "data" in raw && raw.data
+        ? raw.data
+        : (raw as ContactField);
 
-    return buildSuccessResponse(JSON.stringify(response.data, null, 2));
+    return buildSuccessResponse(JSON.stringify(field, null, 2));
   } catch (error) {
     return buildErrorResponse("get contact field", error);
   }

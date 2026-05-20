@@ -38,6 +38,23 @@ describe("getContactField", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("handles a raw field response (no `data` wrapper)", async () => {
+    mockClient.contactFields.get.mockResolvedValue({
+      id: 7,
+      name: "First Name",
+      merge_tag: "first_name",
+      data_type: "text",
+      created_at: 1716100000,
+      updated_at: 1716100000,
+    });
+
+    const result = await getContactField({ field_id: 7 });
+
+    expect(result.content[0].text).toContain('"id": 7');
+    expect(result.content[0].text).toContain('"merge_tag": "first_name"');
+    expect(result.isError).toBeUndefined();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactFields.get.mockRejectedValue(new Error("not found"));
 

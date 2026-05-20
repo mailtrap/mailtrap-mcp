@@ -56,6 +56,26 @@ describe("updateContactField", () => {
     });
   });
 
+  it("handles a raw field response (no `data` wrapper)", async () => {
+    mockClient.contactFields.update.mockResolvedValue({
+      id: 7,
+      name: "Given Name",
+      merge_tag: "given_name",
+      data_type: "text",
+      created_at: 1716100000,
+      updated_at: 1716200000,
+    });
+
+    const result = await updateContactField({
+      field_id: 7,
+      name: "Given Name",
+    });
+
+    expect(result.content[0].text).toContain('"id": 7');
+    expect(result.content[0].text).toContain('"name": "Given Name"');
+    expect(result.isError).toBeUndefined();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactFields.update.mockRejectedValue(
       new Error("validation failed")

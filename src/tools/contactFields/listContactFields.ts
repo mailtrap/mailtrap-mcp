@@ -10,10 +10,12 @@ async function listContactFields(): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("contact fields");
 
-    const response = (await mailtrap.contactFields.getList()) as {
-      data: ContactField[];
-    };
-    const fields = response?.data ?? [];
+    const raw = (await mailtrap.contactFields.getList()) as
+      | ContactField[]
+      | { data?: ContactField[] }
+      | null
+      | undefined;
+    const fields: ContactField[] = Array.isArray(raw) ? raw : raw?.data ?? [];
 
     if (fields.length === 0) {
       return buildSuccessResponse(
