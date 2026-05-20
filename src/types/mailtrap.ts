@@ -590,9 +590,8 @@ export type PermissionResourceType =
   | "account"
   | "project"
   | "inbox"
-  | "sending_domain"
-  | "billing"
-  | "mailsend_domain";
+  | "domain"
+  | "billing";
 
 export interface PermissionUpdateItem {
   resource_id: number | string;

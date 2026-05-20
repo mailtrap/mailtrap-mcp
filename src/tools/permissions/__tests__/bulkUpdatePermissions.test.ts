@@ -34,7 +34,7 @@ describe("bulkUpdatePermissions", () => {
         },
         {
           resource_id: "uuid-1",
-          resource_type: "sending_domain",
+          resource_type: "domain",
           destroy: true,
         },
       ],
@@ -51,7 +51,7 @@ describe("bulkUpdatePermissions", () => {
       },
       {
         resourceId: "uuid-1",
-        resourceType: "sending_domain",
+        resourceType: "domain",
         destroy: "true",
       },
     ]);
