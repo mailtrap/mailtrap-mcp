@@ -159,5 +159,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Contact Imports & Exports
 
 - **create-contact-import**: Bulk import contacts (array of `{ email, fields?, list_ids_included?, list_ids_excluded? }`). Returns an import job.
+- **get-contact-import**: Get the status of a contact import job (`created`/`started`/`finished`/`failed`) and counts.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

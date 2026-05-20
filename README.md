@@ -800,6 +800,14 @@ Bulk import contacts. Returns an import job record; poll its status with `get-co
   - `list_ids_included` (optional): List IDs to add the contact to
   - `list_ids_excluded` (optional): List IDs to remove the contact from
 
+### get-contact-import
+
+Get the status of a contact import job (created/started/finished/failed) with created/updated/over-limit counts.
+
+**Parameters:**
+
+- `import_id` (required): ID of the contact import job
+
 ## Development
 
 1. Clone the repository:

@@ -155,6 +155,8 @@ import {
 import {
   createContactImport,
   createContactImportSchema,
+  getContactImport,
+  getContactImportSchema,
 } from "./tools/contactImports";
 
 // Define the tools registry
@@ -801,6 +803,16 @@ const tools = [
     handler: createContactImport,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "get-contact-import",
+    description:
+      "Get the status of a contact import job, including created/updated/over-limit counts.",
+    inputSchema: getContactImportSchema,
+    handler: getContactImport,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];
