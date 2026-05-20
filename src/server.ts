@@ -175,6 +175,8 @@ import {
 import {
   getPermissionResources,
   getPermissionResourcesSchema,
+  bulkUpdatePermissions,
+  bulkUpdatePermissionsSchema,
 } from "./tools/permissions";
 
 // Define the tools registry
@@ -901,6 +903,16 @@ const tools = [
     handler: getPermissionResources,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "bulk-update-permissions",
+    description:
+      "Bulk create, update, or destroy permissions for an account access. Existing (resource_type, resource_id) pairs are updated; new ones are created. Set `destroy: true` to remove.",
+    inputSchema: bulkUpdatePermissionsSchema,
+    handler: bulkUpdatePermissions,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

@@ -869,6 +869,19 @@ Get all resources (inboxes, projects, domains, billing, account) to which the AP
 
 - No parameters required
 
+### bulk-update-permissions
+
+Bulk create, update, or destroy permissions for a single account access. Existing `(resource_type, resource_id)` pairs are updated; new ones are created. Set `destroy: true` on an entry to remove it.
+
+**Parameters:**
+
+- `account_access_id` (required): Target account access ID
+- `permissions` (required): Array of permission entries. Each has:
+  - `resource_id` (required): Resource ID (number or string)
+  - `resource_type` (required): One of `account`, `project`, `inbox`, `sending_domain`, `billing`, `mailsend_domain`
+  - `access_level` (optional): `admin`/`100` or `viewer`/`10`
+  - `destroy` (optional, boolean): When true, removes this permission instead of creating/updating it
+
 ## Development
 
 1. Clone the repository:
