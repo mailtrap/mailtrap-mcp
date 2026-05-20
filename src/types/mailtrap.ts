@@ -597,7 +597,7 @@ export type PermissionResourceType =
 export interface PermissionUpdateItem {
   resource_id: number | string;
   resource_type: PermissionResourceType;
-  access_level?: "admin" | "viewer" | "100" | "10";
+  access_level?: 10 | 100 | "admin" | "viewer";
   destroy?: boolean;
 }
 

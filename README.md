@@ -881,7 +881,7 @@ Bulk create, update, or destroy permissions for a single account access. Existin
 - `permissions` (required): Array of permission entries. Each has:
   - `resource_id` (required): Resource ID (number or string)
   - `resource_type` (required): One of `account`, `project`, `inbox`, `sending_domain`, `billing`, `mailsend_domain`
-  - `access_level` (optional): `admin`/`100` or `viewer`/`10`
+  - `access_level` (optional): `100` (admin) or `10` (viewer)
   - `destroy` (optional, boolean): When true, removes this permission instead of creating/updating it
 
 ### list-api-tokens
