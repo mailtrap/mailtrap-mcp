@@ -1,0 +1,30 @@
+src/tools/organizations/listSubAccounts.ts
+  s_4a1992e0a36a14::t_1249b923cbf223 1,11
+README.md
+  s_4a1992e0a36a14::t_fe8e9b62c9cd4c 29
+src/tools/organizations/createSubAccount.ts
+  s_4a1992e0a36a14::t_27c6e6c88bc4cf 1,13
+src/tools/organizations/__tests__/listSubAccounts.test.ts
+  s_4a1992e0a36a14::t_3205de287e6b95 2,13,19,22,30
+src/client.ts
+  s_4a1992e0a36a14::t_7a84f060760c21 42,45-46,48-49,51-65,68-69,75,79,96
+  s_4a1992e0a36a14::t_f3dda95fab884e 43-44,47,50
+src/tools/organizations/__tests__/createSubAccount.test.ts
+  s_4a1992e0a36a14::t_4c8bcd8cb96f8b 2,13,19,22,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "276a8076c25c6734858511e340f0c062fc1c1fee",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
