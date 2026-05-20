@@ -173,5 +173,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **get-permission-resources**: Hierarchical list of inboxes/projects/domains/billing/account the token has admin access to.
 - **bulk-update-permissions**: Create/update/destroy multiple permissions on an account access in one call.
 - **list-api-tokens**: List all API tokens for the account.
+- **create-api-token**: Create an API token. Response includes the secret `token` value (returned only on creation — must be stored).
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

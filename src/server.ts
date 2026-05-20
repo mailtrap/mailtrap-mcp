@@ -178,7 +178,12 @@ import {
   bulkUpdatePermissions,
   bulkUpdatePermissionsSchema,
 } from "./tools/permissions";
-import { listApiTokens, listApiTokensSchema } from "./tools/apiTokens";
+import {
+  listApiTokens,
+  listApiTokensSchema,
+  createApiToken,
+  createApiTokenSchema,
+} from "./tools/apiTokens";
 
 // Define the tools registry
 const tools = [
@@ -923,6 +928,16 @@ const tools = [
     handler: listApiTokens,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-api-token",
+    description:
+      "Create a new API token. The response includes the secret `token` value — this is the **only time** the full token is returned, so store it immediately.",
+    inputSchema: createApiTokenSchema,
+    handler: createApiToken,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

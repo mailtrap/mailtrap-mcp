@@ -890,6 +890,18 @@ List all API tokens for the account.
 
 - No parameters required
 
+### create-api-token
+
+Create a new API token. The response includes the secret `token` value — this is the **only time** the full token is returned, so store it immediately. If you lose it, recreate the token.
+
+**Parameters:**
+
+- `name` (required): Display name for the token
+- `resources` (optional): Array of resource permissions to scope the token to. Each entry has:
+  - `resource_type` (required): One of `account`, `project`, `inbox`, `sending_domain`, `billing`, `mailsend_domain`
+  - `resource_id` (required): ID of the resource
+  - `access_level` (required): `100` (admin) or `10` (viewer)
+
 ## Development
 
 1. Clone the repository:
