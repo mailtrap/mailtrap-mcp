@@ -158,6 +158,10 @@ import {
   getContactImport,
   getContactImportSchema,
 } from "./tools/contactImports";
+import {
+  createContactExport,
+  createContactExportSchema,
+} from "./tools/contactExports";
 
 // Define the tools registry
 const tools = [
@@ -813,6 +817,16 @@ const tools = [
     handler: getContactImport,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact-export",
+    description:
+      "Export contacts matching a set of AND-combined filters. Returns an export job; poll status with `get-contact-export` to retrieve the download URL.",
+    inputSchema: createContactExportSchema,
+    handler: createContactExport,
+    annotations: {
+      destructiveHint: false,
     },
   },
 ];

@@ -808,6 +808,17 @@ Get the status of a contact import job (created/started/finished/failed) with cr
 
 - `import_id` (required): ID of the contact import job
 
+### create-contact-export
+
+Export contacts matching a set of AND-combined filters. Returns an export job record; poll status with `get-contact-export` to retrieve the download URL once `status` is `finished`.
+
+**Parameters:**
+
+- `filters` (required): Array of filter objects. Each has:
+  - `name` (required): Field to filter on (`list_id`, `subscription_status`, `email`, etc.)
+  - `operator` (required): One of `equal`, `not_equal`, `contains`, `not_contains`, `is_empty`, `is_not_empty`
+  - `value` (required): Comparison value (string, number, boolean, or array)
+
 ## Development
 
 1. Clone the repository:
