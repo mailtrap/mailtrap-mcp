@@ -188,6 +188,7 @@ import {
   resetApiToken,
   deleteApiToken,
 } from "./tools/apiTokens";
+import { listSubAccounts, listSubAccountsSchema } from "./tools/organizations";
 
 // Define the tools registry
 const tools = [
@@ -972,6 +973,16 @@ const tools = [
     handler: deleteApiToken,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "list-sub-accounts",
+    description:
+      "List sub-accounts in the organization. Requires `MAILTRAP_ORGANIZATION_ID` env var and sub-account management permissions.",
+    inputSchema: listSubAccountsSchema,
+    handler: listSubAccounts,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

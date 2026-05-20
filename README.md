@@ -927,6 +927,14 @@ Permanently delete an API token by ID. The token can no longer authenticate afte
 
 - `api_token_id` (required): ID of the API token to delete
 
+### list-sub-accounts
+
+List sub-accounts in the organization. Requires `MAILTRAP_ORGANIZATION_ID` env var and sub-account management permissions.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

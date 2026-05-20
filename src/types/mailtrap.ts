@@ -622,3 +622,14 @@ export interface CreateApiTokenRequest {
 export interface ApiTokenRequest {
   api_token_id: number;
 }
+
+// --- Organization / sub-account types ---
+
+export interface SubAccount {
+  id: number;
+  name: string;
+}
+
+export interface CreateSubAccountRequest {
+  name: string;
+}
