@@ -788,6 +788,18 @@ Permanently delete a contact field definition by ID.
 
 - `field_id` (required): ID of the contact field to delete
 
+### create-contact-import
+
+Bulk import contacts. Returns an import job record; poll its status with `get-contact-import`.
+
+**Parameters:**
+
+- `contacts` (required): Array of contact entries. Each entry needs:
+  - `email` (required): Contact email address
+  - `fields` (optional): Custom field values keyed by merge tag (string or number values)
+  - `list_ids_included` (optional): List IDs to add the contact to
+  - `list_ids_excluded` (optional): List IDs to remove the contact from
+
 ## Development
 
 1. Clone the repository:

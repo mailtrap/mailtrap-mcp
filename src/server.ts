@@ -152,6 +152,10 @@ import {
   deleteContactField,
   deleteContactFieldSchema,
 } from "./tools/contactFields";
+import {
+  createContactImport,
+  createContactImportSchema,
+} from "./tools/contactImports";
 
 // Define the tools registry
 const tools = [
@@ -785,6 +789,16 @@ const tools = [
     description: "Permanently delete a contact field definition by ID.",
     inputSchema: deleteContactFieldSchema,
     handler: deleteContactField,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "create-contact-import",
+    description:
+      "Bulk import contacts. Returns an import job record; poll status via `get-contact-import`.",
+    inputSchema: createContactImportSchema,
+    handler: createContactImport,
     annotations: {
       destructiveHint: true,
     },

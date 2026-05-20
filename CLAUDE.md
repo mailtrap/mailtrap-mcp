@@ -155,4 +155,9 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **update-contact-field**: Update name, merge_tag, or data_type of an existing contact field.
 - **delete-contact-field**: Permanently delete a contact field by ID.
 
+
+#### Contact Imports & Exports
+
+- **create-contact-import**: Bulk import contacts (array of `{ email, fields?, list_ids_included?, list_ids_excluded? }`). Returns an import job.
+
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

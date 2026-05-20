@@ -497,3 +497,73 @@ export interface UpdateContactFieldRequest {
   merge_tag?: string;
   data_type?: ContactFieldDataType;
 }
+
+// --- Contact import types ---
+
+export type ContactImportStatus = "created" | "started" | "finished" | "failed";
+
+export interface ContactImport {
+  id: number;
+  status: ContactImportStatus;
+  created_contacts_count?: number;
+  updated_contacts_count?: number;
+  contacts_over_limit_count?: number;
+}
+
+export type ContactImportFieldValue = string | number;
+
+export interface ContactImportItem {
+  email: string;
+  fields?: Record<string, ContactImportFieldValue>;
+  list_ids_included?: number[];
+  list_ids_excluded?: number[];
+}
+
+export interface CreateContactImportRequest {
+  contacts: ContactImportItem[];
+}
+
+export interface GetContactImportRequest {
+  import_id: number;
+}
+
+// --- Contact export types ---
+
+export type ContactExportStatus = "started" | "created" | "finished";
+
+export interface ContactExport {
+  id: number;
+  status: ContactExportStatus;
+  created_at: string;
+  updated_at: string;
+  url: string | null;
+}
+
+export type ContactExportFilterOperator =
+  | "equal"
+  | "not_equal"
+  | "contains"
+  | "not_contains"
+  | "is_empty"
+  | "is_not_empty";
+
+export type ContactExportFilterValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[];
+
+export interface ContactExportFilter {
+  name: string;
+  operator: ContactExportFilterOperator;
+  value: ContactExportFilterValue;
+}
+
+export interface CreateContactExportRequest {
+  filters: ContactExportFilter[];
+}
+
+export interface GetContactExportRequest {
+  export_id: number;
+}
