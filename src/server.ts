@@ -185,6 +185,7 @@ import {
   createApiTokenSchema,
   apiTokenSchema,
   getApiToken,
+  resetApiToken,
 } from "./tools/apiTokens";
 
 // Define the tools registry
@@ -950,6 +951,16 @@ const tools = [
     handler: getApiToken,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "reset-api-token",
+    description:
+      "Reset (rotate) an API token by ID. The response includes the **new** secret `token` value — returned only on this call, so store it immediately. The previous token is invalidated.",
+    inputSchema: apiTokenSchema,
+    handler: resetApiToken,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

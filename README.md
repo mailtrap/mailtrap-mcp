@@ -910,6 +910,14 @@ Get an API token by ID. Returns metadata only — the secret token value is **no
 
 - `api_token_id` (required): ID of the API token
 
+### reset-api-token
+
+Reset (rotate) an API token by ID. The response includes the **new** secret `token` value — returned only on this call, so store it immediately. The previous token is invalidated.
+
+**Parameters:**
+
+- `api_token_id` (required): ID of the API token to reset
+
 ## Development
 
 1. Clone the repository:

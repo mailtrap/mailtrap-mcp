@@ -175,5 +175,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **list-api-tokens**: List all API tokens for the account.
 - **create-api-token**: Create an API token. Response includes the secret `token` value (returned only on creation — must be stored).
 - **get-api-token**: Get an API token by ID (metadata only — secret is not returned).
+- **reset-api-token**: Rotate an API token. Response includes the new secret `token` value; previous one is invalidated.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
