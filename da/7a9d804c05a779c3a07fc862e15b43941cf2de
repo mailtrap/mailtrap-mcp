@@ -1,0 +1,28 @@
+README.md
+  s_4a1992e0a36a14::t_37cfa9d557cf15 884
+src/tools/permissions/bulkUpdatePermissions.ts
+  s_4a1992e0a36a14::t_5c4ffa691df5bd 19-21
+src/tools/permissions/schemas/bulkUpdatePermissions.ts
+  s_4a1992e0a36a14::t_cad09ce201222c 33-34,36
+src/types/mailtrap.ts
+  s_4a1992e0a36a14::t_8de82ee117b1c0 600
+src/tools/permissions/__tests__/bulkUpdatePermissions.test.ts
+  s_4a1992e0a36a14::t_0bca3634b04623 30,74-76
+  s_4a1992e0a36a14::t_8d2964ae722b11 22,43-44,50-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "da7a9d804c05a779c3a07fc862e15b43941cf2de",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
