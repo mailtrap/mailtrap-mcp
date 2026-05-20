@@ -1,4 +1,4 @@
-import { requireClient } from "../../client";
+import { getOrganizationClient } from "../../client";
 import { CreateSubAccountRequest, SubAccount } from "../../types/mailtrap";
 import {
   buildErrorResponse,
@@ -10,10 +10,7 @@ async function createSubAccount({
   name,
 }: CreateSubAccountRequest): Promise<ToolResponse> {
   try {
-    const mailtrap = requireClient("sub-accounts", {
-      requireAccountId: false,
-      requireOrganizationId: true,
-    });
+    const mailtrap = getOrganizationClient();
 
     const response = (await mailtrap.organizations.subAccounts.create({
       name,

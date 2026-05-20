@@ -1,5 +1,5 @@
 import listSubAccounts from "../listSubAccounts";
-import { requireClient } from "../../../client";
+import { getOrganizationClient } from "../../../client";
 
 const mockClient = {
   organizations: {
@@ -10,16 +10,16 @@ const mockClient = {
 };
 
 jest.mock("../../../client", () => ({
-  requireClient: jest.fn(() => mockClient),
+  getOrganizationClient: jest.fn(() => mockClient),
 }));
 
 describe("listSubAccounts", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    (getOrganizationClient as jest.Mock).mockReturnValue(mockClient);
   });
 
-  it("requires the organization ID and returns sub-accounts as JSON", async () => {
+  it("returns sub-accounts as JSON via the organization client", async () => {
     mockClient.organizations.subAccounts.getList.mockResolvedValue([
       { id: 1, name: "Sub A" },
       { id: 2, name: "Sub B" },
@@ -27,10 +27,7 @@ describe("listSubAccounts", () => {
 
     const result = await listSubAccounts();
 
-    expect(requireClient).toHaveBeenCalledWith("sub-accounts", {
-      requireAccountId: false,
-      requireOrganizationId: true,
-    });
+    expect(getOrganizationClient).toHaveBeenCalledWith();
     expect(result.content[0].text).toContain('"id": 1');
     expect(result.content[0].text).toContain('"name": "Sub B"');
     expect(result.isError).toBeUndefined();

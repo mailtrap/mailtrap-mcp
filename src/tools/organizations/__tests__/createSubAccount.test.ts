@@ -1,5 +1,5 @@
 import createSubAccount from "../createSubAccount";
-import { requireClient } from "../../../client";
+import { getOrganizationClient } from "../../../client";
 
 const mockClient = {
   organizations: {
@@ -10,16 +10,16 @@ const mockClient = {
 };
 
 jest.mock("../../../client", () => ({
-  requireClient: jest.fn(() => mockClient),
+  getOrganizationClient: jest.fn(() => mockClient),
 }));
 
 describe("createSubAccount", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (requireClient as jest.Mock).mockReturnValue(mockClient);
+    (getOrganizationClient as jest.Mock).mockReturnValue(mockClient);
   });
 
-  it("creates a sub-account and returns the result as JSON", async () => {
+  it("creates a sub-account via the organization client and returns JSON", async () => {
     mockClient.organizations.subAccounts.create.mockResolvedValue({
       id: 99,
       name: "QA Sub",
@@ -27,10 +27,7 @@ describe("createSubAccount", () => {
 
     const result = await createSubAccount({ name: "QA Sub" });
 
-    expect(requireClient).toHaveBeenCalledWith("sub-accounts", {
-      requireAccountId: false,
-      requireOrganizationId: true,
-    });
+    expect(getOrganizationClient).toHaveBeenCalledWith();
     expect(mockClient.organizations.subAccounts.create).toHaveBeenCalledWith({
       name: "QA Sub",
     });
