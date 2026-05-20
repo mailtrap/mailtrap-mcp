@@ -835,6 +835,14 @@ List Mailtrap accounts the current API token can access, with each account's acc
 
 - No parameters required
 
+### get-billing-usage
+
+Get the current billing cycle usage for the account: sending and testing plans, limits, and current counts.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

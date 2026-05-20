@@ -165,6 +165,7 @@ import {
   getContactExportSchema,
 } from "./tools/contactExports";
 import { listAccounts, listAccountsSchema } from "./tools/accounts";
+import { getBillingUsage, getBillingUsageSchema } from "./tools/billing";
 
 // Define the tools registry
 const tools = [
@@ -848,6 +849,16 @@ const tools = [
       "List Mailtrap accounts accessible to the API token, with each account's access levels.",
     inputSchema: listAccountsSchema,
     handler: listAccounts,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-billing-usage",
+    description:
+      "Get the current billing cycle usage for the account (sending and testing plans, limits, and current counts).",
+    inputSchema: getBillingUsageSchema,
+    handler: getBillingUsage,
     annotations: {
       readOnlyHint: true,
     },

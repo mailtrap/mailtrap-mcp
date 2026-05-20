@@ -167,5 +167,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### General / Account-admin
 
 - **list-accounts**: List Mailtrap accounts the API token can access (with each account's `access_levels`).
+- **get-billing-usage**: Current billing cycle usage (plans, limits, current counts) for the account.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
