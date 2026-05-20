@@ -178,6 +178,7 @@ import {
   bulkUpdatePermissions,
   bulkUpdatePermissionsSchema,
 } from "./tools/permissions";
+import { listApiTokens, listApiTokensSchema } from "./tools/apiTokens";
 
 // Define the tools registry
 const tools = [
@@ -913,6 +914,15 @@ const tools = [
     handler: bulkUpdatePermissions,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "list-api-tokens",
+    description: "List all API tokens for the account.",
+    inputSchema: listApiTokensSchema,
+    handler: listApiTokens,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];

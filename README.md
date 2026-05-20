@@ -882,6 +882,14 @@ Bulk create, update, or destroy permissions for a single account access. Existin
   - `access_level` (optional): `admin`/`100` or `viewer`/`10`
   - `destroy` (optional, boolean): When true, removes this permission instead of creating/updating it
 
+### list-api-tokens
+
+List all API tokens for the account.
+
+**Parameters:**
+
+- No parameters required
+
 ## Development
 
 1. Clone the repository:

@@ -172,5 +172,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **remove-account-access**: Revoke permissions (User) or delete the specifier (Invite/ApiToken). Requires admin.
 - **get-permission-resources**: Hierarchical list of inboxes/projects/domains/billing/account the token has admin access to.
 - **bulk-update-permissions**: Create/update/destroy multiple permissions on an account access in one call.
+- **list-api-tokens**: List all API tokens for the account.
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
