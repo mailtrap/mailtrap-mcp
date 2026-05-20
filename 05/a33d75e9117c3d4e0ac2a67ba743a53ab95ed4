@@ -1,0 +1,26 @@
+src/client.ts
+  s_4a1992e0a36a14::t_48ab5476f56189 17-21,48-49,55-56,60-63,76-80
+README.md
+  s_4a1992e0a36a14::t_26965ca6f45c6c 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "05a33d75e9117c3d4e0ac2a67ba743a53ab95ed4",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
