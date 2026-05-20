@@ -819,6 +819,14 @@ Export contacts matching a set of AND-combined filters. Returns an export job re
   - `operator` (required): One of `equal`, `not_equal`, `contains`, `not_contains`, `is_empty`, `is_not_empty`
   - `value` (required): Comparison value (string, number, boolean, or array)
 
+### get-contact-export
+
+Get the status of a contact export job. Once `status` is `finished`, the `url` field holds the CSV download link.
+
+**Parameters:**
+
+- `export_id` (required): ID of the contact export job
+
 ## Development
 
 1. Clone the repository:

@@ -161,6 +161,8 @@ import {
 import {
   createContactExport,
   createContactExportSchema,
+  getContactExport,
+  getContactExportSchema,
 } from "./tools/contactExports";
 
 // Define the tools registry
@@ -827,6 +829,16 @@ const tools = [
     handler: createContactExport,
     annotations: {
       destructiveHint: false,
+    },
+  },
+  {
+    name: "get-contact-export",
+    description:
+      "Get the status of a contact export job. Once `status` is `finished`, the `url` field holds the download link.",
+    inputSchema: getContactExportSchema,
+    handler: getContactExport,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];
