@@ -169,6 +169,8 @@ import { getBillingUsage, getBillingUsageSchema } from "./tools/billing";
 import {
   listAccountAccesses,
   listAccountAccessesSchema,
+  removeAccountAccess,
+  removeAccountAccessSchema,
 } from "./tools/accountAccesses";
 
 // Define the tools registry
@@ -875,6 +877,16 @@ const tools = [
     handler: listAccountAccesses,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "remove-account-access",
+    description:
+      "Remove an account access by ID. For User specifiers this revokes permissions; for Invite or ApiToken specifiers it removes the specifier itself. Requires admin/owner.",
+    inputSchema: removeAccountAccessSchema,
+    handler: removeAccountAccess,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

@@ -853,6 +853,14 @@ List account accesses (users, invites, API tokens) for the account. Optional fil
 - `inbox_ids` (optional): Filter by sandbox inbox IDs (array of strings)
 - `project_ids` (optional): Filter by sandbox project IDs (array of strings)
 
+### remove-account-access
+
+Remove an account access by ID. For `User` specifiers this revokes their permissions; for `Invite` or `ApiToken` specifiers it removes the specifier entirely. Requires admin/owner.
+
+**Parameters:**
+
+- `account_access_id` (required): ID of the access record to remove
+
 ## Development
 
 1. Clone the repository:
