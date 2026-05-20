@@ -935,6 +935,14 @@ List sub-accounts in the organization. Requires `MAILTRAP_ORGANIZATION_ID` env v
 
 - No parameters required
 
+### create-sub-account
+
+Create a new sub-account under the organization. Requires `MAILTRAP_ORGANIZATION_ID` env var and sub-account management permissions.
+
+**Parameters:**
+
+- `name` (required): Display name for the new sub-account
+
 ## Development
 
 1. Clone the repository:

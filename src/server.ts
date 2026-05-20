@@ -188,7 +188,12 @@ import {
   resetApiToken,
   deleteApiToken,
 } from "./tools/apiTokens";
-import { listSubAccounts, listSubAccountsSchema } from "./tools/organizations";
+import {
+  listSubAccounts,
+  listSubAccountsSchema,
+  createSubAccount,
+  createSubAccountSchema,
+} from "./tools/organizations";
 
 // Define the tools registry
 const tools = [
@@ -983,6 +988,16 @@ const tools = [
     handler: listSubAccounts,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-sub-account",
+    description:
+      "Create a new sub-account under the organization. Requires `MAILTRAP_ORGANIZATION_ID` and sub-account management permissions.",
+    inputSchema: createSubAccountSchema,
+    handler: createSubAccount,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

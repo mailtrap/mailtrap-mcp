@@ -182,5 +182,6 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Organizations
 
 - **list-sub-accounts**: List sub-accounts in the organization (requires `MAILTRAP_ORGANIZATION_ID`).
+- **create-sub-account**: Create a sub-account under the organization (requires `MAILTRAP_ORGANIZATION_ID`).
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
