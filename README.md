@@ -843,6 +843,16 @@ Get the current billing cycle usage for the account: sending and testing plans, 
 
 - No parameters required
 
+### list-account-accesses
+
+List account accesses (users, invites, API tokens) for the account. Optional filters narrow the result to specific resources. Requires account admin/owner permissions.
+
+**Parameters:**
+
+- `domain_uuids` (optional): Filter by sending domain UUIDs (array of strings)
+- `inbox_ids` (optional): Filter by sandbox inbox IDs (array of strings)
+- `project_ids` (optional): Filter by sandbox project IDs (array of strings)
+
 ## Development
 
 1. Clone the repository:

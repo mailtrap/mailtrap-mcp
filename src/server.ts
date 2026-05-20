@@ -166,6 +166,10 @@ import {
 } from "./tools/contactExports";
 import { listAccounts, listAccountsSchema } from "./tools/accounts";
 import { getBillingUsage, getBillingUsageSchema } from "./tools/billing";
+import {
+  listAccountAccesses,
+  listAccountAccessesSchema,
+} from "./tools/accountAccesses";
 
 // Define the tools registry
 const tools = [
@@ -859,6 +863,16 @@ const tools = [
       "Get the current billing cycle usage for the account (sending and testing plans, limits, and current counts).",
     inputSchema: getBillingUsageSchema,
     handler: getBillingUsage,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-account-accesses",
+    description:
+      "List account accesses (users, invites, API tokens) for the account. Optionally scope by domain UUIDs, inbox IDs, or project IDs. Requires account admin/owner permissions.",
+    inputSchema: listAccountAccessesSchema,
+    handler: listAccountAccesses,
     annotations: {
       readOnlyHint: true,
     },
