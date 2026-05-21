@@ -1,0 +1,37 @@
+src/tools/sendEmail/index.ts
+  s_4a1992e0a36a14::t_068582f3ee8f9f 3-4,6
+src/tools/sendEmail/batchSendEmail.ts
+  s_4a1992e0a36a14::t_c860868c38e7f6 135
+  s_4a1992e0a36a14::t_f7ba39432a1260 123
+  s_4a1992e0a36a14::t_c546518ba59a2f 1-122,124-134,136-143
+CLAUDE.md
+  s_4a1992e0a36a14::t_5062ba422bcaf1 76
+src/tools/sendEmail/schemas/batchSendEmail.ts
+  s_4a1992e0a36a14::t_f7ba39432a1260 27,31
+  s_4a1992e0a36a14::t_fcf2f15636fcf7 1-26,28-30,32-115
+src/server.ts
+  s_4a1992e0a36a14::t_271561977140f6 14-19
+  s_4a1992e0a36a14::t_7a4ba7c71e6038 216-224
+src/tools/sendEmail/__tests__/batchSendEmail.test.ts
+  s_4a1992e0a36a14::t_f8fb5a7a3e97b8 1-146
+README.md
+  s_4a1992e0a36a14::t_d2ddf14916db10 225-243
+src/types/mailtrap.ts
+  s_4a1992e0a36a14::t_a28b55e75e53f5 42-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "d01f51c7e1758be0e10b95a7b211d087733aeb64",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
