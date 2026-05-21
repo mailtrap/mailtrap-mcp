@@ -49,8 +49,8 @@ describe("getSendingDomain", () => {
 
     expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
     expect(result.content[0].text).toContain("example.com");
-    expect(result.content[0].text).toContain("ID: 3938");
-    expect(result.content[0].text).toContain("DNS verified: true");
+    expect(result.content[0].text).toContain('"id": 3938');
+    expect(result.content[0].text).toContain('"dns_verified": true');
     expect(result.content[0].text).toContain("spf");
     expect(result.content[0].text).toContain("pass");
     expect(result.isError).toBeUndefined();
@@ -63,12 +63,9 @@ describe("getSendingDomain", () => {
     });
 
     expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
-    expect(result.content[0].text).toContain("Domain: example.com");
-    expect(result.content[0].text).toContain("Add DNS records for example.com");
-    expect(result.content[0].text).toContain("What?");
-    expect(result.content[0].text).toContain("Why?");
+    expect(result.content[0].text).toContain("example.com");
+    expect(result.content[0].text).toContain('"setup_instructions"');
     expect(result.content[0].text).toContain("DNS records to add");
-    expect(result.content[0].text).toContain("docs.mailtrap.io");
     expect(result.isError).toBeUndefined();
   });
 

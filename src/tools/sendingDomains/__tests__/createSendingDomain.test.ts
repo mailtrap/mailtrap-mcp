@@ -44,10 +44,11 @@ describe("createSendingDomain", () => {
       domain_name: "example.com",
     });
     expect(result.content[0].text).toContain("example.com");
-    expect(result.content[0].text).toContain("created successfully");
-    expect(result.content[0].text).toContain("3938");
-    expect(result.content[0].text).toContain("Add DNS records for example.com");
-    expect(result.content[0].text).toContain("DNS records to add:");
+    expect(result.content[0].text).toContain(
+      'Sending domain "example.com" created'
+    );
+    expect(result.content[0].text).toContain('"id": 3938');
+    expect(result.content[0].text).toContain('"setup_instructions"');
     expect(result.content[0].text).toContain("verification");
     expect(result.isError).toBeUndefined();
   });

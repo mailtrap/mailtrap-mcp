@@ -1,4 +1,9 @@
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function sendSendingDomainSetupInstructions({
   sending_domain_id,
@@ -6,10 +11,7 @@ async function sendSendingDomainSetupInstructions({
 }: {
   sending_domain_id: number;
   email: string;
-}): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sending domains");
 
@@ -18,25 +20,15 @@ async function sendSendingDomainSetupInstructions({
       email
     );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `DNS setup instructions for sending domain ${sending_domain_id} sent to ${email}.`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `DNS setup instructions for sending domain ${sending_domain_id} sent to ${email}.\n\n${JSON.stringify(
+        { sending_domain_id, email, sent: true },
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to send sending domain setup instructions: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("send sending domain setup instructions", error);
   }
 }
 

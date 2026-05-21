@@ -49,10 +49,10 @@ describe("listSendingDomains", () => {
     expect(result.content).toHaveLength(1);
     expect(result.content[0].type).toBe("text");
     expect(result.content[0].text).toContain("example.com");
-    expect(result.content[0].text).toContain("ID: 1");
+    expect(result.content[0].text).toContain('"id": 1');
     expect(result.content[0].text).toContain("test.com");
-    expect(result.content[0].text).toContain("DNS verified: true");
-    expect(result.content[0].text).toContain("DNS verified: false");
+    expect(result.content[0].text).toContain('"dns_verified": true');
+    expect(result.content[0].text).toContain('"dns_verified": false');
     expect(result.isError).toBeUndefined();
   });
 
@@ -63,7 +63,7 @@ describe("listSendingDomains", () => {
 
     const result = await listSendingDomains();
 
-    expect(result.content[0].text).toContain("No sending domains found");
+    expect(result.content[0].text).toBe("[]");
     expect(result.isError).toBeUndefined();
   });
 

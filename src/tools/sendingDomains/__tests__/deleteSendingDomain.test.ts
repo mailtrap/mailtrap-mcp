@@ -29,8 +29,8 @@ describe("deleteSendingDomain", () => {
     const result = await deleteSendingDomain({ sending_domain_id: 3938 });
 
     expect(mockClient.sendingDomains.delete).toHaveBeenCalledWith(3938);
-    expect(result.content[0].text).toContain("deleted successfully");
-    expect(result.content[0].text).toContain("3938");
+    expect(result.content[0].text).toContain("Sending domain 3938 deleted");
+    expect(result.content[0].text).toContain('"deleted": true');
     expect(result.isError).toBeUndefined();
   });
 

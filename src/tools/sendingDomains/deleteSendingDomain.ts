@@ -1,37 +1,29 @@
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function deleteSendingDomain({
   sending_domain_id,
 }: {
   sending_domain_id: number;
-}): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sending domains");
 
     await mailtrap.sendingDomains.delete(sending_domain_id);
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sending domain with ID ${sending_domain_id} deleted successfully.`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sending domain ${sending_domain_id} deleted.\n\n${JSON.stringify(
+        { sending_domain_id, deleted: true },
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to delete sending domain: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("delete sending domain", error);
   }
 }
 

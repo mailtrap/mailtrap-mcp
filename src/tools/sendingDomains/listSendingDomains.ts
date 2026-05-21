@@ -1,48 +1,20 @@
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
-async function listSendingDomains(): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function listSendingDomains(): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sending domains");
 
     const response = await mailtrap.sendingDomains.getList();
     const domains = response?.data ?? [];
 
-    if (domains.length === 0) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "No sending domains found in your Mailtrap account.",
-          },
-        ],
-      };
-    }
-
-    const lines = domains.map(
-      (d) =>
-        `• ${d.domain_name} (ID: ${d.id})\n  DNS verified: ${d.dns_verified} | Compliance: ${d.compliance_status}`
-    );
-    const text = `Sending domains (${domains.length}):\n\n${lines.join(
-      "\n\n"
-    )}`;
-
-    return {
-      content: [{ type: "text", text }],
-    };
+    return buildSuccessResponse(JSON.stringify(domains, null, 2));
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list sending domains: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list sending domains", error);
   }
 }
 
