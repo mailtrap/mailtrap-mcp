@@ -50,8 +50,7 @@ describe("listEmailLogs", () => {
     expect(mockClient.emailLogs.getList).toHaveBeenCalledWith(undefined);
     expect(result.content).toHaveLength(1);
     expect(result.content[0].type).toBe("text");
-    expect(result.content[0].text).toContain("Found 2 email log message(s)");
-    expect(result.content[0].text).toContain("msg-uuid-1");
+    expect(result.content[0].text).toContain('"msg-uuid-1"');
     expect(result.content[0].text).toContain("delivered");
     expect(result.content[0].text).toContain("sender@example.com");
     expect(result.content[0].text).toContain("user@example.com");
@@ -63,14 +62,11 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(result.content[0].text).toContain("No email log messages found");
+    expect(result.content[0].text).toContain('"messages": []');
     expect(result.isError).toBeUndefined();
   });
 
   it("should require MAILTRAP_ACCOUNT_ID", async () => {
-    const consoleErrorSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
     delete process.env.MAILTRAP_ACCOUNT_ID;
     (requireClient as jest.Mock).mockImplementation(() => {
       throw new Error(
@@ -80,20 +76,12 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error listing email log messages:",
-      expect.anything()
-    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(mockClient.emailLogs.getList).not.toHaveBeenCalled();
-    consoleErrorSpy.mockRestore();
   });
 
   it("should require valid MAILTRAP_ACCOUNT_ID", async () => {
-    const consoleErrorSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
     process.env.MAILTRAP_ACCOUNT_ID = "not-a-number";
     (requireClient as jest.Mock).mockImplementation(() => {
       throw new Error(
@@ -103,13 +91,8 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error listing email log messages:",
-      expect.anything()
-    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
-    consoleErrorSpy.mockRestore();
   });
 
   it("should pass search_after to getList", async () => {
@@ -171,22 +154,14 @@ describe("listEmailLogs", () => {
   it("should handle API errors", async () => {
     const mockError = new Error("API Error");
     mockClient.emailLogs.getList.mockRejectedValue(mockError);
-    const consoleErrorSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
 
     const result = await listEmailLogs({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error listing email log messages:",
-      mockError
-    );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "Failed to list email log messages"
     );
     expect(result.content[0].text).toContain("API Error");
-    consoleErrorSpy.mockRestore();
   });
 
   it("should include next_page_cursor when present", async () => {
@@ -197,8 +172,7 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(result.content[0].text).toContain("Next page");
-    expect(result.content[0].text).toContain("search_after");
-    expect(result.content[0].text).toContain("next-cursor-xyz");
+    expect(result.content[0].text).toContain('"next_page_cursor"');
+    expect(result.content[0].text).toContain('"next-cursor-xyz"');
   });
 });

@@ -95,10 +95,9 @@ describe("getEmailLogMessage include_content", () => {
       signal: expect.any(AbortSignal),
     });
 
-    expect(result.content[0].text).toContain("Email Log Details");
-    expect(result.content[0].text).toContain("--- HTML Content ---");
+    expect(result.content[0].text).toContain('"html_content"');
     expect(result.content[0].text).toContain("<p>Hello html</p>");
-    expect(result.content[0].text).toContain("--- Text Content ---");
+    expect(result.content[0].text).toContain('"text_content"');
     expect(result.content[0].text).toContain("Hello plain");
   });
 

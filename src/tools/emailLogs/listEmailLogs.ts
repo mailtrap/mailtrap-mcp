@@ -1,10 +1,13 @@
 import { requireClient } from "../../client";
-import type { EmailLogMessageDetails } from "../../types/mailtrap";
 import {
   listEmailLogsZod,
   listEmailLogsResponseZod,
 } from "./schemas/listEmailLogs";
-import { buildMessageSummaryLines } from "./utils/emailLogMessageSummary";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 /** Normalize to array. Only splits on commas when allowCommaSplit is true. */
 function toValueArray(
@@ -54,20 +57,14 @@ function filterValue<T>(values: T[], operator: string | undefined): T | T[] {
   return values[0];
 }
 
-async function listEmailLogs(raw: unknown): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function listEmailLogs(raw: unknown): Promise<ToolResponse> {
   try {
     const parsed = listEmailLogsZod.safeParse(raw);
     if (!parsed.success) {
       const msg = parsed.error.errors
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
-      return {
-        content: [{ type: "text", text: `Invalid input: ${msg}` }],
-        isError: true,
-      };
+      throw new Error(`Invalid input: ${msg}`);
     }
 
     const params = parsed.data;
@@ -228,71 +225,13 @@ async function listEmailLogs(raw: unknown): Promise<{
       const msg = responseParsed.error.errors
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Invalid list response from API: ${msg}`,
-          },
-        ],
-        isError: true,
-      };
+      throw new Error(`Invalid list response from API: ${msg}`);
     }
     const response = responseParsed.data;
-    const list = response.messages ?? [];
-    const nextPageCursor = response.next_page_cursor ?? null;
 
-    if (list.length === 0) {
-      const noLogsText = nextPageCursor
-        ? `No email log messages found. Use search_after: "${nextPageCursor}" for pagination.`
-        : "No email log messages found.";
-      return {
-        content: [
-          {
-            type: "text",
-            text: noLogsText,
-          },
-        ],
-      };
-    }
-
-    const messageList = list
-      .map((entry: Record<string, unknown>) => {
-        const id = entry.message_id ?? entry.id ?? "—";
-        const summaryLines = buildMessageSummaryLines(
-          entry as EmailLogMessageDetails
-        );
-        return `• Message ID: ${id}\n  ${summaryLines.join("\n  ")}\n`;
-      })
-      .join("\n");
-
-    let text = `Found ${list.length} email log message(s):\n\n${messageList}`;
-    if (nextPageCursor) {
-      text += `\nNext page: use search_after: "${nextPageCursor}" to fetch more.`;
-    }
-
-    return {
-      content: [
-        {
-          type: "text",
-          text,
-        },
-      ],
-    };
+    return buildSuccessResponse(JSON.stringify(response, null, 2));
   } catch (error) {
-    console.error("Error listing email log messages:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list email log messages: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list email log messages", error);
   }
 }
 

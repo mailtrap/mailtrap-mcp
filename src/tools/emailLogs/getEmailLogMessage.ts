@@ -1,27 +1,24 @@
 import { requireClient } from "../../client";
 import { type EmailLogMessageDetails } from "../../types/mailtrap";
-import { formatEmailLogEvent } from "./utils/emailLogEventFormat";
-import { buildMessageSummaryLines } from "./utils/emailLogMessageSummary";
 import { getEmailLogMessageZod } from "./schemas/getEmailLogMessage";
 import parseEmlBuffer from "./utils/parseEmlBuffer";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 /** API may include an error summary on the row (not always in SDK typings). */
 type EmailLogMessageRow = EmailLogMessageDetails & { error?: string };
 
-async function getEmailLogMessage(raw: unknown): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function getEmailLogMessage(raw: unknown): Promise<ToolResponse> {
   try {
     const parsed = getEmailLogMessageZod.safeParse(raw);
     if (!parsed.success) {
       const msg = parsed.error.errors
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
-      return {
-        content: [{ type: "text", text: `Invalid input: ${msg}` }],
-        isError: true,
-      };
+      throw new Error(`Invalid input: ${msg}`);
     }
 
     const { message_id: messageId, include_content: includeContent } =
@@ -34,36 +31,10 @@ async function getEmailLogMessage(raw: unknown): Promise<{
     )) as EmailLogMessageRow | null;
 
     if (log == null) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Email log with message ID ${messageId} not found.`,
-          },
-        ],
-        isError: true,
-      };
+      throw new Error(`Email log with message ID ${messageId} not found.`);
     }
 
-    const lines = [
-      `Message ID: ${log.message_id}`,
-      "",
-      ...buildMessageSummaryLines(log),
-    ];
-
-    if (log.events?.length) {
-      lines.push(
-        "",
-        "Event history:",
-        ...log.events.map((e) => formatEmailLogEvent(e))
-      );
-    }
-
-    if (log.error) {
-      lines.push("", `Error: ${log.error}`);
-    }
-
-    let contentText = `Email Log Details:\n\n${lines.join("\n")}`;
+    const result: Record<string, unknown> = { ...log };
 
     if (includeContent && log.raw_message_url) {
       const RAW_FETCH_TIMEOUT_MS = 60_000;
@@ -78,19 +49,14 @@ async function getEmailLogMessage(raw: unknown): Promise<{
         });
         clearTimeout(timeoutId);
         if (!rawResponse.ok) {
-          contentText += `\n\nRaw content: Failed to fetch (${rawResponse.status}).`;
+          result.raw_content_error = `Failed to fetch (${rawResponse.status}).`;
         } else {
           const rawBuffer = Buffer.from(await rawResponse.arrayBuffer());
           const { htmlContent, textContent } = await parseEmlBuffer(rawBuffer);
-          if (htmlContent) {
-            contentText += `\n\n--- HTML Content ---\n${htmlContent}`;
-          }
-          if (textContent) {
-            contentText += `\n\n--- Text Content ---\n${textContent}`;
-          }
+          if (htmlContent) result.html_content = htmlContent;
+          if (textContent) result.text_content = textContent;
           if (!htmlContent && !textContent) {
-            contentText +=
-              "\n\nRaw content: No HTML or text body found in message.";
+            result.raw_content_error = "No HTML or text body found in message.";
           }
         }
       } catch (rawErr) {
@@ -98,30 +64,18 @@ async function getEmailLogMessage(raw: unknown): Promise<{
         let rawErrMsg: string;
         if (rawErr instanceof Error && rawErr.name === "AbortError") {
           rawErrMsg = "Request timed out.";
+        } else if (rawErr instanceof Error) {
+          rawErrMsg = rawErr.message;
         } else {
-          rawErrMsg = rawErr instanceof Error ? rawErr.message : String(rawErr);
+          rawErrMsg = String(rawErr);
         }
-        contentText += `\n\nRaw content: Error fetching or parsing — ${rawErrMsg}`;
+        result.raw_content_error = `Error fetching or parsing — ${rawErrMsg}`;
       }
     }
 
-    return {
-      content: [{ type: "text", text: contentText }],
-    };
+    return buildSuccessResponse(JSON.stringify(result, null, 2));
   } catch (error) {
-    console.error("Error getting email log message:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get email log message: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get email log message", error);
   }
 }
 
