@@ -1050,7 +1050,7 @@ export function createServer(): Server {
       throw new Error(`Unknown tool: ${request.params.name}`);
     }
 
-    return tool.handler(request.params.arguments as any);
+    return tool.handler(request.params.arguments as any) as Promise<any>;
   });
 
   server.setRequestHandler(ListPromptsRequestSchema, async () => {

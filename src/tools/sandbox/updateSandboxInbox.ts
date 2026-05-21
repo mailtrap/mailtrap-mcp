@@ -1,14 +1,16 @@
 import { requireClient } from "../../client";
 import { UpdateSandboxInboxRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function updateSandboxInbox({
   inbox_id,
   name,
   email_username,
-}: UpdateSandboxInboxRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}: UpdateSandboxInboxRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandbox inboxes");
 
@@ -19,37 +21,19 @@ async function updateSandboxInbox({
     }
 
     const params: Record<string, string> = {};
-    if (name) {
-      params.name = name;
-    }
-    if (email_username) {
-      params.emailUsername = email_username;
-    }
+    if (name) params.name = name;
+    if (email_username) params.emailUsername = email_username;
 
     const inbox = await mailtrap.testing.inboxes.updateInbox(
       inbox_id,
       params as { name: string; emailUsername: string }
     );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox inbox updated successfully:\n\n• Name: ${inbox.name}\n• ID: ${inbox.id}\n• Email address: ${inbox.email_username}@${inbox.email_domain}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sandbox inbox ${inbox_id} updated.\n\n${JSON.stringify(inbox, null, 2)}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to update sandbox inbox: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("update sandbox inbox", error);
   }
 }
 

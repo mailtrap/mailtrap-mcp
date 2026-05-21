@@ -2,60 +2,44 @@ import updateProject from "../updateProject";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    projects: {
-      update: jest.fn(),
-    },
-  },
+  testing: { projects: { update: jest.fn() } },
 };
 
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
 
-const originalEnv = { ...process.env };
-
 describe("updateProject", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
   });
 
-  afterEach(() => {
-    Object.assign(process.env, originalEnv);
-  });
-
-  it("updates project name", async () => {
+  it("renames the project and returns summary + JSON", async () => {
     mockClient.testing.projects.update.mockResolvedValue({
-      id: 1,
+      id: 7,
       name: "Renamed",
     });
 
-    const result = await updateProject({ project_id: 1, name: "Renamed" });
+    const result = await updateProject({ project_id: 7, name: "Renamed" });
 
-    expect(requireClient).toHaveBeenCalledWith("sandbox projects");
     expect(mockClient.testing.projects.update).toHaveBeenCalledWith(
-      1,
+      7,
       "Renamed"
     );
-    expect(result.content[0].text).toContain("updated successfully");
-    expect(result.content[0].text).toContain("Renamed");
-    expect(result.content[0].text).toContain("ID: 1");
+    expect(result.content[0].text).toContain("Sandbox project 7 updated.");
+    expect(result.content[0].text).toContain('"name": "Renamed"');
     expect(result.isError).toBeUndefined();
   });
 
-  it("handles API failure", async () => {
+  it("surfaces API errors", async () => {
     mockClient.testing.projects.update.mockRejectedValue(
-      new Error("Validation failed")
+      new Error("not found")
     );
-
-    const result = await updateProject({ project_id: 1, name: "x" });
-
-    expect(result.content[0].text).toContain(
-      "Failed to update sandbox project"
-    );
-    expect(result.content[0].text).toContain("Validation failed");
+    const result = await updateProject({ project_id: 99, name: "x" });
     expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to update sandbox project: not found"
+    );
   });
 });

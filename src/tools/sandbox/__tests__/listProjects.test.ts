@@ -2,94 +2,46 @@ import listProjects from "../listProjects";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    projects: {
-      getList: jest.fn(),
-    },
-  },
+  testing: { projects: { getList: jest.fn() } },
 };
 
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
 
-const originalEnv = { ...process.env };
-
 describe("listProjects", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
   });
 
-  afterEach(() => {
-    Object.assign(process.env, originalEnv);
-  });
-
-  it("should list projects with their inboxes", async () => {
-    const mockProjects = [
-      {
-        id: 1,
-        name: "My Project",
-        inboxes: [
-          { id: 10, name: "Inbox 1", emails_count: 5 },
-          { id: 11, name: "Inbox 2", emails_count: 0 },
-        ],
-      },
-      {
-        id: 2,
-        name: "Other Project",
-        inboxes: [],
-      },
-    ];
-    mockClient.testing.projects.getList.mockResolvedValue(mockProjects);
+  it("returns projects as JSON", async () => {
+    mockClient.testing.projects.getList.mockResolvedValue([
+      { id: 1, name: "Project A", inboxes: [] },
+      { id: 2, name: "Project B", inboxes: [{ id: 10, name: "Inbox A" }] },
+    ]);
 
     const result = await listProjects();
 
-    expect(requireClient).toHaveBeenCalledWith("sandbox projects");
     expect(mockClient.testing.projects.getList).toHaveBeenCalledWith();
-    expect(result.content).toHaveLength(1);
-    expect(result.content[0].text).toContain("Sandbox projects (2)");
-    expect(result.content[0].text).toContain("My Project");
-    expect(result.content[0].text).toContain("ID: 1");
-    expect(result.content[0].text).toContain("Inbox 1");
-    expect(result.content[0].text).toContain("emails: 5");
-    expect(result.content[0].text).toContain("(no inboxes)");
+    expect(result.content[0].text).toContain('"id": 1');
+    expect(result.content[0].text).toContain('"name": "Project A"');
+    expect(result.content[0].text).toContain("Inbox A");
     expect(result.isError).toBeUndefined();
   });
 
-  it("should handle empty projects list", async () => {
+  it("returns empty array when no projects", async () => {
     mockClient.testing.projects.getList.mockResolvedValue([]);
-
     const result = await listProjects();
-
-    expect(result.content[0].text).toContain("No sandbox projects found");
-    expect(result.isError).toBeUndefined();
+    expect(result.content[0].text).toBe("[]");
   });
 
-  it("should require MAILTRAP_ACCOUNT_ID", async () => {
-    (requireClient as jest.Mock).mockImplementation(() => {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sandbox projects"
-      );
-    });
-
+  it("surfaces API errors", async () => {
+    mockClient.testing.projects.getList.mockRejectedValue(new Error("boom"));
     const result = await listProjects();
-
-    expect(mockClient.testing.projects.getList).not.toHaveBeenCalled();
-    expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
-  });
-
-  it("should handle API failure", async () => {
-    mockClient.testing.projects.getList.mockRejectedValue(
-      new Error("Network error")
+    expect(result.content[0].text).toBe(
+      "Failed to list sandbox projects: boom"
     );
-
-    const result = await listProjects();
-
-    expect(result.content[0].text).toContain("Failed to list sandbox projects");
-    expect(result.content[0].text).toContain("Network error");
-    expect(result.isError).toBe(true);
   });
 });

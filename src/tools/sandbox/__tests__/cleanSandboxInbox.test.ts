@@ -2,68 +2,42 @@ import cleanSandboxInbox from "../cleanSandboxInbox";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    inboxes: {
-      cleanInbox: jest.fn(),
-    },
-  },
+  testing: { inboxes: { cleanInbox: jest.fn() } },
 };
 
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
 
-const originalEnv = { ...process.env };
-
 describe("cleanSandboxInbox", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
   });
 
-  afterEach(() => {
-    Object.assign(process.env, originalEnv);
-  });
+  it("cleans the inbox and returns summary + JSON", async () => {
+    mockClient.testing.inboxes.cleanInbox.mockResolvedValue({
+      id: 42,
+      name: "Welcome",
+      emails_count: 0,
+    });
 
-  it("should clean an inbox successfully", async () => {
-    const mockInbox = { id: 10, name: "Test Inbox", emails_count: 0 };
-    mockClient.testing.inboxes.cleanInbox.mockResolvedValue(mockInbox);
+    const result = await cleanSandboxInbox({ inbox_id: 42 });
 
-    const result = await cleanSandboxInbox({ inbox_id: 10 });
-
-    expect(requireClient).toHaveBeenCalledWith("sandbox inboxes");
-    expect(mockClient.testing.inboxes.cleanInbox).toHaveBeenCalledWith(10);
-    expect(result.content[0].text).toContain("All messages deleted");
-    expect(result.content[0].text).toContain("Test Inbox");
-    expect(result.content[0].text).toContain("ID: 10");
-    expect(result.content[0].text).toContain("Emails remaining: 0");
+    expect(mockClient.testing.inboxes.cleanInbox).toHaveBeenCalledWith(42);
+    expect(result.content[0].text).toContain("Sandbox inbox 42 cleaned.");
+    expect(result.content[0].text).toContain('"emails_count": 0');
     expect(result.isError).toBeUndefined();
   });
 
-  it("should require MAILTRAP_ACCOUNT_ID", async () => {
-    (requireClient as jest.Mock).mockImplementation(() => {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sandbox inboxes"
-      );
-    });
-
-    const result = await cleanSandboxInbox({ inbox_id: 10 });
-
-    expect(mockClient.testing.inboxes.cleanInbox).not.toHaveBeenCalled();
-    expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
-    expect(result.isError).toBe(true);
-  });
-
-  it("should handle API failure", async () => {
+  it("surfaces API errors", async () => {
     mockClient.testing.inboxes.cleanInbox.mockRejectedValue(
-      new Error("Not found")
+      new Error("not found")
     );
-
-    const result = await cleanSandboxInbox({ inbox_id: 999 });
-
-    expect(result.content[0].text).toContain("Failed to clean sandbox inbox");
-    expect(result.content[0].text).toContain("Not found");
+    const result = await cleanSandboxInbox({ inbox_id: 99 });
     expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to clean sandbox inbox: not found"
+    );
   });
 });

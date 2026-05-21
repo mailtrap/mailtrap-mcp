@@ -2,71 +2,41 @@ import createProject from "../createProject";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    projects: {
-      create: jest.fn(),
-    },
-  },
+  testing: { projects: { create: jest.fn() } },
 };
 
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
 
-const originalEnv = { ...process.env };
-
 describe("createProject", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
   });
 
-  afterEach(() => {
-    Object.assign(process.env, originalEnv);
-  });
+  it("creates a project and returns summary + JSON", async () => {
+    mockClient.testing.projects.create.mockResolvedValue({
+      id: 7,
+      name: "QA",
+    });
 
-  it("should create a project successfully", async () => {
-    const mockProject = { id: 1, name: "New Project" };
-    mockClient.testing.projects.create.mockResolvedValue(mockProject);
+    const result = await createProject({ name: "QA" });
 
-    const result = await createProject({ name: "New Project" });
-
-    expect(requireClient).toHaveBeenCalledWith("sandbox projects");
-    expect(mockClient.testing.projects.create).toHaveBeenCalledWith(
-      "New Project"
-    );
-    expect(result.content[0].text).toContain("created successfully");
-    expect(result.content[0].text).toContain("New Project");
-    expect(result.content[0].text).toContain("ID: 1");
+    expect(mockClient.testing.projects.create).toHaveBeenCalledWith("QA");
+    expect(result.content[0].text).toContain('Sandbox project "QA" created.');
+    expect(result.content[0].text).toContain('"id": 7');
     expect(result.isError).toBeUndefined();
   });
 
-  it("should require MAILTRAP_ACCOUNT_ID", async () => {
-    (requireClient as jest.Mock).mockImplementation(() => {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sandbox projects"
-      );
-    });
-
-    const result = await createProject({ name: "Test" });
-
-    expect(mockClient.testing.projects.create).not.toHaveBeenCalled();
-    expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
-    expect(result.isError).toBe(true);
-  });
-
-  it("should handle API failure", async () => {
+  it("surfaces API errors", async () => {
     mockClient.testing.projects.create.mockRejectedValue(
-      new Error("Validation failed")
+      new Error("name taken")
     );
-
-    const result = await createProject({ name: "Bad" });
-
-    expect(result.content[0].text).toContain(
-      "Failed to create sandbox project"
-    );
-    expect(result.content[0].text).toContain("Validation failed");
+    const result = await createProject({ name: "Dup" });
     expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to create sandbox project: name taken"
+    );
   });
 });

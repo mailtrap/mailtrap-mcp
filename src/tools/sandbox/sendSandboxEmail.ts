@@ -6,6 +6,11 @@ import {
   normalizeAddressList,
   parseSandboxTo,
 } from "../../utils/mailtrapAddresses";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function sendSandboxEmail({
   test_inbox_id,
@@ -19,7 +24,7 @@ async function sendSandboxEmail({
   html,
   template_uuid,
   template_variables,
-}: SendSandboxEmailRequest): Promise<{ content: any[]; isError?: boolean }> {
+}: SendSandboxEmailRequest): Promise<ToolResponse> {
   try {
     const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
     if (inboxIdRaw === undefined || inboxIdRaw === null) {
@@ -107,30 +112,15 @@ async function sendSandboxEmail({
       .map((addr) => addr.email)
       .join(", ");
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox email sent successfully to ${recipientSummary}.\nMessage IDs: ${response.message_ids.join(
-            ", "
-          )}\nStatus: ${response.success ? "Success" : "Failed"}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sandbox email sent to ${recipientSummary}.\n\n${JSON.stringify(
+        response,
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    console.error("Error sending sandbox email:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to send sandbox email: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("send sandbox email", error);
   }
 }
 

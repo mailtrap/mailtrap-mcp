@@ -1,34 +1,28 @@
 import { requireClient } from "../../client";
 import { DeleteProjectRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
-async function deleteProject({ project_id }: DeleteProjectRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function deleteProject({
+  project_id,
+}: DeleteProjectRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandbox projects");
 
     const project = await mailtrap.testing.projects.delete(project_id);
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox project deleted successfully:\n\n• Name: ${project.name}\n• ID: ${project.id}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sandbox project ${project_id} deleted.\n\n${JSON.stringify(
+        project,
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to delete sandbox project: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("delete sandbox project", error);
   }
 }
 

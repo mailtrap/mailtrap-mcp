@@ -1,48 +1,22 @@
 import { requireClient } from "../../client";
 import { GetProjectRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
-async function getProject({ project_id }: GetProjectRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function getProject({
+  project_id,
+}: GetProjectRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandbox projects");
 
     const project = await mailtrap.testing.projects.getById(project_id);
 
-    const inboxCount = project.inboxes?.length ?? 0;
-    const inboxLines =
-      project.inboxes && project.inboxes.length > 0
-        ? project.inboxes
-            .map(
-              (inbox: any) =>
-                `  - ${inbox.name} (ID: ${inbox.id}, emails: ${
-                  inbox.emails_count ?? 0
-                })`
-            )
-            .join("\n")
-        : "  (no inboxes)";
-
-    const text = [
-      `Sandbox project: ${project.name} (ID: ${project.id})`,
-      `Inboxes (${inboxCount}):`,
-      inboxLines,
-    ].join("\n");
-
-    return {
-      content: [{ type: "text", text }],
-    };
+    return buildSuccessResponse(JSON.stringify(project, null, 2));
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get sandbox project: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get sandbox project", error);
   }
 }
 
