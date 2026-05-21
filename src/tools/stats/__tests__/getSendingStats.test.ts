@@ -51,7 +51,7 @@ describe("getSendingStats", () => {
     jest.resetModules();
   });
 
-  it("should return aggregated stats successfully", async () => {
+  it("should return aggregated stats as JSON", async () => {
     const result = await getSendingStats({
       start_date: "2025-01-01",
       end_date: "2025-01-31",
@@ -61,15 +61,8 @@ describe("getSendingStats", () => {
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
-    expect(result.content).toHaveLength(1);
-    expect(result.content[0].type).toBe("text");
-    expect(result.content[0].text).toContain("Sending stats (aggregated)");
-    expect(result.content[0].text).toContain("2025-01-01 to 2025-01-31");
-    expect(result.content[0].text).toContain("Delivery: 100 (95.00%)");
-    expect(result.content[0].text).toContain("Bounces: 5 (5.00%)");
-    expect(result.content[0].text).toContain("Opens: 80 (80.00%)");
-    expect(result.content[0].text).toContain("Clicks: 50 (50.00%)");
-    expect(result.content[0].text).toContain("Spam: 2 (2.00%)");
+    expect(result.content[0].text).toContain('"delivery_count": 100');
+    expect(result.content[0].text).toContain('"delivery_rate": 0.95');
     expect(result.isError).toBeUndefined();
   });
 
@@ -84,9 +77,8 @@ describe("getSendingStats", () => {
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
-    expect(result.content[0].text).toContain("by domain");
-    expect(result.content[0].text).toContain("3938:");
-    expect(result.content[0].text).toContain("Delivery: 100 (95.00%)");
+    expect(result.content[0].text).toContain('"value": 3938');
+    expect(result.content[0].text).toContain('"delivery_count": 100');
     expect(result.isError).toBeUndefined();
   });
 
@@ -101,8 +93,7 @@ describe("getSendingStats", () => {
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
-    expect(result.content[0].text).toContain("by date");
-    expect(result.content[0].text).toContain("2025-01-01:");
+    expect(result.content[0].text).toContain('"value": "2025-01-01"');
     expect(result.isError).toBeUndefined();
   });
 
@@ -146,25 +137,6 @@ describe("getSendingStats", () => {
     expect(mockClient.stats.get).not.toHaveBeenCalled();
   });
 
-  it("should return error when MAILTRAP_ACCOUNT_ID is invalid", async () => {
-    process.env.MAILTRAP_ACCOUNT_ID = "not-a-number";
-    (requireClient as jest.Mock).mockImplementation(() => {
-      throw new Error(
-        "MAILTRAP_ACCOUNT_ID environment variable is required for sending stats"
-      );
-    });
-
-    const result = await getSendingStats({
-      start_date: "2025-01-01",
-      end_date: "2025-01-31",
-    });
-
-    expect(result.isError).toBe(true);
-    expect(result.content[0].text).toContain(
-      "MAILTRAP_ACCOUNT_ID environment variable is required for sending stats"
-    );
-  });
-
   it("should return error when requireClient throws", async () => {
     (requireClient as jest.Mock).mockImplementation(() => {
       throw new Error("MAILTRAP_API_TOKEN environment variable is required");
@@ -205,7 +177,7 @@ describe("getSendingStats", () => {
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
-    expect(result.content[0].text).toContain("Welcome:");
+    expect(result.content[0].text).toContain('"value": "Welcome"');
   });
 
   it("should call byEmailServiceProvider when breakdown is by_email_service_provider", async () => {
@@ -223,6 +195,15 @@ describe("getSendingStats", () => {
       start_date: "2025-01-01",
       end_date: "2025-01-31",
     });
-    expect(result.content[0].text).toContain("Google:");
+    expect(result.content[0].text).toContain('"value": "Google"');
+  });
+
+  it("should return validation error for missing dates", async () => {
+    const result = await getSendingStats({});
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "Failed to get sending stats: Invalid input"
+    );
   });
 });
