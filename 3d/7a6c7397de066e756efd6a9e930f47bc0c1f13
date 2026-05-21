@@ -1,0 +1,23 @@
+src/tools/sendEmail/__tests__/sendEmail.test.ts
+  s_4a1992e0a36a14::t_9475b13886194e 379
+  s_4a1992e0a36a14::t_cdfe3b25720b1f 43-48,68-71,92-95,119-122,147-150,168-169,189-192,212-215,239-242,262-263,275-278,288-291,301-304,321-324,333-336,358-359,398-401,446-449,461-464,474-477
+src/tools/sendEmail/sendEmail.ts
+  s_4a1992e0a36a14::t_33bbe418827836 8-12,29,105,111,113
+  s_4a1992e0a36a14::t_9475b13886194e 106-110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "3d7a6c7397de066e756efd6a9e930f47bc0c1f13",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
