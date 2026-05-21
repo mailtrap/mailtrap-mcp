@@ -1,0 +1,79 @@
+src/tools/sandbox/getSandboxInbox.ts
+  s_4a1992e0a36a14::t_5d98ba4fb65c89 3-7,9-11,33,35
+src/tools/sandbox/__tests__/createSandboxInbox.test.ts
+  s_4a1992e0a36a14::t_93e5bc718abcba 5,18-24,27-28,35-36,38,42,44,46-47
+  s_4a1992e0a36a14::t_07c4d73b5103b6 32-34,43
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_4a1992e0a36a14::t_76f49169f95fb9 3-7,14,38,41,48-50,58-60,70-71,77,83-84,88,90
+  s_4a1992e0a36a14::t_07c4d73b5103b6 44,54,65
+src/tools/sandbox/__tests__/listProjects.test.ts
+  s_4a1992e0a36a14::t_7f82151cf8ae42 5,18-22,27-29,33,36,39-40,43-44
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_4a1992e0a36a14::t_f2b15a5569b47a 5-6,8,11,13,16,18,21,28,30-32,35-49,52-56,61-63,67,69-72,75-76,80,82-83,86-88,91-92,94-96,98-99,102-103,105-112
+  s_4a1992e0a36a14::t_07c4d73b5103b6 77
+src/tools/sandbox/deleteSandboxInbox.ts
+  s_4a1992e0a36a14::t_e9c4d64913dbe3 3-7,11,17-19,21
+src/tools/sandbox/__tests__/updateSandboxInbox.test.ts
+  s_4a1992e0a36a14::t_c8384e9aba5a7e 5,18-22,27-29,32-34,36-37,41-42,44,47,49,52-53,56-58
+src/tools/sandbox/__tests__/deleteSandboxInbox.test.ts
+  s_4a1992e0a36a14::t_07c4d73b5103b6 33
+  s_4a1992e0a36a14::t_5deb9974201f6b 5,18-21,24,26-29,32,34,36-38
+src/tools/sandbox/__tests__/getProject.test.ts
+  s_4a1992e0a36a14::t_57e175de06e0cb 5,18,20-21,25,27-30,33,35,39-41
+src/tools/sandbox/cleanSandboxInbox.ts
+  s_4a1992e0a36a14::t_483c0beff4d9d5 3-7,11,17-19,21
+src/tools/sandbox/getSandboxMessages.ts
+  s_4a1992e0a36a14::t_4c0c1865025e9c 3-7,14,32-35,42,44
+src/tools/sandbox/sendSandboxEmail.ts
+  s_4a1992e0a36a14::t_29724036067a7b 115-121,123
+  s_4a1992e0a36a14::t_5b1e36aa93c25a 27
+  s_4a1992e0a36a14::t_cce6d2e260ae69 9-13
+src/tools/sandbox/__tests__/deleteProject.test.ts
+  s_4a1992e0a36a14::t_b1b9fb9e7a9206 5,18-21,24,26-29,32,34,36,38-40
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_4a1992e0a36a14::t_07c4d73b5103b6 68,71
+  s_4a1992e0a36a14::t_b2b96a66949c6b 4-7,9,12,14,17-18,25-29,31,33-39,42-43,45,47-50,54-55,57,60,64,67
+src/tools/sandbox/deleteProject.ts
+  s_4a1992e0a36a14::t_c29a3a5df5231e 3-7,9-11,17-23,25
+src/tools/sandbox/getProject.ts
+  s_4a1992e0a36a14::t_894386c9504755 3-7,9-11,17,19
+src/tools/sandbox/__tests__/createProject.test.ts
+  s_4a1992e0a36a14::t_72cc8c891f73da 5,18-21,24,26-29,32,34,36,38-40
+src/tools/sandbox/updateSandboxInbox.ts
+  s_4a1992e0a36a14::t_dc96b3dc31cadc 3-7,13,24-25,32-34,36
+src/tools/sandbox/__tests__/getSandboxInbox.test.ts
+  s_4a1992e0a36a14::t_c7ae3d88311bc9 5,24-30,32,37-38,42,44-46,48,55,59,62,64,66,68-70
+  s_4a1992e0a36a14::t_07c4d73b5103b6 35
+src/tools/sandbox/__tests__/updateProject.test.ts
+  s_4a1992e0a36a14::t_14caba2d45fb21 5,18,20,24,27,30-31,35,37,39,41-43
+src/tools/sandbox/__tests__/cleanSandboxInbox.test.ts
+  s_4a1992e0a36a14::t_33a079751a2544 5,18-22,25,27-30,33,35,37,39-41
+src/tools/sandbox/createSandboxInbox.ts
+  s_4a1992e0a36a14::t_70846abda5e93f 3-7,12,18-20,22
+src/tools/sandbox/createProject.ts
+  s_4a1992e0a36a14::t_cca79241ceb5aa 3-7,9-11,17-23,25
+src/tools/sandbox/listProjects.ts
+  s_4a1992e0a36a14::t_c46f481c565ff0 2-6,8,14,16
+src/tools/sandbox/updateProject.ts
+  s_4a1992e0a36a14::t_aec6ed7d0dd319 3-7,12,18-24,26
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_4a1992e0a36a14::t_4a98b37f846584 4-14,17,20,22,25-26,28-34,36-37,41-42,45-56,59-61,65,69-70,73-76,79,83-84,87-91,94-98,101-103,105,107-108
+src/server.ts
+  s_4a1992e0a36a14::t_9d5fa177ee6e5c 1053
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "693934aef571d56e8c5a0680d26821a21c2c1d33",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
