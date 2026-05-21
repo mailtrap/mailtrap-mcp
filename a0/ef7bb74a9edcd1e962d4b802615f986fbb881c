@@ -1,0 +1,36 @@
+src/tools/sendingDomains/__tests__/createSendingDomain.test.ts
+  s_4a1992e0a36a14::t_b5918d91b1d8ce 47-51
+src/tools/sendingDomains/deleteSendingDomain.ts
+  s_4a1992e0a36a14::t_eca0bfe3f5a375 2-6,12,18-24,26
+src/tools/sendingDomains/listSendingDomains.ts
+  s_4a1992e0a36a14::t_1aa51914c27d2e 2-6,8,15,17
+src/tools/sendingDomains/sendSetupInstructions.ts
+  s_4a1992e0a36a14::t_2b0c1bcc8667a3 2-6,14,23-29
+  s_4a1992e0a36a14::t_4f054b1fe4e468 31
+src/tools/sendingDomains/createSendingDomain.ts
+  s_4a1992e0a36a14::t_92a28830658706 3-7,13,19-24,26-33,35
+src/tools/sendingDomains/__tests__/listSendingDomains.test.ts
+  s_4a1992e0a36a14::t_9251ce8456c5cf 52,54-55,66
+src/tools/sendingDomains/__tests__/getSendingDomain.test.ts
+  s_4a1992e0a36a14::t_0035ccc7a60b4f 52-53,66-67
+src/tools/sendingDomains/getSendingDomain.ts
+  s_4a1992e0a36a14::t_adc05d29a1fbdd 3-7,15,21,23,26,29,31
+src/tools/sendingDomains/__tests__/deleteSendingDomain.test.ts
+  s_4a1992e0a36a14::t_40c80131afb604 32-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "a0ef7bb74a9edcd1e962d4b802615f986fbb881c",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
