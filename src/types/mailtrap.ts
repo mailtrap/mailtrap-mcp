@@ -39,6 +39,48 @@ export interface SendMailToolRequest {
   template_variables?: Record<string, TemplateVariableValue>;
 }
 
+/**
+ * Shared base for batch sends. Either inline (`subject` + `text`/`html`) or
+ * template (`template_uuid` + `template_variables?`) — mutually exclusive,
+ * enforced at runtime in the handler.
+ */
+export interface BatchSendEmailBase {
+  from?: MailtrapAddressParam;
+  subject?: string;
+  text?: string;
+  html?: string;
+  category?: string;
+  template_uuid?: string;
+  template_variables?: Record<string, TemplateVariableValue>;
+  custom_variables?: Record<string, string>;
+  reply_to?: MailtrapAddressParam;
+  headers?: Record<string, string>;
+}
+
+/**
+ * Per-recipient override in a batch send. `to` is required; any other field
+ * overrides the corresponding `base` value for this single message.
+ */
+export interface BatchSendEmailRequest {
+  to: MailtrapAddressParam | MailtrapAddressParam[];
+  cc?: MailtrapAddressParam[];
+  bcc?: MailtrapAddressParam[];
+  reply_to?: MailtrapAddressParam;
+  subject?: string;
+  text?: string;
+  html?: string;
+  category?: string;
+  template_uuid?: string;
+  template_variables?: Record<string, TemplateVariableValue>;
+  custom_variables?: Record<string, string>;
+  headers?: Record<string, string>;
+}
+
+export interface BatchSendEmailToolRequest {
+  base?: BatchSendEmailBase;
+  requests: BatchSendEmailRequest[];
+}
+
 export interface CreateTemplateRequest {
   name: string;
   subject: string;

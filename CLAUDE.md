@@ -73,6 +73,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Transactional Email
 
 - **send-email**: Send transactional emails through Mailtrap.
+- **batch-send-email**: Send a batch of emails in one Mailtrap API call. Shared fields on `base`; per-recipient overrides in `requests[]`.
 
 #### Email Logs
 

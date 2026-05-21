@@ -11,7 +11,12 @@ import CONFIG from "./config";
 // Environment variables are now set directly by MCPB from user_config
 // No need to process them here
 
-import { sendEmailSchema, sendEmail } from "./tools/sendEmail";
+import {
+  sendEmailSchema,
+  sendEmail,
+  batchSendEmailSchema,
+  batchSendEmail,
+} from "./tools/sendEmail";
 import {
   createTemplate,
   createTemplateSchema,
@@ -203,6 +208,16 @@ const tools = [
       "Send an email to your recipient email address using Mailtrap Email API. You can send emails to multiple recipients at once.",
     inputSchema: sendEmailSchema,
     handler: sendEmail,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "batch-send-email",
+    description:
+      "Send a batch of emails in one Mailtrap API call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Each request must include `to`.",
+    inputSchema: batchSendEmailSchema,
+    handler: batchSendEmail,
     annotations: {
       destructiveHint: true,
     },
