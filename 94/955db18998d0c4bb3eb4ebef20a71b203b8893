@@ -1,0 +1,40 @@
+src/tools/templates/updateTemplate.ts
+  s_4a1992e0a36a14::t_be7bcc26981188 3-7,16,27-29,33-35,38,45-56,58
+src/tools/templates/__tests__/listTemplates.test.ts
+  s_4a1992e0a36a14::t_543251559299dc 11,39,45-48,51,56,59,64,67-68,72-73
+src/tools/templates/__tests__/updateTemplate.test.ts
+  s_4a1992e0a36a14::t_697d4143595dc4 11,15-20,28-29,31-35,38-41,43-45,48-49,51-54,57-59,63-64,66-67,71-75,79,83-84,86,88
+  s_4a1992e0a36a14::t_ff54edcd9e035b 68,80,89
+src/tools/templates/__tests__/deleteTemplate.test.ts
+  s_4a1992e0a36a14::t_3ee141eb5a5a31 11,20-21,23,25-29,32-33,35,37
+  s_4a1992e0a36a14::t_ff54edcd9e035b 38
+src/tools/templates/listTemplates.ts
+  s_4a1992e0a36a14::t_23b5dc57e3a871 2-6,8,14,16
+src/tools/templates/deleteTemplate.ts
+  s_4a1992e0a36a14::t_c5c9c0c0f3dd1e 3-7,11,17-23,25
+src/tools/templates/createTemplate.ts
+  s_4a1992e0a36a14::t_65e8fd5a5351d4 3-7,15,20-22,25,31-32,34,36,38-40,42
+  s_4a1992e0a36a14::t_14e97d115acddf 35
+src/tools/templates/getTemplate.ts
+  s_4a1992e0a36a14::t_28d2968ddad636 3-7,11,17,19
+src/tools/templates/__tests__/createTemplate.test.ts
+  s_4a1992e0a36a14::t_d67dd3838b0401 11,15-20,28-29,31-35,39-42,44-47,50-51,53-56,60-63,67-70,73-78,80-81,83-86,89-92
+src/tools/templates/__tests__/getTemplate.test.ts
+  s_4a1992e0a36a14::t_1b73401f30dfac 11,16-24,32-33,35,37-42,45-46,48,50-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "94955db18998d0c4bb3eb4ebef20a71b203b8893",
+  "prompts": {},
+  "sessions": {
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
