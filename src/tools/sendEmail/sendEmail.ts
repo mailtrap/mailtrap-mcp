@@ -5,6 +5,11 @@ import {
   normalizeAddressList,
   normalizeToRecipients,
 } from "../../utils/mailtrapAddresses";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 import { requireClient } from "../../client";
 
@@ -21,7 +26,7 @@ async function sendEmail({
   html,
   template_uuid,
   template_variables,
-}: SendMailToolRequest): Promise<{ content: any[]; isError?: boolean }> {
+}: SendMailToolRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sending email", {
       requireAccountId: false,
@@ -97,28 +102,15 @@ async function sendEmail({
       .map((addr) => addr.email)
       .join(", ");
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${recipientSummary}.\nMessage IDs: ${
-            response.message_ids
-          }\nStatus: ${response.success ? "Success" : "Failed"}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Email sent to ${recipientSummary}.\n\n${JSON.stringify(
+        response,
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to send email: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("send email", error);
   }
 }
 

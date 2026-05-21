@@ -40,14 +40,12 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${mockEmailData.to}`
+    );
+    expect(result.content[0].text).toContain('"message_ids"');
+    expect(result.content[0].text).toContain('"success": true');
+    expect(result.isError).toBeUndefined();
   });
 
   it("should send email successfully with custom from address", async () => {
@@ -67,14 +65,10 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${mockEmailData.to}`
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should send email with custom from name when from is an object", async () => {
@@ -95,14 +89,10 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${mockEmailData.to}`
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should handle CC and BCC recipients", async () => {
@@ -126,14 +116,10 @@ describe("sendEmail", () => {
       bcc: bcc.map((email) => ({ email })),
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${mockEmailData.to}`
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should pass display names for to, cc, and bcc when given as objects", async () => {
@@ -158,14 +144,10 @@ describe("sendEmail", () => {
       bcc: [{ email: "bcc@example.com", name: "BCC Name" }],
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to to1@example.com, to2@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      "Email sent to to1@example.com, to2@example.com"
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should accept a single to recipient as an object with a display name", async () => {
@@ -183,14 +165,8 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to named@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain("Email sent to named@example.com");
+    expect(result.isError).toBeUndefined();
   });
 
   it("should handle HTML content", async () => {
@@ -210,14 +186,10 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${mockEmailData.to}`
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should handle category parameter", async () => {
@@ -237,14 +209,10 @@ describe("sendEmail", () => {
       category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${mockEmailData.to}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${mockEmailData.to}`
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should handle array of email addresses for 'to' property", async () => {
@@ -268,16 +236,10 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${toEmails.join(
-            ", "
-          )}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(
+      `Email sent to ${toEmails.join(", ")}`
+    );
+    expect(result.isError).toBeUndefined();
   });
 
   it("should handle single email string for 'to' property", async () => {
@@ -297,14 +259,8 @@ describe("sendEmail", () => {
       category: mockEmailData.category,
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Email sent successfully to ${singleEmail}.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain(`Email sent to ${singleEmail}`);
+    expect(result.isError).toBeUndefined();
   });
 
   describe("errors handling", () => {
@@ -316,15 +272,10 @@ describe("sendEmail", () => {
       });
 
       expect(mockClient.send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: Either HTML or TEXT body is required",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: Either HTML or TEXT body is required"
+      );
     });
 
     it("should throw error when no recipients are provided across to/cc/bcc", async () => {
@@ -334,15 +285,10 @@ describe("sendEmail", () => {
       });
 
       expect(mockClient.send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: Provide at least one recipient via 'to', 'cc', or 'bcc'",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: Provide at least one recipient via 'to', 'cc', or 'bcc'"
+      );
     });
 
     it("should throw error when 'to' is empty string and no cc/bcc are provided", async () => {
@@ -352,15 +298,10 @@ describe("sendEmail", () => {
       });
 
       expect(mockClient.send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: Provide at least one recipient via 'to', 'cc', or 'bcc'",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: Provide at least one recipient via 'to', 'cc', or 'bcc'"
+      );
     });
 
     it("should filter out empty email addresses and send to valid ones", async () => {
@@ -377,14 +318,10 @@ describe("sendEmail", () => {
           ],
         })
       );
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Email sent successfully to valid@example.com, another@example.com.\nMessage IDs: 123\nStatus: Success",
-          },
-        ],
-      });
+      expect(result.content[0].text).toContain(
+        "Email sent to valid@example.com, another@example.com"
+      );
+      expect(result.isError).toBeUndefined();
     });
 
     it("should handle client.send failure", async () => {
@@ -393,15 +330,10 @@ describe("sendEmail", () => {
 
       const result = await sendEmail(mockEmailData);
 
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: Failed to send email",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: Failed to send email"
+      );
     });
   });
 
@@ -423,14 +355,8 @@ describe("sendEmail", () => {
         cc: [{ email: "cc@example.com" }],
       });
 
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: `Email sent successfully to cc@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-          },
-        ],
-      });
+      expect(result.content[0].text).toContain("Email sent to cc@example.com");
+      expect(result.isError).toBeUndefined();
     });
 
     it("should send when only bcc is provided (no 'to')", async () => {
@@ -450,9 +376,7 @@ describe("sendEmail", () => {
         bcc: [{ email: "bcc@example.com", name: "BCC User" }],
       });
 
-      expect(result.content[0].text).toContain(
-        "Email sent successfully to bcc@example.com"
-      );
+      expect(result.content[0].text).toContain("Email sent to bcc@example.com");
     });
   });
 
@@ -471,14 +395,10 @@ describe("sendEmail", () => {
         template_variables: { name: "John", order_id: 1234 },
       });
 
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: `Email sent successfully to recipient@example.com.\nMessage IDs: ${mockResponse.message_ids}\nStatus: Success`,
-          },
-        ],
-      });
+      expect(result.content[0].text).toContain(
+        "Email sent to recipient@example.com"
+      );
+      expect(result.isError).toBeUndefined();
     });
 
     it("should send template-based email without template_variables", async () => {
@@ -523,15 +443,10 @@ describe("sendEmail", () => {
       });
 
       expect(mockClient.send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: When 'template_uuid' is set, the following fields must be omitted: subject, text, category",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: When 'template_uuid' is set, the following fields must be omitted: subject, text, category"
+      );
     });
 
     it("should reject template_variables without template_uuid", async () => {
@@ -543,15 +458,10 @@ describe("sendEmail", () => {
       });
 
       expect(mockClient.send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: 'template_variables' can only be used together with 'template_uuid'",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: 'template_variables' can only be used together with 'template_uuid'"
+      );
     });
 
     it("should require subject for inline (non-template) sends", async () => {
@@ -561,15 +471,10 @@ describe("sendEmail", () => {
       });
 
       expect(mockClient.send).not.toHaveBeenCalled();
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to send email: 'subject' is required when not using a template",
-          },
-        ],
-        isError: true,
-      });
+      expect(result.isError).toBe(true);
+      expect(result.content[0].text).toBe(
+        "Failed to send email: 'subject' is required when not using a template"
+      );
     });
   });
 });
