@@ -1,36 +1,28 @@
 import { DeleteTemplateRequest } from "../../types/mailtrap";
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function deleteTemplate({
   template_id,
-}: DeleteTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
+}: DeleteTemplateRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("templates");
 
     await mailtrap.templates.delete(template_id);
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Template with ID ${template_id} deleted successfully!`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Template ${template_id} deleted.\n\n${JSON.stringify(
+        { template_id, deleted: true },
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    console.error("Error deleting template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to delete template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("delete template", error);
   }
 }
 

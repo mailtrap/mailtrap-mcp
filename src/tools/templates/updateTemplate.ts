@@ -1,5 +1,10 @@
 import { UpdateTemplateRequest } from "../../types/mailtrap";
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function updateTemplate({
   template_id,
@@ -8,11 +13,10 @@ async function updateTemplate({
   html,
   text,
   category,
-}: UpdateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
+}: UpdateTemplateRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("templates", { requireAccountId: false });
 
-    // Validate that at least one update field is provided
     if (
       name === undefined &&
       subject === undefined &&
@@ -20,61 +24,38 @@ async function updateTemplate({
       text === undefined &&
       category === undefined
     ) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Error: At least one update field (name, subject, html, text, or category) must be provided",
-          },
-        ],
-        isError: true,
-      };
+      throw new Error(
+        "At least one update field (name, subject, html, text, or category) must be provided"
+      );
     }
 
-    // Validate that if both html and text are being updated, at least one has content
     if (html !== undefined && text !== undefined && !html && !text) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Error: If updating both html and text, at least one must have content",
-          },
-        ],
-        isError: true,
-      };
+      throw new Error(
+        "If updating both html and text, at least one must have content"
+      );
     }
 
-    const updateData: any = {};
+    const updateData: Record<string, unknown> = {};
     if (name !== undefined) updateData.name = name;
     if (subject !== undefined) updateData.subject = subject;
     if (html !== undefined) updateData.body_html = html;
     if (text !== undefined) updateData.body_text = text;
     if (category !== undefined) updateData.category = category;
 
-    const template = await mailtrap.templates.update(template_id, updateData);
+    const template = await mailtrap.templates.update(
+      template_id,
+      updateData as Parameters<typeof mailtrap.templates.update>[1]
+    );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Template "${template.name}" updated successfully!\nTemplate ID: ${template.id}\nTemplate UUID: ${template.uuid}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Template "${template.name}" updated.\n\n${JSON.stringify(
+        template,
+        null,
+        2
+      )}`
+    );
   } catch (error) {
-    console.error("Error updating template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to update template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("update template", error);
   }
 }
 

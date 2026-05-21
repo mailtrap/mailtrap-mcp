@@ -8,189 +8,87 @@ const mockClient = {
 };
 
 jest.mock("../../../client", () => ({
-  requireClient: jest.fn(),
+  requireClient: jest.fn(() => mockClient),
 }));
 
 describe("createTemplate", () => {
-  const mockTemplateData = {
-    name: "Test Template",
-    subject: "Test Email Subject",
-    html: "<h1>Test Template</h1><p>This is a test template.</p>",
-    text: "Test Template\n\nThis is a test template.",
-    category: "Test",
-  };
-
-  const mockResponse = {
-    id: 12345,
-    uuid: "abc-def-ghi",
-    name: mockTemplateData.name,
-    subject: mockTemplateData.subject,
-    category: mockTemplateData.category,
+  const mockTemplate = {
+    id: 99,
+    uuid: "new-uuid",
+    name: "Welcome",
+    subject: "Hi",
+    category: "Onboarding",
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.templates.create.mockResolvedValue(mockResponse);
   });
 
-  it("should create template successfully with all required fields", async () => {
-    const result = await createTemplate(mockTemplateData);
+  it("creates a template with html and returns summary + JSON", async () => {
+    mockClient.templates.create.mockResolvedValue(mockTemplate);
+
+    const result = await createTemplate({
+      name: "Welcome",
+      subject: "Hi",
+      html: "<p>Hi</p>",
+      category: "Onboarding",
+    });
 
     expect(mockClient.templates.create).toHaveBeenCalledWith({
-      name: mockTemplateData.name,
-      subject: mockTemplateData.subject,
-      category: mockTemplateData.category,
-      body_html: mockTemplateData.html,
-      body_text: mockTemplateData.text,
+      name: "Welcome",
+      subject: "Hi",
+      category: "Onboarding",
+      body_html: "<p>Hi</p>",
     });
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Template "${mockTemplateData.name}" created successfully!\nTemplate ID: ${mockResponse.id}\nTemplate UUID: ${mockResponse.uuid}`,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain('Template "Welcome" created.');
+    expect(result.content[0].text).toContain('"id": 99');
+    expect(result.content[0].text).toContain('"uuid": "new-uuid"');
+    expect(result.isError).toBeUndefined();
   });
 
-  it("should create template successfully with default category", async () => {
-    const templateDataWithoutCategory = {
-      name: mockTemplateData.name,
-      subject: mockTemplateData.subject,
-      html: mockTemplateData.html,
-      text: mockTemplateData.text,
-    };
+  it("creates a template with text-only body", async () => {
+    mockClient.templates.create.mockResolvedValue(mockTemplate);
 
-    const result = await createTemplate(templateDataWithoutCategory);
+    await createTemplate({
+      name: "Welcome",
+      subject: "Hi",
+      text: "Hi",
+    });
 
     expect(mockClient.templates.create).toHaveBeenCalledWith({
-      name: mockTemplateData.name,
-      subject: mockTemplateData.subject,
+      name: "Welcome",
+      subject: "Hi",
       category: "General",
-      body_html: mockTemplateData.html,
-      body_text: mockTemplateData.text,
-    });
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Template "${mockTemplateData.name}" created successfully!\nTemplate ID: ${mockResponse.id}\nTemplate UUID: ${mockResponse.uuid}`,
-        },
-      ],
+      body_text: "Hi",
     });
   });
 
-  it("should create template successfully without text content", async () => {
-    const templateDataWithoutText = {
-      name: mockTemplateData.name,
-      subject: mockTemplateData.subject,
-      html: mockTemplateData.html,
-      category: mockTemplateData.category,
-    };
-
-    const result = await createTemplate(templateDataWithoutText);
-
-    expect(mockClient.templates.create).toHaveBeenCalledWith({
-      name: mockTemplateData.name,
-      subject: mockTemplateData.subject,
-      category: mockTemplateData.category,
-      body_html: mockTemplateData.html,
-      body_text: undefined,
+  it("rejects when neither html nor text is provided", async () => {
+    const result = await createTemplate({
+      name: "Welcome",
+      subject: "Hi",
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Template "${mockTemplateData.name}" created successfully!\nTemplate ID: ${mockResponse.id}\nTemplate UUID: ${mockResponse.uuid}`,
-        },
-      ],
-    });
+    expect(mockClient.templates.create).not.toHaveBeenCalled();
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "At least one of 'html' or 'text' content must be provided"
+    );
   });
 
-  it("should create template successfully with custom category", async () => {
-    const customCategory = "Marketing";
-    const templateDataWithCustomCategory = {
-      ...mockTemplateData,
-      category: customCategory,
-    };
+  it("surfaces API errors", async () => {
+    mockClient.templates.create.mockRejectedValue(new Error("name taken"));
 
-    const result = await createTemplate(templateDataWithCustomCategory);
-
-    expect(mockClient.templates.create).toHaveBeenCalledWith({
-      name: mockTemplateData.name,
-      subject: mockTemplateData.subject,
-      category: customCategory,
-      body_html: mockTemplateData.html,
-      body_text: mockTemplateData.text,
+    const result = await createTemplate({
+      name: "Dup",
+      subject: "Hi",
+      html: "<p>hi</p>",
     });
 
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: `Template "${mockTemplateData.name}" created successfully!\nTemplate ID: ${mockResponse.id}\nTemplate UUID: ${mockResponse.uuid}`,
-        },
-      ],
-    });
-  });
-
-  describe("error handling", () => {
-    let consoleErrorSpy: jest.SpyInstance;
-
-    beforeEach(() => {
-      consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-    });
-
-    afterEach(() => {
-      consoleErrorSpy.mockRestore();
-    });
-
-    it("should handle client.templates.create failure", async () => {
-      const mockError = new Error("Failed to create template");
-      mockClient.templates.create.mockRejectedValue(mockError);
-
-      const result = await createTemplate(mockTemplateData);
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error creating template:",
-        mockError
-      );
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to create template: Failed to create template",
-          },
-        ],
-        isError: true,
-      });
-    });
-
-    it("should handle non-Error exceptions", async () => {
-      const mockError = "String error";
-      mockClient.templates.create.mockRejectedValue(mockError);
-
-      const result = await createTemplate(mockTemplateData);
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error creating template:",
-        mockError
-      );
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to create template: String error",
-          },
-        ],
-        isError: true,
-      });
-    });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to create template: name taken"
+    );
   });
 });

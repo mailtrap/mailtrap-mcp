@@ -1,5 +1,10 @@
 import { CreateTemplateRequest } from "../../types/mailtrap";
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function createTemplate({
   name,
@@ -7,60 +12,34 @@ async function createTemplate({
   html,
   text,
   category,
-}: CreateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
+}: CreateTemplateRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("templates");
 
-    // Validate that at least one of html or text is provided
     if (!html && !text) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Failed to create template: At least one of 'html' or 'text' content must be provided.",
-          },
-        ],
-        isError: true,
-      };
+      throw new Error(
+        "At least one of 'html' or 'text' content must be provided."
+      );
     }
 
-    const createParams: any = {
+    const createParams: Record<string, unknown> = {
       name,
       subject,
       category: category || "General",
     };
 
-    if (html) {
-      createParams.body_html = html;
-    }
-    if (text) {
-      createParams.body_text = text;
-    }
+    if (html) createParams.body_html = html;
+    if (text) createParams.body_text = text;
 
-    const template = await mailtrap.templates.create(createParams);
+    const template = await mailtrap.templates.create(
+      createParams as unknown as Parameters<typeof mailtrap.templates.create>[0]
+    );
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Template "${name}" created successfully!\nTemplate ID: ${template.id}\nTemplate UUID: ${template.uuid}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Template "${name}" created.\n\n${JSON.stringify(template, null, 2)}`
+    );
   } catch (error) {
-    console.error("Error creating template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to create template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("create template", error);
   }
 }
 

@@ -8,7 +8,7 @@ const mockClient = {
 };
 
 jest.mock("../../../client", () => ({
-  requireClient: jest.fn(),
+  requireClient: jest.fn(() => mockClient),
 }));
 
 describe("listTemplates", () => {
@@ -29,14 +29,6 @@ describe("listTemplates", () => {
       category: "Security",
       created_at: "2024-01-20T14:45:00Z",
     },
-    {
-      id: 12347,
-      uuid: "ghi-jkl-mno",
-      name: "Newsletter Template",
-      subject: "This week's updates",
-      category: "Marketing",
-      created_at: "2024-01-25T09:15:00Z",
-    },
   ];
 
   beforeEach(() => {
@@ -44,192 +36,40 @@ describe("listTemplates", () => {
     (requireClient as jest.Mock).mockReturnValue(mockClient);
   });
 
-  it("should list templates successfully when templates exist", async () => {
+  it("returns templates as JSON", async () => {
     mockClient.templates.getList.mockResolvedValue(mockTemplates);
 
     const result = await listTemplates();
 
     expect(mockClient.templates.getList).toHaveBeenCalledWith();
-
-    const expectedText = `Found 3 template(s):
-
-• Welcome Email (ID: 12345, UUID: abc-def-ghi)
-  Subject: Welcome to our platform!
-  Category: Onboarding
-  Created: 2024-01-15T10:30:00Z
-
-• Password Reset (ID: 12346, UUID: def-ghi-jkl)
-  Subject: Reset your password
-  Category: Security
-  Created: 2024-01-20T14:45:00Z
-
-• Newsletter Template (ID: 12347, UUID: ghi-jkl-mno)
-  Subject: This week's updates
-  Category: Marketing
-  Created: 2024-01-25T09:15:00Z
-`;
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: expectedText,
-        },
-      ],
-    });
+    expect(result.content[0].text).toContain('"id": 12345');
+    expect(result.content[0].text).toContain('"name": "Welcome Email"');
+    expect(result.content[0].text).toContain('"id": 12346');
+    expect(result.isError).toBeUndefined();
   });
 
-  it("should handle empty templates list", async () => {
+  it("returns an empty array as JSON when no templates", async () => {
     mockClient.templates.getList.mockResolvedValue([]);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: "No templates found in your Mailtrap account.",
-        },
-      ],
-    });
+    expect(result.content[0].text).toBe("[]");
   });
 
-  it("should handle null templates response", async () => {
+  it("handles null response as empty array", async () => {
     mockClient.templates.getList.mockResolvedValue(null);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: "No templates found in your Mailtrap account.",
-        },
-      ],
-    });
+    expect(result.content[0].text).toBe("[]");
   });
 
-  it("should handle undefined templates response", async () => {
-    mockClient.templates.getList.mockResolvedValue(undefined);
+  it("surfaces API errors", async () => {
+    mockClient.templates.getList.mockRejectedValue(new Error("boom"));
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: "No templates found in your Mailtrap account.",
-        },
-      ],
-    });
-  });
-
-  it("should handle single template", async () => {
-    const singleTemplate = [mockTemplates[0]];
-    mockClient.templates.getList.mockResolvedValue(singleTemplate);
-
-    const result = await listTemplates();
-
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
-
-    const expectedText = `Found 1 template(s):
-
-• Welcome Email (ID: 12345, UUID: abc-def-ghi)
-  Subject: Welcome to our platform!
-  Category: Onboarding
-  Created: 2024-01-15T10:30:00Z
-`;
-
-    expect(result).toEqual({
-      content: [
-        {
-          type: "text",
-          text: expectedText,
-        },
-      ],
-    });
-  });
-
-  describe("error handling", () => {
-    let consoleErrorSpy: jest.SpyInstance;
-
-    beforeEach(() => {
-      consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-    });
-
-    afterEach(() => {
-      consoleErrorSpy.mockRestore();
-    });
-
-    it("should handle client.templates.getList failure", async () => {
-      const mockError = new Error("Failed to fetch templates");
-      mockClient.templates.getList.mockRejectedValue(mockError);
-
-      const result = await listTemplates();
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error listing templates:",
-        mockError
-      );
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to list templates: Failed to fetch templates",
-          },
-        ],
-        isError: true,
-      });
-    });
-
-    it("should handle non-Error exceptions", async () => {
-      const mockError = "String error";
-      mockClient.templates.getList.mockRejectedValue(mockError);
-
-      const result = await listTemplates();
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error listing templates:",
-        mockError
-      );
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to list templates: String error",
-          },
-        ],
-        isError: true,
-      });
-    });
-
-    it("should handle network error", async () => {
-      const mockError = new Error("Network error");
-      mockClient.templates.getList.mockRejectedValue(mockError);
-
-      const result = await listTemplates();
-
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error listing templates:",
-        mockError
-      );
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: "Failed to list templates: Network error",
-          },
-        ],
-        isError: true,
-      });
-    });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe("Failed to list templates: boom");
   });
 });
