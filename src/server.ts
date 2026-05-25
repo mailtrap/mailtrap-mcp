@@ -51,6 +51,33 @@ import {
   deleteSandboxInboxSchema,
   cleanSandboxInbox,
   cleanSandboxInboxSchema,
+  // Sandbox management additions
+  listSandboxes,
+  listSandboxesSchema,
+  sandboxActionSchema,
+  markSandboxAsRead,
+  resetSandboxCredentials,
+  enableSandboxEmailAddress,
+  resetSandboxEmailAddress,
+  // Message management additions
+  sandboxMessageSchema,
+  forwardSandboxMessageSchema,
+  updateSandboxMessageSchema,
+  forwardSandboxMessage,
+  updateSandboxMessage,
+  deleteSandboxMessage,
+  getSandboxMessageSpamScore,
+  getSandboxMessageHtmlAnalysis,
+  getSandboxMessageHeaders,
+  getSandboxMessageHtml,
+  getSandboxMessageText,
+  getSandboxMessageRaw,
+  getSandboxMessageEml,
+  getSandboxMessageHtmlSource,
+  // Attachment additions
+  getSandboxAttachmentSchema,
+  listSandboxAttachments,
+  getSandboxAttachment,
 } from "./tools/sandbox";
 import { getSendingStats, getSendingStatsSchema } from "./tools/stats";
 import {
@@ -252,6 +279,173 @@ const tools = [
     handler: cleanSandboxInbox,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "list-sandboxes",
+    description:
+      "List all sandboxes accessible to the API token across projects",
+    inputSchema: listSandboxesSchema,
+    handler: listSandboxes,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "mark-sandbox-as-read",
+    description: "Mark all messages in a sandbox as read",
+    inputSchema: sandboxActionSchema,
+    handler: markSandboxAsRead,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "reset-sandbox-credentials",
+    description: "Reset the SMTP credentials for a sandbox",
+    inputSchema: sandboxActionSchema,
+    handler: resetSandboxCredentials,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "enable-sandbox-email-address",
+    description: "Enable the receive-by-email address for a sandbox",
+    inputSchema: sandboxActionSchema,
+    handler: enableSandboxEmailAddress,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "reset-sandbox-email-address",
+    description: "Generate a new receive-by-email address for a sandbox",
+    inputSchema: sandboxActionSchema,
+    handler: resetSandboxEmailAddress,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "forward-sandbox-message",
+    description:
+      "Forward a sandbox message to an email address (counts against your monthly forwarding quota)",
+    inputSchema: forwardSandboxMessageSchema,
+    handler: forwardSandboxMessage,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "update-sandbox-message",
+    description: "Mark a sandbox message as read or unread",
+    inputSchema: updateSandboxMessageSchema,
+    handler: updateSandboxMessage,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-sandbox-message",
+    description: "Delete a single sandbox message",
+    inputSchema: sandboxMessageSchema,
+    handler: deleteSandboxMessage,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-spam-score",
+    description:
+      "Get the SpamAssassin spam report for a sandbox message (score, rules, report).",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageSpamScore,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-html-analysis",
+    description:
+      "Get HTML analysis for a sandbox message (client compatibility, problematic elements).",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageHtmlAnalysis,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-headers",
+    description: "Get the parsed mail headers for a sandbox message.",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageHeaders,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-html",
+    description: "Get the rendered HTML body of a sandbox message.",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageHtml,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-text",
+    description: "Get the plain-text body of a sandbox message.",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageText,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-raw",
+    description: "Get the raw message (MIME-formatted) for a sandbox message.",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageRaw,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-eml",
+    description: "Get a sandbox message as an EML file payload.",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageEml,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-message-html-source",
+    description: "Get the unrendered HTML source of a sandbox message.",
+    inputSchema: sandboxMessageSchema,
+    handler: getSandboxMessageHtmlSource,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-sandbox-attachments",
+    description: "List all attachments on a sandbox message.",
+    inputSchema: sandboxMessageSchema,
+    handler: listSandboxAttachments,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-attachment",
+    description:
+      "Get the metadata and download URL for a single sandbox attachment.",
+    inputSchema: getSandboxAttachmentSchema,
+    handler: getSandboxAttachment,
+    annotations: {
+      readOnlyHint: true,
     },
   },
   {

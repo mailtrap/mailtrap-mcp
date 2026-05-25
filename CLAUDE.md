@@ -97,6 +97,12 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **get-sandbox-messages**: Get list of messages from the sandbox test inbox.
 - **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox.
 - **list-sandbox-projects** / **create-sandbox-project** / **get-sandbox-project** / **update-sandbox-project** / **delete-sandbox-project**: Manage sandbox projects (group of inboxes).
+- **list-sandboxes**: List all sandboxes accessible to the API token across projects.
+- **mark-sandbox-as-read** / **reset-sandbox-credentials** / **enable-sandbox-email-address** / **reset-sandbox-email-address**: Single-action sandbox operations.
+- **forward-sandbox-message** / **update-sandbox-message** / **delete-sandbox-message**: Mutate a single sandbox message.
+- **get-sandbox-message-spam-score** / **get-sandbox-message-html-analysis** / **get-sandbox-message-headers**: Inspect a sandbox message's spam report, HTML compatibility, or headers (standalone alternatives to the `include_*` flags on `show-sandbox-email-message`).
+- **get-sandbox-message-html** / **get-sandbox-message-text** / **get-sandbox-message-raw** / **get-sandbox-message-eml** / **get-sandbox-message-html-source**: Fetch a single message body in one of five formats.
+- **list-sandbox-attachments** / **get-sandbox-attachment**: List and inspect attachments on a sandbox message.
 
 
 #### Sending Domains
