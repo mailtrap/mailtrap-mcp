@@ -302,7 +302,7 @@ export type SuppressionType =
   | "unsubscription"
   | "manual import";
 
-export type SuppressionStream = "transactional" | "bulk";
+export type SuppressionStream = "transactional" | "bulk" | "any";
 
 export interface Suppression {
   id: string;
