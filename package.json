@@ -26,6 +26,7 @@
     "prepublish": "npm run build && shx chmod +x dist/index.js",
     "dev": "npx @modelcontextprotocol/inspector node dist/index.js",
     "dev:mcpb": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "mcp:cli": "npx @modelcontextprotocol/inspector --cli  node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -37,7 +38,7 @@
     "@modelcontextprotocol/sdk": "^1.18.2",
     "dotenv": "^16.4.7",
     "mailsplit": "^5.4.6",
-    "mailtrap": "^4.5.1",
+    "mailtrap": "^4.6.0",
     "zod": "^3.24.2"
   },
   "overrides": {

@@ -19,6 +19,8 @@ import {
   deleteTemplateSchema,
   listTemplates,
   listTemplatesSchema,
+  getTemplate,
+  getTemplateSchema,
   updateTemplate,
   updateTemplateSchema,
 } from "./tools/templates";
@@ -33,6 +35,10 @@ import {
   listProjectsSchema,
   createProject,
   createProjectSchema,
+  getProject,
+  getProjectSchema,
+  updateProject,
+  updateProjectSchema,
   deleteProject,
   deleteProjectSchema,
   createSandboxInbox,
@@ -62,6 +68,8 @@ import {
   createSendingDomainSchema,
   deleteSendingDomain,
   deleteSendingDomainSchema,
+  sendSendingDomainSetupInstructions,
+  sendSendingDomainSetupInstructionsSchema,
 } from "./tools/sendingDomains";
 
 // Define the tools registry
@@ -90,6 +98,16 @@ const tools = [
     description: "List all email templates",
     inputSchema: listTemplatesSchema,
     handler: listTemplates,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-template",
+    description:
+      "Get a single email template by ID, including subject, category, and HTML/text body.",
+    inputSchema: getTemplateSchema,
+    handler: getTemplate,
     annotations: {
       readOnlyHint: true,
     },
@@ -156,6 +174,25 @@ const tools = [
     description: "Create a new sandbox project to group test inboxes",
     inputSchema: createProjectSchema,
     handler: createProject,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-sandbox-project",
+    description:
+      "Get a sandbox project by ID, including its inboxes and email counts",
+    inputSchema: getProjectSchema,
+    handler: getProject,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "update-sandbox-project",
+    description: "Rename an existing sandbox project",
+    inputSchema: updateProjectSchema,
+    handler: updateProject,
     annotations: {
       destructiveHint: true,
     },
@@ -282,6 +319,16 @@ const tools = [
     handler: deleteSendingDomain,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "send-sending-domain-setup-instructions",
+    description:
+      "Email DNS setup instructions for a sending domain to a given address.",
+    inputSchema: sendSendingDomainSetupInstructionsSchema,
+    handler: sendSendingDomainSetupInstructions,
+    annotations: {
+      destructiveHint: false,
     },
   },
 ];

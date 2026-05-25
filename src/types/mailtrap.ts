@@ -60,6 +60,10 @@ export interface DeleteTemplateRequest {
   template_id: number;
 }
 
+export interface GetTemplateRequest {
+  template_id: number;
+}
+
 /**
  * Request interface for sending sandbox emails.
  *
@@ -195,6 +199,15 @@ export interface CreateProjectRequest {
 
 export interface DeleteProjectRequest {
   project_id: number;
+}
+
+export interface GetProjectRequest {
+  project_id: number;
+}
+
+export interface UpdateProjectRequest {
+  project_id: number;
+  name: string;
 }
 
 export interface CreateSandboxInboxRequest {

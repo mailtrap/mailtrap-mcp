@@ -287,6 +287,14 @@ Lists all email templates in your Mailtrap account.
 
 - No parameters required
 
+### get-template
+
+Get a single email template by ID, including subject, category, and HTML/text body.
+
+**Parameters:**
+
+- `template_id` (required): ID of the template to fetch
+
 ### update-template
 
 Updates an existing email template.
@@ -357,6 +365,23 @@ Shows detailed information and content of a specific email message from your Mai
 > Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
 
 
+### get-sandbox-project
+
+Get a sandbox project by ID, including its inboxes and email counts.
+
+**Parameters:**
+
+- `project_id` (required): ID of the project to fetch
+
+### update-sandbox-project
+
+Rename an existing sandbox project.
+
+**Parameters:**
+
+- `project_id` (required): ID of the project to update
+- `name` (required): New name for the project (2–100 characters)
+
 ### list-sending-domains
 
 List sending domains and their DNS verification status.
@@ -389,6 +414,15 @@ Delete a sending domain.
 **Parameters:**
 
 - `sending_domain_id` (required): Sending domain ID to delete
+
+### send-sending-domain-setup-instructions
+
+Email DNS setup instructions for a sending domain to a given address. Useful for forwarding DNS records to a DevOps teammate.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `email` (required): Email address to send DNS setup instructions to
 
 ## Development
 
@@ -480,10 +514,46 @@ If you are using `asdf` for managing Node.js you should use absolute path to exe
 
 ## Testing
 
-You can test the server using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
+### Running tools against real Mailtrap
+
+There are two ways to exercise a tool end-to-end against a real Mailtrap account: the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) browser UI for interactive exploration, or its CLI mode for one-shot calls from the shell.
+
+Both require the bundle to be built first:
+
+```bash
+npm run build
+```
+
+and `MAILTRAP_API_TOKEN` + `MAILTRAP_ACCOUNT_ID` exported in your shell (the `mcp:cli` script forwards both to the spawned server). 
+
+#### Browser UI
 
 ```bash
 npm run dev
+```
+
+The Inspector prints a URL like `http://localhost:6274`. Open it, switch to the **Tools** tab, pick a tool (e.g. `get-template`), fill the parameters as JSON, and hit **Run**. The Mailtrap response appears in the panel below.
+
+#### CLI
+
+For one-shot calls without the UI, use `npm run mcp:cli`. Pass the Inspector's CLI flags after `--` so npm forwards them verbatim:
+
+```bash
+# List all tools
+npm run mcp:cli -- --method tools/list
+
+# Call a tool — flags after the `--`
+npm run mcp:cli -- \
+  --method tools/call \
+  --tool-name get-template \
+  --tool-arg template_id=12345
+
+# Multiple --tool-arg flags for tools with several params
+npm run mcp:cli -- \
+  --method tools/call \
+  --tool-name send-sending-domain-setup-instructions \
+  --tool-arg sending_domain_id=3938 \
+  --tool-arg email=devops@example.com
 ```
 
 ### Running the MCPB Server

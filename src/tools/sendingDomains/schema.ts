@@ -45,9 +45,27 @@ const deleteSendingDomainSchema = {
   additionalProperties: false,
 };
 
+const sendSendingDomainSetupInstructionsSchema = {
+  type: "object",
+  properties: {
+    sending_domain_id: {
+      type: "number",
+      description: "Sending domain ID",
+    },
+    email: {
+      type: "string",
+      description: "Email address to send DNS setup instructions to",
+      format: "email",
+    },
+  },
+  required: ["sending_domain_id", "email"],
+  additionalProperties: false,
+};
+
 export {
   listSendingDomainsSchema,
   getSendingDomainSchema,
   createSendingDomainSchema,
   deleteSendingDomainSchema,
+  sendSendingDomainSetupInstructionsSchema,
 };

@@ -8,3 +8,4 @@ dxt-build/
 *.mcpb
 mcpb-certs/
 *.sh
+.idea/
