@@ -116,6 +116,18 @@ import {
   deleteWebhook,
   deleteWebhookSchema,
 } from "./tools/webhooks";
+import {
+  getContact,
+  getContactSchema,
+  createContact,
+  createContactSchema,
+  updateContact,
+  updateContactSchema,
+  deleteContact,
+  deleteContactSchema,
+  createContactEvent,
+  createContactEventSchema,
+} from "./tools/contacts";
 
 // Define the tools registry
 const tools = [
@@ -607,6 +619,56 @@ const tools = [
       "Permanently delete a webhook by ID. Returns the deleted webhook record.",
     inputSchema: deleteWebhookSchema,
     handler: deleteWebhook,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-contact",
+    description:
+      "Get a contact by ID or email address. Returns the full contact record including list memberships, status, and custom fields.",
+    inputSchema: getContactSchema,
+    handler: getContact,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact",
+    description:
+      "Create a new contact. Requires `email`; optionally accepts custom `fields`, `list_ids` to subscribe to, and `unsubscribed` to start in unsubscribed status.",
+    inputSchema: createContactSchema,
+    handler: createContact,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "update-contact",
+    description:
+      "Update a contact (identified by ID or email). `list_ids` replaces the membership set; `list_ids_included`/`list_ids_excluded` add/remove without disturbing the rest.",
+    inputSchema: updateContactSchema,
+    handler: updateContact,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-contact",
+    description:
+      "Permanently delete a contact by ID or email. Returns the deleted contact record when available.",
+    inputSchema: deleteContactSchema,
+    handler: deleteContact,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "create-contact-event",
+    description:
+      "Record a contact event (by `name` + arbitrary `params`) against a contact ID or email. Used to trigger automations.",
+    inputSchema: createContactEventSchema,
+    handler: createContactEvent,
     annotations: {
       destructiveHint: true,
     },

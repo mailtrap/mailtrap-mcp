@@ -651,6 +651,57 @@ Permanently delete a webhook by ID. Returns the deleted webhook record.
 
 - `webhook_id` (required): ID of the webhook to delete
 
+### get-contact
+
+Get a contact by ID or email. Returns the full contact record (list memberships, status, custom fields).
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email address
+
+### create-contact
+
+Create a new contact.
+
+**Parameters:**
+
+- `email` (required): Email address
+- `fields` (optional): Custom field values keyed by merge tag (e.g. `first_name`). String, number, or boolean values
+- `list_ids` (optional): IDs of contact lists to subscribe this contact to
+- `unsubscribed` (optional, boolean): Create the contact in `unsubscribed` status
+
+### update-contact
+
+Update an existing contact identified by ID or email. `list_ids` replaces the contact's full membership set; `list_ids_included`/`list_ids_excluded` add/remove without disturbing the rest.
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email
+- `email` (optional): New email address
+- `fields` (optional): Custom field values keyed by merge tag
+- `list_ids` (optional): Replace membership set with this exact list
+- `list_ids_included` (optional): List IDs to add (additive)
+- `list_ids_excluded` (optional): List IDs to remove
+- `unsubscribed` (optional, boolean): Set to `unsubscribed` (true) or `subscribed` (false)
+
+### delete-contact
+
+Permanently delete a contact by ID or email. Returns the deleted contact record when the API responds with one; otherwise returns a confirmation payload.
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email
+
+### create-contact-event
+
+Record a contact event against a contact (by ID or email). Used to trigger contact-list automations.
+
+**Parameters:**
+
+- `contact_identifier` (required): Contact ID or email
+- `name` (required): Event name (matches automation triggers)
+- `params` (required): Object of arbitrary key/value pairs. Values may be string, number, boolean, or null
+
 ## Development
 
 1. Clone the repository:
