@@ -601,6 +601,56 @@ Delete a suppression by ID. Mailtrap will resume delivery to this email unless i
 
 - `suppression_id` (required): ID of the suppression to delete
 
+### list-webhooks
+
+List all webhooks configured for the account. Returns the full webhook records as JSON.
+
+**Parameters:**
+
+- No parameters required
+
+### get-webhook
+
+Get a single webhook by ID. Returns the full webhook record as JSON. Note: `signing_secret` is **not** returned here — it is only available in the response from `create-webhook`.
+
+**Parameters:**
+
+- `webhook_id` (required): ID of the webhook to fetch
+
+### create-webhook
+
+Create a webhook. The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned **only on creation**, so store it now. If you lose it, recreate the webhook.
+
+**Parameters:**
+
+- `url` (required): URL Mailtrap will POST webhook events to
+- `webhook_type` (required): `"email_sending"` or `"audit_log"`
+- `active` (optional, boolean): defaults to `true`
+- `payload_format` (optional): `"json"` or `"jsonlines"`. Defaults to `"json"`
+- `sending_stream` (optional, `email_sending` only): `"transactional"` or `"bulk"`
+- `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
+- `domain_id` (optional, `email_sending` only): sending domain ID to scope this webhook to
+
+### update-webhook
+
+Update a webhook's mutable fields. `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation — recreate the webhook if you need to change those.
+
+**Parameters:**
+
+- `webhook_id` (required): ID of the webhook to update
+- `url` (optional): New webhook URL
+- `active` (optional, boolean): Enable or disable the webhook
+- `payload_format` (optional): `"json"` or `"jsonlines"`
+- `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
+
+### delete-webhook
+
+Permanently delete a webhook by ID. Returns the deleted webhook record.
+
+**Parameters:**
+
+- `webhook_id` (required): ID of the webhook to delete
+
 ## Development
 
 1. Clone the repository:

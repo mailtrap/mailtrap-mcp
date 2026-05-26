@@ -104,6 +104,18 @@ import {
   deleteSuppression,
   deleteSuppressionSchema,
 } from "./tools/suppressions";
+import {
+  listWebhooks,
+  listWebhooksSchema,
+  getWebhook,
+  getWebhookSchema,
+  createWebhook,
+  createWebhookSchema,
+  updateWebhook,
+  updateWebhookSchema,
+  deleteWebhook,
+  deleteWebhookSchema,
+} from "./tools/webhooks";
 
 // Define the tools registry
 const tools = [
@@ -547,6 +559,54 @@ const tools = [
       "Delete a suppression by ID. Mailtrap will resume delivery to this email unless it gets suppressed again.",
     inputSchema: deleteSuppressionSchema,
     handler: deleteSuppression,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-webhooks",
+    description: "List all webhooks for the account.",
+    inputSchema: listWebhooksSchema,
+    handler: listWebhooks,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-webhook",
+    description: "Get a single webhook by ID.",
+    inputSchema: getWebhookSchema,
+    handler: getWebhook,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-webhook",
+    description:
+      "Create a webhook. The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned only on creation, so store it now.",
+    inputSchema: createWebhookSchema,
+    handler: createWebhook,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "update-webhook",
+    description:
+      "Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`). `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation.",
+    inputSchema: updateWebhookSchema,
+    handler: updateWebhook,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-webhook",
+    description:
+      "Permanently delete a webhook by ID. Returns the deleted webhook record.",
+    inputSchema: deleteWebhookSchema,
+    handler: deleteWebhook,
     annotations: {
       destructiveHint: true,
     },
