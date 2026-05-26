@@ -702,6 +702,47 @@ Record a contact event against a contact (by ID or email). Used to trigger conta
 - `name` (required): Event name (matches automation triggers)
 - `params` (required): Object of arbitrary key/value pairs. Values may be string, number, boolean, or null
 
+### list-contact-lists
+
+List all contact lists for the account.
+
+**Parameters:**
+
+- No parameters required
+
+### get-contact-list
+
+Get a contact list by ID.
+
+**Parameters:**
+
+- `list_id` (required): ID of the contact list to fetch
+
+### create-contact-list
+
+Create a new contact list.
+
+**Parameters:**
+
+- `name` (required): Name for the new list
+
+### update-contact-list
+
+Rename an existing contact list.
+
+**Parameters:**
+
+- `list_id` (required): ID of the contact list
+- `name` (required): New name for the list
+
+### delete-contact-list
+
+Permanently delete a contact list by ID.
+
+**Parameters:**
+
+- `list_id` (required): ID of the contact list to delete
+
 ## Development
 
 1. Clone the repository:

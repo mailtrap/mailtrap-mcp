@@ -128,6 +128,18 @@ import {
   createContactEvent,
   createContactEventSchema,
 } from "./tools/contacts";
+import {
+  listContactLists,
+  listContactListsSchema,
+  getContactList,
+  getContactListSchema,
+  createContactList,
+  createContactListSchema,
+  updateContactList,
+  updateContactListSchema,
+  deleteContactList,
+  deleteContactListSchema,
+} from "./tools/contactLists";
 
 // Define the tools registry
 const tools = [
@@ -669,6 +681,51 @@ const tools = [
       "Record a contact event (by `name` + arbitrary `params`) against a contact ID or email. Used to trigger automations.",
     inputSchema: createContactEventSchema,
     handler: createContactEvent,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-contact-lists",
+    description: "List all contact lists for the account.",
+    inputSchema: listContactListsSchema,
+    handler: listContactLists,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-contact-list",
+    description: "Get a contact list by ID.",
+    inputSchema: getContactListSchema,
+    handler: getContactList,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact-list",
+    description: "Create a new contact list.",
+    inputSchema: createContactListSchema,
+    handler: createContactList,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "update-contact-list",
+    description: "Rename an existing contact list.",
+    inputSchema: updateContactListSchema,
+    handler: updateContactList,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-contact-list",
+    description: "Permanently delete a contact list by ID.",
+    inputSchema: deleteContactListSchema,
+    handler: deleteContactList,
     annotations: {
       destructiveHint: true,
     },

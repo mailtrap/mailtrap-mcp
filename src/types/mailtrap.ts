@@ -439,3 +439,27 @@ export interface CreateContactEventRequest {
   name: string;
   params: ContactEventParams;
 }
+
+// --- Contact list types ---
+
+export interface ContactList {
+  id: number;
+  name: string;
+}
+
+export interface GetContactListRequest {
+  list_id: number;
+}
+
+export interface DeleteContactListRequest {
+  list_id: number;
+}
+
+export interface CreateContactListRequest {
+  name: string;
+}
+
+export interface UpdateContactListRequest {
+  list_id: number;
+  name: string;
+}
