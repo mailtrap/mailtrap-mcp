@@ -743,6 +743,51 @@ Permanently delete a contact list by ID.
 
 - `list_id` (required): ID of the contact list to delete
 
+### list-contact-fields
+
+List all contact field definitions for the account.
+
+**Parameters:**
+
+- No parameters required
+
+### get-contact-field
+
+Get a contact field definition by ID.
+
+**Parameters:**
+
+- `field_id` (required): ID of the contact field
+
+### create-contact-field
+
+Create a new contact field definition. `merge_tag` must be unique within the account and is used as the placeholder name in template variables.
+
+**Parameters:**
+
+- `name` (required): Display name (e.g. "First Name")
+- `merge_tag` (required): Unique placeholder name (e.g. `first_name`)
+- `data_type` (required): One of `text`, `number`, `boolean`, `date`
+
+### update-contact-field
+
+Update a contact field definition. Any combination of `name`, `merge_tag`, and `data_type` can be changed.
+
+**Parameters:**
+
+- `field_id` (required): ID of the contact field
+- `name` (optional): New display name
+- `merge_tag` (optional): New merge tag (must remain unique)
+- `data_type` (optional): One of `text`, `number`, `boolean`, `date`
+
+### delete-contact-field
+
+Permanently delete a contact field definition by ID.
+
+**Parameters:**
+
+- `field_id` (required): ID of the contact field to delete
+
 ## Development
 
 1. Clone the repository:

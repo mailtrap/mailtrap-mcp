@@ -140,6 +140,18 @@ import {
   deleteContactList,
   deleteContactListSchema,
 } from "./tools/contactLists";
+import {
+  listContactFields,
+  listContactFieldsSchema,
+  getContactField,
+  getContactFieldSchema,
+  createContactField,
+  createContactFieldSchema,
+  updateContactField,
+  updateContactFieldSchema,
+  deleteContactField,
+  deleteContactFieldSchema,
+} from "./tools/contactFields";
 
 // Define the tools registry
 const tools = [
@@ -726,6 +738,53 @@ const tools = [
     description: "Permanently delete a contact list by ID.",
     inputSchema: deleteContactListSchema,
     handler: deleteContactList,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-contact-fields",
+    description: "List all contact field definitions for the account.",
+    inputSchema: listContactFieldsSchema,
+    handler: listContactFields,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-contact-field",
+    description: "Get a contact field definition by ID.",
+    inputSchema: getContactFieldSchema,
+    handler: getContactField,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact-field",
+    description:
+      "Create a new contact field definition. `merge_tag` must be unique and is used in template variables.",
+    inputSchema: createContactFieldSchema,
+    handler: createContactField,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "update-contact-field",
+    description:
+      "Update a contact field definition. Any combination of `name`, `merge_tag`, or `data_type` can be changed.",
+    inputSchema: updateContactFieldSchema,
+    handler: updateContactField,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-contact-field",
+    description: "Permanently delete a contact field definition by ID.",
+    inputSchema: deleteContactFieldSchema,
+    handler: deleteContactField,
     annotations: {
       destructiveHint: true,
     },
