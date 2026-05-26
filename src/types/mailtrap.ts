@@ -293,3 +293,38 @@ export interface EmailLogMessageDetails {
   raw_message_url?: string;
   error?: string;
 }
+
+// --- Suppression types ---
+
+export type SuppressionType =
+  | "hard bounce"
+  | "spam complaint"
+  | "unsubscription"
+  | "manual import";
+
+export type SuppressionStream = "transactional" | "bulk" | "any";
+
+export interface Suppression {
+  id: string;
+  type: SuppressionType;
+  created_at: string;
+  email: string;
+  sending_stream: SuppressionStream;
+  domain_name: string | null;
+  message_bounce_category: string | null;
+  message_category: string | null;
+  message_client_ip: string | null;
+  message_created_at: string | null;
+  message_outgoing_ip: string | null;
+  message_recipient_mx_name: string | null;
+  message_sender_email: string | null;
+  message_subject: string | null;
+}
+
+export interface ListSuppressionsRequest {
+  email?: string;
+}
+
+export interface DeleteSuppressionRequest {
+  suppression_id: string;
+}
