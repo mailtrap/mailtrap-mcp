@@ -76,6 +76,17 @@ describe("updateContactField", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("returns an error when the API responds with an empty payload", async () => {
+    mockClient.contactFields.update.mockResolvedValue(null);
+
+    const result = await updateContactField({ field_id: 7, name: "x" });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to update contact field: empty response from contact fields API"
+    );
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactFields.update.mockRejectedValue(
       new Error("validation failed")

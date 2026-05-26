@@ -23,6 +23,13 @@ async function updateContactField({
         ? raw.data
         : (raw as ContactField);
 
+    if (!field) {
+      return buildErrorResponse(
+        "update contact field",
+        new Error("empty response from contact fields API")
+      );
+    }
+
     return buildSuccessResponse(JSON.stringify(field, null, 2));
   } catch (error) {
     return buildErrorResponse("update contact field", error);

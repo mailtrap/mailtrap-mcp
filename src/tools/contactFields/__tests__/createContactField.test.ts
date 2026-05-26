@@ -67,6 +67,21 @@ describe("createContactField", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("returns an error when the API responds with an empty payload", async () => {
+    mockClient.contactFields.create.mockResolvedValue(null);
+
+    const result = await createContactField({
+      name: "First Name",
+      merge_tag: "first_name",
+      data_type: "text",
+    });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to create contact field: empty response from contact fields API"
+    );
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactFields.create.mockRejectedValue(
       new Error("merge_tag is already in use")

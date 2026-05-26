@@ -55,6 +55,17 @@ describe("getContactField", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("returns an error when the API responds with an empty payload", async () => {
+    mockClient.contactFields.get.mockResolvedValue(null);
+
+    const result = await getContactField({ field_id: 7 });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to get contact field: empty response from contact fields API"
+    );
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactFields.get.mockRejectedValue(new Error("not found"));
 
