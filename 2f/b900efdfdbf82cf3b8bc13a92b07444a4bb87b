@@ -1,0 +1,89 @@
+src/tools/contactFields/createContactField.ts
+  s_4a1992e0a36a14::t_477596039187d4 15-23,32
+  s_0868125a7c85e3::t_11073994b087a4 25-31
+src/tools/accountAccesses/__tests__/removeAccountAccess.test.ts
+  s_0868125a7c85e3::t_a97db654bd1d4e 37-49
+src/types/mailtrap.ts
+  s_4a1992e0a36a14::t_292a9bcf2677a9 598-599
+  s_0868125a7c85e3::t_1ffd202b6da8e1 557-566
+  s_0868125a7c85e3::t_af42a1e35c2370 305
+src/tools/permissions/schemas/bulkUpdatePermissions.ts
+  s_4a1992e0a36a14::t_e03b3906bbc65a 22
+src/tools/accountAccesses/schemas/removeAccountAccess.ts
+  s_0868125a7c85e3::t_3512c5c75d10d7 1-2
+  s_0868125a7c85e3::t_7b2c5bc5ef9d76 15-20
+src/tools/contactFields/updateContactField.ts
+  s_0868125a7c85e3::t_a6542b2c028e6c 26-32
+  s_4a1992e0a36a14::t_9f4d6b462a38f3 16-24,33
+src/tools/contactFields/listContactFields.ts
+  s_4a1992e0a36a14::t_050039e431393e 13-18
+src/tools/permissions/__tests__/bulkUpdatePermissions.test.ts
+  s_4a1992e0a36a14::t_8d2964ae722b11 44
+  s_4a1992e0a36a14::t_30a6c4a51100ef 33
+src/tools/contactFields/getContactField.ts
+  s_0868125a7c85e3::t_d37c805c7b3b91 25-31
+  s_4a1992e0a36a14::t_6c8b00f238b098 15-23,32
+src/tools/contactFields/__tests__/listContactFields.test.ts
+  s_4a1992e0a36a14::t_57e1b31c12cbf8 72-100
+README.md
+  s_4a1992e0a36a14::t_6132aabf250c23 883,903
+  s_4a1992e0a36a14::t_37cfa9d557cf15 884
+src/tools/contactFields/__tests__/updateContactField.test.ts
+  s_4a1992e0a36a14::t_5951a64591be96 59-78
+  s_0868125a7c85e3::t_0619c78063499a 79-89
+src/tools/accountAccesses/removeAccountAccess.ts
+  s_0868125a7c85e3::t_1120590a03b8e5 2,9-20,25
+src/tools/accountAccesses/schemas/listAccountAccesses.ts
+  s_0868125a7c85e3::t_439da7f6da6d11 25-32
+  s_0868125a7c85e3::t_18f3cb30aaaf51 1-2
+src/tools/accountAccesses/listAccountAccesses.ts
+  s_4acebbef849804::t_d65c029ce7bdb5 21-22,25
+  s_0868125a7c85e3::t_e824dee8d03ecb 2,9-20,26
+  h_32e79f74e8df76 23-24
+src/tools/contactExports/__tests__/createContactExport.test.ts
+  s_0868125a7c85e3::t_e0fcf6cd29b5b2 42-56
+src/tools/contactExports/schemas/createContactExport.ts
+  s_0868125a7c85e3::t_418be617078b9d 33-49
+src/tools/contactFields/__tests__/createContactField.test.ts
+  s_4a1992e0a36a14::t_1232574efe46b0 49-69
+  s_0868125a7c85e3::t_e443e368ec89a0 70-84
+src/tools/accountAccesses/__tests__/listAccountAccesses.test.ts
+  s_0868125a7c85e3::t_b3e32b2b245507 57-69
+src/tools/contactFields/__tests__/getContactField.test.ts
+  s_0868125a7c85e3::t_639530ccececd5 58-68
+  s_4a1992e0a36a14::t_e1cab5979a793d 41-57
+src/tools/apiTokens/schemas/createApiToken.ts
+  s_4a1992e0a36a14::t_2ccdfaa58efe74 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "2fb900efdfdbf82cf3b8bc13a92b07444a4bb87b",
+  "prompts": {},
+  "sessions": {
+    "s_0868125a7c85e3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef05f943-dfac-401e-ba20-eed428ebf8bd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    },
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    },
+    "s_4acebbef849804": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1779709514479",
+        "model": "unknown"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
