@@ -788,6 +788,45 @@ Permanently delete a contact field definition by ID.
 
 - `field_id` (required): ID of the contact field to delete
 
+### create-contact-import
+
+Bulk import contacts. Returns an import job record; poll its status with `get-contact-import`.
+
+**Parameters:**
+
+- `contacts` (required): Array of contact entries. Each entry needs:
+  - `email` (required): Contact email address
+  - `fields` (optional): Custom field values keyed by merge tag (string or number values)
+  - `list_ids_included` (optional): List IDs to add the contact to
+  - `list_ids_excluded` (optional): List IDs to remove the contact from
+
+### get-contact-import
+
+Get the status of a contact import job (created/started/finished/failed) with created/updated/over-limit counts.
+
+**Parameters:**
+
+- `import_id` (required): ID of the contact import job
+
+### create-contact-export
+
+Export contacts matching a set of AND-combined filters. Returns an export job record; poll status with `get-contact-export` to retrieve the download URL once `status` is `finished`.
+
+**Parameters:**
+
+- `filters` (required): Array of filter objects. Each has:
+  - `name` (required): Field to filter on (`list_id`, `subscription_status`, `email`, etc.)
+  - `operator` (required): One of `equal`, `not_equal`, `contains`, `not_contains`, `is_empty`, `is_not_empty`
+  - `value` (required): Comparison value (string, number, boolean, or array)
+
+### get-contact-export
+
+Get the status of a contact export job. Once `status` is `finished`, the `url` field holds the CSV download link.
+
+**Parameters:**
+
+- `export_id` (required): ID of the contact export job
+
 ## Development
 
 1. Clone the repository:

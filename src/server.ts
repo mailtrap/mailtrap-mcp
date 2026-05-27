@@ -152,6 +152,18 @@ import {
   deleteContactField,
   deleteContactFieldSchema,
 } from "./tools/contactFields";
+import {
+  createContactImport,
+  createContactImportSchema,
+  getContactImport,
+  getContactImportSchema,
+} from "./tools/contactImports";
+import {
+  createContactExport,
+  createContactExportSchema,
+  getContactExport,
+  getContactExportSchema,
+} from "./tools/contactExports";
 
 // Define the tools registry
 const tools = [
@@ -787,6 +799,46 @@ const tools = [
     handler: deleteContactField,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "create-contact-import",
+    description:
+      "Bulk import contacts. Returns an import job record; poll status via `get-contact-import`.",
+    inputSchema: createContactImportSchema,
+    handler: createContactImport,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-contact-import",
+    description:
+      "Get the status of a contact import job, including created/updated/over-limit counts.",
+    inputSchema: getContactImportSchema,
+    handler: getContactImport,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-contact-export",
+    description:
+      "Export contacts matching a set of AND-combined filters. Returns an export job; poll status with `get-contact-export` to retrieve the download URL.",
+    inputSchema: createContactExportSchema,
+    handler: createContactExport,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "get-contact-export",
+    description:
+      "Get the status of a contact export job. Once `status` is `finished`, the `url` field holds the download link.",
+    inputSchema: getContactExportSchema,
+    handler: getContactExport,
+    annotations: {
+      readOnlyHint: true,
     },
   },
 ];
