@@ -164,6 +164,30 @@ import {
   getContactExport,
   getContactExportSchema,
 } from "./tools/contactExports";
+import { listAccounts, listAccountsSchema } from "./tools/accounts";
+import { getBillingUsage, getBillingUsageSchema } from "./tools/billing";
+import {
+  listAccountAccesses,
+  listAccountAccessesSchema,
+  removeAccountAccess,
+  removeAccountAccessSchema,
+} from "./tools/accountAccesses";
+import {
+  getPermissionResources,
+  getPermissionResourcesSchema,
+  bulkUpdatePermissions,
+  bulkUpdatePermissionsSchema,
+} from "./tools/permissions";
+import {
+  listApiTokens,
+  listApiTokensSchema,
+  createApiToken,
+  createApiTokenSchema,
+  apiTokenSchema,
+  getApiToken,
+  resetApiToken,
+  deleteApiToken,
+} from "./tools/apiTokens";
 
 // Define the tools registry
 const tools = [
@@ -839,6 +863,115 @@ const tools = [
     handler: getContactExport,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-accounts",
+    description:
+      "List Mailtrap accounts accessible to the API token, with each account's access levels.",
+    inputSchema: listAccountsSchema,
+    handler: listAccounts,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-billing-usage",
+    description:
+      "Get the current billing cycle usage for the account (sending and testing plans, limits, and current counts).",
+    inputSchema: getBillingUsageSchema,
+    handler: getBillingUsage,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-account-accesses",
+    description:
+      "List account accesses (users, invites, API tokens) for the account. Optionally scope by domain UUIDs, inbox IDs, or project IDs. Requires account admin/owner permissions.",
+    inputSchema: listAccountAccessesSchema,
+    handler: listAccountAccesses,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "remove-account-access",
+    description:
+      "Remove an account access by ID. For User specifiers this revokes permissions; for Invite or ApiToken specifiers it removes the specifier itself. Requires admin/owner.",
+    inputSchema: removeAccountAccessSchema,
+    handler: removeAccountAccess,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-permission-resources",
+    description:
+      "Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.",
+    inputSchema: getPermissionResourcesSchema,
+    handler: getPermissionResources,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "bulk-update-permissions",
+    description:
+      "Bulk create, update, or destroy permissions for an account access. Existing (resource_type, resource_id) pairs are updated; new ones are created. Set `destroy: true` to remove.",
+    inputSchema: bulkUpdatePermissionsSchema,
+    handler: bulkUpdatePermissions,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-api-tokens",
+    description: "List all API tokens for the account.",
+    inputSchema: listApiTokensSchema,
+    handler: listApiTokens,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-api-token",
+    description:
+      "Create a new API token. The response includes the secret `token` value — this is the **only time** the full token is returned, so store it immediately.",
+    inputSchema: createApiTokenSchema,
+    handler: createApiToken,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-api-token",
+    description:
+      "Get an API token by ID. The secret token value is NOT returned here — only the metadata (name, last 4 digits, resources).",
+    inputSchema: apiTokenSchema,
+    handler: getApiToken,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "reset-api-token",
+    description:
+      "Reset (rotate) an API token by ID. The response includes the **new** secret `token` value — returned only on this call, so store it immediately. The previous token is invalidated.",
+    inputSchema: apiTokenSchema,
+    handler: resetApiToken,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-api-token",
+    description:
+      "Permanently delete an API token by ID. The token can no longer authenticate after deletion.",
+    inputSchema: apiTokenSchema,
+    handler: deleteApiToken,
+    annotations: {
+      destructiveHint: true,
     },
   },
 ];

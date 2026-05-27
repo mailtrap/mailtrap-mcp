@@ -163,4 +163,19 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **create-contact-export**: Export contacts matching AND-combined filters (`name`/`operator`/`value`). Returns an export job; poll for download URL.
 - **get-contact-export**: Get the status of a contact export job. `url` is populated when `status: finished`.
 
+
+#### General / Account-admin
+
+- **list-accounts**: List Mailtrap accounts the API token can access (with each account's `access_levels`).
+- **get-billing-usage**: Current billing cycle usage (plans, limits, current counts) for the account.
+- **list-account-accesses**: List users/invites/tokens with access to the account, optional filters by domain/inbox/project. Requires admin.
+- **remove-account-access**: Revoke permissions (User) or delete the specifier (Invite/ApiToken). Requires admin.
+- **get-permission-resources**: Hierarchical list of inboxes/projects/domains/billing/account the token has admin access to.
+- **bulk-update-permissions**: Create/update/destroy multiple permissions on an account access in one call.
+- **list-api-tokens**: List all API tokens for the account.
+- **create-api-token**: Create an API token. Response includes the secret `token` value (returned only on creation — must be stored).
+- **get-api-token**: Get an API token by ID (metadata only — secret is not returned).
+- **reset-api-token**: Rotate an API token. Response includes the new secret `token` value; previous one is invalidated.
+- **delete-api-token**: Permanently delete an API token by ID.
+
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.

@@ -827,6 +827,105 @@ Get the status of a contact export job. Once `status` is `finished`, the `url` f
 
 - `export_id` (required): ID of the contact export job
 
+### list-accounts
+
+List Mailtrap accounts the current API token can access, with each account's access levels.
+
+**Parameters:**
+
+- No parameters required
+
+### get-billing-usage
+
+Get the current billing cycle usage for the account: sending and testing plans, limits, and current counts.
+
+**Parameters:**
+
+- No parameters required
+
+### list-account-accesses
+
+List account accesses (users, invites, API tokens) for the account. Optional filters narrow the result to specific resources. Requires account admin/owner permissions.
+
+**Parameters:**
+
+- `domain_uuids` (optional): Filter by sending domain UUIDs (array of strings)
+- `inbox_ids` (optional): Filter by sandbox inbox IDs (array of strings)
+- `project_ids` (optional): Filter by sandbox project IDs (array of strings)
+
+### remove-account-access
+
+Remove an account access by ID. For `User` specifiers this revokes their permissions; for `Invite` or `ApiToken` specifiers it removes the specifier entirely. Requires admin/owner.
+
+**Parameters:**
+
+- `account_access_id` (required): ID of the access record to remove
+
+### get-permission-resources
+
+Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.
+
+**Parameters:**
+
+- No parameters required
+
+### bulk-update-permissions
+
+Bulk create, update, or destroy permissions for a single account access. Existing `(resource_type, resource_id)` pairs are updated; new ones are created. Set `destroy: true` on an entry to remove it.
+
+**Parameters:**
+
+- `account_access_id` (required): Target account access ID
+- `permissions` (required): Array of permission entries. Each has:
+  - `resource_id` (required): Resource ID (number or string)
+  - `resource_type` (required): One of `account`, `project`, `inbox`, `domain`, `billing`
+  - `access_level` (optional): `admin`/`100` or `viewer`/`10`
+  - `destroy` (optional, boolean): When true, removes this permission instead of creating/updating it
+
+### list-api-tokens
+
+List all API tokens for the account.
+
+**Parameters:**
+
+- No parameters required
+
+### create-api-token
+
+Create a new API token. The response includes the secret `token` value — this is the **only time** the full token is returned, so store it immediately. If you lose it, recreate the token.
+
+**Parameters:**
+
+- `name` (required): Display name for the token
+- `resources` (optional): Array of resource permissions to scope the token to. Each entry has:
+  - `resource_type` (required): One of `account`, `project`, `inbox`, `domain`, `billing`
+  - `resource_id` (required): ID of the resource
+  - `access_level` (required): `100` (admin) or `10` (viewer)
+
+### get-api-token
+
+Get an API token by ID. Returns metadata only — the secret token value is **not** returned here (only from `create-api-token` / `reset-api-token`).
+
+**Parameters:**
+
+- `api_token_id` (required): ID of the API token
+
+### reset-api-token
+
+Reset (rotate) an API token by ID. The response includes the **new** secret `token` value — returned only on this call, so store it immediately. The previous token is invalidated.
+
+**Parameters:**
+
+- `api_token_id` (required): ID of the API token to reset
+
+### delete-api-token
+
+Permanently delete an API token by ID. The token can no longer authenticate after deletion.
+
+**Parameters:**
+
+- `api_token_id` (required): ID of the API token to delete
+
 ## Development
 
 1. Clone the repository:

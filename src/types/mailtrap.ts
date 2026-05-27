@@ -572,3 +572,57 @@ export interface CreateContactExportRequest {
 export interface GetContactExportRequest {
   export_id: number;
 }
+
+// --- General / account-admin types ---
+
+export interface MailtrapAccount {
+  id: number;
+  name: string;
+  access_levels: Array<10 | 100 | 1000>;
+}
+
+export interface ListAccountAccessesRequest {
+  domain_uuids?: string[];
+  inbox_ids?: string[];
+  project_ids?: string[];
+}
+
+export interface RemoveAccountAccessRequest {
+  account_access_id: number;
+}
+
+export type PermissionResourceType =
+  | "account"
+  | "project"
+  | "inbox"
+  | "domain"
+  | "billing";
+
+export interface PermissionUpdateItem {
+  resource_id: number | string;
+  resource_type: PermissionResourceType;
+  access_level?: "admin" | "viewer" | "100" | "10";
+  destroy?: boolean;
+}
+
+export interface BulkUpdatePermissionsRequest {
+  account_access_id: number;
+  permissions: PermissionUpdateItem[];
+}
+
+export type ApiTokenAccessLevel = 10 | 100;
+
+export interface ApiTokenResourcePermission {
+  resource_type: PermissionResourceType;
+  resource_id: number | string;
+  access_level: ApiTokenAccessLevel;
+}
+
+export interface CreateApiTokenRequest {
+  name: string;
+  resources?: ApiTokenResourcePermission[];
+}
+
+export interface ApiTokenRequest {
+  api_token_id: number;
+}
