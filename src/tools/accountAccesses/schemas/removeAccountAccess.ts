@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 const removeAccountAccessSchema = {
   type: "object",
   properties: {
@@ -9,5 +11,11 @@ const removeAccountAccessSchema = {
   required: ["account_access_id"],
   additionalProperties: false,
 };
+
+export const removeAccountAccessZod = z
+  .object({
+    account_access_id: z.number().int().positive(),
+  })
+  .strict();
 
 export default removeAccountAccessSchema;

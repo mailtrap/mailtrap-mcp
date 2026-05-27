@@ -54,6 +54,19 @@ describe("listAccountAccesses", () => {
     });
   });
 
+  it("rejects invalid input before calling the SDK", async () => {
+    const result = await listAccountAccesses({ domain_uuids: "not-an-array" });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "Failed to list account accesses: Invalid input:"
+    );
+    expect(result.content[0].text).toContain("domain_uuids");
+    expect(
+      mockClient.general.accountAccesses.listAccountAccesses
+    ).not.toHaveBeenCalled();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.general.accountAccesses.listAccountAccesses.mockRejectedValue(
       new Error("forbidden")

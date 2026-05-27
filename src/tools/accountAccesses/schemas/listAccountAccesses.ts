@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 const listAccountAccessesSchema = {
   type: "object",
   properties: {
@@ -19,5 +21,13 @@ const listAccountAccessesSchema = {
   },
   additionalProperties: false,
 };
+
+export const listAccountAccessesZod = z
+  .object({
+    domain_uuids: z.array(z.string()).optional(),
+    inbox_ids: z.array(z.string()).optional(),
+    project_ids: z.array(z.string()).optional(),
+  })
+  .strict();
 
 export default listAccountAccessesSchema;

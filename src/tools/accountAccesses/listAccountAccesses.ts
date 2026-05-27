@@ -1,16 +1,25 @@
 import { requireClient } from "../../client";
-import { ListAccountAccessesRequest } from "../../types/mailtrap";
+import { listAccountAccessesZod } from "./schemas/listAccountAccesses";
 import {
   buildErrorResponse,
   buildSuccessResponse,
   ToolResponse,
 } from "../utils/responses";
 
-async function listAccountAccesses({
-  domain_uuids,
-  inbox_ids,
-  project_ids,
-}: ListAccountAccessesRequest = {}): Promise<ToolResponse> {
+async function listAccountAccesses(raw: unknown = {}): Promise<ToolResponse> {
+  const parsed = listAccountAccessesZod.safeParse(raw);
+  if (!parsed.success) {
+    const msg = parsed.error.errors
+      .map((e) => `${e.path.join(".")}: ${e.message}`)
+      .join("; ");
+    return buildErrorResponse(
+      "list account accesses",
+      new Error(`Invalid input: ${msg}`)
+    );
+  }
+
+  const { domain_uuids, inbox_ids, project_ids } = parsed.data;
+
   try {
     const mailtrap = requireClient("account accesses");
 

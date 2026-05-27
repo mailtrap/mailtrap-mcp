@@ -34,6 +34,19 @@ describe("removeAccountAccess", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("rejects invalid input before calling the SDK", async () => {
+    const result = await removeAccountAccess({ account_access_id: "abc" });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "Failed to remove account access: Invalid input:"
+    );
+    expect(result.content[0].text).toContain("account_access_id");
+    expect(
+      mockClient.general.accountAccesses.removeAccountAccess
+    ).not.toHaveBeenCalled();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.general.accountAccesses.removeAccountAccess.mockRejectedValue(
       new Error("forbidden")
