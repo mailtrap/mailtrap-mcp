@@ -302,7 +302,7 @@ export type SuppressionType =
   | "unsubscription"
   | "manual import";
 
-export type SuppressionStream = "transactional" | "bulk";
+export type SuppressionStream = "transactional" | "bulk" | "any";
 
 export interface Suppression {
   id: string;
@@ -554,11 +554,16 @@ export type ContactExportFilterValue =
   | string[]
   | number[];
 
-export interface ContactExportFilter {
-  name: string;
-  operator: ContactExportFilterOperator;
-  value: ContactExportFilterValue;
-}
+export type ContactExportFilter =
+  | {
+      name: string;
+      operator: "is_empty" | "is_not_empty";
+    }
+  | {
+      name: string;
+      operator: "equal" | "not_equal" | "contains" | "not_contains";
+      value: ContactExportFilterValue;
+    };
 
 export interface CreateContactExportRequest {
   filters: ContactExportFilter[];
@@ -590,9 +595,8 @@ export type PermissionResourceType =
   | "account"
   | "project"
   | "inbox"
-  | "sending_domain"
-  | "billing"
-  | "mailsend_domain";
+  | "domain"
+  | "billing";
 
 export interface PermissionUpdateItem {
   resource_id: number | string;

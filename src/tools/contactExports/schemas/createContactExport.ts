@@ -30,7 +30,23 @@ const createContactExportSchema = {
               "Comparison value. Type depends on the field — string, number, boolean, or array.",
           },
         },
-        required: ["name", "operator", "value"],
+        required: ["name", "operator"],
+        allOf: [
+          {
+            if: {
+              properties: {
+                operator: { enum: ["is_empty", "is_not_empty"] },
+              },
+              required: ["operator"],
+            },
+            then: {
+              not: { required: ["value"] },
+            },
+            else: {
+              required: ["value"],
+            },
+          },
+        ],
         additionalProperties: false,
       },
     },

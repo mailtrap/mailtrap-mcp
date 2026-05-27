@@ -69,6 +69,35 @@ describe("listContactFields", () => {
     );
   });
 
+  it("handles a raw array response (no `data` wrapper)", async () => {
+    mockClient.contactFields.getList.mockResolvedValue([
+      {
+        id: 7,
+        name: "Birthday",
+        merge_tag: "birthday",
+        data_type: "date",
+        created_at: 1716100000,
+        updated_at: 1716100000,
+      },
+    ]);
+
+    const result = await listContactFields();
+
+    expect(result.content[0].text).toContain('"id": 7');
+    expect(result.content[0].text).toContain('"data_type": "date"');
+    expect(result.isError).toBeUndefined();
+  });
+
+  it("returns the empty message for an empty raw-array response", async () => {
+    mockClient.contactFields.getList.mockResolvedValue([]);
+
+    const result = await listContactFields();
+
+    expect(result.content[0].text).toBe(
+      "No contact fields in your Mailtrap account."
+    );
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactFields.getList.mockRejectedValue(new Error("boom"));
 

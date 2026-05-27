@@ -30,7 +30,7 @@ describe("bulkUpdatePermissions", () => {
         { resource_id: 100, resource_type: "project", access_level: 100 },
         {
           resource_id: "uuid-1",
-          resource_type: "sending_domain",
+          resource_type: "domain",
           destroy: true,
         },
       ],
@@ -41,7 +41,7 @@ describe("bulkUpdatePermissions", () => {
       mockClient.general.permissions.bulkPermissionsUpdate
     ).toHaveBeenCalledWith(42, [
       { resourceId: "100", resourceType: "project", accessLevel: "100" },
-      { resourceId: "uuid-1", resourceType: "sending_domain", destroy: "true" },
+      { resourceId: "uuid-1", resourceType: "domain", destroy: "true" },
     ]);
     expect(result.content[0].text).toContain('"access_level": 100');
     expect(result.isError).toBeUndefined();

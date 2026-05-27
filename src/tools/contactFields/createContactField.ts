@@ -12,11 +12,24 @@ async function createContactField(
   try {
     const mailtrap = requireClient("contact fields");
 
-    const response = (await mailtrap.contactFields.create(params)) as {
-      data: ContactField;
-    };
+    const raw = (await mailtrap.contactFields.create(params)) as
+      | ContactField
+      | { data?: ContactField }
+      | null
+      | undefined;
+    const field =
+      raw && typeof raw === "object" && "data" in raw && raw.data
+        ? raw.data
+        : (raw as ContactField);
 
-    return buildSuccessResponse(JSON.stringify(response.data, null, 2));
+    if (!field) {
+      return buildErrorResponse(
+        "create contact field",
+        new Error("empty response from contact fields API")
+      );
+    }
+
+    return buildSuccessResponse(JSON.stringify(field, null, 2));
   } catch (error) {
     return buildErrorResponse("create contact field", error);
   }

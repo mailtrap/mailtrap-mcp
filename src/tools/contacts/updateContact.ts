@@ -13,8 +13,6 @@ async function updateContact({
   try {
     const mailtrap = requireClient("contacts");
 
-    // SDK type marks `email` as required, but Mailtrap's PATCH endpoint
-    // accepts partial updates without it.
     const response = (await mailtrap.contacts.update(
       contact_identifier,
       params as Parameters<typeof mailtrap.contacts.update>[1]

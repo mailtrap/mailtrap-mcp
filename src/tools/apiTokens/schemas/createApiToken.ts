@@ -14,14 +14,7 @@ const createApiTokenSchema = {
         properties: {
           resource_type: {
             type: "string",
-            enum: [
-              "account",
-              "project",
-              "inbox",
-              "sending_domain",
-              "billing",
-              "mailsend_domain",
-            ],
+            enum: ["account", "project", "inbox", "domain", "billing"],
             description: "Type of resource.",
           },
           resource_id: {
