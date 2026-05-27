@@ -1,0 +1,23 @@
+src/tools/contactExports/schemas/createContactExport.ts
+  s_0868125a7c85e3::t_418be617078b9d 33-49
+src/types/mailtrap.ts
+  s_0868125a7c85e3::t_1ffd202b6da8e1 557-566
+src/tools/contactExports/__tests__/createContactExport.test.ts
+  s_0868125a7c85e3::t_e0fcf6cd29b5b2 42-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "ddd94240d7758b6353620ad857dca50f3bcf6ad0",
+  "prompts": {},
+  "sessions": {
+    "s_0868125a7c85e3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef05f943-dfac-401e-ba20-eed428ebf8bd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
