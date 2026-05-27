@@ -46,12 +46,12 @@ function ensureNoForbiddenFields(
   }
 }
 
-async function batchSendEmail({
+async function batchSendTransactionalEmail({
   base,
   requests,
 }: BatchSendEmailToolRequest): Promise<ToolResponse> {
   try {
-    const mailtrap = requireClient("batch sending email", {
+    const mailtrap = requireClient("batch sending transactional email", {
       requireAccountId: false,
     });
 
@@ -136,8 +136,8 @@ async function batchSendEmail({
 
     return buildSuccessResponse(JSON.stringify(response, null, 2));
   } catch (error) {
-    return buildErrorResponse("batch send email", error);
+    return buildErrorResponse("batch send transactional email", error);
   }
 }
 
-export default batchSendEmail;
+export default batchSendTransactionalEmail;

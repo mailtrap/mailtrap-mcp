@@ -53,7 +53,7 @@ const inlineOrTemplateProps = {
   },
 };
 
-const batchSendEmailSchema = {
+const batchSendTransactionalEmailSchema = {
   type: "object",
   properties: {
     base: {
@@ -112,4 +112,4 @@ const batchSendEmailSchema = {
   additionalProperties: false,
 };
 
-export default batchSendEmailSchema;
+export default batchSendTransactionalEmailSchema;

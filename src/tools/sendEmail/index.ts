@@ -1,6 +1,11 @@
 import sendEmailSchema from "./schema";
 import sendEmail from "./sendEmail";
-import batchSendEmailSchema from "./schemas/batchSendEmail";
-import batchSendEmail from "./batchSendEmail";
+import batchSendTransactionalEmailSchema from "./schemas/batchSendTransactionalEmail";
+import batchSendTransactionalEmail from "./batchSendTransactionalEmail";
 
-export { sendEmailSchema, sendEmail, batchSendEmailSchema, batchSendEmail };
+export {
+  sendEmailSchema,
+  sendEmail,
+  batchSendTransactionalEmailSchema,
+  batchSendTransactionalEmail,
+};

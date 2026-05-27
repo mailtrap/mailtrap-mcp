@@ -1,4 +1,4 @@
-import batchSendEmail from "../batchSendEmail";
+import batchSendTransactionalEmail from "../batchSendTransactionalEmail";
 import { requireClient } from "../../../client";
 
 const mockClient = {
@@ -9,7 +9,7 @@ jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
 
-describe("batchSendEmail", () => {
+describe("batchSendTransactionalEmail", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
@@ -24,7 +24,7 @@ describe("batchSendEmail", () => {
       ],
     });
 
-    const result = await batchSendEmail({
+    const result = await batchSendTransactionalEmail({
       base: {
         from: { email: "sender@example.com", name: "Sender" },
         template_uuid: "tpl-1",
@@ -42,7 +42,7 @@ describe("batchSendEmail", () => {
       ],
     });
 
-    expect(requireClient).toHaveBeenCalledWith("batch sending email", {
+    expect(requireClient).toHaveBeenCalledWith("batch sending transactional email", {
       requireAccountId: false,
     });
     expect(mockClient.batchSend).toHaveBeenCalledWith({
@@ -73,7 +73,7 @@ describe("batchSendEmail", () => {
       responses: [{ success: true, message_ids: ["m-1"] }],
     });
 
-    await batchSendEmail({
+    await batchSendTransactionalEmail({
       base: {
         from: "sender@example.com",
         subject: "Hi",
@@ -93,7 +93,7 @@ describe("batchSendEmail", () => {
   });
 
   it("rejects an empty requests array", async () => {
-    const result = await batchSendEmail({
+    const result = await batchSendTransactionalEmail({
       base: { from: "sender@example.com", subject: "Hi", text: "x" },
       requests: [],
     });
@@ -105,7 +105,7 @@ describe("batchSendEmail", () => {
   });
 
   it("rejects mixing template_uuid with inline content on base", async () => {
-    const result = await batchSendEmail({
+    const result = await batchSendTransactionalEmail({
       base: {
         from: "sender@example.com",
         template_uuid: "tpl-1",
@@ -120,7 +120,7 @@ describe("batchSendEmail", () => {
   });
 
   it("requires subject when neither base nor request supplies a template", async () => {
-    const result = await batchSendEmail({
+    const result = await batchSendTransactionalEmail({
       base: { from: "sender@example.com", text: "Hello" },
       requests: [{ to: "alice@example.com" }],
     });
@@ -133,14 +133,14 @@ describe("batchSendEmail", () => {
   it("surfaces API errors", async () => {
     mockClient.batchSend.mockRejectedValue(new Error("rate limited"));
 
-    const result = await batchSendEmail({
+    const result = await batchSendTransactionalEmail({
       base: { from: "sender@example.com", subject: "Hi", text: "x" },
       requests: [{ to: "alice@example.com" }],
     });
 
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toBe(
-      "Failed to batch send email: rate limited"
+      "Failed to batch send transactional email: rate limited"
     );
   });
 });
