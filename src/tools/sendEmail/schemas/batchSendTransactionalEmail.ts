@@ -78,14 +78,14 @@ const batchSendTransactionalEmailSchema = {
       type: "array",
       minItems: 1,
       description:
-        "Per-recipient messages. Each entry must include `to`; other fields override `base`.",
+        "Per-recipient messages. Each request must include at least one recipient via `to`, `cc`, or `bcc`; other fields override `base`.",
       items: {
         type: "object",
         properties: {
           to: {
             ...addressArrayOrSingle,
             description:
-              "Recipient(s): one address (string or `{ email, name? }`) or a non-empty array.",
+              "Recipient(s): one address (string or `{ email, name? }`) or a non-empty array. Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.",
           },
           cc: {
             type: "array",
@@ -103,7 +103,6 @@ const batchSendTransactionalEmailSchema = {
           },
           ...inlineOrTemplateProps,
         },
-        required: ["to"],
         additionalProperties: false,
       },
     },

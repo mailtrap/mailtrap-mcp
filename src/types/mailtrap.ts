@@ -58,11 +58,12 @@ export interface BatchSendEmailBase {
 }
 
 /**
- * Per-recipient override in a batch send. `to` is required; any other field
- * overrides the corresponding `base` value for this single message.
+ * Per-recipient override in a batch send. At least one of `to`/`cc`/`bcc`
+ * must contain a recipient (validated at runtime); any other field overrides
+ * the corresponding `base` value for this single message.
  */
 export interface BatchSendEmailRequest {
-  to: MailtrapAddressParam | MailtrapAddressParam[];
+  to?: MailtrapAddressParam | MailtrapAddressParam[];
   cc?: MailtrapAddressParam[];
   bcc?: MailtrapAddressParam[];
   reply_to?: MailtrapAddressParam;

@@ -130,6 +130,52 @@ describe("batchSendTransactionalEmail", () => {
     expect(result.content[0].text).toContain("'subject' is required");
   });
 
+  it("sends successfully when `to` is omitted but `cc`/`bcc` is provided", async () => {
+    mockClient.batchSend.mockResolvedValue({
+      success: true,
+      responses: [{ success: true, message_ids: ["m-1"] }],
+    });
+
+    await batchSendTransactionalEmail({
+      base: { from: "sender@example.com", subject: "Hi", text: "Hello" },
+      requests: [
+        {
+          cc: ["carol@example.com"],
+          bcc: ["dan@example.com"],
+        },
+      ],
+    });
+
+    expect(mockClient.batchSend).toHaveBeenCalledWith({
+      base: {
+        from: { email: "sender@example.com" },
+        subject: "Hi",
+        text: "Hello",
+      },
+      requests: [
+        {
+          to: [],
+          cc: [{ email: "carol@example.com" }],
+          bcc: [{ email: "dan@example.com" }],
+        },
+      ],
+    });
+  });
+
+  it("errors when none of `to`/`cc`/`bcc` has a recipient", async () => {
+    const result = await batchSendTransactionalEmail({
+      base: { from: "sender@example.com", subject: "Hi", text: "x" },
+      requests: [{}],
+    });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain("requests[0]:");
+    expect(result.content[0].text).toContain(
+      "provide at least one recipient via 'to', 'cc', or 'bcc'"
+    );
+    expect(mockClient.batchSend).not.toHaveBeenCalled();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.batchSend.mockRejectedValue(new Error("rate limited"));
 

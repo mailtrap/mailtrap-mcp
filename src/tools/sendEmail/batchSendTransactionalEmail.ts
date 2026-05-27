@@ -109,12 +109,25 @@ async function batchSendTransactionalEmail({
       sdkBase.custom_variables = base.custom_variables;
     if (base?.headers !== undefined) sdkBase.headers = base.headers;
 
-    const sdkRequests = requests.map((req) => {
+    const sdkRequests = requests.map((req, i) => {
+      const toAddresses =
+        req.to !== undefined ? normalizeToRecipients(req.to) : [];
+      const ccAddresses =
+        req.cc && req.cc.length > 0 ? normalizeAddressList(req.cc) : [];
+      const bccAddresses =
+        req.bcc && req.bcc.length > 0 ? normalizeAddressList(req.bcc) : [];
+
+      if (toAddresses.length + ccAddresses.length + bccAddresses.length === 0) {
+        throw new Error(
+          `requests[${i}]: provide at least one recipient via 'to', 'cc', or 'bcc'`
+        );
+      }
+
       const r: Record<string, unknown> = {
-        to: normalizeToRecipients(req.to),
+        to: toAddresses,
       };
-      if (req.cc && req.cc.length > 0) r.cc = normalizeAddressList(req.cc);
-      if (req.bcc && req.bcc.length > 0) r.bcc = normalizeAddressList(req.bcc);
+      if (ccAddresses.length > 0) r.cc = ccAddresses;
+      if (bccAddresses.length > 0) r.bcc = bccAddresses;
       if (req.reply_to) r.reply_to = [toMailtrapAddress(req.reply_to)];
       if (req.subject !== undefined) r.subject = req.subject;
       if (req.text !== undefined) r.text = req.text;
