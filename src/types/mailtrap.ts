@@ -554,11 +554,16 @@ export type ContactExportFilterValue =
   | string[]
   | number[];
 
-export interface ContactExportFilter {
-  name: string;
-  operator: ContactExportFilterOperator;
-  value: ContactExportFilterValue;
-}
+export type ContactExportFilter =
+  | {
+      name: string;
+      operator: "is_empty" | "is_not_empty";
+    }
+  | {
+      name: string;
+      operator: "equal" | "not_equal" | "contains" | "not_contains";
+      value: ContactExportFilterValue;
+    };
 
 export interface CreateContactExportRequest {
   filters: ContactExportFilter[];

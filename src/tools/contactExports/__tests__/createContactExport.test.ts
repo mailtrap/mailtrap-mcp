@@ -39,6 +39,21 @@ describe("createContactExport", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("submits filters without a value for is_empty / is_not_empty operators", async () => {
+    mockClient.contactExports.create.mockResolvedValue({
+      id: 43,
+      status: "started",
+    });
+
+    await createContactExport({
+      filters: [{ name: "email", operator: "is_empty" }],
+    });
+
+    expect(mockClient.contactExports.create).toHaveBeenCalledWith({
+      filters: [{ name: "email", operator: "is_empty" }],
+    });
+  });
+
   it("surfaces API errors", async () => {
     mockClient.contactExports.create.mockRejectedValue(
       new Error("invalid filter")
