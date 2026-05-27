@@ -188,6 +188,12 @@ import {
   resetApiToken,
   deleteApiToken,
 } from "./tools/apiTokens";
+import {
+  listSubAccounts,
+  listSubAccountsSchema,
+  createSubAccount,
+  createSubAccountSchema,
+} from "./tools/organizations";
 
 // Define the tools registry
 const tools = [
@@ -970,6 +976,26 @@ const tools = [
       "Permanently delete an API token by ID. The token can no longer authenticate after deletion.",
     inputSchema: apiTokenSchema,
     handler: deleteApiToken,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-sub-accounts",
+    description:
+      "List sub-accounts in the organization. Requires `MAILTRAP_ORGANIZATION_ID` env var and sub-account management permissions.",
+    inputSchema: listSubAccountsSchema,
+    handler: listSubAccounts,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-sub-account",
+    description:
+      "Create a new sub-account under the organization. Requires `MAILTRAP_ORGANIZATION_ID` and sub-account management permissions.",
+    inputSchema: createSubAccountSchema,
+    handler: createSubAccount,
     annotations: {
       destructiveHint: true,
     },

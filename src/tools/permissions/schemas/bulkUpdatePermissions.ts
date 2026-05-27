@@ -23,10 +23,10 @@ const bulkUpdatePermissionsSchema = {
             description: "Type of resource.",
           },
           access_level: {
-            type: "string",
-            enum: ["admin", "viewer", "100", "10"],
+            type: ["number", "string"],
+            enum: [10, 100, "admin", "viewer"],
             description:
-              "Access level. `admin`/`100` for admin, `viewer`/`10` for viewer.",
+              "Access level: 100 or `admin` for admin, 10 or `viewer` for viewer.",
           },
           destroy: {
             type: "boolean",

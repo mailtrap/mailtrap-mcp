@@ -39,6 +39,36 @@ function getSandboxClient(inboxId: number): MailtrapClient {
 }
 
 /**
+ * Returns an organization-scoped MailtrapClient. Organization endpoints
+ * require a dedicated organization-level API token; both
+ * MAILTRAP_ORGANIZATION_API_TOKEN and MAILTRAP_ORGANIZATION_ID must be set.
+ */
+function getOrganizationClient(): MailtrapClient {
+  const token = process.env.MAILTRAP_ORGANIZATION_API_TOKEN;
+  if (!token) {
+    throw new Error(
+      "MAILTRAP_ORGANIZATION_API_TOKEN environment variable is required for organization tools"
+    );
+  }
+  const organizationId = process.env.MAILTRAP_ORGANIZATION_ID;
+  const parsedOrganizationId = Number(organizationId);
+  if (
+    !organizationId ||
+    !Number.isInteger(parsedOrganizationId) ||
+    parsedOrganizationId <= 0
+  ) {
+    throw new Error(
+      "MAILTRAP_ORGANIZATION_ID environment variable is required for organization tools"
+    );
+  }
+  return new MailtrapClient({
+    token,
+    userAgent: config.USER_AGENT,
+    organizationId: parsedOrganizationId,
+  });
+}
+
+/**
  * Validates that the Mailtrap client is initialised and (optionally) that
  * MAILTRAP_ACCOUNT_ID is set.  Returns the client so callers can use it
  * directly:
@@ -68,4 +98,4 @@ function requireClient(
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { client, getSandboxClient, requireClient };
+export { client, getSandboxClient, getOrganizationClient, requireClient };

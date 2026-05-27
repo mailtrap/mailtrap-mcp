@@ -16,7 +16,9 @@ async function bulkUpdatePermissions({
     const sdkPermissions = permissions.map((p) => ({
       resourceId: String(p.resource_id),
       resourceType: p.resource_type,
-      ...(p.access_level !== undefined && { accessLevel: p.access_level }),
+      ...(p.access_level !== undefined && {
+        accessLevel: String(p.access_level),
+      }),
       ...(p.destroy !== undefined && { destroy: String(p.destroy) }),
     }));
 
