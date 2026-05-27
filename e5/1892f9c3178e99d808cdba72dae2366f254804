@@ -1,0 +1,45 @@
+src/client.ts
+  s_0868125a7c85e3::t_b0ca77140c77cc 114-120
+  s_0868125a7c85e3::t_ad58d71a319a86 43-58
+  h_32e79f74e8df76 42
+src/server.ts
+  s_0868125a7c85e3::t_d684dc565901a5 228-236
+  s_0868125a7c85e3::t_e284afdf3ead6f 19-20
+src/tools/sendEmail/buildBatchPayload.ts
+  s_0868125a7c85e3::t_1b2b8529307393 1-147
+src/tools/sendEmail/__tests__/batchSendBulkEmail.test.ts
+  s_0868125a7c85e3::t_2bf23d491265d5 1-71
+README.md
+  s_0868125a7c85e3::t_c660dfe1ec2966 225,227,239,244-246
+src/tools/sendEmail/batchSendTransactionalEmail.ts
+  s_0868125a7c85e3::t_ccfb0bd6668506 2-3,10-12,18,20-22
+CLAUDE.md
+  s_0868125a7c85e3::t_8344f0b0ea8bee 76-77
+src/tools/sendEmail/index.ts
+  s_0868125a7c85e3::t_64f17d9f965a77 5-6,13-14
+src/tools/sendEmail/batchSendBulkEmail.ts
+  s_0868125a7c85e3::t_36251aeb09f44f 1-28
+src/tools/sendEmail/schemas/batchSendBulkEmail.ts
+  s_0868125a7c85e3::t_327ad89b1edab3 1-114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "e51892f9c3178e99d808cdba72dae2366f254804",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_0868125a7c85e3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef05f943-dfac-401e-ba20-eed428ebf8bd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
