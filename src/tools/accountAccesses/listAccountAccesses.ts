@@ -18,7 +18,11 @@ async function listAccountAccesses(raw: unknown = {}): Promise<ToolResponse> {
     );
   }
 
-  const { domain_uuids, inbox_ids, project_ids } = parsed.data;
+  const {
+    domain_uuids: domainUuids,
+    inbox_ids: inboxIds,
+    project_ids: projectIds,
+  } = parsed.data;
 
   try {
     const mailtrap = requireClient("account accesses");
@@ -28,9 +32,9 @@ async function listAccountAccesses(raw: unknown = {}): Promise<ToolResponse> {
       inboxIds?: string[];
       projectIds?: string[];
     } = {};
-    if (domain_uuids) filters.domainUuids = domain_uuids;
-    if (inbox_ids) filters.inboxIds = inbox_ids;
-    if (project_ids) filters.projectIds = project_ids;
+    if (domainUuids) filters.domainUuids = domainUuids;
+    if (inboxIds) filters.inboxIds = inboxIds;
+    if (projectIds) filters.projectIds = projectIds;
 
     const accesses = await mailtrap.general.accountAccesses.listAccountAccesses(
       Object.keys(filters).length === 0 ? undefined : filters
