@@ -51,7 +51,12 @@ function getOrganizationClient(): MailtrapClient {
     );
   }
   const organizationId = process.env.MAILTRAP_ORGANIZATION_ID;
-  if (!organizationId || Number.isNaN(Number(organizationId))) {
+  const parsedOrganizationId = Number(organizationId);
+  if (
+    !organizationId ||
+    !Number.isInteger(parsedOrganizationId) ||
+    parsedOrganizationId <= 0
+  ) {
     throw new Error(
       "MAILTRAP_ORGANIZATION_ID environment variable is required for organization tools"
     );
@@ -59,7 +64,7 @@ function getOrganizationClient(): MailtrapClient {
   return new MailtrapClient({
     token,
     userAgent: config.USER_AGENT,
-    organizationId: Number(organizationId),
+    organizationId: parsedOrganizationId,
   });
 }
 
