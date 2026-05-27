@@ -1,0 +1,31 @@
+src/tools/accountAccesses/schemas/removeAccountAccess.ts
+  s_0868125a7c85e3::t_3512c5c75d10d7 1-2
+  s_0868125a7c85e3::t_7b2c5bc5ef9d76 15-20
+src/tools/accountAccesses/__tests__/listAccountAccesses.test.ts
+  s_0868125a7c85e3::t_b3e32b2b245507 57-69
+src/tools/accountAccesses/__tests__/removeAccountAccess.test.ts
+  s_0868125a7c85e3::t_a97db654bd1d4e 37-49
+src/tools/accountAccesses/listAccountAccesses.ts
+  s_0868125a7c85e3::t_e824dee8d03ecb 2,9-22
+src/tools/accountAccesses/removeAccountAccess.ts
+  s_0868125a7c85e3::t_1120590a03b8e5 2,9-20,25
+src/tools/accountAccesses/schemas/listAccountAccesses.ts
+  s_0868125a7c85e3::t_439da7f6da6d11 25-32
+  s_0868125a7c85e3::t_18f3cb30aaaf51 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "d4c89d379079accf87520823ce1f53eb3c8aa1f7",
+  "prompts": {},
+  "sessions": {
+    "s_0868125a7c85e3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef05f943-dfac-401e-ba20-eed428ebf8bd",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
