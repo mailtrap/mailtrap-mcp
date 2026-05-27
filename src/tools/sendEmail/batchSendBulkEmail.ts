@@ -1,4 +1,4 @@
-import { requireClient } from "../../client";
+import { getBulkClient } from "../../client";
 import { BatchSendEmailToolRequest } from "../../types/mailtrap";
 import buildBatchPayload from "./buildBatchPayload";
 import {
@@ -7,13 +7,11 @@ import {
   ToolResponse,
 } from "../utils/responses";
 
-async function batchSendTransactionalEmail(
+async function batchSendBulkEmail(
   body: BatchSendEmailToolRequest
 ): Promise<ToolResponse> {
   try {
-    const mailtrap = requireClient("batch sending transactional email", {
-      requireAccountId: false,
-    });
+    const mailtrap = getBulkClient();
 
     const payload = buildBatchPayload(body);
 
@@ -23,8 +21,8 @@ async function batchSendTransactionalEmail(
 
     return buildSuccessResponse(JSON.stringify(response, null, 2));
   } catch (error) {
-    return buildErrorResponse("batch send transactional email", error);
+    return buildErrorResponse("batch send bulk email", error);
   }
 }
 
-export default batchSendTransactionalEmail;
+export default batchSendBulkEmail;

@@ -16,6 +16,8 @@ import {
   sendEmail,
   batchSendTransactionalEmailSchema,
   batchSendTransactionalEmail,
+  batchSendBulkEmailSchema,
+  batchSendBulkEmail,
 } from "./tools/sendEmail";
 import {
   createTemplate,
@@ -218,6 +220,16 @@ const tools = [
       "Send a batch of transactional emails in one Mailtrap API call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Each request must include `to`.",
     inputSchema: batchSendTransactionalEmailSchema,
     handler: batchSendTransactionalEmail,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "batch-send-bulk-email",
+    description:
+      "Send a batch of bulk emails (Mailtrap bulk-stream API) in one call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Each request must include at least one of `to`/`cc`/`bcc`.",
+    inputSchema: batchSendBulkEmailSchema,
+    handler: batchSendBulkEmail,
     annotations: {
       destructiveHint: true,
     },

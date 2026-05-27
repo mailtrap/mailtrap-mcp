@@ -42,9 +42,12 @@ describe("batchSendTransactionalEmail", () => {
       ],
     });
 
-    expect(requireClient).toHaveBeenCalledWith("batch sending transactional email", {
-      requireAccountId: false,
-    });
+    expect(requireClient).toHaveBeenCalledWith(
+      "batch sending transactional email",
+      {
+        requireAccountId: false,
+      }
+    );
     expect(mockClient.batchSend).toHaveBeenCalledWith({
       base: {
         from: { email: "sender@example.com", name: "Sender" },
