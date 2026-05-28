@@ -16,7 +16,12 @@ function ensureNoForbiddenFields(
   source: BatchSendEmailBase | BatchSendEmailRequest,
   scope: string
 ): void {
-  if (source.template_uuid === undefined) {
+  const trimmedTemplateUuid = source.template_uuid?.trim();
+  const hasTemplate = Boolean(trimmedTemplateUuid);
+  if (!hasTemplate) {
+    if (source.template_uuid !== undefined && !trimmedTemplateUuid) {
+      throw new Error(`${scope}: 'template_uuid' must be a non-empty string`);
+    }
     if (source.template_variables !== undefined) {
       throw new Error(
         `${scope}: 'template_variables' can only be used together with 'template_uuid'`
@@ -68,7 +73,7 @@ function buildBatchPayload({
     } as BatchSendEmailRequest;
     ensureNoForbiddenFields(merged, `requests[${i}]`);
 
-    const hasTemplate = merged.template_uuid !== undefined;
+    const hasTemplate = Boolean(merged.template_uuid?.trim());
     const hasInlineBody =
       (merged.subject !== undefined && merged.subject !== "") ||
       (merged.text !== undefined && merged.text !== "") ||

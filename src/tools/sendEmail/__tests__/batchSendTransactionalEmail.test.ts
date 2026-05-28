@@ -133,6 +133,36 @@ describe("batchSendTransactionalEmail", () => {
     expect(result.content[0].text).toContain("'subject' is required");
   });
 
+  it("rejects a blank `template_uuid` on base", async () => {
+    const result = await batchSendTransactionalEmail({
+      base: {
+        from: "sender@example.com",
+        template_uuid: "   ",
+        template_variables: { brand: "MCP" },
+      },
+      requests: [{ to: "alice@example.com" }],
+    });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "base: 'template_uuid' must be a non-empty string"
+    );
+    expect(mockClient.batchSend).not.toHaveBeenCalled();
+  });
+
+  it("rejects a blank `template_uuid` on a per-request override", async () => {
+    const result = await batchSendTransactionalEmail({
+      base: { from: "sender@example.com", subject: "Hi", text: "x" },
+      requests: [{ to: "alice@example.com", template_uuid: "" }],
+    });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "requests[0]: 'template_uuid' must be a non-empty string"
+    );
+    expect(mockClient.batchSend).not.toHaveBeenCalled();
+  });
+
   it("sends successfully when `to` is omitted but `cc`/`bcc` is provided", async () => {
     mockClient.batchSend.mockResolvedValue({
       success: true,
