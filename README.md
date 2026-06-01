@@ -222,6 +222,29 @@ Sends a transactional email through Mailtrap. Supports two mutually exclusive mo
 - `template_uuid` (optional): Use a Mailtrap email template instead of inline content. When set, `subject` / `text` / `html` / `category` must be omitted (per Mailtrap API).
 - `template_variables` (optional): Object of variables substituted into the template referenced by `template_uuid`. Only allowed together with `template_uuid`.
 
+### batch-send-transactional-email
+
+Sends a batch of transactional emails in one Mailtrap API call (default sending stream). Shared fields go on `base`; per-recipient overrides go in `requests[]`. Each request must include at least one recipient via `to`, `cc`, or `bcc`. Same inline-vs-template mutual exclusion as `send-email` — checked after merging base with each request.
+
+**Parameters:**
+
+- `base` (optional): Object with fields shared across the batch.
+  - `from` (optional): Sender as an email string or `{ email, name? }`. Falls back to `DEFAULT_FROM_EMAIL`.
+  - `reply_to` (optional): Reply-to address.
+  - `subject` / `text` / `html` / `category` (optional, inline mode): Default content for every request.
+  - `template_uuid` / `template_variables` (optional, template mode): Default template + variables. Mutually exclusive with the inline fields.
+  - `custom_variables` (optional): Default custom variables (string-valued).
+  - `headers` (optional): Default custom headers.
+- `requests` (required): Non-empty array of per-recipient messages. Each entry has:
+  - `to` (optional): Recipient(s) — string, `{ email, name? }`, or an array. Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
+  - `cc`, `bcc`, `reply_to` (optional).
+  - Inline (`subject`/`text`/`html`/`category`) or template (`template_uuid`/`template_variables`) overrides; any field omitted falls back to the matching `base` value.
+  - `custom_variables`, `headers` (optional).
+
+### batch-send-bulk-email
+
+Sends a batch of bulk emails through Mailtrap's bulk-stream API. Same `base` + `requests[]` shape, validation, and inline-vs-template rules as `batch-send-transactional-email` — the only difference is that this tool routes the call through the bulk endpoint instead of the transactional one. See the parameters above.
+
 ### list-email-logs
 
 Lists sent email logs (delivery history) with optional pagination and filters. Use to debug delivery issues from the IDE.

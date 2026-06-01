@@ -39,6 +39,24 @@ function getSandboxClient(inboxId: number): MailtrapClient {
 }
 
 /**
+ * Returns a bulk-stream MailtrapClient. Use for bulk emails
+ */
+function getBulkClient(): MailtrapClient {
+  if (!MAILTRAP_API_TOKEN) {
+    throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+  }
+  return new MailtrapClient({
+    token: MAILTRAP_API_TOKEN,
+    userAgent: config.USER_AGENT,
+    bulk: true,
+    ...(process.env.MAILTRAP_ACCOUNT_ID &&
+    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
+      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
+      : {}),
+  });
+}
+
+/**
  * Returns an organization-scoped MailtrapClient. Organization endpoints
  * require a dedicated organization-level API token; both
  * MAILTRAP_ORGANIZATION_API_TOKEN and MAILTRAP_ORGANIZATION_ID must be set.
@@ -98,4 +116,10 @@ function requireClient(
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { client, getSandboxClient, getOrganizationClient, requireClient };
+export {
+  client,
+  getSandboxClient,
+  getBulkClient,
+  getOrganizationClient,
+  requireClient,
+};
