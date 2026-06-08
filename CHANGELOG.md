@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.4.1] - 2026-06-08
+
+* Add `mcpName` and `server.json` for publishing to the official MCP Registry as `io.mailtrap/mcp`.
+
 ## [0.4.0] - 2026-05-11
 
 * Add **template-based sending** to **send-email** and **send-sandbox-email**: pass `template_uuid` (with optional `template_variables`) to send via a Mailtrap template. Per the Mailtrap API, when `template_uuid` is set, `subject`, `text`, `html`, and `category` must be omitted; this is enforced at runtime. `subject` is no longer in the schema's `required` array since it does not apply to template sends. See https://github.com/mailtrap/mailtrap-mcp/pull/82
