@@ -1,0 +1,45 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.mailtrap/mcp",
+  "description": "Official MCP Server for Mailtrap",
+  "title": "Mailtrap",
+  "websiteUrl": "https://docs.mailtrap.io/guides/ai-powered-integrations/mcp-server",
+  "repository": {
+    "url": "https://github.com/mailtrap/mailtrap-mcp",
+    "source": "github"
+  },
+  "version": "0.4.1",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/mailtrap/mailtrap-mcp/main/icon.png",
+      "mimeType": "image/png"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "mcp-mailtrap",
+      "version": "0.4.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "MAILTRAP_API_TOKEN",
+          "description": "Mailtrap API token from https://mailtrap.io/api-tokens",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "MAILTRAP_ACCOUNT_ID",
+          "description": "Mailtrap account ID from https://mailtrap.io/account-management",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}
