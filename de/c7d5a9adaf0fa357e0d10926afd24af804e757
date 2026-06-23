@@ -1,0 +1,46 @@
+src/config/version.ts
+  s_344629a3672c61::t_213cb5d91cec16 1
+src/config/index.ts
+  s_344629a3672c61::t_5945ff28f02f79 1
+  s_344629a3672c61::t_7fb7aa67f0bf17 2,5
+.github/workflows/draft-release.yml
+  s_4acebbef849804::t_55476af651d7ad 27-35
+  s_344629a3672c61::t_604feb5b67ed04 76,83,86
+  s_344629a3672c61::t_6b104f6db7b616 77,80-81,84-85,89,92-93,95-97
+  s_344629a3672c61::t_127ede5a4f229b 1-2,24,36-50,62-75,79,82,87-88,90-91,94,98-123,127-135,137-139,142-145,147,149-152,154-156,158-166
+  s_344629a3672c61::t_ba34f9060b99f1 157
+  s_344629a3672c61::t_b8182804fbc031 51-61
+  s_4acebbef849804::t_66ee76d1a8a54f 18-20
+  s_344629a3672c61::t_40108601b3361f 148
+  s_344629a3672c61::t_c4d6e3ac1c8f88 136,140-141,146
+  h_32e79f74e8df76 125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.10",
+  "base_commit_sha": "dec7d5a9adaf0fa357e0d10926afd24af804e757",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_344629a3672c61": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cb68b51d-893e-4fd4-b05c-8398c7e2574f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    },
+    "s_4acebbef849804": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1779709514479",
+        "model": "unknown"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
