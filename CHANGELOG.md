@@ -1,3 +1,10 @@
+## [0.4.2] - 2026-06-23
+
+* chore(deps): bump hono from 4.12.18 to 4.12.23 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/101
+* chore(deps): bump the npm_and_yarn group across 1 directory with 2 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/103
+* Add placeholder for draft SDK release by @IgorDobryn in https://github.com/mailtrap/mailtrap-mcp/pull/105
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.4.1...v0.4.2
+
 ## [Unreleased]
 
 ## [0.4.1] - 2026-06-08
