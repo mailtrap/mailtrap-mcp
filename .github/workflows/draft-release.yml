@@ -1,4 +1,5 @@
-# Placeholder draft-release workflow for Mailtrap SDKs.
+# Drafts a new SDK release: bumps versions, regenerates the changelog from
+# merged PRs, and opens a release PR against main.
 #
 name: Draft SDK Release
 on:
@@ -14,15 +15,171 @@ on:
           - major
         default: patch
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   draft-release:
-    name: Draft SDK Release (placeholder)
+    name: Draft SDK Release
     runs-on: ubuntu-latest
     steps:
-      - name: Echo inputs
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+
+      - name: Compute next version
+        id: bump
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const current = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+            const [major, minor, patch] = current.split('.').map(Number);
+            const next = {
+              major: `${major + 1}.0.0`,
+              minor: `${major}.${minor + 1}.0`,
+              patch: `${major}.${minor}.${patch + 1}`,
+            }[context.payload.inputs.bump_type];
+            const tag = `v${next}`;
+
+            core.info(`Bumping ${current} -> ${next}`);
+            core.setOutput('current', current);
+            core.setOutput('next', next);
+            core.setOutput('tag', tag);
+            core.setOutput('branch', `release-${tag}`);
+
+      - name: Abort if tag already exists
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tag = '${{ steps.bump.outputs.tag }}';
+            try {
+              await github.rest.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tag}`,
+              });
+              core.setFailed(`Tag ${tag} already exists`);
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+
+      - name: Update version in package.json
+        run: npm version --no-git-tag-version --allow-same-version "${{ steps.bump.outputs.next }}"
+
+      - name: Update version in src/config/version.ts
+        uses: actions/github-script@v7
         env:
-          BUMP_TYPE: ${{ inputs.bump_type }}
-          SDK: ${{ inputs.sdk }}
+          NEXT: ${{ steps.bump.outputs.next }}
+        with:
+          script: |
+            const fs = require('fs');
+            fs.writeFileSync(
+              'src/config/version.ts',
+              `export default ${JSON.stringify(process.env.NEXT)};\n`
+            );
+
+      - name: Update version in manifest.json
+        uses: actions/github-script@v7
+        env:
+          NEXT: ${{ steps.bump.outputs.next }}
+        with:
+          script: |
+            const fs = require('fs');
+            const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+            manifest.version = process.env.NEXT;
+            fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2) + '\n');
+
+      - name: Update version in server.json
+        uses: actions/github-script@v7
+        env:
+          NEXT: ${{ steps.bump.outputs.next }}
+        with:
+          script: |
+            const fs = require('fs');
+            const server = JSON.parse(fs.readFileSync('server.json', 'utf8'));
+            server.version = process.env.NEXT;
+            const pkg = (server.packages || []).find(
+              (p) => p.identifier === 'mcp-mailtrap'
+            );
+            if (!pkg) {
+              core.setFailed('No package with identifier "mcp-mailtrap" found in server.json');
+              return;
+            }
+            pkg.version = process.env.NEXT;
+            fs.writeFileSync('server.json', JSON.stringify(server, null, 2) + '\n');
+
+      - name: Generate release notes from PRs since last tag
+        id: notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tag = '${{ steps.bump.outputs.tag }}';
+
+            // Detect the previous release tag so notes only cover PRs since then.
+            let previousTag;
+            try {
+              const latest = await github.rest.repos.getLatestRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              });
+              previousTag = latest.data.tag_name;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+
+            const { data } = await github.rest.repos.generateReleaseNotes({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: tag,
+              ...(previousTag ? { previous_tag_name: previousTag } : {}),
+            });
+
+            core.setOutput('raw_notes', data.body);
+
+            // Keep only the PR bullet lines; drop the "## What's Changed" header
+            // and the "**Full Changelog**" footer.
+            const bullets = data.body
+              .split('\n')
+              .filter((line) => line.trimStart().startsWith('*'))
+              .join('\n');
+            core.setOutput('bullets', bullets || '* No changes since previous release');
+
+      - name: Prepend new section to CHANGELOG.md
+        uses: actions/github-script@v7
+        env:
+          NEXT: ${{ steps.bump.outputs.next }}
+          BULLETS: ${{ steps.notes.outputs.bullets }}
+        with:
+          script: |
+            const fs = require('fs');
+            const version = process.env.NEXT;
+            const date = new Date().toISOString().slice(0, 10);
+            const bullets = process.env.BULLETS.trim();
+            const entry = `## [${version}] - ${date}\n\n${bullets}\n\n`;
+            const original = fs.readFileSync('CHANGELOG.md', 'utf8');
+            fs.writeFileSync('CHANGELOG.md', entry + original);
+
+      - name: Commit, push, open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Placeholder draft-release workflow"
-          echo "bump_type=$BUMP_TYPE"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "${{ steps.bump.outputs.branch }}"
+          git add package.json package-lock.json src/config/version.ts manifest.json server.json CHANGELOG.md
+          git commit -m "Release ${{ steps.bump.outputs.tag }}"
+          git push -u origin "${{ steps.bump.outputs.branch }}"
+          gh pr create \
+            --base main \
+            --head "${{ steps.bump.outputs.branch }}" \
+            --title "Release ${{ steps.bump.outputs.tag }}" \
+            --body "Automated release prep (\`${{ inputs.bump_type }}\` bump from v${{ steps.bump.outputs.current }}).
+
+          Review the CHANGELOG diff. On merge, create a GitHub release with the tag \`${{ steps.bump.outputs.tag }}\` to publish (npm + signed .mcpb)."

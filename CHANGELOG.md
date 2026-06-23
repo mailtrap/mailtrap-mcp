@@ -1,5 +1,3 @@
-## [Unreleased]
-
 ## [0.4.1] - 2026-06-08
 
 * Add `mcpName` and `server.json` for publishing to the official MCP Registry as `io.mailtrap/mcp`.
