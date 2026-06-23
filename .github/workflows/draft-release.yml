@@ -166,9 +166,7 @@ jobs:
             const original = fs.readFileSync('CHANGELOG.md', 'utf8');
             fs.writeFileSync('CHANGELOG.md', entry + original);
 
-      - name: Commit, push, open PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and push release branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -176,10 +174,22 @@ jobs:
           git add package.json package-lock.json src/config/version.ts manifest.json server.json CHANGELOG.md
           git commit -m "Release ${{ steps.bump.outputs.tag }}"
           git push -u origin "${{ steps.bump.outputs.branch }}"
-          gh pr create \
-            --base main \
-            --head "${{ steps.bump.outputs.branch }}" \
-            --title "Release ${{ steps.bump.outputs.tag }}" \
-            --body "Automated release prep (\`${{ inputs.bump_type }}\` bump from v${{ steps.bump.outputs.current }}).
 
-          Review the CHANGELOG diff. On merge, create a GitHub release with the tag \`${{ steps.bump.outputs.tag }}\` to publish (npm + signed .mcpb)."
+      - name: Create draft GitHub release
+        uses: actions/github-script@v7
+        env:
+          BULLETS: ${{ steps.notes.outputs.bullets }}
+        with:
+          script: |
+            const tag = '${{ steps.bump.outputs.tag }}';
+            const { data } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: tag,
+              target_commitish: '${{ steps.bump.outputs.branch }}',
+              name: tag,
+              body: process.env.BULLETS,
+              draft: true,
+              prerelease: false,
+            });
+            core.info(`Draft release created: ${data.html_url}`);
