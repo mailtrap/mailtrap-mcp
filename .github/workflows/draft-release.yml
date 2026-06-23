@@ -141,7 +141,7 @@ jobs:
               ...(previousTag ? { previous_tag_name: previousTag } : {}),
             });
 
-            core.setOutput('raw_notes', data.body);
+            core.info('raw_notes', data.body);
 
             // Keep only the PR bullet lines; drop the "## What's Changed" header
             // and the "**Full Changelog**" footer.
