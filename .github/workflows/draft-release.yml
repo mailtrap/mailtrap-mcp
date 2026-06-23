@@ -22,7 +22,6 @@ jobs:
       - name: Echo inputs
         env:
           BUMP_TYPE: ${{ inputs.bump_type }}
-          SDK: ${{ inputs.sdk }}
         run: |
           echo "Placeholder draft-release workflow"
           echo "bump_type=$BUMP_TYPE"
