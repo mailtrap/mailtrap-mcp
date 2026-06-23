@@ -1,0 +1,14 @@
+.github/workflows/draft-release.yml
+  h_32e79f74e8df76 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.10",
+  "base_commit_sha": "397aa003c2d1a93a4e6631511771b0adbf8dbf08",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
