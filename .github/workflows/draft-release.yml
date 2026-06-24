@@ -191,7 +191,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: tag,
-              target_commitish: '${{ steps.bump.outputs.branch }}',
+              target_commitish: 'main',
               name: tag,
               body: process.env.RELEASE_NOTES,
               draft: true,
