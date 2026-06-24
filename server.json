@@ -8,7 +8,7 @@
     "url": "https://github.com/mailtrap/mailtrap-mcp",
     "source": "github"
   },
-  "version": "0.4.2",
+  "version": "0.4.3",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/mailtrap/mailtrap-mcp/main/icon.png",
@@ -20,7 +20,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "mcp-mailtrap",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "transport": {
         "type": "stdio"
       },
