@@ -1,3 +1,19 @@
+## [0.4.3] - 2026-06-24
+
+## What's Changed
+* chore(deps): bump hono from 4.12.18 to 4.12.23 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/101
+* chore(deps): bump the npm_and_yarn group across 1 directory with 2 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/103
+* Add placeholder for draft SDK release by @IgorDobryn in https://github.com/mailtrap/mailtrap-mcp/pull/105
+* chore(deps): bump form-data from 4.0.5 to 4.0.6 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/104
+* Implement draft-release workflow by @IgorDobryn in https://github.com/mailtrap/mailtrap-mcp/pull/106
+* Release v0.4.2 by @github-actions[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/113
+* Fix draft-release workflow by @IgorDobryn in https://github.com/mailtrap/mailtrap-mcp/pull/114
+
+## New Contributors
+* @github-actions[bot] made their first contribution in https://github.com/mailtrap/mailtrap-mcp/pull/113
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.4.1...v0.4.3
+
 ## [0.4.2] - 2026-06-24
 
 ## What's Changed
