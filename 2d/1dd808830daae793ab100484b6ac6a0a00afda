@@ -1,0 +1,25 @@
+.github/workflows/draft-release.yml
+  h_32e79f74e8df76 28
+  s_4acebbef849804::t_f491819b19ddb5 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "2d1dd808830daae793ab100484b6ac6a0a00afda",
+  "prompts": {},
+  "humans": {
+    "h_32e79f74e8df76": {
+      "author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_4acebbef849804": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1779709514479",
+        "model": "unknown"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    }
+  }
+}
