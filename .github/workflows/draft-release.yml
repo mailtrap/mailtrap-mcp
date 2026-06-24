@@ -1,4 +1,4 @@
-# Drafts a new SDK release: bumps versions, regenerates the changelog from
+# Drafts a new release: bumps versions, regenerates the changelog from
 # merged PRs, and opens a release PR against main.
 #
 name: Draft SDK Release
@@ -25,7 +25,7 @@ permissions:
 
 jobs:
   draft-release:
-    name: Draft SDK Release
+    name: Draft MCP Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
