@@ -733,7 +733,7 @@ List all contact lists for the account.
 
 **Parameters:**
 
-- No parameters required
+- `search` (optional): Filter contact lists by name (case-insensitive prefix match), e.g. `news`
 
 ### get-contact-list
 
