@@ -1,0 +1,18 @@
+README.md
+  h_c750c91773bbc1 730
+src/server.ts
+  h_c750c91773bbc1 772
+src/tools/contactLists/schemas/listContactLists.ts
+  h_c750c91773bbc1 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "65a75a6336a0f00724b9c1291ff799c12fc14699",
+  "prompts": {},
+  "humans": {
+    "h_c750c91773bbc1": {
+      "author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
