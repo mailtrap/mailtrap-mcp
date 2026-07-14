@@ -769,7 +769,7 @@ const tools = [
   {
     name: "list-contact-lists",
     description:
-      "List all contact lists for the account. Optionally filter by name with `search` (case-insensitive prefix match).",
+      "List all contact lists for the account. Optionally filter by name with `search` (case-insensitive match).",
     inputSchema: listContactListsSchema,
     handler: listContactLists,
     annotations: {

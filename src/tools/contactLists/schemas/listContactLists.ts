@@ -6,7 +6,7 @@ const listContactListsSchema = {
     search: {
       type: "string",
       description:
-        'Filter contact lists by name (case-insensitive prefix match), e.g. "news".',
+        'Filter contact lists by name (case-insensitive match), e.g. "news".',
     },
   },
   required: [],
