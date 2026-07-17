@@ -66,6 +66,8 @@ function normalizeAddressValue(value: unknown): Address[] {
 }
 
 /**
+ * Normalizes a singular address field (`from`, `reply_to`) into a single
+ * Mailtrap address. Throws on arrays and entries without a usable email.
  * `context` names the field (and, for batch sends, the request) in the error
  * message, e.g. `"'from'"` or `"requests[2] 'reply_to'"`.
  */
@@ -73,7 +75,7 @@ export function toMailtrapAddress(
   input: MailtrapAddressParam,
   context?: string
 ): Address {
-  const [first] = normalizeAddressValue(input);
+  const [first] = normalizeAddressItem(input);
   if (!first) {
     throw new Error(
       `Invalid address${
@@ -84,6 +86,11 @@ export function toMailtrapAddress(
   return first;
 }
 
+/**
+ * Resolves the sender address: normalizes an explicit `from` when given,
+ * otherwise falls back to `defaultEmail` (the `DEFAULT_FROM_EMAIL` env var).
+ * Throws when neither is available.
+ */
 export function buildFromAddress(
   from: MailtrapAddressParam | undefined,
   defaultEmail: string | undefined
@@ -99,12 +106,22 @@ export function buildFromAddress(
   return toMailtrapAddress(from, "'from'");
 }
 
+/**
+ * Normalizes an optional multi-address field (e.g. `cc`, `bcc`) — an array of
+ * entries or a JSON-stringified array — into Mailtrap addresses, dropping
+ * entries without a usable email.
+ */
 export function normalizeAddressList(
   inputs: MailtrapAddressParam[] | string
 ): Address[] {
   return normalizeAddressValue(inputs);
 }
 
+/**
+ * Normalizes the `to` field — a single entry, an array of entries, or a
+ * JSON-stringified form of either — into Mailtrap addresses. Returns an empty
+ * array when no entry has a usable email; callers validate non-emptiness.
+ */
 export function normalizeToRecipients(
   to: MailtrapAddressParam | MailtrapAddressParam[]
 ): Address[] {

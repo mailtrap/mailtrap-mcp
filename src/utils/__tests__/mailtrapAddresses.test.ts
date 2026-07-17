@@ -40,6 +40,21 @@ describe("toMailtrapAddress", () => {
     expect(() => toMailtrapAddress("   ")).toThrow("Invalid address");
     expect(() => toMailtrapAddress({ email: "" })).toThrow("Invalid address");
   });
+
+  it("rejects arrays instead of taking the first entry", () => {
+    expect(() =>
+      toMailtrapAddress(["a@example.com", "b@example.com"] as never)
+    ).toThrow("Invalid address");
+    expect(() =>
+      toMailtrapAddress('["a@example.com", "b@example.com"]')
+    ).toThrow("Invalid address");
+  });
+
+  it("names the field in the error message when context is given", () => {
+    expect(() => toMailtrapAddress("   ", "'reply_to'")).toThrow(
+      "Invalid address in 'reply_to'"
+    );
+  });
 });
 
 describe("buildFromAddress", () => {
