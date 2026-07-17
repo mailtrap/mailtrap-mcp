@@ -34,8 +34,6 @@ Before using this MCP server, you need to:
 
 [![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%2C%22MAILTRAP_TEST_INBOX_ID%22%3A%22%24%7Binput%3AmailtrapTestInboxId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapTestInboxId%22%2C%22description%22%3A%22Mailtrap+Test+Inbox+ID+%28optional%29%22%7D%5D)
 
-
-
 ### Smithery CLI
 
 [Smithery](https://github.com/smithery-ai/cli) is a registry installer and manager for MCP servers that works with all AI clients.
@@ -45,8 +43,6 @@ npx @smithery/cli install mailtrap
 ```
 
 > Smithery automatically handles client configuration and provides an interactive setup process. It's the easiest way to get started with MCP servers locally.
-
-
 
 ## Setup
 
@@ -111,7 +107,6 @@ If you are using `asdf` for managing Node.js you must use absolute path to execu
 **Windows**: `%USERPROFILE%\.cursor\mcp.json`
 
 ### VS Code
-
 
 #### Manually changing config
 
@@ -389,7 +384,6 @@ Shows detailed information and content of a specific email message from your Mai
 
 > [!NOTE]
 > Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
-
 
 ### get-sandbox-project
 
@@ -733,7 +727,7 @@ List all contact lists for the account.
 
 **Parameters:**
 
-- No parameters required
+- `search` (optional): Filter contact lists by name (case-insensitive match), e.g. `news`
 
 ### get-contact-list
 
@@ -1067,7 +1061,7 @@ Both require the bundle to be built first:
 npm run build
 ```
 
-and `MAILTRAP_API_TOKEN` + `MAILTRAP_ACCOUNT_ID` exported in your shell (the `mcp:cli` script forwards both to the spawned server). 
+and `MAILTRAP_API_TOKEN` + `MAILTRAP_ACCOUNT_ID` exported in your shell (the `mcp:cli` script forwards both to the spawned server).
 
 #### Browser UI
 
