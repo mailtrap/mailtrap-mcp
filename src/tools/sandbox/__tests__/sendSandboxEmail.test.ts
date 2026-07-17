@@ -606,4 +606,34 @@ describe("sendSandboxEmail", () => {
       consoleErrorSpy.mockRestore();
     });
   });
+
+  describe("JSON-stringified recipients", () => {
+    it("should accept 'to' as a JSON-stringified array of objects", async () => {
+      const result = await sendSandboxEmail({
+        ...mockEmailData,
+        to: '[{"email": "john@example.com", "name": "John Doe"}]',
+      });
+
+      expect(mockSend).toHaveBeenCalledWith(
+        expect.objectContaining({
+          to: [{ email: "john@example.com", name: "John Doe" }],
+        })
+      );
+      expect(result.isError).toBeUndefined();
+    });
+
+    it("should accept 'to' as a JSON-stringified array of strings", async () => {
+      const result = await sendSandboxEmail({
+        ...mockEmailData,
+        to: '["john@example.com"]',
+      });
+
+      expect(mockSend).toHaveBeenCalledWith(
+        expect.objectContaining({
+          to: [{ email: "john@example.com" }],
+        })
+      );
+      expect(result.isError).toBeUndefined();
+    });
+  });
 });

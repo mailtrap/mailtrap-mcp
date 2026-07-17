@@ -1,4 +1,9 @@
-import mailtrapAddressParamSchema from "../../schemas/mailtrapAddressParam";
+import {
+  mailtrapAddressListParamSchema,
+  mailtrapBccParamSchema,
+  mailtrapCcParamSchema,
+  mailtrapFromParamSchema,
+} from "../../schemas/mailtrapAddressParam";
 
 const sendSandboxEmailSchema = {
   type: "object",
@@ -8,45 +13,19 @@ const sendSandboxEmailSchema = {
       description:
         "Mailtrap test inbox ID. Optional if MAILTRAP_TEST_INBOX_ID env var is set. Use to target a specific inbox.",
     },
-    from: {
-      ...mailtrapAddressParamSchema,
-      description:
-        "Sender as an email string or `{ email, name? }`. Omit if DEFAULT_FROM_EMAIL is set.",
-    },
+    from: mailtrapFromParamSchema,
     to: {
-      oneOf: [
-        {
-          type: "string",
-          minLength: 1,
-          description:
-            "Comma-separated email addresses (plain emails only; use array form for display names).",
-        },
-        {
-          type: "array",
-          minItems: 1,
-          items: mailtrapAddressParamSchema,
-          description:
-            "Array of recipients as email strings or `{ email, name? }` objects.",
-        },
-      ],
+      ...mailtrapAddressListParamSchema,
       description:
-        "Recipients: comma-separated string, or an array of addresses with optional display names. Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.",
+        "Recipients as an array of `{ email, name? }` objects (bare email strings as items, or a comma-separated string of plain emails, are also accepted). Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.",
     },
     subject: {
       type: "string",
       description:
         "Email subject line. Required for inline (text/html) sends; must be omitted when `template_uuid` is set.",
     },
-    cc: {
-      type: "array",
-      items: mailtrapAddressParamSchema,
-      description: "Optional CC recipients (email or `{ email, name? }` each)",
-    },
-    bcc: {
-      type: "array",
-      items: mailtrapAddressParamSchema,
-      description: "Optional BCC recipients (email or `{ email, name? }` each)",
-    },
+    cc: mailtrapCcParamSchema,
+    bcc: mailtrapBccParamSchema,
     category: {
       type: "string",
       description:

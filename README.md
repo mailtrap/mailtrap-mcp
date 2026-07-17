@@ -206,10 +206,10 @@ Sends a transactional email through Mailtrap. Supports two mutually exclusive mo
 
 **Parameters:**
 
-- `from` (optional): Sender as an email string or `{ email, name? }`. If not provided, `DEFAULT_FROM_EMAIL` is used.
-- `to` (optional): Recipient(s) — a single email/`{ email, name? }` or an array. Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
-- `cc` (optional): Array of CC recipients (email strings or `{ email, name? }` each).
-- `bcc` (optional): Array of BCC recipients (email strings or `{ email, name? }` each).
+- `from` (optional): Sender as `{ email, name? }` (a bare email string is also accepted at runtime). If not provided, `DEFAULT_FROM_EMAIL` is used.
+- `to` (optional): Array of recipients as `{ email, name? }` objects (bare email strings, or a single non-array address, are also accepted at runtime). Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
+- `cc` (optional): Array of CC recipients as `{ email, name? }` objects (bare email strings also accepted at runtime).
+- `bcc` (optional): Array of BCC recipients as `{ email, name? }` objects (bare email strings also accepted at runtime).
 - `subject` (conditional): Email subject line. Required for inline sends; must be omitted when `template_uuid` is set.
 - `text` (conditional): Email body text. Required (alongside or instead of `html`) for inline sends; must be omitted when `template_uuid` is set.
 - `html` (conditional): HTML version of the email body. Required (alongside or instead of `text`) for inline sends; must be omitted when `template_uuid` is set.
@@ -224,14 +224,14 @@ Sends a batch of transactional emails in one Mailtrap API call (default sending 
 **Parameters:**
 
 - `base` (optional): Object with fields shared across the batch.
-  - `from` (optional): Sender as an email string or `{ email, name? }`. Falls back to `DEFAULT_FROM_EMAIL`.
+  - `from` (optional): Sender as `{ email, name? }` (a bare email string is also accepted at runtime). Falls back to `DEFAULT_FROM_EMAIL`.
   - `reply_to` (optional): Reply-to address.
   - `subject` / `text` / `html` / `category` (optional, inline mode): Default content for every request.
   - `template_uuid` / `template_variables` (optional, template mode): Default template + variables. Mutually exclusive with the inline fields.
   - `custom_variables` (optional): Default custom variables (string-valued).
   - `headers` (optional): Default custom headers.
 - `requests` (required): Non-empty array of per-recipient messages. Each entry has:
-  - `to` (optional): Recipient(s) — string, `{ email, name? }`, or an array. Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
+  - `to` (optional): Array of recipients as `{ email, name? }` objects (bare email strings, or a single non-array address, are also accepted at runtime). Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
   - `cc`, `bcc`, `reply_to` (optional).
   - Inline (`subject`/`text`/`html`/`category`) or template (`template_uuid`/`template_variables`) overrides; any field omitted falls back to the matching `base` value.
   - `custom_variables`, `headers` (optional).
@@ -347,10 +347,10 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 **Parameters:**
 
 - `test_inbox_id` (optional): Mailtrap test inbox ID. Required unless `MAILTRAP_TEST_INBOX_ID` is set; pass per call to target a specific inbox.
-- `from` (optional): Sender as an email string or `{ email, name? }`. If not provided, `DEFAULT_FROM_EMAIL` is used.
-- `to` (optional): Recipients as a comma-separated string, or an array of email strings / `{ email, name? }` objects. Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
-- `cc` (optional): Array of CC recipients (email strings or `{ email, name? }` each).
-- `bcc` (optional): Array of BCC recipients (email strings or `{ email, name? }` each).
+- `from` (optional): Sender as `{ email, name? }` (a bare email string is also accepted at runtime). If not provided, `DEFAULT_FROM_EMAIL` is used.
+- `to` (optional): Array of recipients as `{ email, name? }` objects (bare email strings in the array, or a comma-separated string of plain emails, are also accepted at runtime). Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
+- `cc` (optional): Array of CC recipients as `{ email, name? }` objects (bare email strings also accepted at runtime).
+- `bcc` (optional): Array of BCC recipients as `{ email, name? }` objects (bare email strings also accepted at runtime).
 - `subject` (conditional): Email subject line. Required for inline sends; must be omitted when `template_uuid` is set.
 - `text` (conditional): Email body text. Required (alongside or instead of `html`) for inline sends; must be omitted when `template_uuid` is set.
 - `html` (conditional): HTML version of the email body. Required (alongside or instead of `text`) for inline sends; must be omitted when `template_uuid` is set.

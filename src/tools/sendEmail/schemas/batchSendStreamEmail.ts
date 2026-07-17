@@ -1,15 +1,9 @@
-import mailtrapAddressParamSchema from "../../schemas/mailtrapAddressParam";
-
-const addressArrayOrSingle = {
-  oneOf: [
-    mailtrapAddressParamSchema,
-    {
-      type: "array",
-      minItems: 1,
-      items: mailtrapAddressParamSchema,
-    },
-  ],
-};
+import mailtrapAddressParamSchema, {
+  mailtrapAddressListParamSchema,
+  mailtrapBccParamSchema,
+  mailtrapCcParamSchema,
+  mailtrapFromParamSchema,
+} from "../../schemas/mailtrapAddressParam";
 
 const inlineOrTemplateProps = {
   subject: {
@@ -61,14 +55,11 @@ const batchSendStreamEmailSchema = {
       description:
         "Shared fields applied to every request in the batch. Each request can override individual fields.",
       properties: {
-        from: {
-          ...mailtrapAddressParamSchema,
-          description:
-            "Sender as an email string or `{ email, name? }`. Omit if `DEFAULT_FROM_EMAIL` is set.",
-        },
+        from: mailtrapFromParamSchema,
         reply_to: {
           ...mailtrapAddressParamSchema,
-          description: "Optional reply-to address.",
+          description:
+            "Optional reply-to address as `{ email, name? }` (a bare email string is also accepted).",
         },
         ...inlineOrTemplateProps,
       },
@@ -82,24 +73,13 @@ const batchSendStreamEmailSchema = {
       items: {
         type: "object",
         properties: {
-          to: {
-            ...addressArrayOrSingle,
-            description:
-              "Recipient(s): one address (string or `{ email, name? }`) or a non-empty array. Optional if `cc` or `bcc` is provided; at least one of `to`/`cc`/`bcc` must contain a recipient.",
-          },
-          cc: {
-            type: "array",
-            items: mailtrapAddressParamSchema,
-            description: "Optional CC recipients.",
-          },
-          bcc: {
-            type: "array",
-            items: mailtrapAddressParamSchema,
-            description: "Optional BCC recipients.",
-          },
+          to: mailtrapAddressListParamSchema,
+          cc: mailtrapCcParamSchema,
+          bcc: mailtrapBccParamSchema,
           reply_to: {
             ...mailtrapAddressParamSchema,
-            description: "Optional reply-to override for this request.",
+            description:
+              "Optional reply-to override for this request as `{ email, name? }` (a bare email string is also accepted).",
           },
           ...inlineOrTemplateProps,
         },

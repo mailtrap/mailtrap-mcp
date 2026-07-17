@@ -100,7 +100,8 @@ function buildBatchPayload({
   const fromAddress = buildFromAddress(base?.from, DEFAULT_FROM_EMAIL);
 
   const sdkBase: Record<string, unknown> = { from: fromAddress };
-  if (base?.reply_to) sdkBase.reply_to = toMailtrapAddress(base.reply_to);
+  if (base?.reply_to)
+    sdkBase.reply_to = toMailtrapAddress(base.reply_to, "base 'reply_to'");
   if (base?.subject !== undefined) sdkBase.subject = base.subject;
   if (base?.text !== undefined) sdkBase.text = base.text;
   if (base?.html !== undefined) sdkBase.html = base.html;
@@ -116,10 +117,8 @@ function buildBatchPayload({
   const sdkRequests = requests.map((req, i) => {
     const toAddresses =
       req.to !== undefined ? normalizeToRecipients(req.to) : [];
-    const ccAddresses =
-      req.cc && req.cc.length > 0 ? normalizeAddressList(req.cc) : [];
-    const bccAddresses =
-      req.bcc && req.bcc.length > 0 ? normalizeAddressList(req.bcc) : [];
+    const ccAddresses = req.cc ? normalizeAddressList(req.cc) : [];
+    const bccAddresses = req.bcc ? normalizeAddressList(req.bcc) : [];
 
     if (toAddresses.length + ccAddresses.length + bccAddresses.length === 0) {
       throw new Error(
@@ -132,7 +131,10 @@ function buildBatchPayload({
     };
     if (ccAddresses.length > 0) r.cc = ccAddresses;
     if (bccAddresses.length > 0) r.bcc = bccAddresses;
-    if (req.reply_to) r.reply_to = [toMailtrapAddress(req.reply_to)];
+    if (req.reply_to)
+      r.reply_to = [
+        toMailtrapAddress(req.reply_to, `requests[${i}] 'reply_to'`),
+      ];
     if (req.subject !== undefined) r.subject = req.subject;
     if (req.text !== undefined) r.text = req.text;
     if (req.html !== undefined) r.html = req.html;
