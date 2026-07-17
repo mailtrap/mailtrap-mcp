@@ -1,0 +1,25 @@
+src/utils/mailtrapAddresses.ts
+  s_1048984f2ceec6::t_47572c72aa469c 89-93
+  s_1048984f2ceec6::t_bb270543721422 78
+  s_1048984f2ceec6::t_2adf064c0b3e14 69-70
+  s_1048984f2ceec6::t_6675abd5bc5951 109-113
+  s_1048984f2ceec6::t_f4271f347ba83a 120-124
+src/utils/__tests__/mailtrapAddresses.test.ts
+  s_1048984f2ceec6::t_7dab2c9fbc9732 43-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "a1a1a7221da5aa928753ade6562b8913ee7e19a5",
+  "prompts": {},
+  "sessions": {
+    "s_1048984f2ceec6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "336a0c44-99e3-4e6f-ba29-977dd9dce2d0",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
