@@ -1,0 +1,70 @@
+src/tools/sandbox/schemas/sendSandboxEmail.ts
+  s_237915cfb46772::t_54e602e637962e 27-28
+  s_237915cfb46772::t_162cee4f58022b 18
+  s_237915cfb46772::t_997675f868cedb 16
+  s_237915cfb46772::t_ae9643eb1f772c 20
+  s_237915cfb46772::t_8d1c3fe7c811ed 1,3-5
+  s_237915cfb46772::t_30b44e620b50de 2,6
+src/tools/sandbox/sendSandboxEmail.ts
+  s_237915cfb46772::t_07c7da81b533dc 70-71
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_237915cfb46772::t_349174c3464476 609-640
+README.md
+  s_237915cfb46772::t_64170a85fb0583 239
+  s_237915cfb46772::t_a10e3ac11d5746 355-358
+  s_237915cfb46772::t_a4941538b119d6 232
+  s_237915cfb46772::t_0e1688d4ef1052 214-217
+src/utils/__tests__/mailtrapAddresses.test.ts
+  s_237915cfb46772::t_4608b165c3b778 127-128
+  s_237915cfb46772::t_da3ac003825ed9 130
+  s_237915cfb46772::t_291be0b35bc176 17-19,26-28,60-63,87-90,172-175
+  s_237915cfb46772::t_9ec567a6d5dc9a 1-16,20-25,29-59,64-86,91-125,133-149,151-171,176-189
+  s_237915cfb46772::t_85b57d74e5d929 150
+  s_237915cfb46772::t_00aa5af2575ab3 126,129,131-132
+src/utils/mailtrapAddresses.ts
+  s_237915cfb46772::t_fd25f24a5a3707 5-26,33-36,42-52,54-56,76-78,82,84,105,111,115-116,121-123,130
+  s_237915cfb46772::t_b6b1379eb1d714 27-29,31-32,37-41,57-75,79-81
+  s_237915cfb46772::t_95449b54cf92f9 30
+  s_237915cfb46772::t_73a8f9cea5d6bd 99
+  s_237915cfb46772::t_ca8e249acbbd72 103
+src/tools/sendEmail/sendEmail.ts
+  s_237915cfb46772::t_4742e838ff62f5 60-61
+src/tools/sendEmail/buildBatchPayload.ts
+  s_237915cfb46772::t_44897c7e9ea7d1 135-137
+  s_237915cfb46772::t_da3ac003825ed9 103
+  s_237915cfb46772::t_908fa6b8280e74 120-121
+  s_237915cfb46772::t_e69dc8507929a0 104
+  s_237915cfb46772::t_fb939cf7796a77 134
+src/tools/sendEmail/schema.ts
+  s_237915cfb46772::t_f3ccdc21f8cdaf 2,6
+  s_237915cfb46772::t_8f612b6e95adfd 1,3-5,11-12
+  s_237915cfb46772::t_292eabeb097a6e 18-19
+src/tools/sendEmail/__tests__/sendEmail.test.ts
+  s_237915cfb46772::t_b4be876634e3ed 575-620
+src/tools/sendEmail/schemas/batchSendStreamEmail.ts
+  s_237915cfb46772::t_7bdbf1b09c5942 58,61-62
+  s_237915cfb46772::t_e810fa5a8cae6d 3-5
+  s_237915cfb46772::t_86f5b3e4d0bf0a 76-78,81-82
+  s_237915cfb46772::t_b5009b321bb896 1-2,6
+src/tools/schemas/mailtrapAddressParam.ts
+  s_237915cfb46772::t_111589a81c915e 2,30-31,37-38,41-45,47-56
+  s_237915cfb46772::t_9b15211101f88f 3-7,10-14,19-21,23-25
+  s_237915cfb46772::t_61e67b3bf5162d 26,28-29,32-36,46,57
+  s_237915cfb46772::t_56cc0f9be91610 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "85da967183f89c76e6719c5f6dad5e7f32a31f83",
+  "prompts": {},
+  "sessions": {
+    "s_237915cfb46772": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f4890fd5-d6e2-4eef-9118-fd3928bc8e71",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
