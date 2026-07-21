@@ -572,4 +572,48 @@ describe("sendEmail", () => {
       });
     });
   });
+
+  describe("JSON-stringified recipients", () => {
+    it("should accept 'to' as a JSON-stringified array of objects", async () => {
+      const result = await sendEmail({
+        ...mockEmailData,
+        to: '[{"email": "john@example.com", "name": "John Doe"}]',
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          to: [{ email: "john@example.com", name: "John Doe" }],
+        })
+      );
+      expect(result.isError).toBeUndefined();
+    });
+
+    it("should accept 'to' as a JSON-stringified array of strings", async () => {
+      const result = await sendEmail({
+        ...mockEmailData,
+        to: '["john@example.com"]',
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          to: [{ email: "john@example.com" }],
+        })
+      );
+      expect(result.isError).toBeUndefined();
+    });
+
+    it("should accept 'from' as a JSON-stringified object", async () => {
+      const result = await sendEmail({
+        ...mockEmailData,
+        from: '{"email": "sender@example.com", "name": "Sender"}',
+      });
+
+      expect(mockClient.send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          from: { email: "sender@example.com", name: "Sender" },
+        })
+      );
+      expect(result.isError).toBeUndefined();
+    });
+  });
 });

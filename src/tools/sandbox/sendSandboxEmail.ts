@@ -67,8 +67,8 @@ async function sendSandboxEmail({
     const sandboxClient = getSandboxClient(inboxId);
 
     const toAddresses = to !== undefined ? parseSandboxTo(to) : [];
-    const ccAddresses = cc && cc.length > 0 ? normalizeAddressList(cc) : [];
-    const bccAddresses = bcc && bcc.length > 0 ? normalizeAddressList(bcc) : [];
+    const ccAddresses = cc ? normalizeAddressList(cc) : [];
+    const bccAddresses = bcc ? normalizeAddressList(bcc) : [];
 
     if (toAddresses.length + ccAddresses.length + bccAddresses.length === 0) {
       throw new Error(
