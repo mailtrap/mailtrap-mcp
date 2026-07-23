@@ -1,3 +1,15 @@
+## [0.5.0] - 2026-07-21
+
+## What's Changed
+* MT-22678: Add search arg to list_contact_lists tool by @Rabsztok in https://github.com/mailtrap/mailtrap-mcp/pull/117
+* Fix send-email recipients lost when MCP clients strip oneOf from schemas by @Rabsztok in https://github.com/mailtrap/mailtrap-mcp/pull/119
+* chore(deps-dev): bump ws from 8.18.3 to 8.21.1 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/118
+
+## New Contributors
+* @Rabsztok made their first contribution in https://github.com/mailtrap/mailtrap-mcp/pull/117
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.4.3...v0.5.0
+
 ## [0.4.3] - 2026-06-24
 
 ## What's Changed
