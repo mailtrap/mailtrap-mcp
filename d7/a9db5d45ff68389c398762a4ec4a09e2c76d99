@@ -1,0 +1,115 @@
+src/tools/inbound/schemas/getInboundThread.ts
+  s_576b7c7847dbe9::t_5e9e6366a8ba60 1-26
+src/tools/inbound/schemas/createInboundInbox.ts
+  s_576b7c7847dbe9::t_34605099df2f18 1-32
+src/tools/inbound/deleteInboundInbox.ts
+  s_576b7c7847dbe9::t_57ead1ef627457 1-38
+src/tools/inbound/schemas/createInboundFolder.ts
+  s_576b7c7847dbe9::t_07a95ba2c622b2 1-21
+src/tools/inbound/listInboundFolders.ts
+  s_576b7c7847dbe9::t_9dfa8e3dfab4fd 28,32-38
+  s_576b7c7847dbe9::t_188f166b2028da 29-31
+  s_576b7c7847dbe9::t_5a25c0bffca827 1-27,39-44
+src/tools/inbound/schemas/listInboundThreads.ts
+  s_576b7c7847dbe9::t_ca5c0c54d6c29f 1-26
+src/tools/inbound/schemas/deleteInboundThread.ts
+  s_576b7c7847dbe9::t_5abec483f20ec4 1-26
+src/tools/inbound/replyAllToInboundMessage.ts
+  s_576b7c7847dbe9::t_e5fa610682f427 1-7,9-22,28-32,35-37,39-47
+  s_576b7c7847dbe9::t_f053525fa6ff14 8,33-34,38
+  s_576b7c7847dbe9::t_169a651797e966 23-27
+src/tools/inbound/createInboundInbox.ts
+  s_576b7c7847dbe9::t_07f7d3392ac15c 1-39
+src/tools/inbound/getInboundInbox.ts
+  s_576b7c7847dbe9::t_95526d1b86cfa7 1-36
+src/tools/inbound/getInboundMessage.ts
+  s_576b7c7847dbe9::t_19639953f400a2 1-36
+src/tools/inbound/replyToInboundMessage.ts
+  s_576b7c7847dbe9::t_169a651797e966 23-27
+  s_576b7c7847dbe9::t_2b4adda1f2a124 1-7,9-22,28-32,35-37,39-47
+  s_576b7c7847dbe9::t_81a70bac7ea007 8,33-34,38
+src/tools/inbound/deleteInboundThread.ts
+  s_576b7c7847dbe9::t_264bbe33327ef4 1-38
+src/tools/inbound/schemas/replyAllToInboundMessage.ts
+  s_576b7c7847dbe9::t_e689e991ea2be7 1-24
+src/tools/inbound/getInboundThread.ts
+  s_576b7c7847dbe9::t_f4fc848d353d97 1-36
+src/server.ts
+  s_576b7c7847dbe9::t_efaf41794240c5 204-243
+  s_576b7c7847dbe9::t_65703ed3236546 1071-1212
+src/tools/inbound/updateInboundFolder.ts
+  s_576b7c7847dbe9::t_b6e0cc5bd553e7 1-36
+src/tools/inbound/updateInboundInbox.ts
+  s_576b7c7847dbe9::t_e2cfae9bbca5ef 1-38
+src/tools/inbound/schemas/getInboundFolder.ts
+  s_576b7c7847dbe9::t_8418db62c9c009 1-21
+src/tools/inbound/schemas/listInboundMessages.ts
+  s_576b7c7847dbe9::t_d81ccaade5db76 1-26
+src/tools/inbound/index.ts
+  s_576b7c7847dbe9::t_a5664659fdfac3 1-79
+src/tools/inbound/listInboundInboxes.ts
+  s_576b7c7847dbe9::t_188f166b2028da 35-37
+  s_576b7c7847dbe9::t_d16cdfb3bfd3df 1-29,43-48
+  s_576b7c7847dbe9::t_593599583f2021 30-34,38-42
+src/tools/inbound/utils/sendParams.ts
+  s_576b7c7847dbe9::t_25092954fe0c3a 1-107
+src/tools/inbound/schemas/listInboundFolders.ts
+  s_576b7c7847dbe9::t_860e9aef3997a8 1-12
+src/tools/inbound/listInboundMessages.ts
+  s_576b7c7847dbe9::t_a68614126b5ed7 28,33-55
+  s_576b7c7847dbe9::t_06f63fcf13cf37 1-27,29-32,56-61
+src/tools/inbound/listInboundThreads.ts
+  s_576b7c7847dbe9::t_b84a3ba3a72592 1-27,29-32,54-59
+  s_576b7c7847dbe9::t_ee207df6837266 28,33-53
+src/tools/inbound/schemas/deleteInboundInbox.ts
+  s_576b7c7847dbe9::t_4dfbc32fadc9b4 1-26
+src/tools/inbound/schemas/sendFields.ts
+  s_576b7c7847dbe9::t_361cbf468052ea 1-2,9,15-17,19-21,33-73,77,83-89
+  s_576b7c7847dbe9::t_9b1ddc89e251e3 3-8,10-14,18,22-32,74-76,78-82
+src/tools/inbound/schemas/replyToInboundMessage.ts
+  s_576b7c7847dbe9::t_65a8ff6b2f8321 1-24
+src/tools/inbound/schemas/updateInboundFolder.ts
+  s_576b7c7847dbe9::t_43cccf314b6104 1-26
+src/tools/inbound/schemas/forwardInboundMessage.ts
+  s_576b7c7847dbe9::t_c5c38e8f52ecce 1-27
+src/tools/inbound/createInboundFolder.ts
+  s_576b7c7847dbe9::t_aede74c9d9e40a 1-36
+src/tools/inbound/schemas/deleteInboundMessage.ts
+  s_576b7c7847dbe9::t_9206c12c7848a5 1-26
+src/tools/inbound/forwardInboundMessage.ts
+  s_576b7c7847dbe9::t_169a651797e966 23-27
+  s_576b7c7847dbe9::t_465ddd4975a68a 8,28-41
+  s_576b7c7847dbe9::t_b5e9887bb0117e 1-7,9-22,42-59
+src/tools/inbound/deleteInboundFolder.ts
+  s_576b7c7847dbe9::t_ff7f9723296b52 1-38
+src/tools/inbound/getInboundFolder.ts
+  s_576b7c7847dbe9::t_f1b158406a9c3d 1-36
+src/tools/inbound/schemas/listInboundInboxes.ts
+  s_576b7c7847dbe9::t_3298a71a131310 1-21
+src/tools/inbound/schemas/updateInboundInbox.ts
+  s_576b7c7847dbe9::t_b90d290bcbd89c 1-31
+src/tools/inbound/schemas/getInboundInbox.ts
+  s_576b7c7847dbe9::t_c37c7e8f79a51f 1-26
+src/tools/inbound/schemas/getInboundMessage.ts
+  s_576b7c7847dbe9::t_be62f769832551 1-26
+src/tools/inbound/deleteInboundMessage.ts
+  s_576b7c7847dbe9::t_9977b898e575c2 1-38
+src/tools/inbound/schemas/deleteInboundFolder.ts
+  s_576b7c7847dbe9::t_aa453a30c84f62 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "d7a9db5d45ff68389c398762a4ec4a09e2c76d99",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
