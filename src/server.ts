@@ -234,6 +234,12 @@ import {
   replyAllToInboundMessageSchema,
   forwardInboundMessage,
   forwardInboundMessageSchema,
+  listInboundThreads,
+  listInboundThreadsSchema,
+  getInboundThread,
+  getInboundThreadSchema,
+  deleteInboundThread,
+  deleteInboundThreadSchema,
 } from "./tools/inbound";
 
 // Define the tools registry
@@ -1179,6 +1185,29 @@ const tools = [
       "Forward an inbound message to new recipients (at least one `to` is required). Sends a real email.",
     inputSchema: forwardInboundMessageSchema,
     handler: forwardInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-threads",
+    description:
+      "List conversation threads in an inbound inbox (paginated). Pass `last_id` from a previous response to fetch the next page.",
+    inputSchema: listInboundThreadsSchema,
+    handler: listInboundThreads,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-thread",
+    description:
+      "Get a single inbound thread with its messages embedded (oldest first).",
+    inputSchema: getInboundThreadSchema,
+    handler: getInboundThread,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "delete-inbound-thread",
+    description: "Permanently delete an inbound thread.",
+    inputSchema: deleteInboundThreadSchema,
+    handler: deleteInboundThread,
     annotations: { destructiveHint: true },
   },
 ];

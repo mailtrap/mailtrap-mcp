@@ -30,6 +30,12 @@ import replyAllToInboundMessageSchema from "./schemas/replyAllToInboundMessage";
 import replyAllToInboundMessage from "./replyAllToInboundMessage";
 import forwardInboundMessageSchema from "./schemas/forwardInboundMessage";
 import forwardInboundMessage from "./forwardInboundMessage";
+import listInboundThreadsSchema from "./schemas/listInboundThreads";
+import listInboundThreads from "./listInboundThreads";
+import getInboundThreadSchema from "./schemas/getInboundThread";
+import getInboundThread from "./getInboundThread";
+import deleteInboundThreadSchema from "./schemas/deleteInboundThread";
+import deleteInboundThread from "./deleteInboundThread";
 
 export {
   listInboundFoldersSchema,
@@ -64,4 +70,10 @@ export {
   replyAllToInboundMessage,
   forwardInboundMessageSchema,
   forwardInboundMessage,
+  listInboundThreadsSchema,
+  listInboundThreads,
+  getInboundThreadSchema,
+  getInboundThread,
+  deleteInboundThreadSchema,
+  deleteInboundThread,
 };
