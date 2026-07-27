@@ -961,6 +961,183 @@ Create a new sub-account under the organization. Requires `MAILTRAP_ORGANIZATION
 
 - `name` (required): Display name for the new sub-account
 
+### list-inbound-folders
+
+List all inbound folders in the account. Returns a formatted summary.
+
+**Parameters:**
+
+- No parameters required
+
+### get-inbound-folder
+
+Get a single inbound folder by ID. Returns the full folder record as JSON.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+
+### create-inbound-folder
+
+Create a new inbound folder.
+
+**Parameters:**
+
+- `name` (required): The folder name
+
+### update-inbound-folder
+
+Rename an inbound folder.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+- `name` (required): The new folder name
+
+### delete-inbound-folder
+
+Permanently delete an inbound folder along with all of its inboxes.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+
+### list-inbound-inboxes
+
+List all inboxes in an inbound folder. Returns a formatted summary.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+
+### get-inbound-inbox
+
+Get a single inbound inbox by ID. Returns the full inbox record as JSON.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+- `inbox_id` (required): ID of the inbox
+
+### create-inbound-inbox
+
+Create a new inbound inbox in a folder.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+- `name` (required): The inbox name
+- `domain_id` (optional): Attach to a custom sending domain (catch-all inbox). Omit for a Mailtrap-hosted inbox
+
+### update-inbound-inbox
+
+Rename an inbound inbox.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+- `inbox_id` (required): ID of the inbox
+- `name` (required): The new inbox name
+
+### delete-inbound-inbox
+
+Permanently delete an inbound inbox.
+
+**Parameters:**
+
+- `folder_id` (required): ID of the inbound folder
+- `inbox_id` (required): ID of the inbox
+
+### list-inbound-messages
+
+List received messages in an inbound inbox (cursor-paginated). Returns a formatted summary with a next-page hint when more results exist.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `last_id` (optional): Pagination cursor from a previous response's `last_id`
+
+### get-inbound-message
+
+Get a single inbound message with its full body and attachment download URLs. Returns the full message record as JSON.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `message_id` (required): ID of the message
+
+### delete-inbound-message
+
+Permanently delete an inbound message.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `message_id` (required): ID of the message
+
+### reply-to-inbound-message
+
+Reply to an inbound message (sends to the original sender). Sends a real email. Addresses accept a bare email string or `{ email, name? }`.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `message_id` (required): ID of the message to reply to
+- `text` / `html` (at least one recommended): Reply body
+- `from` (optional): Sender. Rejected for Mailtrap-hosted inboxes; required for custom-domain inboxes
+- `cc` / `bcc` / `reply_to` (optional): Additional addresses
+- `category` (optional): Message category
+- `attachments` (optional): Array of `{ content (base64), filename, type?, disposition?, content_id? }`
+- `headers` / `custom_variables` (optional): Objects of string values
+
+### reply-all-to-inbound-message
+
+Reply to an inbound message and copy the original's other recipients. Sends a real email. Same parameters as `reply-to-inbound-message`.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `message_id` (required): ID of the message to reply to
+- Plus the same optional send fields as `reply-to-inbound-message`
+
+### forward-inbound-message
+
+Forward an inbound message to new recipients. Sends a real email.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `message_id` (required): ID of the message to forward
+- `to` (required): At least one recipient (bare email string or `{ email, name? }`, or an array)
+- Plus the same optional send fields as `reply-to-inbound-message`
+
+### list-inbound-threads
+
+List conversation threads in an inbound inbox (cursor-paginated). Returns a formatted summary with a next-page hint when more results exist.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `last_id` (optional): Pagination cursor from a previous response's `last_id`
+
+### get-inbound-thread
+
+Get a single inbound thread with its messages embedded (oldest first). Returns the full thread record as JSON.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `thread_id` (required): ID of the thread
+
+### delete-inbound-thread
+
+Permanently delete an inbound thread.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `thread_id` (required): ID of the thread
+
 ## Development
 
 1. Clone the repository:

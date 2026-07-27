@@ -107,6 +107,19 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **list-sandbox-attachments** / **get-sandbox-attachment**: List and inspect attachments on a sandbox message.
 
 
+#### Inbound Email
+
+Folders contain inboxes; inboxes receive messages, grouped into threads.
+
+- **list-inbound-folders** / **get-inbound-folder** / **create-inbound-folder** / **update-inbound-folder** / **delete-inbound-folder**: Manage inbound folders (delete removes the folder and all its inboxes).
+- **list-inbound-inboxes** / **get-inbound-inbox** / **create-inbound-inbox** / **update-inbound-inbox** / **delete-inbound-inbox**: Manage inboxes within a folder. Omit `domain_id` on create for a Mailtrap-hosted inbox; pass it for a custom-domain (catch-all) inbox.
+- **list-inbound-messages**: List received messages in an inbox (cursor-paginated via `last_id`).
+- **get-inbound-message**: Get a single message with body and attachment download URLs.
+- **delete-inbound-message**: Delete a message.
+- **reply-to-inbound-message** / **reply-all-to-inbound-message** / **forward-inbound-message**: Respond to a message — send real email. Address fields accept a bare email string or `{ email, name? }` (same as the send-email tools); `forward` requires at least one `to` recipient.
+- **list-inbound-threads** / **get-inbound-thread** / **delete-inbound-thread**: Browse conversation threads (list is cursor-paginated; get embeds the thread's messages).
+
+
 #### Sending Domains
 
 - **list-sending-domains**: List sending domains and their DNS verification status.
