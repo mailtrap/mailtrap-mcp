@@ -201,6 +201,18 @@ import {
   createSubAccount,
   createSubAccountSchema,
 } from "./tools/organizations";
+import {
+  listInboundFolders,
+  listInboundFoldersSchema,
+  getInboundFolder,
+  getInboundFolderSchema,
+  createInboundFolder,
+  createInboundFolderSchema,
+  updateInboundFolder,
+  updateInboundFolderSchema,
+  deleteInboundFolder,
+  deleteInboundFolderSchema,
+} from "./tools/inbound";
 
 // Define the tools registry
 const tools = [
@@ -1027,6 +1039,42 @@ const tools = [
     annotations: {
       destructiveHint: true,
     },
+  },
+  {
+    name: "list-inbound-folders",
+    description: "List all inbound folders in the account.",
+    inputSchema: listInboundFoldersSchema,
+    handler: listInboundFolders,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-folder",
+    description: "Get a single inbound folder by ID.",
+    inputSchema: getInboundFolderSchema,
+    handler: getInboundFolder,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "create-inbound-folder",
+    description: "Create a new inbound folder.",
+    inputSchema: createInboundFolderSchema,
+    handler: createInboundFolder,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "update-inbound-folder",
+    description: "Rename an inbound folder.",
+    inputSchema: updateInboundFolderSchema,
+    handler: updateInboundFolder,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "delete-inbound-folder",
+    description:
+      "Permanently delete an inbound folder along with all of its inboxes.",
+    inputSchema: deleteInboundFolderSchema,
+    handler: deleteInboundFolder,
+    annotations: { destructiveHint: true },
   },
 ];
 
