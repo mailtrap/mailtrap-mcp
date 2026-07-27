@@ -18,6 +18,18 @@ import updateInboundInboxSchema from "./schemas/updateInboundInbox";
 import updateInboundInbox from "./updateInboundInbox";
 import deleteInboundInboxSchema from "./schemas/deleteInboundInbox";
 import deleteInboundInbox from "./deleteInboundInbox";
+import listInboundMessagesSchema from "./schemas/listInboundMessages";
+import listInboundMessages from "./listInboundMessages";
+import getInboundMessageSchema from "./schemas/getInboundMessage";
+import getInboundMessage from "./getInboundMessage";
+import deleteInboundMessageSchema from "./schemas/deleteInboundMessage";
+import deleteInboundMessage from "./deleteInboundMessage";
+import replyToInboundMessageSchema from "./schemas/replyToInboundMessage";
+import replyToInboundMessage from "./replyToInboundMessage";
+import replyAllToInboundMessageSchema from "./schemas/replyAllToInboundMessage";
+import replyAllToInboundMessage from "./replyAllToInboundMessage";
+import forwardInboundMessageSchema from "./schemas/forwardInboundMessage";
+import forwardInboundMessage from "./forwardInboundMessage";
 
 export {
   listInboundFoldersSchema,
@@ -40,4 +52,16 @@ export {
   updateInboundInbox,
   deleteInboundInboxSchema,
   deleteInboundInbox,
+  listInboundMessagesSchema,
+  listInboundMessages,
+  getInboundMessageSchema,
+  getInboundMessage,
+  deleteInboundMessageSchema,
+  deleteInboundMessage,
+  replyToInboundMessageSchema,
+  replyToInboundMessage,
+  replyAllToInboundMessageSchema,
+  replyAllToInboundMessage,
+  forwardInboundMessageSchema,
+  forwardInboundMessage,
 };

@@ -222,6 +222,18 @@ import {
   updateInboundInboxSchema,
   deleteInboundInbox,
   deleteInboundInboxSchema,
+  listInboundMessages,
+  listInboundMessagesSchema,
+  getInboundMessage,
+  getInboundMessageSchema,
+  deleteInboundMessage,
+  deleteInboundMessageSchema,
+  replyToInboundMessage,
+  replyToInboundMessageSchema,
+  replyAllToInboundMessage,
+  replyAllToInboundMessageSchema,
+  forwardInboundMessage,
+  forwardInboundMessageSchema,
 } from "./tools/inbound";
 
 // Define the tools registry
@@ -1120,6 +1132,53 @@ const tools = [
     description: "Permanently delete an inbound inbox.",
     inputSchema: deleteInboundInboxSchema,
     handler: deleteInboundInbox,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-messages",
+    description:
+      "List received messages in an inbound inbox (paginated). Pass `last_id` from a previous response to fetch the next page.",
+    inputSchema: listInboundMessagesSchema,
+    handler: listInboundMessages,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-message",
+    description:
+      "Get a single inbound message with its full body and attachment download URLs.",
+    inputSchema: getInboundMessageSchema,
+    handler: getInboundMessage,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "delete-inbound-message",
+    description: "Permanently delete an inbound message.",
+    inputSchema: deleteInboundMessageSchema,
+    handler: deleteInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "reply-to-inbound-message",
+    description:
+      "Reply to an inbound message (sends to the original sender). Sends a real email.",
+    inputSchema: replyToInboundMessageSchema,
+    handler: replyToInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "reply-all-to-inbound-message",
+    description:
+      "Reply to an inbound message and copy the original's other recipients. Sends a real email.",
+    inputSchema: replyAllToInboundMessageSchema,
+    handler: replyAllToInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "forward-inbound-message",
+    description:
+      "Forward an inbound message to new recipients (at least one `to` is required). Sends a real email.",
+    inputSchema: forwardInboundMessageSchema,
+    handler: forwardInboundMessage,
     annotations: { destructiveHint: true },
   },
 ];
