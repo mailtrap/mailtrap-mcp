@@ -34,10 +34,18 @@ export function buildMessageSummaryLines(
     ? evs.map((e) => e.event_type).join(", ")
     : "—";
 
+  const references = entry.references?.length
+    ? entry.references.join(", ")
+    : null;
+
   return [
     `From: ${disp(entry.from)}`,
     `To: ${disp(entry.to)}`,
     `Subject: ${disp(entry.subject)}`,
+    `Thread ID: ${disp(entry.thread_id)}`,
+    `RFC message ID: ${disp(entry.rfc_message_id)}`,
+    `In-reply-to: ${disp(entry.in_reply_to)}`,
+    `References: ${disp(references)}`,
     `Sent: ${disp(entry.sent_at)}`,
     `Status: ${disp(entry.status)}`,
     `Category: ${disp(entry.category)}`,

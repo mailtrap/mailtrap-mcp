@@ -32,12 +32,16 @@ describe("listSendingDomains", () => {
           domain_name: "example.com",
           dns_verified: true,
           compliance_status: "compliant",
+          inbound_enabled: true,
+          inbound_verified: true,
         },
         {
           id: 2,
           domain_name: "test.com",
           dns_verified: false,
           compliance_status: "pending",
+          inbound_enabled: false,
+          inbound_verified: false,
         },
       ],
     };
@@ -53,6 +57,10 @@ describe("listSendingDomains", () => {
     expect(result.content[0].text).toContain("test.com");
     expect(result.content[0].text).toContain("DNS verified: true");
     expect(result.content[0].text).toContain("DNS verified: false");
+    expect(result.content[0].text).toContain("Inbound: true (verified: true)");
+    expect(result.content[0].text).toContain(
+      "Inbound: false (verified: false)"
+    );
     expect(result.isError).toBeUndefined();
   });
 

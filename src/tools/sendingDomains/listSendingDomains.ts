@@ -23,7 +23,7 @@ async function listSendingDomains(): Promise<{
 
     const lines = domains.map(
       (d) =>
-        `• ${d.domain_name} (ID: ${d.id})\n  DNS verified: ${d.dns_verified} | Compliance: ${d.compliance_status}`
+        `• ${d.domain_name} (ID: ${d.id})\n  DNS verified: ${d.dns_verified} | Compliance: ${d.compliance_status} | Inbound: ${d.inbound_enabled} (verified: ${d.inbound_verified})`
     );
     const text = `Sending domains (${domains.length}):\n\n${lines.join(
       "\n\n"

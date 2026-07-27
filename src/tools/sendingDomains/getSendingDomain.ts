@@ -36,6 +36,8 @@ async function getSendingDomain({
       domain.dns_verified_at
         ? `DNS verified at: ${domain.dns_verified_at}`
         : null,
+      `Inbound enabled: ${domain.inbound_enabled}`,
+      `Inbound verified: ${domain.inbound_verified}`,
       "",
       "DNS records:",
       dnsSummary,

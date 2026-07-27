@@ -21,6 +21,8 @@ describe("getSendingDomain", () => {
     compliance_status: "compliant",
     dns_verified: true,
     dns_verified_at: "2024-12-26T09:40:44.161Z",
+    inbound_enabled: true,
+    inbound_verified: false,
     dns_records: [
       {
         key: "spf",
@@ -51,6 +53,8 @@ describe("getSendingDomain", () => {
     expect(result.content[0].text).toContain("example.com");
     expect(result.content[0].text).toContain("ID: 3938");
     expect(result.content[0].text).toContain("DNS verified: true");
+    expect(result.content[0].text).toContain("Inbound enabled: true");
+    expect(result.content[0].text).toContain("Inbound verified: false");
     expect(result.content[0].text).toContain("spf");
     expect(result.content[0].text).toContain("pass");
     expect(result.isError).toBeUndefined();
