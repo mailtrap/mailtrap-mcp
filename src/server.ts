@@ -212,6 +212,16 @@ import {
   updateInboundFolderSchema,
   deleteInboundFolder,
   deleteInboundFolderSchema,
+  listInboundInboxes,
+  listInboundInboxesSchema,
+  getInboundInbox,
+  getInboundInboxSchema,
+  createInboundInbox,
+  createInboundInboxSchema,
+  updateInboundInbox,
+  updateInboundInboxSchema,
+  deleteInboundInbox,
+  deleteInboundInboxSchema,
 } from "./tools/inbound";
 
 // Define the tools registry
@@ -1074,6 +1084,42 @@ const tools = [
       "Permanently delete an inbound folder along with all of its inboxes.",
     inputSchema: deleteInboundFolderSchema,
     handler: deleteInboundFolder,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-inboxes",
+    description: "List all inboxes in an inbound folder.",
+    inputSchema: listInboundInboxesSchema,
+    handler: listInboundInboxes,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-inbox",
+    description: "Get a single inbound inbox by ID.",
+    inputSchema: getInboundInboxSchema,
+    handler: getInboundInbox,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "create-inbound-inbox",
+    description:
+      "Create a new inbound inbox in a folder. Omit `domain_id` for a Mailtrap-hosted inbox; pass it for a custom-domain (catch-all) inbox.",
+    inputSchema: createInboundInboxSchema,
+    handler: createInboundInbox,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "update-inbound-inbox",
+    description: "Rename an inbound inbox.",
+    inputSchema: updateInboundInboxSchema,
+    handler: updateInboundInbox,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "delete-inbound-inbox",
+    description: "Permanently delete an inbound inbox.",
+    inputSchema: deleteInboundInboxSchema,
+    handler: deleteInboundInbox,
     annotations: { destructiveHint: true },
   },
 ];
