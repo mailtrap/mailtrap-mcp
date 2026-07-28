@@ -201,6 +201,46 @@ import {
   createSubAccount,
   createSubAccountSchema,
 } from "./tools/organizations";
+import {
+  listInboundFolders,
+  listInboundFoldersSchema,
+  getInboundFolder,
+  getInboundFolderSchema,
+  createInboundFolder,
+  createInboundFolderSchema,
+  updateInboundFolder,
+  updateInboundFolderSchema,
+  deleteInboundFolder,
+  deleteInboundFolderSchema,
+  listInboundInboxes,
+  listInboundInboxesSchema,
+  getInboundInbox,
+  getInboundInboxSchema,
+  createInboundInbox,
+  createInboundInboxSchema,
+  updateInboundInbox,
+  updateInboundInboxSchema,
+  deleteInboundInbox,
+  deleteInboundInboxSchema,
+  listInboundMessages,
+  listInboundMessagesSchema,
+  getInboundMessage,
+  getInboundMessageSchema,
+  deleteInboundMessage,
+  deleteInboundMessageSchema,
+  replyToInboundMessage,
+  replyToInboundMessageSchema,
+  replyAllToInboundMessage,
+  replyAllToInboundMessageSchema,
+  forwardInboundMessage,
+  forwardInboundMessageSchema,
+  listInboundThreads,
+  listInboundThreadsSchema,
+  getInboundThread,
+  getInboundThreadSchema,
+  deleteInboundThread,
+  deleteInboundThreadSchema,
+} from "./tools/inbound";
 
 // Define the tools registry
 const tools = [
@@ -1027,6 +1067,148 @@ const tools = [
     annotations: {
       destructiveHint: true,
     },
+  },
+  {
+    name: "list-inbound-folders",
+    description: "List all inbound folders in the account.",
+    inputSchema: listInboundFoldersSchema,
+    handler: listInboundFolders,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-folder",
+    description: "Get a single inbound folder by ID.",
+    inputSchema: getInboundFolderSchema,
+    handler: getInboundFolder,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "create-inbound-folder",
+    description: "Create a new inbound folder.",
+    inputSchema: createInboundFolderSchema,
+    handler: createInboundFolder,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "update-inbound-folder",
+    description: "Rename an inbound folder.",
+    inputSchema: updateInboundFolderSchema,
+    handler: updateInboundFolder,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "delete-inbound-folder",
+    description:
+      "Permanently delete an inbound folder along with all of its inboxes.",
+    inputSchema: deleteInboundFolderSchema,
+    handler: deleteInboundFolder,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-inboxes",
+    description: "List all inboxes in an inbound folder.",
+    inputSchema: listInboundInboxesSchema,
+    handler: listInboundInboxes,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-inbox",
+    description: "Get a single inbound inbox by ID.",
+    inputSchema: getInboundInboxSchema,
+    handler: getInboundInbox,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "create-inbound-inbox",
+    description:
+      "Create a new inbound inbox in a folder. Omit `domain_id` for a Mailtrap-hosted inbox; pass it for a custom-domain (catch-all) inbox.",
+    inputSchema: createInboundInboxSchema,
+    handler: createInboundInbox,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "update-inbound-inbox",
+    description: "Rename an inbound inbox.",
+    inputSchema: updateInboundInboxSchema,
+    handler: updateInboundInbox,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "delete-inbound-inbox",
+    description: "Permanently delete an inbound inbox.",
+    inputSchema: deleteInboundInboxSchema,
+    handler: deleteInboundInbox,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-messages",
+    description:
+      "List received messages in an inbound inbox (paginated). Pass `last_id` from a previous response to fetch the next page.",
+    inputSchema: listInboundMessagesSchema,
+    handler: listInboundMessages,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-message",
+    description:
+      "Get a single inbound message with its full body and attachment download URLs.",
+    inputSchema: getInboundMessageSchema,
+    handler: getInboundMessage,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "delete-inbound-message",
+    description: "Permanently delete an inbound message.",
+    inputSchema: deleteInboundMessageSchema,
+    handler: deleteInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "reply-to-inbound-message",
+    description:
+      "Reply to an inbound message (sends to the original sender). Sends a real email.",
+    inputSchema: replyToInboundMessageSchema,
+    handler: replyToInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "reply-all-to-inbound-message",
+    description:
+      "Reply to an inbound message and copy the original's other recipients. Sends a real email.",
+    inputSchema: replyAllToInboundMessageSchema,
+    handler: replyAllToInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "forward-inbound-message",
+    description:
+      "Forward an inbound message to new recipients (at least one `to` is required). Sends a real email.",
+    inputSchema: forwardInboundMessageSchema,
+    handler: forwardInboundMessage,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-threads",
+    description:
+      "List conversation threads in an inbound inbox (paginated). Pass `last_id` from a previous response to fetch the next page.",
+    inputSchema: listInboundThreadsSchema,
+    handler: listInboundThreads,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-thread",
+    description:
+      "Get a single inbound thread with its messages embedded (oldest first).",
+    inputSchema: getInboundThreadSchema,
+    handler: getInboundThread,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "delete-inbound-thread",
+    description: "Permanently delete an inbound thread.",
+    inputSchema: deleteInboundThreadSchema,
+    handler: deleteInboundThread,
+    annotations: { destructiveHint: true },
   },
 ];
 

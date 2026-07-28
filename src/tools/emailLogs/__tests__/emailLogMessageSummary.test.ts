@@ -26,6 +26,12 @@ describe("emailLogMessageSummary", () => {
       expect(text).toContain("From: sender@example.com");
       expect(text).toContain("To: user@example.com");
       expect(text).toContain("Subject: Welcome");
+      expect(text).toContain("Thread ID: thread-uuid-789");
+      expect(text).toContain("RFC message ID: <abc123@example.com>");
+      expect(text).toContain("In-reply-to: <parent@example.com>");
+      expect(text).toContain(
+        "References: <root@example.com>, <parent@example.com>"
+      );
       expect(text).toContain("Sent: 2024-01-01T12:00:00Z");
       expect(text).toContain("Status: delivered");
       expect(text).toContain("Opens: 3 · Link clicks: 1");
@@ -33,6 +39,21 @@ describe("emailLogMessageSummary", () => {
       expect(text).toContain("Sending IP: 203.0.113.1");
       expect(text).toContain("Recipient mail server (MX): mx.example.com");
       expect(text).toContain("Mailbox provider: Example ESP");
+    });
+
+    it("shows em dash for missing threading fields", () => {
+      const lines = buildMessageSummaryLines({
+        ...mockEmailLogWithEvents,
+        rfc_message_id: null,
+        in_reply_to: null,
+        references: [],
+        thread_id: null,
+      });
+      const text = lines.join("\n");
+      expect(text).toContain("Thread ID: —");
+      expect(text).toContain("RFC message ID: —");
+      expect(text).toContain("In-reply-to: —");
+      expect(text).toContain("References: —");
     });
 
     it("includes bounce provider response from soft_bounce event", () => {

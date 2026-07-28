@@ -318,6 +318,10 @@ export interface EmailLogMessageDetails {
   from?: string;
   to?: string;
   subject?: string;
+  rfc_message_id?: string | null;
+  in_reply_to?: string | null;
+  references?: string[];
+  thread_id?: string | null;
   sent_at?: string;
   client_ip?: string;
   category?: string;
