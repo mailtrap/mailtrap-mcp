@@ -251,7 +251,7 @@ const tools = [
     inputSchema: sendEmailSchema,
     handler: sendEmail,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -261,7 +261,7 @@ const tools = [
     inputSchema: batchSendTransactionalEmailSchema,
     handler: batchSendTransactionalEmail,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -271,7 +271,7 @@ const tools = [
     inputSchema: batchSendBulkEmailSchema,
     handler: batchSendBulkEmail,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -280,7 +280,7 @@ const tools = [
     inputSchema: createTemplateSchema,
     handler: createTemplate,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -365,7 +365,7 @@ const tools = [
     inputSchema: createProjectSchema,
     handler: createProject,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -403,7 +403,7 @@ const tools = [
     inputSchema: createSandboxInboxSchema,
     handler: createSandboxInbox,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -666,7 +666,7 @@ const tools = [
     inputSchema: createSendingDomainSchema,
     handler: createSendingDomain,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -733,7 +733,7 @@ const tools = [
     inputSchema: createWebhookSchema,
     handler: createWebhook,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -773,7 +773,7 @@ const tools = [
     inputSchema: createContactSchema,
     handler: createContact,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -803,7 +803,7 @@ const tools = [
     inputSchema: createContactEventSchema,
     handler: createContactEvent,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -831,7 +831,7 @@ const tools = [
     inputSchema: createContactListSchema,
     handler: createContactList,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -877,7 +877,7 @@ const tools = [
     inputSchema: createContactFieldSchema,
     handler: createContactField,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -906,7 +906,7 @@ const tools = [
     inputSchema: createContactImportSchema,
     handler: createContactImport,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -1015,7 +1015,7 @@ const tools = [
     inputSchema: createApiTokenSchema,
     handler: createApiToken,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -1065,7 +1065,7 @@ const tools = [
     inputSchema: createSubAccountSchema,
     handler: createSubAccount,
     annotations: {
-      destructiveHint: true,
+      destructiveHint: false,
     },
   },
   {
@@ -1087,7 +1087,7 @@ const tools = [
     description: "Create a new inbound folder.",
     inputSchema: createInboundFolderSchema,
     handler: createInboundFolder,
-    annotations: { destructiveHint: true },
+    annotations: { destructiveHint: false },
   },
   {
     name: "update-inbound-folder",
@@ -1124,7 +1124,7 @@ const tools = [
       "Create a new inbound inbox in a folder. Omit `domain_id` for a Mailtrap-hosted inbox; pass it for a custom-domain (catch-all) inbox.",
     inputSchema: createInboundInboxSchema,
     handler: createInboundInbox,
-    annotations: { destructiveHint: true },
+    annotations: { destructiveHint: false },
   },
   {
     name: "update-inbound-inbox",
@@ -1169,7 +1169,7 @@ const tools = [
       "Reply to an inbound message (sends to the original sender). Sends a real email.",
     inputSchema: replyToInboundMessageSchema,
     handler: replyToInboundMessage,
-    annotations: { destructiveHint: true },
+    annotations: { destructiveHint: false },
   },
   {
     name: "reply-all-to-inbound-message",
@@ -1177,7 +1177,7 @@ const tools = [
       "Reply to an inbound message and copy the original's other recipients. Sends a real email.",
     inputSchema: replyAllToInboundMessageSchema,
     handler: replyAllToInboundMessage,
-    annotations: { destructiveHint: true },
+    annotations: { destructiveHint: false },
   },
   {
     name: "forward-inbound-message",
@@ -1185,7 +1185,7 @@ const tools = [
       "Forward an inbound message to new recipients (at least one `to` is required). Sends a real email.",
     inputSchema: forwardInboundMessageSchema,
     handler: forwardInboundMessage,
-    annotations: { destructiveHint: true },
+    annotations: { destructiveHint: false },
   },
   {
     name: "list-inbound-threads",
