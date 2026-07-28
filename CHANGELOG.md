@@ -1,3 +1,15 @@
+## [0.6.0] - 2026-07-28
+
+## What's Changed
+* chore(deps): bump the npm_and_yarn group across 1 directory with 3 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/122
+* chore(deps): bump hono from 4.12.26 to 4.12.31 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/123
+* chore(deps): resolve npm audit vulnerabilities via overrides by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/125
+* Add inbound email tools by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/124
+* Mark create and send tools as additive (destructiveHint: false) by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/126
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.5.0...v0.6.0
+
 ## [0.5.0] - 2026-07-21
 
 ## What's Changed
