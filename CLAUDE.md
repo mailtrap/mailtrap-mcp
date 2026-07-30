@@ -180,6 +180,21 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **get-contact-export**: Get the status of a contact export job. `url` is populated when `status: finished`.
 
 
+#### Email Campaigns
+
+- **list-email-campaigns**: List the account's email campaigns, newest first, with page-token pagination (`token`, `per_page`) and optional `search` filter by name.
+- **get-email-campaign**: Get an email campaign by ID.
+- **create-email-campaign**: Create a `draft` campaign. Requires `name`, `domain_id` (sending domain ID), `from_local_part`, and `template_attributes.subject`.
+- **update-email-campaign**: Update a `draft` campaign (partial; template edited in place). Only `draft` campaigns can be updated.
+- **delete-email-campaign**: Delete a campaign by ID (must not be in a sending state).
+- **start-email-campaign**: Start sending a `draft` campaign immediately.
+- **schedule-email-campaign**: Schedule a `draft` campaign; `datetime` (ISO 8601) must be in the future and no more than 1 month ahead.
+- **cancel-email-campaign**: Cancel a `scheduled` campaign, returning it to `draft`.
+- **terminate-email-campaign**: Terminate a sending campaign (`started`/`queued`/`paused`), aborting the in-flight send.
+- **reset-email-campaign**: Reset a `scheduled` campaign back to `draft`.
+- **get-email-campaign-stats**: Aggregated campaign stats (counts + rates), optional `start_date`/`end_date` window (`YYYY-MM-DD`).
+
+
 #### General / Account-admin
 
 - **list-accounts**: List Mailtrap accounts the API token can access (with each account's `access_levels`).

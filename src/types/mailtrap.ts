@@ -628,6 +628,214 @@ export interface GetContactExportRequest {
   export_id: number;
 }
 
+// --- Email campaign types ---
+
+export type EmailCampaignDeliveryMode = "rapid" | "gradual";
+
+export type EmailCampaignState =
+  | "draft"
+  | "scheduled"
+  | "started"
+  | "queued"
+  | "paused"
+  | "terminating"
+  | "under_review"
+  | "finished"
+  | "failed"
+  | "failed_immediately";
+
+export interface EmailCampaignReplyTo {
+  display_name?: string;
+  local_part?: string;
+  domain?: string;
+}
+
+export interface EmailCampaignTemplateAttributes {
+  subject?: string;
+  body_html?: string;
+  body_text?: string | null;
+  merge_tags?: string[];
+}
+
+export interface EmailCampaignDeliveryOptions {
+  emails_per_hour?: number | null;
+}
+
+export interface EmailCampaignStateError {
+  message?: string;
+  rcpt_index?: number;
+}
+
+export interface EmailCampaignStateMetadata {
+  reason?: string;
+  error?: string;
+  errors?: EmailCampaignStateError[];
+  scheduled_at?: string;
+}
+
+export interface EmailCampaignTemplate {
+  id?: number;
+  subject?: string;
+  merge_tags?: string[];
+  body_html?: string | null;
+  body_text?: string | null;
+}
+
+export interface EmailCampaign {
+  id: number;
+  domain_id: number;
+  domain_name?: string;
+  name: string;
+  from_local_part?: string;
+  from_display_name?: string;
+  reply_to?: EmailCampaignReplyTo;
+  current_state: EmailCampaignState;
+  current_state_metadata?: EmailCampaignStateMetadata;
+  created_at?: string;
+  updated_at?: string;
+  last_started_at?: string | null;
+  last_started_at_date?: string;
+  recipient_total_count?: number | null;
+  contact_list_ids?: number[];
+  contact_segment_ids?: number[];
+  delivery_mode?: EmailCampaignDeliveryMode;
+  delivery_options?: EmailCampaignDeliveryOptions;
+  template?: EmailCampaignTemplate;
+}
+
+export interface EmailCampaignPagination {
+  token?: number;
+  prev_token?: number | null;
+  next_token?: number | null;
+  first_url?: string;
+  prev_url?: string | null;
+  current_url?: string;
+  next_url?: string | null;
+}
+
+export interface EmailCampaignListResponse {
+  data: EmailCampaign[];
+  pagination?: EmailCampaignPagination;
+}
+
+export interface EmailCampaignStats {
+  delivery_count: number;
+  open_count: number;
+  click_count: number;
+  bounce_count: number;
+  unsubscription_count: number;
+  sent_count: number;
+  spam_count: number;
+  delivery_rate: number;
+  open_rate: number;
+  click_rate: number;
+  bounce_rate: number;
+  spam_rate: number;
+  unsubscription_rate: number;
+}
+
+export interface ListEmailCampaignsParams {
+  token?: number;
+  per_page?: number;
+  search?: string;
+}
+
+export interface CreateEmailCampaignRequest {
+  name: string;
+  domain_id: number;
+  from_local_part: string;
+  template_attributes: EmailCampaignTemplateAttributes & { subject: string };
+  from_display_name?: string;
+  reply_to?: EmailCampaignReplyTo;
+  delivery_mode?: EmailCampaignDeliveryMode;
+  delivery_options?: EmailCampaignDeliveryOptions;
+  contact_list_ids?: number[];
+  contact_segment_ids?: number[];
+}
+
+export interface UpdateEmailCampaignParams {
+  name?: string;
+  domain_id?: number;
+  from_local_part?: string;
+  from_display_name?: string;
+  reply_to?: EmailCampaignReplyTo;
+  template_attributes?: EmailCampaignTemplateAttributes;
+  delivery_mode?: EmailCampaignDeliveryMode;
+  delivery_options?: EmailCampaignDeliveryOptions;
+  contact_list_ids?: number[];
+  contact_segment_ids?: number[];
+}
+
+export interface UpdateEmailCampaignRequest extends UpdateEmailCampaignParams {
+  email_campaign_id: number;
+}
+
+export interface GetEmailCampaignRequest {
+  email_campaign_id: number;
+}
+
+export interface DeleteEmailCampaignRequest {
+  email_campaign_id: number;
+}
+
+export interface StartEmailCampaignRequest {
+  email_campaign_id: number;
+}
+
+export interface ScheduleEmailCampaignRequest {
+  email_campaign_id: number;
+  datetime: string;
+}
+
+export interface CancelEmailCampaignRequest {
+  email_campaign_id: number;
+}
+
+export interface TerminateEmailCampaignRequest {
+  email_campaign_id: number;
+}
+
+export interface ResetEmailCampaignRequest {
+  email_campaign_id: number;
+}
+
+export interface GetEmailCampaignStatsRequest {
+  email_campaign_id: number;
+  start_date?: string;
+  end_date?: string;
+}
+
+// TODO(MT-22401): drop this interface and the per-handler casts once the
+// mailtrap npm package ships the emailCampaigns resource.
+export interface EmailCampaignsClient {
+  emailCampaigns: {
+    getList(
+      params?: ListEmailCampaignsParams
+    ): Promise<EmailCampaignListResponse>;
+    get(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
+    create(
+      params: CreateEmailCampaignRequest
+    ): Promise<{ data: EmailCampaign }>;
+    update(
+      emailCampaignId: number,
+      params: UpdateEmailCampaignParams
+    ): Promise<{ data: EmailCampaign }>;
+    delete(emailCampaignId: number): Promise<void>;
+    start(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
+    schedule(
+      emailCampaignId: number,
+      params: { datetime: string }
+    ): Promise<{ data: EmailCampaign }>;
+    cancel(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
+    terminate(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
+    reset(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
+    getStats(
+      emailCampaignId: number,
+      params?: { start_date?: string; end_date?: string }
+    ): Promise<{ data: EmailCampaignStats }>;
+  };
+}
+
 // --- General / account-admin types ---
 
 export interface MailtrapAccount {
