@@ -1,0 +1,69 @@
+src/tools/inbound/__tests__/listInboundFolders.test.ts
+  s_576b7c7847dbe9::t_8815710dccc059 1-56
+src/tools/inbound/__tests__/getInboundInbox.test.ts
+  s_576b7c7847dbe9::t_d672bec8831a94 1-22,27-51
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-26
+src/tools/inbound/__tests__/deleteInboundThread.test.ts
+  s_576b7c7847dbe9::t_de84d0626fe0ac 1-24,29-30,34-47,52-53,57-58
+  s_576b7c7847dbe9::t_9dadd2db59f138 25-28,31-33,48-51,54-56
+src/tools/inbound/__tests__/createInboundFolder.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 51-53
+  s_576b7c7847dbe9::t_197d45c59d0c46 1-50,54-55
+src/tools/inbound/__tests__/getInboundFolder.test.ts
+  s_576b7c7847dbe9::t_82b6a18f4bd347 1-22,27-52
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-26
+src/tools/inbound/__tests__/deleteInboundInbox.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 28-30
+  s_576b7c7847dbe9::t_da180adcbe06d7 1-27,31-50
+src/tools/inbound/__tests__/deleteInboundMessage.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 25-28,31-33,48-51,54-56
+  s_576b7c7847dbe9::t_412879fa29a694 1-24,29-30,34-47,52-53,57-58
+src/tools/inbound/__tests__/deleteInboundFolder.test.ts
+  s_576b7c7847dbe9::t_817d35ec1aded0 1-47,51-52
+  s_576b7c7847dbe9::t_9dadd2db59f138 48-50
+src/tools/inbound/__tests__/replyAllToInboundMessage.test.ts
+  s_576b7c7847dbe9::t_f4039e980b5b6d 1-32,40-66
+  s_576b7c7847dbe9::t_9dadd2db59f138 33-39
+src/tools/inbound/__tests__/replyToInboundMessage.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-25,41-43,76-78
+  s_576b7c7847dbe9::t_f8a2fea0ce0029 1-22,26-40,44-75,79-80
+src/tools/inbound/__tests__/updateInboundInbox.test.ts
+  s_576b7c7847dbe9::t_4648ec6a9aca0e 1-61
+src/tools/inbound/__tests__/listInboundThreads.test.ts
+  s_576b7c7847dbe9::t_a20be873a8ff27 1-89
+src/tools/inbound/__tests__/forwardInboundMessage.test.ts
+  s_576b7c7847dbe9::t_3610566e39adc8 1-22,26-33,42-46,50-56,64-87,91-92
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-25,34-41,47-49,57-63,88-90
+src/tools/inbound/__tests__/getInboundThread.test.ts
+  s_576b7c7847dbe9::t_0fedfc43e763e2 1-51
+src/tools/inbound/__tests__/createInboundInbox.test.ts
+  s_576b7c7847dbe9::t_349937a5f0c909 1-22,27-37,42,48-71
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-26,38-41,43-47
+src/tools/inbound/__tests__/listInboundInboxes.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 24-29
+  s_576b7c7847dbe9::t_0cd96bc4a0842f 1-23,30-64
+src/tools/inbound/__tests__/updateInboundFolder.test.ts
+  s_576b7c7847dbe9::t_795059b1dc1036 1-53,57-58
+  s_576b7c7847dbe9::t_9dadd2db59f138 54-56
+src/tools/inbound/__tests__/listInboundMessages.test.ts
+  s_576b7c7847dbe9::t_78d993b5d84498 1-43,47-90,94-95
+  s_576b7c7847dbe9::t_9dadd2db59f138 44-46,91-93
+src/tools/inbound/__tests__/getInboundMessage.test.ts
+  s_576b7c7847dbe9::t_5efc723c0d47b3 1-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "1eabf10d5182f53b177cd3e771d2d1fbaf7bc9f3",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+src/tools/sendingDomains/getSendingDomain.ts
+  s_576b7c7847dbe9::t_98961ba61cead8 39-40
+src/tools/emailLogs/fixtures/emailLogMessageFixtures.ts
+  s_576b7c7847dbe9::t_080f9fe548202c 10-13
+src/tools/sendingDomains/__tests__/listSendingDomains.test.ts
+  s_576b7c7847dbe9::t_af17db27a9a79d 35-36,43-44
+  s_576b7c7847dbe9::t_e734006c9cb793 60-63
+src/tools/sendingDomains/__tests__/getSendingDomain.test.ts
+  s_576b7c7847dbe9::t_5d4182d61369a3 24-25
+  s_576b7c7847dbe9::t_0c4133dfc8e626 56-57
+src/types/mailtrap.ts
+  s_576b7c7847dbe9::t_bd21a616c4ff5a 321-324
+src/tools/emailLogs/__tests__/emailLogMessageSummary.test.ts
+  s_576b7c7847dbe9::t_7f84c825ae7594 29-34
+  s_576b7c7847dbe9::t_dd3b33c04869ba 44-58
+src/tools/sendingDomains/listSendingDomains.ts
+  s_576b7c7847dbe9::t_09a48a14944bac 26
+src/tools/emailLogs/utils/emailLogMessageSummary.ts
+  s_576b7c7847dbe9::t_0c935604f8e66b 37-40,45-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "8899913eb5977375bebc6a961103efc5153da323",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
