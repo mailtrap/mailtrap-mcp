@@ -1,0 +1,95 @@
+src/tools/emailCampaigns/__tests__/resetEmailCampaign.test.ts
+  s_1d139e47a09853::t_5830f560c17a54 1-45
+src/tools/emailCampaigns/getEmailCampaignStats.ts
+  s_1d139e47a09853::t_561ebbef0d3647 1-38
+src/tools/emailCampaigns/createEmailCampaign.ts
+  s_1d139e47a09853::t_b71129bd2fbc74 1-35
+src/tools/emailCampaigns/deleteEmailCampaign.ts
+  s_1d139e47a09853::t_3b14763b5fe8c1 1-30
+src/tools/emailCampaigns/__tests__/cancelEmailCampaign.test.ts
+  s_1d139e47a09853::t_852c12c885b154 1-45
+README.md
+  s_1d139e47a09853::t_166ce839c3309e 849-955
+src/tools/emailCampaigns/index.ts
+  s_1d139e47a09853::t_f8129272fe8440 1-47
+src/tools/emailCampaigns/schemas/deleteEmailCampaign.ts
+  s_1d139e47a09853::t_9255c2d5a3c30a 1-13
+src/tools/emailCampaigns/__tests__/startEmailCampaign.test.ts
+  s_1d139e47a09853::t_eb52a88dae04ac 1-45
+src/tools/emailCampaigns/__tests__/getEmailCampaignStats.test.ts
+  s_1d139e47a09853::t_ad580b6e536d96 1-67
+src/tools/emailCampaigns/schemas/listEmailCampaigns.ts
+  s_1d139e47a09853::t_b4369073c03520 1-33
+src/tools/emailCampaigns/listEmailCampaigns.ts
+  s_1d139e47a09853::t_5f8869a2b4cfc4 1-50
+src/tools/emailCampaigns/schemas/updateEmailCampaign.ts
+  s_1d139e47a09853::t_fb4f3090837a18 1-145
+src/tools/emailCampaigns/schemas/scheduleEmailCampaign.ts
+  s_1d139e47a09853::t_0bef7e4afc3c27 1-27
+src/tools/emailCampaigns/schemas/createEmailCampaign.ts
+  s_1d139e47a09853::t_64b4788caa252a 1-143
+  s_1d139e47a09853::t_368293b035033c 144-146
+src/tools/emailCampaigns/__tests__/deleteEmailCampaign.test.ts
+  s_1d139e47a09853::t_025d767cc6ef75 1-42
+src/tools/emailCampaigns/cancelEmailCampaign.ts
+  s_1d139e47a09853::t_53727fa35ff744 1-28
+src/tools/emailCampaigns/__tests__/terminateEmailCampaign.test.ts
+  s_1d139e47a09853::t_52305a68dccbc4 1-45
+CLAUDE.md
+  s_1d139e47a09853::t_4dd3968146de7c 182-196
+src/tools/emailCampaigns/resetEmailCampaign.ts
+  s_1d139e47a09853::t_8badfbf103c553 1-28
+src/tools/emailCampaigns/__tests__/scheduleEmailCampaign.test.ts
+  s_1d139e47a09853::t_ea4c748a2a976f 1-69
+src/tools/emailCampaigns/updateEmailCampaign.ts
+  s_1d139e47a09853::t_594e1f07c40dc1 1-40
+src/tools/emailCampaigns/scheduleEmailCampaign.ts
+  s_1d139e47a09853::t_fd3a45ec4efd84 1-39
+src/tools/emailCampaigns/startEmailCampaign.ts
+  s_1d139e47a09853::t_e77f6758f7eeb8 1-28
+src/tools/emailCampaigns/schemas/cancelEmailCampaign.ts
+  s_1d139e47a09853::t_7d4742b6259468 1-13
+src/tools/emailCampaigns/__tests__/listEmailCampaigns.test.ts
+  s_1d139e47a09853::t_6d9d5c0c243912 1-107
+src/tools/emailCampaigns/schemas/resetEmailCampaign.ts
+  s_1d139e47a09853::t_30af1178915b3b 1-13
+src/tools/emailCampaigns/schemas/getEmailCampaign.ts
+  s_1d139e47a09853::t_c536d3428c0a0b 1-13
+src/tools/emailCampaigns/schemas/startEmailCampaign.ts
+  s_1d139e47a09853::t_995963f8d7a710 1-13
+src/tools/emailCampaigns/__tests__/updateEmailCampaign.test.ts
+  s_1d139e47a09853::t_70a77cdd052a4c 1-70
+src/types/mailtrap.ts
+  s_1d139e47a09853::t_794445720b8906 623-833
+src/tools/emailCampaigns/__tests__/getEmailCampaign.test.ts
+  s_1d139e47a09853::t_5fb72225e26e31 1-45
+src/tools/emailCampaigns/getEmailCampaign.ts
+  s_1d139e47a09853::t_9321616ce8aa1a 1-28
+src/server.ts
+  s_1d139e47a09853::t_3c325dbcb0ddea 174-197
+  s_1d139e47a09853::t_3a6e3d6c1e0021 964-1072
+src/tools/emailCampaigns/terminateEmailCampaign.ts
+  s_1d139e47a09853::t_bf85bf0c1fb76b 1-28
+src/tools/emailCampaigns/schemas/terminateEmailCampaign.ts
+  s_1d139e47a09853::t_bad9507a93e6fb 1-13
+src/tools/emailCampaigns/schemas/getEmailCampaignStats.ts
+  s_1d139e47a09853::t_9d560a833afb44 1-23
+src/tools/emailCampaigns/__tests__/createEmailCampaign.test.ts
+  s_1d139e47a09853::t_6f8d0c6e782062 1-90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "1011d85a6976587b87803ecad561ef38fc5d8c93",
+  "prompts": {},
+  "sessions": {
+    "s_1d139e47a09853": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3943c4ee-a6f3-493c-aa4d-bc291df8727e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
