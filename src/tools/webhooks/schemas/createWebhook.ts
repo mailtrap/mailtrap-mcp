@@ -7,9 +7,9 @@ const createWebhookSchema = {
     },
     webhook_type: {
       type: "string",
-      enum: ["email_sending", "audit_log"],
+      enum: ["email_sending", "audit_log", "inbound_receiving"],
       description:
-        "Webhook category. `email_sending` for delivery/open/click/etc events, `audit_log` for account audit events.",
+        "Webhook category. `email_sending` for delivery/open/click/etc events, `audit_log` for account audit events, `inbound_receiving` for inbound inbox events.",
     },
     active: {
       type: "boolean",
@@ -49,6 +49,11 @@ const createWebhookSchema = {
       type: "number",
       description:
         "Sending domain ID to scope this webhook to. Applies only to `email_sending` webhooks.",
+    },
+    inbound_inbox_id: {
+      type: "number",
+      description:
+        "ID of the inbound inbox the webhook is linked to. Applicable only for `inbound_receiving` webhooks; optional — omit to apply to all inboxes in the account.",
     },
   },
   required: ["url", "webhook_type"],

@@ -139,8 +139,8 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 
 - **list-webhooks**: List all webhooks for the account.
 - **get-webhook**: Get a single webhook by ID. `signing_secret` is not returned (only on create).
-- **create-webhook**: Create a webhook. Response includes `signing_secret` (returned only on creation — must be stored by caller).
-- **update-webhook**: Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`). Immutable: `webhook_type`, `sending_stream`, `domain_id`.
+- **create-webhook**: Create a webhook. Response includes `signing_secret` (returned only on creation — must be stored by caller). `webhook_type` supports `email_sending`, `audit_log`, and `inbound_receiving`; `inbound_inbox_id` optionally scopes an `inbound_receiving` webhook to one inbox (omit to apply to all inboxes).
+- **update-webhook**: Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`, `inbound_inbox_id`). Immutable: `webhook_type`, `sending_stream`, `domain_id`.
 - **delete-webhook**: Permanently delete a webhook by ID. Returns the deleted record.
 
 

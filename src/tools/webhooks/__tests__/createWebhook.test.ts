@@ -75,6 +75,37 @@ describe("createWebhook", () => {
     });
   });
 
+  it("forwards inbound_inbox_id for an inbound_receiving webhook", async () => {
+    mockClient.webhooks.create.mockResolvedValue({
+      data: {
+        id: 44,
+        url: "https://example.com/inbound",
+        active: true,
+        webhook_type: "inbound_receiving",
+        payload_format: "json",
+        inbound_inbox_id: 1001,
+        signing_secret: "whsec_inbound",
+      },
+    });
+
+    const result = await createWebhook({
+      url: "https://example.com/inbound",
+      webhook_type: "inbound_receiving",
+      inbound_inbox_id: 1001,
+    });
+
+    expect(mockClient.webhooks.create).toHaveBeenCalledWith({
+      url: "https://example.com/inbound",
+      webhook_type: "inbound_receiving",
+      inbound_inbox_id: 1001,
+    });
+    expect(result.content[0].text).toContain('"inbound_inbox_id": 1001');
+    expect(result.content[0].text).toContain(
+      '"webhook_type": "inbound_receiving"'
+    );
+    expect(result.isError).toBeUndefined();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.webhooks.create.mockRejectedValue(new Error("url is invalid"));
 

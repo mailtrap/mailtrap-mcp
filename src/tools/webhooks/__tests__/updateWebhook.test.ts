@@ -69,6 +69,25 @@ describe("updateWebhook", () => {
     });
   });
 
+  it("forwards inbound_inbox_id when updating an inbound_receiving webhook", async () => {
+    mockClient.webhooks.update.mockResolvedValue({
+      data: {
+        id: 44,
+        url: "https://example.com/inbound",
+        active: true,
+        webhook_type: "inbound_receiving",
+        payload_format: "json",
+        inbound_inbox_id: 2002,
+      },
+    });
+
+    await updateWebhook({ webhook_id: 44, inbound_inbox_id: 2002 });
+
+    expect(mockClient.webhooks.update).toHaveBeenCalledWith(44, {
+      inbound_inbox_id: 2002,
+    });
+  });
+
   it("surfaces API errors", async () => {
     mockClient.webhooks.update.mockRejectedValue(
       new Error("validation failed")

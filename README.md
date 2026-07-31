@@ -643,12 +643,13 @@ Create a webhook. The response includes a `signing_secret` for verifying webhook
 **Parameters:**
 
 - `url` (required): URL Mailtrap will POST webhook events to
-- `webhook_type` (required): `"email_sending"` or `"audit_log"`
+- `webhook_type` (required): `"email_sending"`, `"audit_log"`, or `"inbound_receiving"`
 - `active` (optional, boolean): defaults to `true`
 - `payload_format` (optional): `"json"` or `"jsonlines"`. Defaults to `"json"`
 - `sending_stream` (optional, `email_sending` only): `"transactional"` or `"bulk"`
 - `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
 - `domain_id` (optional, `email_sending` only): sending domain ID to scope this webhook to
+- `inbound_inbox_id` (optional, `inbound_receiving` only): ID of the inbound inbox the webhook is linked to; omit to apply to all inboxes in the account
 
 ### update-webhook
 
@@ -661,6 +662,7 @@ Update a webhook's mutable fields. `webhook_type`, `sending_stream`, and `domain
 - `active` (optional, boolean): Enable or disable the webhook
 - `payload_format` (optional): `"json"` or `"jsonlines"`
 - `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
+- `inbound_inbox_id` (optional, `inbound_receiving` only): ID of the inbound inbox the webhook is linked to
 
 ### delete-webhook
 

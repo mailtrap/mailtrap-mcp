@@ -37,6 +37,11 @@ const updateWebhookSchema = {
       description:
         "Events to subscribe to. Applies only to `email_sending` webhooks.",
     },
+    inbound_inbox_id: {
+      type: "number",
+      description:
+        "ID of the inbound inbox the webhook is linked to. Applicable only for `inbound_receiving` webhooks.",
+    },
   },
   required: ["webhook_id"],
   additionalProperties: false,
