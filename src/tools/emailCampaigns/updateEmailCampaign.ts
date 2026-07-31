@@ -22,9 +22,9 @@ async function updateEmailCampaign(raw: unknown): Promise<ToolResponse> {
 
     const { email_campaign_id: emailCampaignId, ...params } = parsed.data;
 
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     const response = await mailtrap.emailCampaigns.update(
       emailCampaignId,

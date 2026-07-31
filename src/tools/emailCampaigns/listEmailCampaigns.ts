@@ -25,9 +25,9 @@ async function listEmailCampaigns(raw: unknown): Promise<ToolResponse> {
 
     const params = parsed.data;
 
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     const response = (await mailtrap.emailCampaigns.getList(
       Object.keys(params).length > 0 ? params : undefined

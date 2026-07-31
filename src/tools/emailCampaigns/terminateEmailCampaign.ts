@@ -13,9 +13,9 @@ async function terminateEmailCampaign({
   email_campaign_id,
 }: TerminateEmailCampaignRequest): Promise<ToolResponse> {
   try {
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     const response = await mailtrap.emailCampaigns.terminate(email_campaign_id);
 

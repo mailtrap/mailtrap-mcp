@@ -31,7 +31,9 @@ describe("updateEmailCampaign", () => {
       },
     });
 
-    expect(requireClient).toHaveBeenCalledWith("email campaigns");
+    expect(requireClient).toHaveBeenCalledWith("email campaigns", {
+      requireAccountId: false,
+    });
     expect(mockClient.emailCampaigns.update).toHaveBeenCalledWith(4567, {
       name: "Spring Sale (updated)",
       template_attributes: {

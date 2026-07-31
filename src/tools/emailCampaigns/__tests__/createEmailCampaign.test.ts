@@ -31,7 +31,9 @@ describe("createEmailCampaign", () => {
 
     const result = await createEmailCampaign(validParams);
 
-    expect(requireClient).toHaveBeenCalledWith("email campaigns");
+    expect(requireClient).toHaveBeenCalledWith("email campaigns", {
+      requireAccountId: false,
+    });
     expect(mockClient.emailCampaigns.create).toHaveBeenCalledWith(validParams);
     expect(result.content[0].text).toContain('"id": 4567');
     expect(result.content[0].text).toContain('"current_state": "draft"');

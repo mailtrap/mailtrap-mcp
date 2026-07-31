@@ -24,7 +24,9 @@ describe("resetEmailCampaign", () => {
 
     const result = await resetEmailCampaign({ email_campaign_id: 4567 });
 
-    expect(requireClient).toHaveBeenCalledWith("email campaigns");
+    expect(requireClient).toHaveBeenCalledWith("email campaigns", {
+      requireAccountId: false,
+    });
     expect(mockClient.emailCampaigns.reset).toHaveBeenCalledWith(4567);
     expect(result.content[0].text).toContain('"current_state": "draft"');
     expect(result.isError).toBeUndefined();

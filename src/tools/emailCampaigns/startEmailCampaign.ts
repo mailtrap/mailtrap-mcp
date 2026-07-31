@@ -13,9 +13,9 @@ async function startEmailCampaign({
   email_campaign_id,
 }: StartEmailCampaignRequest): Promise<ToolResponse> {
   try {
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     const response = await mailtrap.emailCampaigns.start(email_campaign_id);
 

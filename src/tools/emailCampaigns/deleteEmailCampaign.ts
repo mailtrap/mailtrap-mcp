@@ -13,9 +13,9 @@ async function deleteEmailCampaign({
   email_campaign_id,
 }: DeleteEmailCampaignRequest): Promise<ToolResponse> {
   try {
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     await mailtrap.emailCampaigns.delete(email_campaign_id);
 

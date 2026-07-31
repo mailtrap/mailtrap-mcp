@@ -24,7 +24,9 @@ describe("terminateEmailCampaign", () => {
 
     const result = await terminateEmailCampaign({ email_campaign_id: 4567 });
 
-    expect(requireClient).toHaveBeenCalledWith("email campaigns");
+    expect(requireClient).toHaveBeenCalledWith("email campaigns", {
+      requireAccountId: false,
+    });
     expect(mockClient.emailCampaigns.terminate).toHaveBeenCalledWith(4567);
     expect(result.content[0].text).toContain('"current_state": "terminating"');
     expect(result.isError).toBeUndefined();

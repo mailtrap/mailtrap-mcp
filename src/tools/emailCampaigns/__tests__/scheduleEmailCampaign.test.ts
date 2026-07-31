@@ -36,7 +36,9 @@ describe("scheduleEmailCampaign", () => {
       datetime,
     });
 
-    expect(requireClient).toHaveBeenCalledWith("email campaigns");
+    expect(requireClient).toHaveBeenCalledWith("email campaigns", {
+      requireAccountId: false,
+    });
     expect(mockClient.emailCampaigns.schedule).toHaveBeenCalledWith(4567, {
       datetime,
     });

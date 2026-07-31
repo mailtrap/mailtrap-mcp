@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools).
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools) and the email campaign tools.
 
 **Optional (can be passed as tool parameters instead):**
 

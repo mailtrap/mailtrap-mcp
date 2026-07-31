@@ -20,9 +20,9 @@ async function createEmailCampaign(raw: unknown): Promise<ToolResponse> {
       };
     }
 
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     const response = await mailtrap.emailCampaigns.create(parsed.data);
 

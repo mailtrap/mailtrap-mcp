@@ -22,7 +22,9 @@ describe("deleteEmailCampaign", () => {
 
     const result = await deleteEmailCampaign({ email_campaign_id: 4567 });
 
-    expect(requireClient).toHaveBeenCalledWith("email campaigns");
+    expect(requireClient).toHaveBeenCalledWith("email campaigns", {
+      requireAccountId: false,
+    });
     expect(mockClient.emailCampaigns.delete).toHaveBeenCalledWith(4567);
     expect(result.content[0].text).toContain('"email_campaign_id": 4567');
     expect(result.content[0].text).toContain('"deleted": true');

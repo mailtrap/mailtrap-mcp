@@ -9,7 +9,7 @@ import { getEmailCampaignStatsZod } from "./schemas/getEmailCampaignStats";
 
 async function getEmailCampaignStats(raw: unknown): Promise<ToolResponse> {
   try {
-const parsed = getEmailCampaignStatsZod.safeParse(raw ?? {});
+    const parsed = getEmailCampaignStatsZod.safeParse(raw ?? {});
     if (!parsed.success) {
       const msg = parsed.error.errors
         .map((e) => `${e.path.join(".")}: ${e.message}`)
@@ -26,9 +26,9 @@ const parsed = getEmailCampaignStatsZod.safeParse(raw ?? {});
       end_date: endDate,
     } = parsed.data;
 
-    const mailtrap = requireClient(
-      "email campaigns"
-    ) as unknown as EmailCampaignsClient;
+    const mailtrap = requireClient("email campaigns", {
+      requireAccountId: false,
+    }) as unknown as EmailCampaignsClient;
 
     const params = {
       ...(startDate !== undefined ? { start_date: startDate } : {}),
