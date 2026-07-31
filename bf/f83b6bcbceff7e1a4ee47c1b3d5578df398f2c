@@ -1,0 +1,38 @@
+src/tools/webhooks/__tests__/createWebhook.test.ts
+  s_73722281c0a0ba::t_56995279b7e9d6 78-108
+src/tools/webhooks/schemas/createWebhook.ts
+  s_73722281c0a0ba::t_c25e219c09d5d5 53-57
+  s_73722281c0a0ba::t_75c0d45f52867d 10,12
+src/types/mailtrap.ts
+  s_73722281c0a0ba::t_2ba4e275149e19 406
+  s_73722281c0a0ba::t_8e134044502247 430,439
+  s_73722281c0a0ba::t_00ecf35b9e5970 381
+src/tools/webhooks/__tests__/updateWebhook.test.ts
+  s_73722281c0a0ba::t_2a5a60ad7f32b7 72-90
+README.md
+  s_73722281c0a0ba::t_62f0b33cfb2ad0 665
+  s_73722281c0a0ba::t_e2de5f81b8cef6 646,652
+CLAUDE.md
+  s_73722281c0a0ba::t_0e4973ea12f63d 142-143
+src/tools/webhooks/schemas/updateWebhook.ts
+  s_73722281c0a0ba::t_01087af7a2aff7 40-44
+src/server.ts
+  s_73722281c0a0ba::t_2d312bd01f4837 742
+  s_73722281c0a0ba::t_533a113ba5d5b2 732
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "bff83b6bcbceff7e1a4ee47c1b3d5578df398f2c",
+  "prompts": {},
+  "sessions": {
+    "s_73722281c0a0ba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "00ee1996-568c-4e2f-9526-e3f01656c9db",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
