@@ -855,6 +855,7 @@ export interface ApiTokenResourcePermission {
 
 export interface CreateApiTokenRequest {
   name: string;
+  expires_at?: string | null;
   resources?: ApiTokenResourcePermission[];
 }
 
