@@ -675,6 +675,11 @@ export interface ApiTokenRequest {
   api_token_id: number;
 }
 
+export interface ResetApiTokenRequest {
+  api_token_id: number;
+  expires_at?: string | null;
+}
+
 // --- Organization / sub-account types ---
 
 export interface SubAccount {
