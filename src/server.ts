@@ -7,6 +7,7 @@ import {
   ListResourcesRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import CONFIG from "./config";
+import { setMcpClientInfoProvider } from "./client";
 
 // Environment variables are now set directly by MCPB from user_config
 // No need to process them here
@@ -1226,6 +1227,11 @@ export function createServer(): Server {
       },
     }
   );
+
+  // Forward the MCP client identity (name + version) in outgoing API calls.
+  // Read lazily: `getClientVersion()` is populated during the `initialize`
+  // request, which always precedes any tool call that builds an API client.
+  setMcpClientInfoProvider(() => server.getClientVersion());
 
   // Set up request handlers
   server.setRequestHandler(ListToolsRequestSchema, async () => {
