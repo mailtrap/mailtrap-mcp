@@ -729,7 +729,7 @@ const tools = [
   {
     name: "create-webhook",
     description:
-      "Create a webhook. The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned only on creation, so store it now.",
+      "Create a webhook. `webhook_type` may be `email_sending`, `audit_log`, or `inbound_receiving`; for `inbound_receiving`, `inbound_inbox_id` is optional (scopes the webhook to one inbox — omit to apply to all inboxes). The response includes a `signing_secret` for verifying webhook payload signatures — this secret is returned only on creation, so store it now.",
     inputSchema: createWebhookSchema,
     handler: createWebhook,
     annotations: {
@@ -739,7 +739,7 @@ const tools = [
   {
     name: "update-webhook",
     description:
-      "Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`). `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation.",
+      "Update a webhook's mutable fields (`url`, `active`, `payload_format`, `event_types`, `inbound_inbox_id`). `webhook_type`, `sending_stream`, and `domain_id` cannot be changed after creation.",
     inputSchema: updateWebhookSchema,
     handler: updateWebhook,
     annotations: {

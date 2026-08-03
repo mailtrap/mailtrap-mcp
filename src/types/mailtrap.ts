@@ -378,7 +378,7 @@ export interface DeleteSuppressionRequest {
 
 // --- Webhook types ---
 
-export type WebhookType = "email_sending" | "audit_log";
+export type WebhookType = "email_sending" | "audit_log" | "inbound_receiving";
 
 export type WebhookPayloadFormat = "json" | "jsonlines";
 
@@ -403,6 +403,7 @@ export interface Webhook {
   payload_format: WebhookPayloadFormat;
   sending_stream?: WebhookSendingStream | null;
   domain_id?: number | null;
+  inbound_inbox_id?: number | null;
   event_types?: WebhookEventType[];
 }
 
@@ -426,6 +427,7 @@ export interface CreateWebhookRequest {
   sending_stream?: WebhookSendingStream;
   event_types?: WebhookEventType[];
   domain_id?: number;
+  inbound_inbox_id?: number;
 }
 
 export interface UpdateWebhookRequest {
@@ -434,6 +436,7 @@ export interface UpdateWebhookRequest {
   active?: boolean;
   payload_format?: WebhookPayloadFormat;
   event_types?: WebhookEventType[];
+  inbound_inbox_id?: number;
 }
 
 // --- Contact types ---
