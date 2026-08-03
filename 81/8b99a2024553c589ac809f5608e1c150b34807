@@ -1,0 +1,21 @@
+src/tools/apiTokens/schemas/createApiToken.ts
+  s_35e942bf87a8d1::t_0175e189165f58 8-12
+src/types/mailtrap.ts
+  s_35e942bf87a8d1::t_58182ff03519e6 670
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "818b99a2024553c589ac809f5608e1c150b34807",
+  "prompts": {},
+  "sessions": {
+    "s_35e942bf87a8d1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fe0c4ad9-a5e3-40ee-b534-5305c3091a31",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}
