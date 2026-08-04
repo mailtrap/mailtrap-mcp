@@ -1,22 +1,46 @@
 import { MailtrapClient } from "mailtrap";
-import config from "./config";
+import { buildUserAgent, McpClientInfo } from "./utils/userAgent";
 
 const { MAILTRAP_API_TOKEN } = process.env;
 
-// Create client only if API token is available
-const client = (
-  MAILTRAP_API_TOKEN
-    ? new MailtrapClient({
-        token: MAILTRAP_API_TOKEN,
-        userAgent: config.USER_AGENT,
-        // conditionally set accountId if it's a valid number
-        ...(process.env.MAILTRAP_ACCOUNT_ID &&
-        !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-          ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-          : {}),
-      })
-    : null
-) as MailtrapClient;
+let mcpClientInfoProvider: (() => McpClientInfo | undefined) | undefined;
+
+/**
+ * Registers a provider for the MCP client identity (name + version) reported
+ * during the `initialize` handshake, so it can be forwarded in the API
+ * User-Agent. The provider is read lazily at client-construction time — which
+ * only happens while handling a tool call, i.e. strictly after `initialize` —
+ * so the identity is always available by then and no stale value is cached.
+ */
+function setMcpClientInfoProvider(
+  provider: () => McpClientInfo | undefined
+): void {
+  mcpClientInfoProvider = provider;
+}
+
+function getUserAgent(): string {
+  return buildUserAgent(mcpClientInfoProvider?.());
+}
+
+/**
+ * Default (transactional) MailtrapClient. Constructed on demand — like the
+ * other getters below — so its User-Agent always reflects the current MCP
+ * client identity. Null when no API token is configured.
+ */
+function getDefaultClient(): MailtrapClient | null {
+  if (!MAILTRAP_API_TOKEN) {
+    return null;
+  }
+  return new MailtrapClient({
+    token: MAILTRAP_API_TOKEN,
+    userAgent: getUserAgent(),
+    // conditionally set accountId if it's a valid number
+    ...(process.env.MAILTRAP_ACCOUNT_ID &&
+    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
+      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
+      : {}),
+  });
+}
 
 /**
  * Returns a sandbox MailtrapClient for the given test inbox ID.
@@ -28,7 +52,7 @@ function getSandboxClient(inboxId: number): MailtrapClient {
   }
   return new MailtrapClient({
     token: MAILTRAP_API_TOKEN,
-    userAgent: config.USER_AGENT,
+    userAgent: getUserAgent(),
     testInboxId: inboxId,
     sandbox: true,
     ...(process.env.MAILTRAP_ACCOUNT_ID &&
@@ -47,7 +71,7 @@ function getBulkClient(): MailtrapClient {
   }
   return new MailtrapClient({
     token: MAILTRAP_API_TOKEN,
-    userAgent: config.USER_AGENT,
+    userAgent: getUserAgent(),
     bulk: true,
     ...(process.env.MAILTRAP_ACCOUNT_ID &&
     !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
@@ -81,7 +105,7 @@ function getOrganizationClient(): MailtrapClient {
   }
   return new MailtrapClient({
     token,
-    userAgent: config.USER_AGENT,
+    userAgent: getUserAgent(),
     organizationId: parsedOrganizationId,
   });
 }
@@ -101,6 +125,7 @@ function requireClient(
   feature: string,
   { requireAccountId = true }: { requireAccountId?: boolean } = {}
 ): MailtrapClient {
+  const client = getDefaultClient();
   if (!client) {
     throw new Error("MAILTRAP_API_TOKEN environment variable is required");
   }
@@ -115,9 +140,8 @@ function requireClient(
   return client;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export {
-  client,
+  setMcpClientInfoProvider,
   getSandboxClient,
   getBulkClient,
   getOrganizationClient,
