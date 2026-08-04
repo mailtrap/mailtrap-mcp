@@ -1,3 +1,13 @@
+## [0.7.0] - 2026-08-04
+
+## What's Changed
+* Add inbound_receiving webhook support to webhook tools by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/129
+* Forward MCP client identity in the API User-Agent by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/130
+* chore(deps): bump ip-address from 10.2.0 to 10.4.0 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/131
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.6.0...v0.7.0
+
 ## [0.6.0] - 2026-07-28
 
 ## What's Changed
