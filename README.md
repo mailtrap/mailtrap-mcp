@@ -4,6 +4,8 @@
 
 # MCP Mailtrap Server
 
+[![MCP Toplist](https://mcptoplist.com/badge/glama%2Frailsware%2Fmailtrap-mcp.svg)](https://mcptoplist.com/server/glama%2Frailsware%2Fmailtrap-mcp)
+
 An MCP server that provides tools for sending and testing in sandbox via Mailtrap.
 
 ## Prerequisites
