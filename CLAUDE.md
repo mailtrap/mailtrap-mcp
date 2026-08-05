@@ -96,6 +96,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Sandbox Testing
 
 - **send-sandbox-email**: Send email in sandbox mode to a test inbox.
+- **batch-send-sandbox-email**: Send a batch of emails in sandbox mode to a test inbox in one call. Same `base` + `requests[]` shape as the transactional/bulk batch tools, plus `test_inbox_id` (falls back to `MAILTRAP_TEST_INBOX_ID`).
 - **get-sandbox-messages**: Get list of messages from the sandbox test inbox.
 - **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox.
 - **list-sandbox-projects** / **create-sandbox-project** / **get-sandbox-project** / **update-sandbox-project** / **delete-sandbox-project**: Manage sandbox projects (group of inboxes).
