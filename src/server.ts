@@ -336,7 +336,7 @@ const tools = [
   {
     name: "batch-send-sandbox-email",
     description:
-      "Send a batch of emails in sandbox mode to a test inbox in one Mailtrap API call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Requires `test_inbox_id` or the MAILTRAP_TEST_INBOX_ID env var.",
+      "Send a batch of emails in sandbox mode to a test inbox in one Mailtrap API call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Requires `sandbox_id` or the MAILTRAP_SANDBOX_ID env var.",
     inputSchema: batchSendSandboxEmailSchema,
     handler: batchSendSandboxEmail,
     annotations: {

@@ -9,15 +9,11 @@ import {
 import resolveSandboxId from "./utils/resolveSandboxId";
 
 async function batchSendSandboxEmail({
-  test_inbox_id,
+  sandbox_id,
   ...body
 }: BatchSendSandboxEmailToolRequest): Promise<ToolResponse> {
   try {
-    const inboxId = resolveSandboxId(
-      test_inbox_id,
-      "test_inbox_id",
-      "MAILTRAP_TEST_INBOX_ID"
-    );
+    const inboxId = resolveSandboxId(sandbox_id);
 
     const payload = buildBatchPayload(body);
 

@@ -84,7 +84,7 @@ export interface BatchSendEmailToolRequest {
 
 export interface BatchSendSandboxEmailToolRequest
   extends BatchSendEmailToolRequest {
-  test_inbox_id?: number;
+  sandbox_id?: number;
 }
 
 export interface CreateTemplateRequest {

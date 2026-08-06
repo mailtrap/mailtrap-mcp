@@ -3,10 +3,10 @@ import batchSendStreamEmailSchema from "../../sendEmail/schemas/batchSendStreamE
 const batchSendSandboxEmailSchema = {
   ...batchSendStreamEmailSchema,
   properties: {
-    test_inbox_id: {
+    sandbox_id: {
       type: "number",
       description:
-        "Mailtrap test inbox ID. Optional if MAILTRAP_TEST_INBOX_ID env var is set. Use to target a specific inbox.",
+        "Mailtrap sandbox (test inbox) ID. Optional if MAILTRAP_SANDBOX_ID env var is set. Use to target a specific sandbox.",
     },
     ...batchSendStreamEmailSchema.properties,
   },

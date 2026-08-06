@@ -31,7 +31,7 @@ describe("batchSendSandboxEmail", () => {
     });
 
     const result = await batchSendSandboxEmail({
-      test_inbox_id: 4242,
+      sandbox_id: 4242,
       base: {
         from: { email: "sender@example.com", name: "Sender" },
         subject: "Sandbox hello",
@@ -52,22 +52,22 @@ describe("batchSendSandboxEmail", () => {
     expect(result.isError).toBeUndefined();
   });
 
-  it("does not forward test_inbox_id into the SDK payload", async () => {
+  it("does not forward sandbox_id into the SDK payload", async () => {
     mockClient.batchSend.mockResolvedValue({ success: true, responses: [] });
 
     await batchSendSandboxEmail({
-      test_inbox_id: 4242,
+      sandbox_id: 4242,
       base: { from: "sender@example.com", subject: "Hi", text: "x" },
       requests: [{ to: "alice@example.com" }],
     });
 
     const payload = mockClient.batchSend.mock.calls[0][0];
-    expect(payload.base).not.toHaveProperty("test_inbox_id");
-    expect(payload).not.toHaveProperty("test_inbox_id");
+    expect(payload.base).not.toHaveProperty("sandbox_id");
+    expect(payload).not.toHaveProperty("sandbox_id");
   });
 
-  it("falls back to MAILTRAP_TEST_INBOX_ID when test_inbox_id is omitted", async () => {
-    process.env.MAILTRAP_TEST_INBOX_ID = "777";
+  it("falls back to MAILTRAP_SANDBOX_ID when sandbox_id is omitted", async () => {
+    process.env.MAILTRAP_SANDBOX_ID = "777";
     mockClient.batchSend.mockResolvedValue({ success: true, responses: [] });
 
     const result = await batchSendSandboxEmail({
@@ -79,7 +79,28 @@ describe("batchSendSandboxEmail", () => {
     expect(result.isError).toBeUndefined();
   });
 
-  it("errors when no inbox is configured", async () => {
+  it("falls back to the legacy MAILTRAP_TEST_INBOX_ID, but MAILTRAP_SANDBOX_ID wins", async () => {
+    process.env.MAILTRAP_TEST_INBOX_ID = "777";
+    mockClient.batchSend.mockResolvedValue({ success: true, responses: [] });
+
+    await batchSendSandboxEmail({
+      base: { from: "sender@example.com", subject: "Hi", text: "x" },
+      requests: [{ to: "alice@example.com" }],
+    });
+
+    expect(getSandboxClient).toHaveBeenCalledWith(777);
+
+    process.env.MAILTRAP_SANDBOX_ID = "888";
+
+    await batchSendSandboxEmail({
+      base: { from: "sender@example.com", subject: "Hi", text: "x" },
+      requests: [{ to: "alice@example.com" }],
+    });
+
+    expect(getSandboxClient).toHaveBeenLastCalledWith(888);
+  });
+
+  it("errors when no sandbox is configured", async () => {
     const result = await batchSendSandboxEmail({
       base: { from: "sender@example.com", subject: "Hi", text: "x" },
       requests: [{ to: "alice@example.com" }],
@@ -87,14 +108,14 @@ describe("batchSendSandboxEmail", () => {
 
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toBe(
-      "Failed to batch send sandbox email: Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
+      "Failed to batch send sandbox email: Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
     );
     expect(mockClient.batchSend).not.toHaveBeenCalled();
   });
 
   it("propagates payload validation errors", async () => {
     const result = await batchSendSandboxEmail({
-      test_inbox_id: 4242,
+      sandbox_id: 4242,
       base: { from: "sender@example.com", subject: "Hi", text: "x" },
       requests: [{}],
     });
@@ -110,7 +131,7 @@ describe("batchSendSandboxEmail", () => {
     mockClient.batchSend.mockRejectedValue(new Error("inbox is full"));
 
     const result = await batchSendSandboxEmail({
-      test_inbox_id: 4242,
+      sandbox_id: 4242,
       base: { from: "sender@example.com", subject: "Hi", text: "x" },
       requests: [{ to: "alice@example.com" }],
     });
