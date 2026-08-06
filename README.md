@@ -23,8 +23,8 @@ Before using this MCP server, you need to:
 **Optional (can be passed as tool parameters instead):**
 
 - `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email, send-sandbox-email, or the batch-send-\* tools (where it fills `base.from`). Enables switching sender per call via the `from` parameter.
-- `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter. Legacy alias for `MAILTRAP_SANDBOX_ID`, still honored as a fallback.
 - `MAILTRAP_SANDBOX_ID` - Default sandbox ID for sandbox tools when `sandbox_id` is not provided. Enables switching between sandboxes per call via the `sandbox_id` parameter.
+- `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter. Legacy alias for `MAILTRAP_SANDBOX_ID`, still honored as a fallback.
 - `MAILTRAP_ORGANIZATION_ID` - Required for organization tools (`list-sub-accounts`, `create-sub-account`).
 - `MAILTRAP_ORGANIZATION_API_TOKEN` - Organization-scoped API token. Required for organization tools (separate from `MAILTRAP_API_TOKEN`).
 
