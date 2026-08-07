@@ -1,5 +1,7 @@
 import sendSandboxEmailSchema from "./schemas/sendSandboxEmail";
 import sendSandboxEmail from "./sendSandboxEmail";
+import batchSendSandboxEmailSchema from "./schemas/batchSendSandboxEmail";
+import batchSendSandboxEmail from "./batchSendSandboxEmail";
 import getMessagesSchema from "./schemas/getMessages";
 import getMessages from "./getSandboxMessages";
 import showEmailMessageSchema from "./schemas/showEmailMessage";
@@ -58,6 +60,8 @@ import getSandboxAttachment from "./getSandboxAttachment";
 export {
   sendSandboxEmailSchema,
   sendSandboxEmail,
+  batchSendSandboxEmailSchema,
+  batchSendSandboxEmail,
   getMessagesSchema,
   getMessages,
   showEmailMessageSchema,

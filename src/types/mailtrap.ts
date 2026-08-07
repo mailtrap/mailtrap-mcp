@@ -82,6 +82,11 @@ export interface BatchSendEmailToolRequest {
   requests: BatchSendEmailRequest[];
 }
 
+export interface BatchSendSandboxEmailToolRequest
+  extends BatchSendEmailToolRequest {
+  sandbox_id?: number;
+}
+
 export interface CreateTemplateRequest {
   name: string;
   subject: string;

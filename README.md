@@ -18,13 +18,13 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email and send-sandbox-email.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools).
 
 **Optional (can be passed as tool parameters instead):**
 
-- `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email or send-sandbox-email. Enables switching sender per call via the `from` parameter.
-- `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter.
+- `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email, send-sandbox-email, or the batch-send-\* tools (where it fills `base.from`). Enables switching sender per call via the `from` parameter.
 - `MAILTRAP_SANDBOX_ID` - Default sandbox ID for sandbox tools when `sandbox_id` is not provided. Enables switching between sandboxes per call via the `sandbox_id` parameter.
+- `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter. Legacy alias for `MAILTRAP_SANDBOX_ID`, still honored as a fallback.
 - `MAILTRAP_ORGANIZATION_ID` - Required for organization tools (`list-sub-accounts`, `create-sub-account`).
 - `MAILTRAP_ORGANIZATION_API_TOKEN` - Organization-scoped API token. Required for organization tools (separate from `MAILTRAP_API_TOKEN`).
 
@@ -358,8 +358,17 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 - `template_uuid` (optional): Use a Mailtrap email template instead of inline content. When set, `subject` / `text` / `html` / `category` must be omitted.
 - `template_variables` (optional): Object of variables substituted into the template referenced by `template_uuid`. Only allowed together with `template_uuid`.
 
+### batch-send-sandbox-email
+
+Sends a batch of emails to your Mailtrap test inbox in one API call, without delivering to real recipients. Same `base` + `requests[]` shape, validation, and inline-vs-template rules as `batch-send-transactional-email` — the difference is that this tool routes the call through the sandbox endpoint for a single test inbox.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Mailtrap sandbox (test inbox) ID. Required unless `MAILTRAP_SANDBOX_ID` is set; pass per call to target a specific sandbox.
+- `base` (optional), `requests` (required): See `batch-send-transactional-email` above.
+
 > [!NOTE]
-> For sandbox tools, provide `test_inbox_id` in the tool call or set the `MAILTRAP_TEST_INBOX_ID` environment variable. You can switch between inboxes per call by passing `test_inbox_id`.
+> For sandbox tools, provide `test_inbox_id` in the tool call or set the `MAILTRAP_TEST_INBOX_ID` environment variable. You can switch between inboxes per call by passing `test_inbox_id`. Tools taking `sandbox_id` use `MAILTRAP_SANDBOX_ID` first.
 
 ### get-sandbox-messages
 
