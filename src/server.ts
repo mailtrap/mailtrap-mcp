@@ -195,6 +195,7 @@ import {
   createApiTokenSchema,
   apiTokenSchema,
   getApiToken,
+  resetApiTokenSchema,
   resetApiToken,
   deleteApiToken,
 } from "./tools/apiTokens";
@@ -1045,7 +1046,7 @@ const tools = [
     name: "reset-api-token",
     description:
       "Reset (rotate) an API token by ID. The response includes the **new** secret `token` value — returned only on this call, so store it immediately. The previous token is invalidated.",
-    inputSchema: apiTokenSchema,
+    inputSchema: resetApiTokenSchema,
     handler: resetApiToken,
     annotations: {
       destructiveHint: true,
