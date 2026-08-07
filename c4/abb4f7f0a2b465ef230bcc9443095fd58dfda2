@@ -1,0 +1,41 @@
+src/utils/userAgent.ts
+  s_8a5eb9279ffa10::t_401f4b9f17aeac 30-32,51-53
+  s_8a5eb9279ffa10::t_d2e5aff7fe6718 1-29,33-50,54
+src/utils/__tests__/userAgent.test.ts
+  s_8a5eb9279ffa10::t_930aebf18fed3c 1-27,29-44,48-49
+  s_8a5eb9279ffa10::t_1cedfa22e5ad71 28
+  s_8a5eb9279ffa10::t_401f4b9f17aeac 45-47
+src/config/index.ts
+  s_8a5eb9279ffa10::t_a6bd387597aa36 6
+src/server.ts
+  s_8a5eb9279ffa10::t_5e0c59d5a824ea 1231-1234
+  s_8a5eb9279ffa10::t_d39b980ad54d04 1235
+  s_8a5eb9279ffa10::t_9bb5627e87fe9c 10
+src/client.ts
+  s_8a5eb9279ffa10::t_0ff30cb09e305a 2,7-8,14,19-20,23-25,29-30,33,43
+  s_8a5eb9279ffa10::t_9211ccfec8216f 128
+  s_8a5eb9279ffa10::t_5dd53ea456586d 144
+  s_8a5eb9279ffa10::t_e75ae6e838a023 55,74,108
+  s_8a5eb9279ffa10::t_323f3f56b3b570 6,9-13,15-18,22,26-28,31-32,34-42
+  s_8a5eb9279ffa10::t_4a7cb88c3d9e16 21
+src/__tests__/client.test.ts
+  s_8a5eb9279ffa10::t_1276112574e6f4 3-29,31,60,62-64,66-73
+  s_8a5eb9279ffa10::t_863a6744fdba6c 30,32-58,61,65
+  s_8a5eb9279ffa10::t_3a0f4e5c8fa5ba 59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "c4abb4f7f0a2b465ef230bcc9443095fd58dfda2",
+  "prompts": {},
+  "sessions": {
+    "s_8a5eb9279ffa10": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc307cda-e844-467a-9742-c93fdc5a5507",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
