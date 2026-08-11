@@ -1,0 +1,126 @@
+src/tools/emailCampaigns/__tests__/getEmailCampaign.test.ts
+  s_1d139e47a09853::t_5fb72225e26e31 1-26,30-47
+  s_1d139e47a09853::t_33b8763882795e 27-29
+src/tools/emailCampaigns/__tests__/listEmailCampaigns.test.ts
+  s_1d139e47a09853::t_6d9d5c0c243912 1-30,34-109
+  s_1d139e47a09853::t_61f7da129c81d8 31-33
+CLAUDE.md
+  s_1d139e47a09853::t_4dd3968146de7c 183-186,188-197
+src/tools/emailCampaigns/__tests__/resetEmailCampaign.test.ts
+  s_1d139e47a09853::t_5830f560c17a54 1-26,30-47
+  s_1d139e47a09853::t_566fa8765cd2e2 27-29
+src/tools/emailCampaigns/index.ts
+  s_1d139e47a09853::t_f8129272fe8440 1-47
+src/tools/emailCampaigns/schemas/deleteEmailCampaign.ts
+  s_1d139e47a09853::t_9255c2d5a3c30a 1-4,7-14
+src/tools/emailCampaigns/schemas/getEmailCampaignStats.ts
+  s_1d139e47a09853::t_9d560a833afb44 5-8,11-14,16-20,22-29,44
+src/tools/emailCampaigns/getEmailCampaignStats.ts
+  s_1d139e47a09853::t_561ebbef0d3647 1,3-7,9,11,32-33,36-38,40-49
+  s_1d139e47a09853::t_091a1d71a9560d 29-31
+src/tools/emailCampaigns/schemas/updateEmailCampaign.ts
+  s_1d139e47a09853::t_fb4f3090837a18 1-6,9-14,20-63,65,67-88,90-96,98-102,104-109,112-117,119-132,134-147,154-155
+src/tools/emailCampaigns/createEmailCampaign.ts
+  s_1d139e47a09853::t_b71129bd2fbc74 1-22,26-35
+  s_1d139e47a09853::t_7b78aacf028790 23-25
+src/tools/emailCampaigns/__tests__/createEmailCampaign.test.ts
+  s_1d139e47a09853::t_6f8d0c6e782062 1-15,17-33,37-92
+  s_1d139e47a09853::t_295c0120dc3c9a 34-36
+src/tools/emailCampaigns/schemas/createEmailCampaign.ts
+  s_1d139e47a09853::t_64b4788caa252a 1-9,15-83,85-91,93-97,99-102,104-123,125-140
+  s_1d139e47a09853::t_368293b035033c 141-143
+src/tools/emailCampaigns/__tests__/updateEmailCampaign.test.ts
+  s_1d139e47a09853::t_70a77cdd052a4c 1-33,37-47,64-72,83-98
+  s_1d139e47a09853::t_87baccd5b896dc 34-36
+src/tools/emailCampaigns/schemas/scheduleEmailCampaign.ts
+  s_1d139e47a09853::t_0bef7e4afc3c27 1-6,9-13,15-20,27-29,39-42
+src/tools/emailCampaigns/__tests__/startEmailCampaign.test.ts
+  s_1d139e47a09853::t_eb52a88dae04ac 1-26,30-47
+  s_1d139e47a09853::t_4053fa80516510 27-29
+src/tools/emailCampaigns/__tests__/deleteEmailCampaign.test.ts
+  s_1d139e47a09853::t_025d767cc6ef75 1-24,28-44
+  s_1d139e47a09853::t_496b3bb5cc053b 25-27
+src/tools/emailCampaigns/terminateEmailCampaign.ts
+  s_1d139e47a09853::t_bf85bf0c1fb76b 1-15,19-28
+  s_1d139e47a09853::t_8596a80c367ab2 16-18
+src/types/mailtrap.ts
+  s_1d139e47a09853::t_794445720b8906 644-698,701-718,719-720,722-731,732-747,749-760,762-841
+  s_44ea77dabd4ee4::t_f774f591d25fc4 242-254,721
+src/tools/emailCampaigns/schemas/listEmailCampaigns.ts
+  s_1d139e47a09853::t_b4369073c03520 1-6,9-12,16-36
+src/tools/emailCampaigns/schemas/startEmailCampaign.ts
+  s_1d139e47a09853::t_995963f8d7a710 1-4,7-14
+src/tools/emailCampaigns/startEmailCampaign.ts
+  s_1d139e47a09853::t_e77f6758f7eeb8 1-15,19-28
+  s_1d139e47a09853::t_92c780b56ac0cd 16-18
+src/tools/emailCampaigns/__tests__/getEmailCampaignStats.test.ts
+  s_1d139e47a09853::t_ad580b6e536d96 1-26,30-56,80-92
+  s_1d139e47a09853::t_16082c5ea2b7a2 27-29
+src/tools/emailCampaigns/__tests__/cancelEmailCampaign.test.ts
+  s_1d139e47a09853::t_852c12c885b154 1-26,30-47
+  s_1d139e47a09853::t_62ec0b36874d10 27-29
+src/tools/emailCampaigns/updateEmailCampaign.ts
+  s_1d139e47a09853::t_594e1f07c40dc1 1-24,28-40
+  s_1d139e47a09853::t_ce2a9f74fa4d60 25-27
+src/server.ts
+  s_1d139e47a09853::t_3c325dbcb0ddea 177-200
+  s_1d139e47a09853::t_3a6e3d6c1e0021 977-1000,1002-1085
+src/tools/emailCampaigns/__tests__/terminateEmailCampaign.test.ts
+  s_1d139e47a09853::t_52305a68dccbc4 1-26,30-47
+  s_1d139e47a09853::t_6bc03386411865 27-29
+src/tools/emailCampaigns/getEmailCampaign.ts
+  s_1d139e47a09853::t_9321616ce8aa1a 1-15,19-28
+  s_1d139e47a09853::t_0e408299177f0e 16-18
+src/tools/emailCampaigns/scheduleEmailCampaign.ts
+  s_1d139e47a09853::t_fd3a45ec4efd84 1-24,28-39
+  s_1d139e47a09853::t_75361c773463b2 25-27
+src/tools/emailCampaigns/deleteEmailCampaign.ts
+  s_1d139e47a09853::t_3b14763b5fe8c1 1-15,19-30
+  s_1d139e47a09853::t_498e776cdb4471 16-18
+src/tools/emailCampaigns/schemas/resetEmailCampaign.ts
+  s_1d139e47a09853::t_30af1178915b3b 1-4,7-14
+src/tools/emailCampaigns/resetEmailCampaign.ts
+  s_1d139e47a09853::t_8badfbf103c553 1-15,19-28
+  s_1d139e47a09853::t_eb42bf094694ca 16-18
+README.md
+  s_1d139e47a09853::t_166ce839c3309e 860-884,886-905,907-966
+src/tools/emailCampaigns/schemas/terminateEmailCampaign.ts
+  s_1d139e47a09853::t_bad9507a93e6fb 1-4,7-14
+src/tools/emailCampaigns/schemas/cancelEmailCampaign.ts
+  s_1d139e47a09853::t_7d4742b6259468 1-4,7-14
+src/tools/emailCampaigns/__tests__/scheduleEmailCampaign.test.ts
+  s_1d139e47a09853::t_ea4c748a2a976f 1-13,18-24,26-29,31-35,37-38,42,44-45,64-75,112-118,120-127
+  s_1d139e47a09853::t_953d2fb0827eaf 39-41
+src/tools/emailCampaigns/cancelEmailCampaign.ts
+  s_1d139e47a09853::t_53727fa35ff744 1-15,19-28
+  s_1d139e47a09853::t_217b8f1fe7d20e 16-18
+src/tools/emailCampaigns/schemas/getEmailCampaign.ts
+  s_1d139e47a09853::t_c536d3428c0a0b 1-4,7-14
+src/tools/emailCampaigns/listEmailCampaigns.ts
+  s_1d139e47a09853::t_5f8869a2b4cfc4 1-27,31-50
+  s_1d139e47a09853::t_cffaa7a7b90f4a 28-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "60bf17c8774540732a2abd44a8035c1a648a39b7",
+  "prompts": {},
+  "sessions": {
+    "s_1d139e47a09853": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3943c4ee-a6f3-493c-aa4d-bc291df8727e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    },
+    "s_44ea77dabd4ee4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a7ac95f6-68c7-4e3b-bf74-eb68a723c929",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
