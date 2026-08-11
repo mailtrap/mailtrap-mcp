@@ -239,6 +239,19 @@ export interface ListEmailLogsRequest {
   category_operator?: "equal" | "not_equal";
 }
 
+// --- Common types ---
+
+/** Page-token pagination metadata returned with a paginated list response. */
+export interface Pagination {
+  token?: number;
+  prev_token?: number | null;
+  next_token?: number | null;
+  first_url?: string;
+  prev_url?: string | null;
+  current_url?: string;
+  next_url?: string | null;
+}
+
 // --- Sandbox management types ---
 
 export interface CreateProjectRequest {
@@ -703,19 +716,9 @@ export interface EmailCampaign {
   template?: EmailCampaignTemplate;
 }
 
-export interface EmailCampaignPagination {
-  token?: number;
-  prev_token?: number | null;
-  next_token?: number | null;
-  first_url?: string;
-  prev_url?: string | null;
-  current_url?: string;
-  next_url?: string | null;
-}
-
 export interface EmailCampaignListResponse {
   data: EmailCampaign[];
-  pagination?: EmailCampaignPagination;
+  pagination?: Pagination;
 }
 
 export interface EmailCampaignStats {
