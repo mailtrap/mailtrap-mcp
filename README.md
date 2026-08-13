@@ -907,7 +907,7 @@ Update a `draft` email campaign. Only the provided fields change; the template i
 
 ### delete-email-campaign
 
-Delete an email campaign by ID. The campaign must not be in a sending state.
+Delete an email campaign by ID. Only a campaign in the `draft` state can be deleted.
 
 **Parameters:**
 

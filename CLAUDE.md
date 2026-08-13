@@ -186,7 +186,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **get-email-campaign**: Get an email campaign by ID.
 - **create-email-campaign**: Create a `draft` campaign. Requires `name`, `domain_id` (sending domain ID), `from_local_part`, and `template_attributes.subject`.
 - **update-email-campaign**: Update a `draft` campaign (partial; template edited in place). Only `draft` campaigns can be updated.
-- **delete-email-campaign**: Delete a campaign by ID (must not be in a sending state).
+- **delete-email-campaign**: Delete a campaign by ID (only a campaign in the `draft` state can be deleted).
 - **start-email-campaign**: Start sending a `draft` campaign immediately.
 - **schedule-email-campaign**: Schedule a `draft` campaign; `datetime` (ISO 8601) must be in the future and no more than 1 month ahead.
 - **cancel-email-campaign**: Cancel a `scheduled` campaign, returning it to `draft`.

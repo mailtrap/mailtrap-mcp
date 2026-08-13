@@ -1018,7 +1018,7 @@ const tools = [
   {
     name: "delete-email-campaign",
     description:
-      "Delete an email campaign by ID; the campaign must not be in a sending state.",
+      "Delete an email campaign by ID; only a campaign in the `draft` state can be deleted.",
     inputSchema: deleteEmailCampaignSchema,
     handler: deleteEmailCampaign,
     annotations: {
