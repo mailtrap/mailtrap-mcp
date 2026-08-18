@@ -1,8 +1,5 @@
 import { requireClient } from "../../client";
-import {
-  EmailCampaignsClient,
-  ResetEmailCampaignRequest,
-} from "../../types/mailtrap";
+import { ResetEmailCampaignRequest } from "../../types/mailtrap";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -15,7 +12,7 @@ async function resetEmailCampaign({
   try {
     const mailtrap = requireClient("email campaigns", {
       requireAccountId: false,
-    }) as unknown as EmailCampaignsClient;
+    });
 
     const response = await mailtrap.emailCampaigns.reset(email_campaign_id);
 

@@ -1,5 +1,4 @@
 import { requireClient } from "../../client";
-import { EmailCampaignsClient } from "../../types/mailtrap";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -28,7 +27,7 @@ async function getEmailCampaignStats(raw: unknown): Promise<ToolResponse> {
 
     const mailtrap = requireClient("email campaigns", {
       requireAccountId: false,
-    }) as unknown as EmailCampaignsClient;
+    });
 
     const params = {
       ...(startDate !== undefined ? { start_date: startDate } : {}),

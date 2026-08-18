@@ -1,8 +1,5 @@
 import { requireClient } from "../../client";
-import {
-  EmailCampaignsClient,
-  TerminateEmailCampaignRequest,
-} from "../../types/mailtrap";
+import { TerminateEmailCampaignRequest } from "../../types/mailtrap";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -15,7 +12,7 @@ async function terminateEmailCampaign({
   try {
     const mailtrap = requireClient("email campaigns", {
       requireAccountId: false,
-    }) as unknown as EmailCampaignsClient;
+    });
 
     const response = await mailtrap.emailCampaigns.terminate(email_campaign_id);
 

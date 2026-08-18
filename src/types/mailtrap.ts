@@ -808,37 +808,6 @@ export interface GetEmailCampaignStatsRequest {
   end_date?: string;
 }
 
-// TODO(MT-22401): drop this interface and the per-handler casts once the
-// mailtrap npm package ships the emailCampaigns resource.
-export interface EmailCampaignsClient {
-  emailCampaigns: {
-    getList(
-      params?: ListEmailCampaignsParams
-    ): Promise<EmailCampaignListResponse>;
-    get(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
-    create(
-      params: CreateEmailCampaignRequest
-    ): Promise<{ data: EmailCampaign }>;
-    update(
-      emailCampaignId: number,
-      params: UpdateEmailCampaignParams
-    ): Promise<{ data: EmailCampaign }>;
-    delete(emailCampaignId: number): Promise<void>;
-    start(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
-    schedule(
-      emailCampaignId: number,
-      params: { datetime: string }
-    ): Promise<{ data: EmailCampaign }>;
-    cancel(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
-    terminate(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
-    reset(emailCampaignId: number): Promise<{ data: EmailCampaign }>;
-    getStats(
-      emailCampaignId: number,
-      params?: { start_date?: string; end_date?: string }
-    ): Promise<{ data: EmailCampaignStats }>;
-  };
-}
-
 // --- General / account-admin types ---
 
 export interface MailtrapAccount {

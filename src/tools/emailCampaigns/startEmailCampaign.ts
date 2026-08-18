@@ -1,8 +1,5 @@
 import { requireClient } from "../../client";
-import {
-  EmailCampaignsClient,
-  StartEmailCampaignRequest,
-} from "../../types/mailtrap";
+import { StartEmailCampaignRequest } from "../../types/mailtrap";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -15,7 +12,7 @@ async function startEmailCampaign({
   try {
     const mailtrap = requireClient("email campaigns", {
       requireAccountId: false,
-    }) as unknown as EmailCampaignsClient;
+    });
 
     const response = await mailtrap.emailCampaigns.start(email_campaign_id);
 

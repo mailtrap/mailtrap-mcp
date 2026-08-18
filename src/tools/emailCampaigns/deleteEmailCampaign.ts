@@ -1,8 +1,5 @@
 import { requireClient } from "../../client";
-import {
-  DeleteEmailCampaignRequest,
-  EmailCampaignsClient,
-} from "../../types/mailtrap";
+import { DeleteEmailCampaignRequest } from "../../types/mailtrap";
 import {
   buildErrorResponse,
   buildSuccessResponse,
@@ -15,7 +12,7 @@ async function deleteEmailCampaign({
   try {
     const mailtrap = requireClient("email campaigns", {
       requireAccountId: false,
-    }) as unknown as EmailCampaignsClient;
+    });
 
     await mailtrap.emailCampaigns.delete(email_campaign_id);
 
