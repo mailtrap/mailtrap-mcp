@@ -1,3 +1,15 @@
+## [0.8.0] - 2026-08-20
+
+## What's Changed
+* chore(deps): bump the npm_and_yarn group across 1 directory with 2 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/133
+* Add batch send sandbox email tool by @izikaj in https://github.com/mailtrap/mailtrap-mcp/pull/135
+* MT-22401: Add email campaigns tools by @Rabsztok in https://github.com/mailtrap/mailtrap-mcp/pull/128
+
+## New Contributors
+* @izikaj made their first contribution in https://github.com/mailtrap/mailtrap-mcp/pull/135
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.7.0...v0.8.0
+
 ## [0.7.0] - 2026-08-04
 
 ## What's Changed
