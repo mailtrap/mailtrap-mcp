@@ -174,6 +174,30 @@ import {
   getContactExport,
   getContactExportSchema,
 } from "./tools/contactExports";
+import {
+  listEmailCampaigns,
+  listEmailCampaignsSchema,
+  getEmailCampaign,
+  getEmailCampaignSchema,
+  createEmailCampaign,
+  createEmailCampaignSchema,
+  updateEmailCampaign,
+  updateEmailCampaignSchema,
+  deleteEmailCampaign,
+  deleteEmailCampaignSchema,
+  startEmailCampaign,
+  startEmailCampaignSchema,
+  scheduleEmailCampaign,
+  scheduleEmailCampaignSchema,
+  cancelEmailCampaign,
+  cancelEmailCampaignSchema,
+  terminateEmailCampaign,
+  terminateEmailCampaignSchema,
+  resetEmailCampaign,
+  resetEmailCampaignSchema,
+  getEmailCampaignStats,
+  getEmailCampaignStatsSchema,
+} from "./tools/emailCampaigns";
 import { listAccounts, listAccountsSchema } from "./tools/accounts";
 import { getBillingUsage, getBillingUsageSchema } from "./tools/billing";
 import {
@@ -948,6 +972,115 @@ const tools = [
       "Get the status of a contact export job. Once `status` is `finished`, the `url` field holds the download link.",
     inputSchema: getContactExportSchema,
     handler: getContactExport,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "list-email-campaigns",
+    description:
+      "List the account's email campaigns, newest first, with page-token pagination (`token`, `per_page`). Optionally filter by name with `search`.",
+    inputSchema: listEmailCampaignsSchema,
+    handler: listEmailCampaigns,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-email-campaign",
+    description: "Get an email campaign by ID.",
+    inputSchema: getEmailCampaignSchema,
+    handler: getEmailCampaign,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-email-campaign",
+    description:
+      "Create a new email campaign in the `draft` state; requires `name`, `domain_id`, `from_local_part`, and a `template_attributes.subject`.",
+    inputSchema: createEmailCampaignSchema,
+    handler: createEmailCampaign,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "update-email-campaign",
+    description:
+      "Update a `draft` email campaign; only the provided fields change, and campaigns in any other state cannot be updated.",
+    inputSchema: updateEmailCampaignSchema,
+    handler: updateEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "delete-email-campaign",
+    description:
+      "Delete an email campaign by ID; only a campaign in the `draft` state can be deleted.",
+    inputSchema: deleteEmailCampaignSchema,
+    handler: deleteEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "start-email-campaign",
+    description:
+      "Start sending a `draft` email campaign immediately; only `draft` campaigns can be started.",
+    inputSchema: startEmailCampaignSchema,
+    handler: startEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "schedule-email-campaign",
+    description:
+      "Schedule a `draft` email campaign to start sending at `datetime` (ISO 8601, must be in the future and no more than 1 month ahead); only `draft` campaigns can be scheduled.",
+    inputSchema: scheduleEmailCampaignSchema,
+    handler: scheduleEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "cancel-email-campaign",
+    description:
+      "Cancel a `scheduled` email campaign, returning it to `draft`; only `scheduled` campaigns can be cancelled.",
+    inputSchema: cancelEmailCampaignSchema,
+    handler: cancelEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "terminate-email-campaign",
+    description:
+      "Terminate an email campaign that is currently sending (`started`, `queued`, or `paused`), aborting the in-flight send.",
+    inputSchema: terminateEmailCampaignSchema,
+    handler: terminateEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "reset-email-campaign",
+    description:
+      "Reset a `scheduled` email campaign back to `draft`; only `scheduled` campaigns can be reset.",
+    inputSchema: resetEmailCampaignSchema,
+    handler: resetEmailCampaign,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "get-email-campaign-stats",
+    description:
+      "Get aggregated performance statistics for an email campaign; optionally narrow the window with `start_date`/`end_date` (`YYYY-MM-DD`).",
+    inputSchema: getEmailCampaignStatsSchema,
+    handler: getEmailCampaignStats,
     annotations: {
       readOnlyHint: true,
     },

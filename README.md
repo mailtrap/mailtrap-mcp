@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools).
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools) and the email campaign tools.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -856,6 +856,113 @@ Get the status of a contact export job. Once `status` is `finished`, the `url` f
 **Parameters:**
 
 - `export_id` (required): ID of the contact export job
+
+### list-email-campaigns
+
+List the account's email campaigns, newest first, with page-token pagination. Optionally filter by name with `search`.
+
+**Parameters:**
+
+- `token` (optional): Page number to retrieve (page-token pagination). Defaults to `1`
+- `per_page` (optional): Number of campaigns per page. Defaults to `50`, maximum `100`
+- `search` (optional): Filter campaigns by name (case-insensitive partial match)
+
+### get-email-campaign
+
+Get an email campaign by ID.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign
+
+### create-email-campaign
+
+Create a new email campaign. The campaign is always created in the `draft` state; scheduling and starting are separate tools (`schedule-email-campaign`, `start-email-campaign`).
+
+**Parameters:**
+
+- `name` (required): Campaign name
+- `domain_id` (required): ID of the verified sending domain used for the campaign, as returned by the Sending Domains endpoints
+- `from_local_part` (required): Local part (before the @) of the From address
+- `template_attributes` (required): Inline email template. Has:
+  - `subject` (required): Email subject line (max 255 chars). Supports merge tags, e.g. `Hi {{first_name}}`
+  - `body_html` (optional): HTML body (the design). Required before the campaign can be scheduled or started. Include an unsubscribe link via an anchor whose `href` contains the `__unsubscribe_url__` placeholder
+  - `body_text` (optional): Plain-text alternative of the email body
+  - `merge_tags` (optional): Bare names of the merge tags referenced in the subject/body, e.g. `["first_name"]`
+- `from_display_name` (optional): Display name shown in the From header
+- `reply_to` (optional): Reply-To address parts (`display_name`, `local_part`, `domain`)
+- `delivery_mode` (optional): `rapid` (send as fast as possible) or `gradual` (throttle to `delivery_options.emails_per_hour`)
+- `delivery_options` (optional): Delivery throttling options (`emails_per_hour`)
+- `contact_list_ids` (optional): IDs of contact lists to send to (treated as the full set of included lists)
+- `contact_segment_ids` (optional): IDs of contact segments to send to (treated as the full set of included segments)
+
+### update-email-campaign
+
+Update a `draft` email campaign. Only the provided fields change; the template is edited in place. Campaigns in any other state cannot be updated.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to update
+- All other parameters are optional and identical to `create-email-campaign` (`name`, `domain_id`, `from_local_part`, `from_display_name`, `reply_to`, `template_attributes`, `delivery_mode`, `delivery_options`, `contact_list_ids`, `contact_segment_ids`)
+
+### delete-email-campaign
+
+Delete an email campaign by ID. Only a campaign in the `draft` state can be deleted.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to delete
+
+### start-email-campaign
+
+Start sending a `draft` email campaign immediately. Only `draft` campaigns can be started; the template must have a `body_html` design and the audience and verified sending domain must be set.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to start
+
+### schedule-email-campaign
+
+Schedule a `draft` email campaign to start sending at a future time. Only `draft` campaigns can be scheduled.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to schedule
+- `datetime` (required): When to send the campaign (ISO 8601). Must be in the future and no more than 1 month ahead
+
+### cancel-email-campaign
+
+Cancel a `scheduled` email campaign, returning it to `draft`. Only `scheduled` campaigns can be cancelled.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to cancel
+
+### terminate-email-campaign
+
+Terminate an email campaign that is currently sending (`started`, `queued`, or `paused`), aborting the in-flight send.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to terminate
+
+### reset-email-campaign
+
+Reset a `scheduled` email campaign back to `draft`. Only `scheduled` campaigns can be reset.
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign to reset
+
+### get-email-campaign-stats
+
+Get aggregated performance statistics for an email campaign (counts and rates for deliveries, opens, clicks, bounces, spam complaints, and unsubscriptions).
+
+**Parameters:**
+
+- `email_campaign_id` (required): ID of the email campaign
+- `start_date` (optional): Start of the aggregation window (inclusive), `YYYY-MM-DD`. Defaults to the day the campaign was last started
+- `end_date` (optional): End of the aggregation window (inclusive), `YYYY-MM-DD`. Defaults to the current date
 
 ### list-accounts
 
