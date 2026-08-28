@@ -950,3 +950,19 @@ export interface UpdateCompanyInfoRequest {
   terms_of_service_url?: string;
   info_level?: CompanyInfoLevel;
 }
+
+// --- Tracking opt-out types ---
+
+export interface TrackingOptOut {
+  id: string;
+  email: string;
+  created_at: string;
+  domain_name: string | null;
+}
+
+export interface ListTrackingOptOutsRequest {
+  email?: string;
+  start_time?: string;
+  end_time?: string;
+  last_id?: string;
+}

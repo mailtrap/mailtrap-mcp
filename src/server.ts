@@ -127,6 +127,10 @@ import {
   deleteSuppressionSchema,
 } from "./tools/suppressions";
 import {
+  listTrackingOptOuts,
+  listTrackingOptOutsSchema,
+} from "./tools/trackingOptOuts";
+import {
   listWebhooks,
   listWebhooksSchema,
   getWebhook,
@@ -803,6 +807,16 @@ const tools = [
     handler: deleteSuppression,
     annotations: {
       destructiveHint: true,
+    },
+  },
+  {
+    name: "list-tracking-opt-outs",
+    description:
+      "List email addresses excluded from open and click tracking. Returns up to 1000 records per call.",
+    inputSchema: listTrackingOptOutsSchema,
+    handler: listTrackingOptOuts,
+    annotations: {
+      readOnlyHint: true,
     },
   },
   {

@@ -51,7 +51,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 ### Environment Variables Required
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
-- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the email campaign tools or the company info tools, which resolve the account from the API token.
+- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the email campaign tools, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
 - `MAILTRAP_TEST_INBOX_ID`: Optional. Default test inbox ID for sandbox tools when the tool does not receive a `test_inbox_id` parameter. Enables switching inboxes per call via parameters.
 
@@ -143,6 +143,11 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
 - **create-suppression**: Add an email address to the suppression list.
 - **delete-suppression**: Delete a suppression by ID.
+
+
+#### Tracking Opt-outs
+
+- **list-tracking-opt-outs**: List addresses excluded from open and click tracking.
 
 
 #### Webhooks

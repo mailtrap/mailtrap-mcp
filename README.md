@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, and the company info tools.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, the company info tools, and the tracking opt-out tools.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -206,6 +206,10 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 - "List suppressions for bounced@example.com"
 - "Suppress bounced@example.com on the transactional stream of domain 3938"
+
+**Tracking Opt-outs:**
+
+- "List everyone who opted out of tracking"
 
 ## Available Tools
 
@@ -698,6 +702,17 @@ Delete a suppression by ID. Mailtrap will resume delivery to this email unless i
 **Parameters:**
 
 - `suppression_id` (required): ID of the suppression to delete
+
+### list-tracking-opt-outs
+
+List email addresses excluded from open and click tracking. Returns up to 1000 records per call.
+
+**Parameters:**
+
+- `email` (optional): Email filter. Returns only opt-outs matching this address
+- `start_time` (optional): Only opt-outs created at or after this time (ISO 8601)
+- `end_time` (optional): Only opt-outs created at or before this time (ISO 8601)
+- `last_id` (optional): Pagination cursor — the `last_id` from the previous response
 
 ### list-webhooks
 
