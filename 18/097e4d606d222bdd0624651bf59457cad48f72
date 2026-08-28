@@ -1,0 +1,34 @@
+README.md
+  s_a416a2bbf03afd::t_7b4eec7de83ea5 203,661-662,664-668
+  s_a416a2bbf03afd::t_140a0904c4ba75 669
+src/tools/companyInfo/schemas/updateCompanyInfo.ts
+  s_a416a2bbf03afd::t_82389689c75cbe 1-6,9-80
+CLAUDE.md
+  s_a416a2bbf03afd::t_7b4eec7de83ea5 138
+src/types/mailtrap.ts
+  s_a416a2bbf03afd::t_7b4eec7de83ea5 924-937
+src/server.ts
+  s_a416a2bbf03afd::t_7b4eec7de83ea5 118-119,763-771
+src/tools/companyInfo/__tests__/updateCompanyInfo.test.ts
+  s_a416a2bbf03afd::t_82389689c75cbe 1-75
+src/tools/companyInfo/index.ts
+  s_a416a2bbf03afd::t_7b4eec7de83ea5 5-6,13-14
+src/tools/companyInfo/updateCompanyInfo.ts
+  s_a416a2bbf03afd::t_82389689c75cbe 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "18097e4d606d222bdd0624651bf59457cad48f72",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
