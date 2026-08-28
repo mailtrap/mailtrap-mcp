@@ -115,6 +115,8 @@ import {
   getCompanyInfoSchema,
   createCompanyInfo,
   createCompanyInfoSchema,
+  updateCompanyInfo,
+  updateCompanyInfoSchema,
 } from "./tools/companyInfo";
 import {
   listSuppressions,
@@ -760,6 +762,15 @@ const tools = [
     handler: createCompanyInfo,
     annotations: {
       destructiveHint: false,
+    },
+  },
+  {
+    name: "update-company-info",
+    description: "Update the company info of a sending domain.",
+    inputSchema: updateCompanyInfoSchema,
+    handler: updateCompanyInfo,
+    annotations: {
+      destructiveHint: true,
     },
   },
   {

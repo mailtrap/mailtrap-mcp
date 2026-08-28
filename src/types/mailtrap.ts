@@ -921,3 +921,17 @@ export interface CreateCompanyInfoRequest {
   terms_of_service_url?: string;
   info_level?: CompanyInfoLevel;
 }
+
+export interface UpdateCompanyInfoRequest {
+  sending_domain_id: number;
+  name?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  zip_code?: string;
+  website_url?: string;
+  phone?: string;
+  privacy_policy_url?: string;
+  terms_of_service_url?: string;
+  info_level?: CompanyInfoLevel;
+}

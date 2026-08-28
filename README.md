@@ -200,6 +200,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Get sending domain 3938 with DNS setup instructions"
 - "Show the company info for sending domain 3938"
 - "Set the company info for domain 3938 to Acme Inc, 123 Main St, San Francisco, US, 94105, https://acme.com"
+- "Change the company info city for domain 3938 to New York"
 
 ## Available Tools
 
@@ -656,6 +657,15 @@ Set the company info of a sending domain, required for domain compliance verific
 - `privacy_policy_url` (optional): URL of the privacy policy page
 - `terms_of_service_url` (optional): URL of the terms of service page
 - `info_level` (optional): `business` or `individual`
+
+### update-company-info
+
+Update the company info of a sending domain.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- Every field of create-company-info, all optional. At least one must be provided; fields left out are unchanged.
 
 ### list-suppressions
 
