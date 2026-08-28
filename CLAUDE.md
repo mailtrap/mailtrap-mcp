@@ -51,7 +51,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 ### Environment Variables Required
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
-- `MAILTRAP_ACCOUNT_ID`: Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email, send-sandbox-email, the email campaign tools, and the company info tools.
+- `MAILTRAP_ACCOUNT_ID`: Required for templates, stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for send-email, send-sandbox-email, the email campaign tools, the company info tools, and the tracking opt-out tools.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
 - `MAILTRAP_TEST_INBOX_ID`: Optional. Default test inbox ID for sandbox tools when the tool does not receive a `test_inbox_id` parameter. Enables switching inboxes per call via parameters.
 
@@ -142,7 +142,17 @@ Company info is per sending domain and required for domain compliance verificati
 #### Suppressions
 
 - **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
+- **create-suppression**: Suppress an email address. Requires `email`, `domain_id` and `sending_stream` (`transactional` or `bulk` — `any`, which a stored suppression may report, is not accepted); `type` defaults to `manual import`.
 - **delete-suppression**: Delete a suppression by ID.
+
+#### Tracking Opt-outs
+
+Addresses excluded from open and click tracking, per sending domain.
+
+- **list-tracking-opt-outs**: List tracking opt-outs; optional `email`, `start_time` and `end_time` filters. Up to 1000 per call, paged via `last_id`.
+- **create-tracking-opt-out**: Exclude an address from tracking for a sending domain (`email` + `domain_id`).
+- **delete-tracking-opt-out**: Remove an address from the opt-out list, so tracking applies again.
+
 
 #### Webhooks
 

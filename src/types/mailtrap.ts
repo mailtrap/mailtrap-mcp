@@ -369,6 +369,12 @@ export type SuppressionType =
 
 export type SuppressionStream = "transactional" | "bulk" | "any";
 
+/**
+ * Streams a suppression can be created for. `any`, which a stored suppression
+ * may report, is not accepted on create.
+ */
+export type CreateSuppressionStream = "transactional" | "bulk";
+
 export interface Suppression {
   id: string;
   type: SuppressionType;
@@ -380,6 +386,8 @@ export interface Suppression {
   message_category: string | null;
   message_client_ip: string | null;
   message_created_at: string | null;
+  message_esp_response: string | null;
+  message_esp_server_type: string | null;
   message_outgoing_ip: string | null;
   message_recipient_mx_name: string | null;
   message_sender_email: string | null;
@@ -388,6 +396,13 @@ export interface Suppression {
 
 export interface ListSuppressionsRequest {
   email?: string;
+}
+
+export interface CreateSuppressionRequest {
+  email: string;
+  domain_id: number;
+  sending_stream: CreateSuppressionStream;
+  type?: SuppressionType;
 }
 
 export interface DeleteSuppressionRequest {
@@ -934,4 +949,29 @@ export interface UpdateCompanyInfoRequest {
   privacy_policy_url?: string;
   terms_of_service_url?: string;
   info_level?: CompanyInfoLevel;
+}
+
+// --- Tracking opt-out types ---
+
+export interface TrackingOptOut {
+  id: string;
+  email: string;
+  created_at: string;
+  domain_name: string | null;
+}
+
+export interface ListTrackingOptOutsRequest {
+  email?: string;
+  start_time?: string;
+  end_time?: string;
+  last_id?: string;
+}
+
+export interface CreateTrackingOptOutRequest {
+  email: string;
+  domain_id: number;
+}
+
+export interface DeleteTrackingOptOutRequest {
+  tracking_opt_out_id: string;
 }

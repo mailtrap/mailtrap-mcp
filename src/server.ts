@@ -121,9 +121,19 @@ import {
 import {
   listSuppressions,
   listSuppressionsSchema,
+  createSuppression,
+  createSuppressionSchema,
   deleteSuppression,
   deleteSuppressionSchema,
 } from "./tools/suppressions";
+import {
+  listTrackingOptOuts,
+  listTrackingOptOutsSchema,
+  createTrackingOptOut,
+  createTrackingOptOutSchema,
+  deleteTrackingOptOut,
+  deleteTrackingOptOutSchema,
+} from "./tools/trackingOptOuts";
 import {
   listWebhooks,
   listWebhooksSchema,
@@ -786,11 +796,51 @@ const tools = [
     },
   },
   {
+    name: "create-suppression",
+    description:
+      "Add an email address to the account's suppression list, so Mailtrap stops delivering to it. Requires the sending domain ID and the stream (transactional or bulk); `type` defaults to `manual import`.",
+    inputSchema: createSuppressionSchema,
+    handler: createSuppression,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
     name: "delete-suppression",
     description:
       "Delete a suppression by ID. Mailtrap will resume delivery to this email unless it gets suppressed again.",
     inputSchema: deleteSuppressionSchema,
     handler: deleteSuppression,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-tracking-opt-outs",
+    description:
+      "List email addresses excluded from open and click tracking. Optional `email`, `start_time` and `end_time` filters; up to 1000 records per call, paged via `last_id`.",
+    inputSchema: listTrackingOptOutsSchema,
+    handler: listTrackingOptOuts,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-tracking-opt-out",
+    description:
+      "Exclude an email address from open and click tracking for a sending domain.",
+    inputSchema: createTrackingOptOutSchema,
+    handler: createTrackingOptOut,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "delete-tracking-opt-out",
+    description:
+      "Remove an email address from the tracking opt-out list by ID, so open and click tracking applies to it again.",
+    inputSchema: deleteTrackingOptOutSchema,
+    handler: deleteTrackingOptOut,
     annotations: {
       destructiveHint: true,
     },

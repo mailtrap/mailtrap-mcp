@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, and the company info tools.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, the company info tools, and the tracking opt-out tools.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -200,6 +200,13 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Get sending domain 3938 with DNS setup instructions"
 - "Show the company info for sending domain 3938"
 - "Set the company info for domain 3938 to Acme Inc, 123 Main St, San Francisco, US, 94105, https://acme.com"
+
+**Suppressions and Tracking Opt-outs:**
+
+- "List suppressions for bounced@example.com"
+- "Suppress bounced@example.com on the transactional stream of domain 3938"
+- "Stop tracking opens and clicks for privacy@example.com on domain 3938"
+- "List everyone who opted out of tracking"
 
 ## Available Tools
 
@@ -674,6 +681,17 @@ List or search suppressions (hard bounces, spam complaints, unsubscriptions, man
 
 - `email` (optional): Email filter. Returns only suppressions matching this address.
 
+### create-suppression
+
+Add an email address to the account's suppression list, so Mailtrap stops delivering to it.
+
+**Parameters:**
+
+- `email` (required): Email address to suppress
+- `domain_id` (required): ID of the sending domain the suppression applies to
+- `sending_stream` (required): `transactional` or `bulk`
+- `type` (optional): `hard bounce`, `spam complaint`, `unsubscription` or `manual import`. Defaults to `manual import`
+
 ### delete-suppression
 
 Delete a suppression by ID. Mailtrap will resume delivery to this email unless it gets suppressed again.
@@ -681,6 +699,34 @@ Delete a suppression by ID. Mailtrap will resume delivery to this email unless i
 **Parameters:**
 
 - `suppression_id` (required): ID of the suppression to delete
+
+### list-tracking-opt-outs
+
+List email addresses excluded from open and click tracking. Returns up to 1000 records per call. Does not use `MAILTRAP_ACCOUNT_ID`.
+
+**Parameters:**
+
+- `email` (optional): Email filter. Returns only opt-outs matching this address
+- `start_time` (optional): Only opt-outs created at or after this time (ISO 8601)
+- `end_time` (optional): Only opt-outs created at or before this time (ISO 8601)
+- `last_id` (optional): Pagination cursor — the `last_id` from the previous response
+
+### create-tracking-opt-out
+
+Exclude an email address from open and click tracking for a sending domain.
+
+**Parameters:**
+
+- `email` (required): Email address to opt out of tracking
+- `domain_id` (required): ID of the sending domain the opt-out applies to
+
+### delete-tracking-opt-out
+
+Remove an email address from the tracking opt-out list by ID, so open and click tracking applies to it again.
+
+**Parameters:**
+
+- `tracking_opt_out_id` (required): ID of the tracking opt-out to delete
 
 ### list-webhooks
 
