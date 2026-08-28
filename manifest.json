@@ -123,8 +123,40 @@
       "description": "Create a new sending domain."
     },
     {
+      "name": "update-sending-domain",
+      "description": "Update a sending domain's tracking and inbound settings."
+    },
+    {
       "name": "delete-sending-domain",
       "description": "Delete a sending domain."
+    },
+    {
+      "name": "get-company-info",
+      "description": "Get the company info of a sending domain, used for domain compliance verification."
+    },
+    {
+      "name": "create-company-info",
+      "description": "Set the company info of a sending domain, required for domain compliance verification."
+    },
+    {
+      "name": "update-company-info",
+      "description": "Update the company info of a sending domain."
+    },
+    {
+      "name": "create-suppression",
+      "description": "Add an email address to the account's suppression list, so Mailtrap stops delivering to it."
+    },
+    {
+      "name": "list-tracking-opt-outs",
+      "description": "List email addresses excluded from open and click tracking. Returns up to 1000 records per call."
+    },
+    {
+      "name": "create-tracking-opt-out",
+      "description": "Exclude an email address from open and click tracking for a sending domain."
+    },
+    {
+      "name": "delete-tracking-opt-out",
+      "description": "Remove an email address from the tracking opt-out list, so open and click tracking applies to it again."
     }
   ],
   "prompts": [],
