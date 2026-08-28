@@ -971,3 +971,7 @@ export interface CreateTrackingOptOutRequest {
   email: string;
   domain_id: number;
 }
+
+export interface DeleteTrackingOptOutRequest {
+  tracking_opt_out_id: string;
+}

@@ -724,6 +724,14 @@ Exclude an email address from open and click tracking for a sending domain.
 - `email` (required): Email address to opt out of tracking
 - `domain_id` (required): ID of the sending domain the opt-out applies to
 
+### delete-tracking-opt-out
+
+Remove an email address from the tracking opt-out list, so open and click tracking applies to it again.
+
+**Parameters:**
+
+- `tracking_opt_out_id` (required): ID of the tracking opt-out to delete
+
 ### list-webhooks
 
 List all webhooks configured for the account. Returns the full webhook records as JSON.

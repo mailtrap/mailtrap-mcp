@@ -131,6 +131,8 @@ import {
   listTrackingOptOutsSchema,
   createTrackingOptOut,
   createTrackingOptOutSchema,
+  deleteTrackingOptOut,
+  deleteTrackingOptOutSchema,
 } from "./tools/trackingOptOuts";
 import {
   listWebhooks,
@@ -829,6 +831,16 @@ const tools = [
     handler: createTrackingOptOut,
     annotations: {
       destructiveHint: false,
+    },
+  },
+  {
+    name: "delete-tracking-opt-out",
+    description:
+      "Remove an email address from the tracking opt-out list, so open and click tracking applies to it again.",
+    inputSchema: deleteTrackingOptOutSchema,
+    handler: deleteTrackingOptOut,
+    annotations: {
+      destructiveHint: true,
     },
   },
   {

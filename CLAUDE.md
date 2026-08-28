@@ -149,6 +149,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 
 - **list-tracking-opt-outs**: List addresses excluded from open and click tracking.
 - **create-tracking-opt-out**: Exclude an address from tracking for a sending domain.
+- **delete-tracking-opt-out**: Remove an address from the opt-out list, so tracking applies again.
 
 
 #### Webhooks
