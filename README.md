@@ -209,6 +209,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 **Tracking Opt-outs:**
 
+- "Stop tracking opens and clicks for privacy@example.com on domain 3938"
 - "List everyone who opted out of tracking"
 
 ## Available Tools
@@ -713,6 +714,15 @@ List email addresses excluded from open and click tracking. Returns up to 1000 r
 - `start_time` (optional): Only opt-outs created at or after this time (ISO 8601)
 - `end_time` (optional): Only opt-outs created at or before this time (ISO 8601)
 - `last_id` (optional): Pagination cursor — the `last_id` from the previous response
+
+### create-tracking-opt-out
+
+Exclude an email address from open and click tracking for a sending domain.
+
+**Parameters:**
+
+- `email` (required): Email address to opt out of tracking
+- `domain_id` (required): ID of the sending domain the opt-out applies to
 
 ### list-webhooks
 

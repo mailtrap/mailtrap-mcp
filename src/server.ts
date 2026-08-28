@@ -129,6 +129,8 @@ import {
 import {
   listTrackingOptOuts,
   listTrackingOptOutsSchema,
+  createTrackingOptOut,
+  createTrackingOptOutSchema,
 } from "./tools/trackingOptOuts";
 import {
   listWebhooks,
@@ -817,6 +819,16 @@ const tools = [
     handler: listTrackingOptOuts,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-tracking-opt-out",
+    description:
+      "Exclude an email address from open and click tracking for a sending domain.",
+    inputSchema: createTrackingOptOutSchema,
+    handler: createTrackingOptOut,
+    annotations: {
+      destructiveHint: false,
     },
   },
   {

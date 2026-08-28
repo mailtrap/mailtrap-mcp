@@ -966,3 +966,8 @@ export interface ListTrackingOptOutsRequest {
   end_time?: string;
   last_id?: string;
 }
+
+export interface CreateTrackingOptOutRequest {
+  email: string;
+  domain_id: number;
+}
