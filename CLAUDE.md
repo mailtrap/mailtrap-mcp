@@ -51,7 +51,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 ### Environment Variables Required
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
-- `MAILTRAP_ACCOUNT_ID`: Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email, send-sandbox-email, and the email campaign tools.
+- `MAILTRAP_ACCOUNT_ID`: Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email, send-sandbox-email, the email campaign tools, and the company info tools.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
 - `MAILTRAP_TEST_INBOX_ID`: Optional. Default test inbox ID for sandbox tools when the tool does not receive a `test_inbox_id` parameter. Enables switching inboxes per call via parameters.
 
@@ -126,15 +126,23 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **list-sending-domains**: List sending domains and their DNS verification status.
 - **get-sending-domain**: Get a sending domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
 - **create-sending-domain**: Create a new sending domain.
+- **update-sending-domain**: Update a domain's tracking and inbound settings (`open_tracking_enabled`, `click_tracking_enabled`, `tracking_opt_out_enabled`, `auto_unsubscribe_link_enabled`, `inbound_enabled`). Partial — settings left out are unchanged.
 - **delete-sending-domain**: Delete a sending domain.
 - **send-sending-domain-setup-instructions**: Email DNS setup instructions for a sending domain to a given address.
+
+#### Company Info
+
+Company info is per sending domain and required for domain compliance verification.
+
+- **get-company-info**: Get the company info of a sending domain.
+- **create-company-info**: Set the company info of a sending domain. Requires `name`, `address`, `city`, `country`, `zip_code` and `website_url`.
+- **update-company-info**: Update the company info of a sending domain (partial; at least one field required).
 
 
 #### Suppressions
 
 - **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
 - **delete-suppression**: Delete a suppression by ID.
-
 
 #### Webhooks
 

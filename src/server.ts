@@ -103,11 +103,21 @@ import {
   getSendingDomainSchema,
   createSendingDomain,
   createSendingDomainSchema,
+  updateSendingDomain,
+  updateSendingDomainSchema,
   deleteSendingDomain,
   deleteSendingDomainSchema,
   sendSendingDomainSetupInstructions,
   sendSendingDomainSetupInstructionsSchema,
 } from "./tools/sendingDomains";
+import {
+  getCompanyInfo,
+  getCompanyInfoSchema,
+  createCompanyInfo,
+  createCompanyInfoSchema,
+  updateCompanyInfo,
+  updateCompanyInfoSchema,
+} from "./tools/companyInfo";
 import {
   listSuppressions,
   listSuppressionsSchema,
@@ -707,6 +717,16 @@ const tools = [
     },
   },
   {
+    name: "update-sending-domain",
+    description:
+      "Update a sending domain's tracking and inbound settings. Partial — settings left out are unchanged.",
+    inputSchema: updateSendingDomainSchema,
+    handler: updateSendingDomain,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
     name: "delete-sending-domain",
     description: "Delete a sending domain",
     inputSchema: deleteSendingDomainSchema,
@@ -721,6 +741,36 @@ const tools = [
       "Email DNS setup instructions for a sending domain to a given address.",
     inputSchema: sendSendingDomainSetupInstructionsSchema,
     handler: sendSendingDomainSetupInstructions,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "get-company-info",
+    description:
+      "Get the company info of a sending domain. Company info is required for domain compliance verification.",
+    inputSchema: getCompanyInfoSchema,
+    handler: getCompanyInfo,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-company-info",
+    description:
+      "Set the company info of a sending domain, required for domain compliance verification.",
+    inputSchema: createCompanyInfoSchema,
+    handler: createCompanyInfo,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "update-company-info",
+    description:
+      "Update the company info of a sending domain. Partial — fields left out are unchanged.",
+    inputSchema: updateCompanyInfoSchema,
+    handler: updateCompanyInfo,
     annotations: {
       destructiveHint: false,
     },

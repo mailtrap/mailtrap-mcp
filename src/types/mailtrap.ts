@@ -872,3 +872,66 @@ export interface SubAccount {
 export interface CreateSubAccountRequest {
   name: string;
 }
+
+// --- Sending domain types ---
+
+export interface UpdateSendingDomainParams {
+  open_tracking?: boolean;
+  click_tracking?: boolean;
+  tracking_opt_out?: boolean;
+  auto_unsubscribe_link?: boolean;
+  inbound_enabled?: boolean;
+}
+
+export interface UpdateSendingDomainRequest extends UpdateSendingDomainParams {
+  sending_domain_id: number;
+}
+
+// --- Company info types ---
+
+export type CompanyInfoLevel = "business" | "individual";
+
+export interface CompanyInfo {
+  name: string | null;
+  address: string | null;
+  city: string | null;
+  country: string | null;
+  phone: string | null;
+  zip_code: string | null;
+  privacy_policy_url: string | null;
+  terms_of_service_url: string | null;
+  website_url: string | null;
+  info_level: CompanyInfoLevel;
+}
+
+export interface GetCompanyInfoRequest {
+  sending_domain_id: number;
+}
+
+export interface CreateCompanyInfoRequest {
+  sending_domain_id: number;
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+  zip_code: string;
+  website_url: string;
+  phone?: string;
+  privacy_policy_url?: string;
+  terms_of_service_url?: string;
+  info_level?: CompanyInfoLevel;
+}
+
+export interface UpdateCompanyInfoRequest {
+  sending_domain_id: number;
+  name?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  zip_code?: string;
+  website_url?: string;
+  phone?: string;
+  privacy_policy_url?: string;
+  terms_of_service_url?: string;
+  info_level?: CompanyInfoLevel;
+}

@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools) and the email campaign tools.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, and the company info tools.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -195,8 +195,11 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "List my sending domains"
 - "Get sending domain with ID 3938"
 - "Create a sending domain for example.com"
+- "Turn on click tracking for sending domain 3938"
 - "Delete sending domain 3938"
 - "Get sending domain 3938 with DNS setup instructions"
+- "Show the company info for sending domain 3938"
+- "Set the company info for domain 3938 to Acme Inc, 123 Main St, San Francisco, US, 94105, https://acme.com"
 
 ## Available Tools
 
@@ -596,6 +599,21 @@ Create a new sending domain. After creation, add DNS records to verify the domai
 
 - `domain_name` (required): Domain name (e.g. example.com)
 
+### update-sending-domain
+
+Update a sending domain's tracking and inbound settings. Partial — settings left out are unchanged.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `open_tracking_enabled` (optional): Track opens on emails sent from this domain
+- `click_tracking_enabled` (optional): Track clicks on links in emails sent from this domain
+- `tracking_opt_out_enabled` (optional): Add the tracking opt-out link to tracked emails. Requires open or click tracking
+- `auto_unsubscribe_link_enabled` (optional): Automatically add an unsubscribe link to emails
+- `inbound_enabled` (optional): Allow the domain to be attached to an inbound inbox as a catch-all
+
+At least one setting besides `sending_domain_id` must be provided.
+
 ### delete-sending-domain
 
 Delete a sending domain.
@@ -612,6 +630,41 @@ Email DNS setup instructions for a sending domain to a given address. Useful for
 
 - `sending_domain_id` (required): Sending domain ID
 - `email` (required): Email address to send DNS setup instructions to
+
+### get-company-info
+
+Get the company info of a sending domain. Company info is required for domain compliance verification. Does not use `MAILTRAP_ACCOUNT_ID`.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+
+### create-company-info
+
+Set the company info of a sending domain, required for domain compliance verification.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `name` (required): Company or individual name
+- `address` (required): Street address
+- `city` (required): City
+- `country` (required): Country
+- `zip_code` (required): ZIP or postal code
+- `website_url` (required): Company website URL
+- `phone` (optional): Phone number
+- `privacy_policy_url` (optional): URL of the privacy policy page
+- `terms_of_service_url` (optional): URL of the terms of service page
+- `info_level` (optional): `business` or `individual`
+
+### update-company-info
+
+Update the company info of a sending domain. Partial — fields left out are unchanged.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- Every field of create-company-info, all optional. At least one must be provided.
 
 ### list-suppressions
 
