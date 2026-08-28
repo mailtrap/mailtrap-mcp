@@ -39,12 +39,24 @@
       "description": "Send emails via Mailtrap's delivery API with support for HTML/text content and multiple recipients."
     },
     {
+      "name": "batch-send-transactional-email",
+      "description": "Send a batch of transactional emails in one call, with shared fields and per-recipient overrides."
+    },
+    {
+      "name": "batch-send-bulk-email",
+      "description": "Send a batch of bulk emails in one call, with shared fields and per-recipient overrides."
+    },
+    {
       "name": "create-template",
       "description": "Create a new email template in Mailtrap."
     },
     {
       "name": "list-templates",
       "description": "List all email templates in your Mailtrap account."
+    },
+    {
+      "name": "get-template",
+      "description": "Get a single email template, including its subject, category, and HTML and text bodies."
     },
     {
       "name": "update-template",
@@ -57,6 +69,10 @@
     {
       "name": "send-sandbox-email",
       "description": "Send test emails to Mailtrap's sandbox environment without delivering to real recipients."
+    },
+    {
+      "name": "batch-send-sandbox-email",
+      "description": "Send a batch of emails in sandbox mode to a test inbox in one call."
     },
     {
       "name": "get-sandbox-messages",
@@ -73,6 +89,14 @@
     {
       "name": "create-sandbox-project",
       "description": "Create a new sandbox project to group test inboxes."
+    },
+    {
+      "name": "get-sandbox-project",
+      "description": "Get a sandbox project and the inboxes it contains."
+    },
+    {
+      "name": "update-sandbox-project",
+      "description": "Rename a sandbox project."
     },
     {
       "name": "delete-sandbox-project",
@@ -97,6 +121,78 @@
     {
       "name": "clean-sandbox-inbox",
       "description": "Delete all messages from a sandbox inbox without deleting the inbox itself."
+    },
+    {
+      "name": "list-sandboxes",
+      "description": "List all sandbox inboxes accessible to the API token, across every project."
+    },
+    {
+      "name": "mark-sandbox-as-read",
+      "description": "Mark all messages in a sandbox inbox as read."
+    },
+    {
+      "name": "reset-sandbox-credentials",
+      "description": "Reset the SMTP credentials of a sandbox inbox."
+    },
+    {
+      "name": "enable-sandbox-email-address",
+      "description": "Enable the forwarding email address of a sandbox inbox."
+    },
+    {
+      "name": "reset-sandbox-email-address",
+      "description": "Reset the forwarding email address of a sandbox inbox."
+    },
+    {
+      "name": "forward-sandbox-message",
+      "description": "Forward a sandbox message to a real email address."
+    },
+    {
+      "name": "update-sandbox-message",
+      "description": "Mark a single sandbox message as read or unread."
+    },
+    {
+      "name": "delete-sandbox-message",
+      "description": "Delete a single message from a sandbox inbox."
+    },
+    {
+      "name": "get-sandbox-message-spam-score",
+      "description": "Get the spam report and SpamAssassin score for a sandbox message."
+    },
+    {
+      "name": "get-sandbox-message-html-analysis",
+      "description": "Check a sandbox message's HTML for email client compatibility issues."
+    },
+    {
+      "name": "get-sandbox-message-headers",
+      "description": "Get the headers of a sandbox message."
+    },
+    {
+      "name": "get-sandbox-message-html",
+      "description": "Get the rendered HTML body of a sandbox message."
+    },
+    {
+      "name": "get-sandbox-message-text",
+      "description": "Get the plain text body of a sandbox message."
+    },
+    {
+      "name": "get-sandbox-message-raw",
+      "description": "Get the raw source of a sandbox message."
+    },
+    {
+      "name": "get-sandbox-message-eml",
+      "description": "Download a sandbox message as an EML file."
+    },
+    {
+      "name": "get-sandbox-message-html-source",
+      "description": "Get the unrendered HTML source of a sandbox message."
+    },
+    {
+      "name": "list-sandbox-attachments",
+      "description": "List the attachments on a sandbox message."
+    },
+    {
+      "name": "get-sandbox-attachment",
+      "description": "Get the details and download URL of a single sandbox message attachment."
     },
     {
       "name": "get-sending-stats",
@@ -131,6 +227,10 @@
       "description": "Delete a sending domain."
     },
     {
+      "name": "send-sending-domain-setup-instructions",
+      "description": "Email a sending domain's DNS setup instructions to a colleague."
+    },
+    {
       "name": "get-company-info",
       "description": "Get the company info of a sending domain, used for domain compliance verification."
     },
@@ -143,8 +243,16 @@
       "description": "Update the company info of a sending domain."
     },
     {
+      "name": "list-suppressions",
+      "description": "List or search the suppressed email addresses on the account."
+    },
+    {
       "name": "create-suppression",
       "description": "Add an email address to the account's suppression list, so Mailtrap stops delivering to it."
+    },
+    {
+      "name": "delete-suppression",
+      "description": "Remove an email address from the suppression list, so Mailtrap resumes delivering to it."
     },
     {
       "name": "list-tracking-opt-outs",
@@ -157,6 +265,274 @@
     {
       "name": "delete-tracking-opt-out",
       "description": "Remove an email address from the tracking opt-out list, so open and click tracking applies to it again."
+    },
+    {
+      "name": "list-webhooks",
+      "description": "List all webhooks configured on the account."
+    },
+    {
+      "name": "get-webhook",
+      "description": "Get a single webhook and its configuration."
+    },
+    {
+      "name": "create-webhook",
+      "description": "Create a webhook for email sending, audit log, or inbound receiving events."
+    },
+    {
+      "name": "update-webhook",
+      "description": "Update a webhook's URL, active state, payload format, or subscribed events."
+    },
+    {
+      "name": "delete-webhook",
+      "description": "Permanently delete a webhook."
+    },
+    {
+      "name": "get-contact",
+      "description": "Get a contact by ID or email address, with list memberships and custom fields."
+    },
+    {
+      "name": "create-contact",
+      "description": "Create a contact and optionally subscribe it to contact lists."
+    },
+    {
+      "name": "update-contact",
+      "description": "Update a contact's fields and list memberships."
+    },
+    {
+      "name": "delete-contact",
+      "description": "Permanently delete a contact."
+    },
+    {
+      "name": "create-contact-event",
+      "description": "Record an event against a contact to trigger automations."
+    },
+    {
+      "name": "list-contact-lists",
+      "description": "List the contact lists on the account."
+    },
+    {
+      "name": "get-contact-list",
+      "description": "Get a single contact list."
+    },
+    {
+      "name": "create-contact-list",
+      "description": "Create a new contact list."
+    },
+    {
+      "name": "update-contact-list",
+      "description": "Rename an existing contact list."
+    },
+    {
+      "name": "delete-contact-list",
+      "description": "Permanently delete a contact list."
+    },
+    {
+      "name": "list-contact-fields",
+      "description": "List the custom contact field definitions on the account."
+    },
+    {
+      "name": "get-contact-field",
+      "description": "Get a single custom contact field definition."
+    },
+    {
+      "name": "create-contact-field",
+      "description": "Create a custom contact field for use as a template variable."
+    },
+    {
+      "name": "update-contact-field",
+      "description": "Update the name, merge tag, or data type of a custom contact field."
+    },
+    {
+      "name": "delete-contact-field",
+      "description": "Permanently delete a custom contact field."
+    },
+    {
+      "name": "create-contact-import",
+      "description": "Bulk import contacts and return an import job to poll."
+    },
+    {
+      "name": "get-contact-import",
+      "description": "Get the status and counts of a contact import job."
+    },
+    {
+      "name": "create-contact-export",
+      "description": "Export the contacts matching a set of filters and return an export job to poll."
+    },
+    {
+      "name": "get-contact-export",
+      "description": "Get the status of a contact export job and its download link once finished."
+    },
+    {
+      "name": "list-email-campaigns",
+      "description": "List the account's email campaigns, newest first, with optional search by name."
+    },
+    {
+      "name": "get-email-campaign",
+      "description": "Get a single email campaign."
+    },
+    {
+      "name": "create-email-campaign",
+      "description": "Create a draft email campaign for a verified sending domain."
+    },
+    {
+      "name": "update-email-campaign",
+      "description": "Update a draft email campaign and its template."
+    },
+    {
+      "name": "delete-email-campaign",
+      "description": "Delete a draft email campaign."
+    },
+    {
+      "name": "start-email-campaign",
+      "description": "Start sending a draft email campaign immediately."
+    },
+    {
+      "name": "schedule-email-campaign",
+      "description": "Schedule a draft email campaign to start sending at a future time."
+    },
+    {
+      "name": "cancel-email-campaign",
+      "description": "Cancel a scheduled email campaign, returning it to draft."
+    },
+    {
+      "name": "terminate-email-campaign",
+      "description": "Terminate a campaign that is currently sending, aborting the send."
+    },
+    {
+      "name": "reset-email-campaign",
+      "description": "Reset a scheduled email campaign back to draft."
+    },
+    {
+      "name": "get-email-campaign-stats",
+      "description": "Get the performance statistics of an email campaign, optionally for a date range."
+    },
+    {
+      "name": "list-accounts",
+      "description": "List the Mailtrap accounts the API token can access, with their access levels."
+    },
+    {
+      "name": "get-billing-usage",
+      "description": "Get the current billing cycle's plans, limits, and usage."
+    },
+    {
+      "name": "list-account-accesses",
+      "description": "List the users, invites, and API tokens with access to the account."
+    },
+    {
+      "name": "remove-account-access",
+      "description": "Revoke a user's permissions, or delete an invite or API token."
+    },
+    {
+      "name": "get-permission-resources",
+      "description": "List the inboxes, projects, domains, and billing resources the token administers."
+    },
+    {
+      "name": "bulk-update-permissions",
+      "description": "Create, update, or remove several permissions on an account access in one call."
+    },
+    {
+      "name": "list-api-tokens",
+      "description": "List the API tokens on the account."
+    },
+    {
+      "name": "create-api-token",
+      "description": "Create an API token; the secret value is returned only on creation."
+    },
+    {
+      "name": "get-api-token",
+      "description": "Get an API token's metadata; the secret value is not returned."
+    },
+    {
+      "name": "reset-api-token",
+      "description": "Rotate an API token, invalidating the previous secret value."
+    },
+    {
+      "name": "delete-api-token",
+      "description": "Permanently delete an API token."
+    },
+    {
+      "name": "list-sub-accounts",
+      "description": "List the sub-accounts in the organization."
+    },
+    {
+      "name": "create-sub-account",
+      "description": "Create a new sub-account under the organization."
+    },
+    {
+      "name": "list-inbound-folders",
+      "description": "List the inbound folders on the account."
+    },
+    {
+      "name": "get-inbound-folder",
+      "description": "Get a single inbound folder."
+    },
+    {
+      "name": "create-inbound-folder",
+      "description": "Create a new inbound folder to group inboxes."
+    },
+    {
+      "name": "update-inbound-folder",
+      "description": "Rename an inbound folder."
+    },
+    {
+      "name": "delete-inbound-folder",
+      "description": "Delete an inbound folder and all the inboxes it contains."
+    },
+    {
+      "name": "list-inbound-inboxes",
+      "description": "List the inbound inboxes in a folder."
+    },
+    {
+      "name": "get-inbound-inbox",
+      "description": "Get a single inbound inbox and its receiving address."
+    },
+    {
+      "name": "create-inbound-inbox",
+      "description": "Create a Mailtrap-hosted or custom-domain inbound inbox."
+    },
+    {
+      "name": "update-inbound-inbox",
+      "description": "Update an inbound inbox's settings."
+    },
+    {
+      "name": "delete-inbound-inbox",
+      "description": "Delete an inbound inbox and the messages it holds."
+    },
+    {
+      "name": "list-inbound-messages",
+      "description": "List the messages received in an inbound inbox."
+    },
+    {
+      "name": "get-inbound-message",
+      "description": "Get a received message with its body and attachment download URLs."
+    },
+    {
+      "name": "delete-inbound-message",
+      "description": "Delete a received message."
+    },
+    {
+      "name": "reply-to-inbound-message",
+      "description": "Reply to a received message, sending real email to its sender."
+    },
+    {
+      "name": "reply-all-to-inbound-message",
+      "description": "Reply to a received message and all its recipients, sending real email."
+    },
+    {
+      "name": "forward-inbound-message",
+      "description": "Forward a received message to other recipients, sending real email."
+    },
+    {
+      "name": "list-inbound-threads",
+      "description": "List the conversation threads in an inbound inbox."
+    },
+    {
+      "name": "get-inbound-thread",
+      "description": "Get a conversation thread and the messages it contains."
+    },
+    {
+      "name": "delete-inbound-thread",
+      "description": "Delete a conversation thread and its messages."
     }
   ],
   "prompts": [],
