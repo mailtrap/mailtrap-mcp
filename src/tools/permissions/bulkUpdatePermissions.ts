@@ -19,7 +19,7 @@ async function bulkUpdatePermissions({
       ...(p.access_level !== undefined && {
         accessLevel: String(p.access_level),
       }),
-      ...(p.destroy !== undefined && { destroy: String(p.destroy) }),
+      ...(p.destroy !== undefined && { destroy: p.destroy }),
     }));
 
     const response = await mailtrap.general.permissions.bulkPermissionsUpdate(

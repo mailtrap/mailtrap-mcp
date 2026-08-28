@@ -39,14 +39,14 @@
     "@modelcontextprotocol/sdk": "^1.18.2",
     "dotenv": "^16.4.7",
     "mailsplit": "^5.4.6",
-    "mailtrap": "^4.9.0",
+    "mailtrap": "^4.10.0",
     "zod": "^3.24.2"
   },
   "overrides": {
     "@typescript-eslint/typescript-estree": {
       "minimatch": {
         ".": "9.0.7",
-        "brace-expansion": "5.0.8"
+        "brace-expansion": "5.0.9"
       }
     },
     "@hono/node-server": "2.0.11",
