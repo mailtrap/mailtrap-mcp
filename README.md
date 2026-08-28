@@ -202,6 +202,11 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Set the company info for domain 3938 to Acme Inc, 123 Main St, San Francisco, US, 94105, https://acme.com"
 - "Change the company info city for domain 3938 to New York"
 
+**Suppressions:**
+
+- "List suppressions for bounced@example.com"
+- "Suppress bounced@example.com on the transactional stream of domain 3938"
+
 ## Available Tools
 
 ### send-email
@@ -674,6 +679,17 @@ List or search suppressions (hard bounces, spam complaints, unsubscriptions, man
 **Parameters:**
 
 - `email` (optional): Email filter. Returns only suppressions matching this address.
+
+### create-suppression
+
+Add an email address to the account's suppression list, so Mailtrap stops delivering to it.
+
+**Parameters:**
+
+- `email` (required): Email address to suppress
+- `domain_id` (required): ID of the sending domain the suppression applies to
+- `sending_stream` (required): `transactional` or `bulk`
+- `type` (optional): `hard bounce`, `spam complaint`, `unsubscription` or `manual import`. Defaults to `manual import`
 
 ### delete-suppression
 

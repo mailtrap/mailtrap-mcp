@@ -141,6 +141,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 #### Suppressions
 
 - **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
+- **create-suppression**: Add an email address to the suppression list.
 - **delete-suppression**: Delete a suppression by ID.
 
 

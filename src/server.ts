@@ -121,6 +121,8 @@ import {
 import {
   listSuppressions,
   listSuppressionsSchema,
+  createSuppression,
+  createSuppressionSchema,
   deleteSuppression,
   deleteSuppressionSchema,
 } from "./tools/suppressions";
@@ -781,6 +783,16 @@ const tools = [
     handler: listSuppressions,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-suppression",
+    description:
+      "Add an email address to the account's suppression list, so Mailtrap stops delivering to it.",
+    inputSchema: createSuppressionSchema,
+    handler: createSuppression,
+    annotations: {
+      destructiveHint: false,
     },
   },
   {
