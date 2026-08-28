@@ -126,6 +126,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **list-sending-domains**: List sending domains and their DNS verification status.
 - **get-sending-domain**: Get a sending domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
 - **create-sending-domain**: Create a new sending domain.
+- **update-sending-domain**: Update a domain's tracking and inbound settings.
 - **delete-sending-domain**: Delete a sending domain.
 - **send-sending-domain-setup-instructions**: Email DNS setup instructions for a sending domain to a given address.
 

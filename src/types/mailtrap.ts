@@ -872,3 +872,17 @@ export interface SubAccount {
 export interface CreateSubAccountRequest {
   name: string;
 }
+
+// --- Sending domain types ---
+
+export interface UpdateSendingDomainParams {
+  open_tracking_enabled?: boolean;
+  click_tracking_enabled?: boolean;
+  tracking_opt_out_enabled?: boolean;
+  auto_unsubscribe_link_enabled?: boolean;
+  inbound_enabled?: boolean;
+}
+
+export interface UpdateSendingDomainRequest extends UpdateSendingDomainParams {
+  sending_domain_id: number;
+}

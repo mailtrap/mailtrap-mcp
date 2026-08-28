@@ -195,6 +195,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "List my sending domains"
 - "Get sending domain with ID 3938"
 - "Create a sending domain for example.com"
+- "Turn on click tracking for sending domain 3938"
 - "Delete sending domain 3938"
 - "Get sending domain 3938 with DNS setup instructions"
 
@@ -595,6 +596,21 @@ Create a new sending domain. After creation, add DNS records to verify the domai
 **Parameters:**
 
 - `domain_name` (required): Domain name (e.g. example.com)
+
+### update-sending-domain
+
+Update a sending domain's tracking and inbound settings.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `open_tracking_enabled` (optional): Track opens on emails sent from this domain
+- `click_tracking_enabled` (optional): Track clicks on links in emails sent from this domain
+- `tracking_opt_out_enabled` (optional): Add the tracking opt-out link to tracked emails. Requires open or click tracking
+- `auto_unsubscribe_link_enabled` (optional): Automatically add an unsubscribe link to emails
+- `inbound_enabled` (optional): Allow the domain to be attached to an inbound inbox as a catch-all
+
+At least one setting besides `sending_domain_id` must be provided.
 
 ### delete-sending-domain
 

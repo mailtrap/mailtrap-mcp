@@ -103,6 +103,8 @@ import {
   getSendingDomainSchema,
   createSendingDomain,
   createSendingDomainSchema,
+  updateSendingDomain,
+  updateSendingDomainSchema,
   deleteSendingDomain,
   deleteSendingDomainSchema,
   sendSendingDomainSetupInstructions,
@@ -704,6 +706,15 @@ const tools = [
     handler: createSendingDomain,
     annotations: {
       destructiveHint: false,
+    },
+  },
+  {
+    name: "update-sending-domain",
+    description: "Update a sending domain's tracking and inbound settings.",
+    inputSchema: updateSendingDomainSchema,
+    handler: updateSendingDomain,
+    annotations: {
+      destructiveHint: true,
     },
   },
   {
