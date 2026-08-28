@@ -1,0 +1,36 @@
+src/tools/suppressions/schemas/createSuppression.ts
+  s_a416a2bbf03afd::t_8a5208c527690b 1-53
+src/types/mailtrap.ts
+  s_a416a2bbf03afd::t_cc5e25a3ddff84 372-377,389-390,401-405
+  s_a416a2bbf03afd::t_b3391f5bf3c4fd 406-407
+README.md
+  s_a416a2bbf03afd::t_d2a796e6fd77e4 205-209,683-692
+  s_a416a2bbf03afd::t_7785b4fc2cc11f 693
+src/tools/suppressions/__tests__/createSuppression.test.ts
+  s_a416a2bbf03afd::t_8a5208c527690b 1-119
+src/server.ts
+  s_a416a2bbf03afd::t_cc5e25a3ddff84 124-125,788-795
+  s_a416a2bbf03afd::t_41cd3a58d4c277 796-797
+src/tools/suppressions/index.ts
+  s_a416a2bbf03afd::t_8a5208c527690b 3-4,11-12
+src/tools/suppressions/createSuppression.ts
+  s_a416a2bbf03afd::t_8a5208c527690b 1-36
+CLAUDE.md
+  s_a416a2bbf03afd::t_d2a796e6fd77e4 144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4fab6664796e93a23d1a394a14a843c4d1aed4e5",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
