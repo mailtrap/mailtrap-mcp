@@ -18,7 +18,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools) and the email campaign tools.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, and the company info tools.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -198,6 +198,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Turn on click tracking for sending domain 3938"
 - "Delete sending domain 3938"
 - "Get sending domain 3938 with DNS setup instructions"
+- "Show the company info for sending domain 3938"
 
 ## Available Tools
 
@@ -628,6 +629,14 @@ Email DNS setup instructions for a sending domain to a given address. Useful for
 
 - `sending_domain_id` (required): Sending domain ID
 - `email` (required): Email address to send DNS setup instructions to
+
+### get-company-info
+
+Get the company info of a sending domain, used for domain compliance verification.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
 
 ### list-suppressions
 

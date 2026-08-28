@@ -886,3 +886,24 @@ export interface UpdateSendingDomainParams {
 export interface UpdateSendingDomainRequest extends UpdateSendingDomainParams {
   sending_domain_id: number;
 }
+
+// --- Company info types ---
+
+export type CompanyInfoLevel = "business" | "individual";
+
+export interface CompanyInfo {
+  name: string | null;
+  address: string | null;
+  city: string | null;
+  country: string | null;
+  phone: string | null;
+  zip_code: string | null;
+  privacy_policy_url: string | null;
+  terms_of_service_url: string | null;
+  website_url: string | null;
+  info_level: CompanyInfoLevel;
+}
+
+export interface GetCompanyInfoRequest {
+  sending_domain_id: number;
+}
