@@ -110,7 +110,12 @@ import {
   sendSendingDomainSetupInstructions,
   sendSendingDomainSetupInstructionsSchema,
 } from "./tools/sendingDomains";
-import { getCompanyInfo, getCompanyInfoSchema } from "./tools/companyInfo";
+import {
+  getCompanyInfo,
+  getCompanyInfoSchema,
+  createCompanyInfo,
+  createCompanyInfoSchema,
+} from "./tools/companyInfo";
 import {
   listSuppressions,
   listSuppressionsSchema,
@@ -745,6 +750,16 @@ const tools = [
     handler: getCompanyInfo,
     annotations: {
       readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-company-info",
+    description:
+      "Set the company info of a sending domain, required for domain compliance verification.",
+    inputSchema: createCompanyInfoSchema,
+    handler: createCompanyInfo,
+    annotations: {
+      destructiveHint: false,
     },
   },
   {

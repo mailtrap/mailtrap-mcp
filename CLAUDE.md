@@ -134,6 +134,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 #### Company Info
 
 - **get-company-info**: Get the company info of a sending domain.
+- **create-company-info**: Set the company info of a sending domain.
 
 
 #### Suppressions

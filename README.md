@@ -199,6 +199,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Delete sending domain 3938"
 - "Get sending domain 3938 with DNS setup instructions"
 - "Show the company info for sending domain 3938"
+- "Set the company info for domain 3938 to Acme Inc, 123 Main St, San Francisco, US, 94105, https://acme.com"
 
 ## Available Tools
 
@@ -637,6 +638,24 @@ Get the company info of a sending domain, used for domain compliance verificatio
 **Parameters:**
 
 - `sending_domain_id` (required): Sending domain ID
+
+### create-company-info
+
+Set the company info of a sending domain, required for domain compliance verification.
+
+**Parameters:**
+
+- `sending_domain_id` (required): Sending domain ID
+- `name` (required): Company or individual name
+- `address` (required): Street address
+- `city` (required): City
+- `country` (required): Country
+- `zip_code` (required): ZIP or postal code
+- `website_url` (required): Company website URL
+- `phone` (optional): Phone number
+- `privacy_policy_url` (optional): URL of the privacy policy page
+- `terms_of_service_url` (optional): URL of the terms of service page
+- `info_level` (optional): `business` or `individual`
 
 ### list-suppressions
 
