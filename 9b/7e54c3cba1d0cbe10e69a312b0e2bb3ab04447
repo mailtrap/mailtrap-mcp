@@ -1,0 +1,14 @@
+package-lock.json
+  h_36a957dc058c42 679-681,790-792,1126-1128,3603-3615,4888-4890,5004-5006,5426-5428,5844-5846,6840-6842,7447-7449,9179-9181,9758-9760
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "9b7e54c3cba1d0cbe10e69a312b0e2bb3ab04447",
+  "prompts": {},
+  "humans": {
+    "h_36a957dc058c42": {
+      "author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
