@@ -1034,6 +1034,7 @@ Create a new API token. The response includes the secret `token` value — this 
 **Parameters:**
 
 - `name` (required): Display name for the token
+- `expires_at` (optional): Token expiration as an ISO 8601 date-time. Omit for the server default (1 year); pass an explicit `null` for a token that never expires. Past values or values more than 5 years ahead are rejected
 - `resources` (optional): Array of resource permissions to scope the token to. Each entry has:
   - `resource_type` (required): One of `account`, `project`, `inbox`, `domain`, `billing`
   - `resource_id` (required): ID of the resource
@@ -1054,6 +1055,7 @@ Reset (rotate) an API token by ID. The response includes the **new** secret `tok
 **Parameters:**
 
 - `api_token_id` (required): ID of the API token to reset
+- `expires_at` (optional): Expiration for the new token as an ISO 8601 date-time. Omit for the server default (1 year); pass an explicit `null` for a token that never expires. Past values or values more than 5 years ahead are rejected
 
 ### delete-api-token
 

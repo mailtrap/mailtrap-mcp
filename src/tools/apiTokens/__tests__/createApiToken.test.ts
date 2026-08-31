@@ -64,6 +64,40 @@ describe("createApiToken", () => {
     });
   });
 
+  it("forwards expires_at when provided", async () => {
+    mockClient.general.apiTokens.create.mockResolvedValue({
+      id: 9,
+      name: "Expiring",
+      expires_at: "2027-06-01T00:00:00Z",
+      token: "mt-token-expiring",
+    });
+
+    await createApiToken({
+      name: "Expiring",
+      expires_at: "2027-06-01T00:00:00Z",
+    });
+
+    expect(mockClient.general.apiTokens.create).toHaveBeenCalledWith({
+      name: "Expiring",
+      expires_at: "2027-06-01T00:00:00Z",
+    });
+  });
+
+  it("forwards an explicit null expires_at for a token that never expires", async () => {
+    mockClient.general.apiTokens.create.mockResolvedValue({
+      id: 10,
+      name: "Forever",
+      expires_at: null,
+      token: "mt-token-forever",
+    });
+
+    await createApiToken({ name: "Forever", expires_at: null });
+
+    const callArg = mockClient.general.apiTokens.create.mock.calls[0][0];
+    expect("expires_at" in callArg).toBe(true);
+    expect(callArg.expires_at).toBeNull();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.general.apiTokens.create.mockRejectedValue(
       new Error("name taken")
