@@ -8,7 +8,7 @@ const createApiTokenSchema = {
     expires_at: {
       type: ["string", "null"],
       description:
-        "Optional token expiration as an ISO 8601 date-time (e.g. 2027-06-01T00:00:00Z). Omit for the server default (a 1-year default is being rolled out). Pass an explicit null for a token that never expires. Past values or values more than 5 years ahead are rejected with a 422 error.",
+        "Optional token expiration as an ISO 8601 date-time (e.g. 2027-06-01T00:00:00Z). Omit for the server default (1 year). Pass an explicit null for a token that never expires. Past values or values more than 5 years ahead are rejected with a 422 error.",
     },
     resources: {
       type: "array",
