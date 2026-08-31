@@ -1,0 +1,25 @@
+package.json
+  s_a416a2bbf03afd::t_03394d7e20ff39 42
+src/tools/permissions/bulkUpdatePermissions.ts
+  s_a416a2bbf03afd::t_714e2d94042580 22
+package-lock.json
+  s_a416a2bbf03afd::t_45fec4505832eb 15,7692-7694
+src/tools/permissions/__tests__/bulkUpdatePermissions.test.ts
+  s_a416a2bbf03afd::t_714e2d94042580 44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "63fc7a40decb34ff4c897a87221f4036bccbc5cc",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+manifest.json
+  s_a416a2bbf03afd::t_119dcd954922fc 41-48,57-60,73-76,93-100,125-196,229-232,245-248,253-256,268-535
+package-lock.json
+  h_36a957dc058c42 679-681,790-792,1126-1128,4875-4877,4991-4993,5413-5415,5831-5833,6827-6829,7434-7436,9179-9181,9758-9760
+  s_a416a2bbf03afd::t_d373630390e5de 7858-7870
+package.json
+  s_a416a2bbf03afd::t_f6bc42627053bf 49
+src/tools/sendingDomains/schema.ts
+  s_a416a2bbf03afd::t_423d5d7be4c8a4 71-72
+README.md
+  s_a416a2bbf03afd::t_f3e00d3836d9a7 21
+src/tools/companyInfo/schemas/getCompanyInfo.ts
+  s_a416a2bbf03afd::t_8ef4769730f583 5-6
+src/tools/companyInfo/schemas/createCompanyInfo.ts
+  s_a416a2bbf03afd::t_b1194271435b04 7-8
+src/tools/companyInfo/schemas/updateCompanyInfo.ts
+  s_a416a2bbf03afd::t_81e3fcbbf45d83 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d66a5d918390e295f52d71c08ddb75243b1deb95",
+  "prompts": {},
+  "humans": {
+    "h_36a957dc058c42": {
+      "author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+package-lock.json
+  s_f052d486e2bc72::t_a4cacfedf44134 15,7692-7694
+package.json
+  s_f01616046426a5::t_910d2066ea31a6 42
+src/tools/emailCampaigns/cancelEmailCampaign.ts
+  s_f052d486e2bc72::t_f00ad8496172d8 2,15
+src/tools/emailCampaigns/createEmailCampaign.ts
+  s_f052d486e2bc72::t_6db34ab4d82551 24
+src/tools/emailCampaigns/deleteEmailCampaign.ts
+  s_f052d486e2bc72::t_e782d675e17483 2,15
+src/tools/emailCampaigns/getEmailCampaign.ts
+  s_f052d486e2bc72::t_2f40c517dbdc3f 2,15
+src/tools/emailCampaigns/getEmailCampaignStats.ts
+  s_f052d486e2bc72::t_98830e1b50a4be 30
+src/tools/emailCampaigns/listEmailCampaigns.ts
+  s_f052d486e2bc72::t_be63d86586e9db 2,27
+src/tools/emailCampaigns/resetEmailCampaign.ts
+  s_f052d486e2bc72::t_47f11b0701e59a 2,15
+src/tools/emailCampaigns/scheduleEmailCampaign.ts
+  s_f052d486e2bc72::t_aa65f52fc4871e 26
+src/tools/emailCampaigns/startEmailCampaign.ts
+  s_f052d486e2bc72::t_37b9e945f9d2e6 2,15
+src/tools/emailCampaigns/terminateEmailCampaign.ts
+  s_f052d486e2bc72::t_dda73df4ca24dc 2,15
+src/tools/emailCampaigns/updateEmailCampaign.ts
+  s_f052d486e2bc72::t_5d72e429da6f51 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "3faf582b4f877022f2eee8c26c2f550216615d1e",
+  "prompts": {},
+  "sessions": {
+    "s_f01616046426a5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b24bdf7f-4ae4-4248-89d2-d8a7be7dc0fa",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    },
+    "s_f052d486e2bc72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bc82e384-a25a-471a-bd22-9ca7be9833bb",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
