@@ -1,6 +1,6 @@
 {
   "name": "mcp-mailtrap",
-  "version": "0.8.0",
+  "version": "0.6.0",
   "mcpName": "io.mailtrap/mcp",
   "description": "Official MCP Server for Mailtrap",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "@modelcontextprotocol/sdk": "^1.18.2",
     "dotenv": "^16.4.7",
     "mailsplit": "^5.4.6",
-    "mailtrap": "^4.9.0",
+    "mailtrap": "^4.10.0",
     "zod": "^3.24.2"
   },
   "overrides": {
