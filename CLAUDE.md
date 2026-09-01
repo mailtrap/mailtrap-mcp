@@ -51,7 +51,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 ### Environment Variables Required
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
-- `MAILTRAP_ACCOUNT_ID`: Required for templates, stats, email logs, sandbox list/show, and sending domains. Optional only for send-email, send-sandbox-email, and the email campaign tools.
+- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the email campaign tools, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
 - `MAILTRAP_TEST_INBOX_ID`: Optional. Default test inbox ID for sandbox tools when the tool does not receive a `test_inbox_id` parameter. Enables switching inboxes per call via parameters.
 
@@ -126,14 +126,30 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **list-sending-domains**: List sending domains and their DNS verification status.
 - **get-sending-domain**: Get a sending domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
 - **create-sending-domain**: Create a new sending domain.
+- **update-sending-domain**: Update a domain's tracking and inbound settings.
 - **delete-sending-domain**: Delete a sending domain.
 - **send-sending-domain-setup-instructions**: Email DNS setup instructions for a sending domain to a given address.
+
+
+#### Company Info
+
+- **get-company-info**: Get the company info of a sending domain.
+- **create-company-info**: Set the company info of a sending domain.
+- **update-company-info**: Update the company info of a sending domain.
 
 
 #### Suppressions
 
 - **list-suppressions**: List or search suppressions; optional `email` filter. Up to 1000 results per call.
+- **create-suppression**: Add an email address to the suppression list.
 - **delete-suppression**: Delete a suppression by ID.
+
+
+#### Tracking Opt-outs
+
+- **list-tracking-opt-outs**: List addresses excluded from open and click tracking.
+- **create-tracking-opt-out**: Exclude an address from tracking for a sending domain.
+- **delete-tracking-opt-out**: Remove an address from the opt-out list, so tracking applies again.
 
 
 #### Webhooks

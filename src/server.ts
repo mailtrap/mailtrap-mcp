@@ -103,17 +103,37 @@ import {
   getSendingDomainSchema,
   createSendingDomain,
   createSendingDomainSchema,
+  updateSendingDomain,
+  updateSendingDomainSchema,
   deleteSendingDomain,
   deleteSendingDomainSchema,
   sendSendingDomainSetupInstructions,
   sendSendingDomainSetupInstructionsSchema,
 } from "./tools/sendingDomains";
 import {
+  getCompanyInfo,
+  getCompanyInfoSchema,
+  createCompanyInfo,
+  createCompanyInfoSchema,
+  updateCompanyInfo,
+  updateCompanyInfoSchema,
+} from "./tools/companyInfo";
+import {
   listSuppressions,
   listSuppressionsSchema,
+  createSuppression,
+  createSuppressionSchema,
   deleteSuppression,
   deleteSuppressionSchema,
 } from "./tools/suppressions";
+import {
+  listTrackingOptOuts,
+  listTrackingOptOutsSchema,
+  createTrackingOptOut,
+  createTrackingOptOutSchema,
+  deleteTrackingOptOut,
+  deleteTrackingOptOutSchema,
+} from "./tools/trackingOptOuts";
 import {
   listWebhooks,
   listWebhooksSchema,
@@ -708,6 +728,15 @@ const tools = [
     },
   },
   {
+    name: "update-sending-domain",
+    description: "Update a sending domain's tracking and inbound settings.",
+    inputSchema: updateSendingDomainSchema,
+    handler: updateSendingDomain,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
     name: "delete-sending-domain",
     description: "Delete a sending domain",
     inputSchema: deleteSendingDomainSchema,
@@ -727,6 +756,35 @@ const tools = [
     },
   },
   {
+    name: "get-company-info",
+    description:
+      "Get the company info of a sending domain, used for domain compliance verification.",
+    inputSchema: getCompanyInfoSchema,
+    handler: getCompanyInfo,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-company-info",
+    description:
+      "Set the company info of a sending domain, required for domain compliance verification.",
+    inputSchema: createCompanyInfoSchema,
+    handler: createCompanyInfo,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "update-company-info",
+    description: "Update the company info of a sending domain.",
+    inputSchema: updateCompanyInfoSchema,
+    handler: updateCompanyInfo,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
     name: "list-suppressions",
     description:
       "List or search suppressions. Optionally filter by email. Returns up to 1000 suppressions per call.",
@@ -737,11 +795,51 @@ const tools = [
     },
   },
   {
+    name: "create-suppression",
+    description:
+      "Add an email address to the account's suppression list, so Mailtrap stops delivering to it.",
+    inputSchema: createSuppressionSchema,
+    handler: createSuppression,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
     name: "delete-suppression",
     description:
       "Delete a suppression by ID. Mailtrap will resume delivery to this email unless it gets suppressed again.",
     inputSchema: deleteSuppressionSchema,
     handler: deleteSuppression,
+    annotations: {
+      destructiveHint: true,
+    },
+  },
+  {
+    name: "list-tracking-opt-outs",
+    description:
+      "List email addresses excluded from open and click tracking. Returns up to 1000 records per call.",
+    inputSchema: listTrackingOptOutsSchema,
+    handler: listTrackingOptOuts,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "create-tracking-opt-out",
+    description:
+      "Exclude an email address from open and click tracking for a sending domain.",
+    inputSchema: createTrackingOptOutSchema,
+    handler: createTrackingOptOut,
+    annotations: {
+      destructiveHint: false,
+    },
+  },
+  {
+    name: "delete-tracking-opt-out",
+    description:
+      "Remove an email address from the tracking opt-out list, so open and click tracking applies to it again.",
+    inputSchema: deleteTrackingOptOutSchema,
+    handler: deleteTrackingOptOut,
     annotations: {
       destructiveHint: true,
     },

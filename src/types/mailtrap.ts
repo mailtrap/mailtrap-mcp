@@ -369,6 +369,12 @@ export type SuppressionType =
 
 export type SuppressionStream = "transactional" | "bulk" | "any";
 
+/**
+ * Streams a suppression can be created for. `any`, which a stored suppression
+ * may report, is not accepted on create.
+ */
+export type CreateSuppressionStream = "transactional" | "bulk";
+
 export interface Suppression {
   id: string;
   type: SuppressionType;
@@ -380,6 +386,8 @@ export interface Suppression {
   message_category: string | null;
   message_client_ip: string | null;
   message_created_at: string | null;
+  message_esp_response: string | null;
+  message_esp_server_type: string | null;
   message_outgoing_ip: string | null;
   message_recipient_mx_name: string | null;
   message_sender_email: string | null;
@@ -388,6 +396,13 @@ export interface Suppression {
 
 export interface ListSuppressionsRequest {
   email?: string;
+}
+
+export interface CreateSuppressionRequest {
+  email: string;
+  domain_id: number;
+  sending_stream: CreateSuppressionStream;
+  type?: SuppressionType;
 }
 
 export interface DeleteSuppressionRequest {
@@ -877,4 +892,92 @@ export interface SubAccount {
 
 export interface CreateSubAccountRequest {
   name: string;
+}
+
+// --- Sending domain types ---
+
+export interface UpdateSendingDomainParams {
+  open_tracking_enabled?: boolean;
+  click_tracking_enabled?: boolean;
+  tracking_opt_out_enabled?: boolean;
+  auto_unsubscribe_link_enabled?: boolean;
+  inbound_enabled?: boolean;
+}
+
+export interface UpdateSendingDomainRequest extends UpdateSendingDomainParams {
+  sending_domain_id: number;
+}
+
+// --- Company info types ---
+
+export type CompanyInfoLevel = "business" | "individual";
+
+export interface CompanyInfo {
+  name: string | null;
+  address: string | null;
+  city: string | null;
+  country: string | null;
+  phone: string | null;
+  zip_code: string | null;
+  privacy_policy_url: string | null;
+  terms_of_service_url: string | null;
+  website_url: string | null;
+  info_level: CompanyInfoLevel;
+}
+
+export interface GetCompanyInfoRequest {
+  sending_domain_id: number;
+}
+
+export interface CreateCompanyInfoRequest {
+  sending_domain_id: number;
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+  zip_code: string;
+  website_url: string;
+  phone?: string;
+  privacy_policy_url?: string;
+  terms_of_service_url?: string;
+  info_level?: CompanyInfoLevel;
+}
+
+export interface UpdateCompanyInfoRequest {
+  sending_domain_id: number;
+  name?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  zip_code?: string;
+  website_url?: string;
+  phone?: string;
+  privacy_policy_url?: string;
+  terms_of_service_url?: string;
+  info_level?: CompanyInfoLevel;
+}
+
+// --- Tracking opt-out types ---
+
+export interface TrackingOptOut {
+  id: string;
+  email: string;
+  created_at: string;
+  domain_name: string | null;
+}
+
+export interface ListTrackingOptOutsRequest {
+  email?: string;
+  start_time?: string;
+  end_time?: string;
+  last_id?: string;
+}
+
+export interface CreateTrackingOptOutRequest {
+  email: string;
+  domain_id: number;
+}
+
+export interface DeleteTrackingOptOutRequest {
+  tracking_opt_out_id: string;
 }
