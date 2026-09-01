@@ -1,3 +1,15 @@
+## [0.9.0] - 2026-09-01
+
+## What's Changed
+* MT-23076: support expires_at on the api token tools by @oshchyhol in https://github.com/mailtrap/mailtrap-mcp/pull/136
+* Add sending domain settings, company info, create suppression and tracking opt-outs by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/139
+* Fix package version by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/140
+
+## New Contributors
+* @oshchyhol made their first contribution in https://github.com/mailtrap/mailtrap-mcp/pull/136
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.8.0...v0.9.0
+
 ## [0.8.0] - 2026-08-20
 
 ## What's Changed
