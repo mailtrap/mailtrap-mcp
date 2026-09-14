@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `npm run build` - Compile TypeScript to JavaScript in the `dist/` directory
 - `npm run dev` - Run the MCP server with the MCP Inspector for testing
-- `npm run prepublish` - Build the project and make the executable script executable
+- `npm run prepublishOnly` - Build the project and make the executable script executable (npm publish only)
 
 ### Code Quality
 
