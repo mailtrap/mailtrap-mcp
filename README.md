@@ -36,9 +36,10 @@ Before using this MCP server, you need to:
 
 ### Docker
 
-Run the server over stdio with the Docker MCP Catalog image:
+Build and run the server over stdio:
 
 ```bash
+docker build -t mcp/mailtrap .
 docker run --rm -i \
   -e MAILTRAP_API_TOKEN \
   -e MAILTRAP_ACCOUNT_ID \
@@ -50,6 +51,8 @@ docker run --rm -i \
 ```
 
 Only `MAILTRAP_API_TOKEN` is required for all functionality. See [Prerequisites](#prerequisites) for when the other environment variables are needed.
+
+Once Docker lists this server in the [MCP Catalog](https://hub.docker.com/mcp), the same `docker run` works against the published `mcp/mailtrap` image (no local `docker build`).
 
 ### Smithery CLI
 
