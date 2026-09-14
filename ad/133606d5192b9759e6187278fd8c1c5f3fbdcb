@@ -1,0 +1,30 @@
+package.json
+  s_716eb594b4435c::t_48317494947cea 27
+CLAUDE.md
+  s_716eb594b4435c::t_06661b8566f93f 11
+README.md
+  s_716eb594b4435c::t_2fde582a0f0bb7 39,49
+  s_716eb594b4435c::t_1d410d821fb4a0 37-38,40-48,50-53,1586
+.dockerignore
+  s_716eb594b4435c::t_88f1af5b6e9efe 1-9
+Dockerfile
+  s_716eb594b4435c::t_1e674e147a6718 10,12,14-20,31
+  s_716eb594b4435c::t_6a720761e26b6c 1,6
+  s_716eb594b4435c::t_3c47ef0f569a58 2-5,7-9,11,13,21-30,32-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ad133606d5192b9759e6187278fd8c1c5f3fbdcb",
+  "prompts": {},
+  "sessions": {
+    "s_716eb594b4435c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "93760f32-856e-4ad5-b70f-50ce743bd161",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
