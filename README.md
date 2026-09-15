@@ -2,9 +2,24 @@
 [![test](https://github.com/mailtrap/mailtrap-mcp/actions/workflows/main.yml/badge.svg)](https://github.com/mailtrap/mailtrap-mcp/actions/workflows/main.yml)
 [![NPM](https://shields.io/npm/v/mcp-mailtrap?logo=npm&logoColor=white)](https://www.npmjs.com/package/mcp-mailtrap)
 
-# MCP Mailtrap Server
+# Official Mailtrap MCP Server
 
-An MCP server that provides tools for sending and testing in sandbox via Mailtrap.
+The official MCP server for Mailtrap — the email delivery platform. It connects your Mailtrap account to Claude, Cursor, VS Code, and other MCP-compatible AI assistants.
+
+Send transactional and bulk email, test messages safely in Email Sandbox, manage templates, contacts, sending domains, and webhooks, inspect email logs and delivery statistics, troubleshoot deliverability, and manage account resources — all using natural-language prompts.
+
+## Capabilities
+
+- **Email API and SMTP** — Send transactional and bulk email, including batch and template-based messages.
+- **Email testing** — Test messages in Email Sandbox and inspect content, headers, attachments, spam scores, and HTML client compatibility.
+- **Delivery monitoring** — Search email logs, inspect event history, and analyze delivery, bounce, open, click, and spam rates.
+- **Email infrastructure** — Manage sending domains, DNS verification, webhooks, and suppressions.
+- **Contacts** — Manage contacts, lists, custom fields, and events, with imports and exports.
+- **Account management** — Review billing usage and manage access, permissions, API tokens, and sub-accounts.
+
+## Supported MCP Clients
+
+Works with Claude Desktop, Claude Code, Cursor, VS Code, and any other MCP-compatible client. Setup instructions for each are below.
 
 ## Prerequisites
 
@@ -206,11 +221,50 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 - "List suppressions for bounced@example.com"
 - "Suppress bounced@example.com on the transactional stream of domain 3938"
+- "Show me all suppressed email addresses"
+- "Why is user@example.com not receiving my emails?"
+- "Remove user@example.com from the suppression list"
 
 **Tracking Opt-outs:**
 
 - "Stop tracking opens and clicks for privacy@example.com on domain 3938"
 - "List everyone who opted out of tracking"
+
+**Contacts and Lists:**
+
+- "Add john.doe@example.com to my newsletter contact list"
+- "Show me all my contact lists"
+- "Create a contact field called 'signup_source' for tracking where contacts came from"
+- "Update the contact john.doe@example.com to set their plan to 'pro'"
+- "Import contacts from this CSV into my onboarding list"
+- "Export all contacts from my newsletter list"
+- "Record a 'trial_started' event for contact john.doe@example.com"
+
+**Webhooks:**
+
+- "List all webhooks configured on my account"
+- "Create a webhook pointing to https://example.com/hooks/mailtrap for bounce and spam events"
+- "Update webhook 4821 to also send delivery events"
+- "Delete webhook 4821"
+
+**Account and Billing:**
+
+- "What's my current billing usage this month?"
+- "How many emails do I have left in my plan?"
+- "List everyone who has access to this Mailtrap account"
+- "Show me the permission resources available on my account"
+
+**API Tokens:**
+
+- "List all API tokens on my account"
+- "Create a new API token for the staging environment"
+- "Reset the API token with ID 1234"
+- "Delete the unused API token 1234"
+
+**Organization and Sub-Accounts:**
+
+- "List all sub-accounts in my organization"
+- "Create a new sub-account for the client project 'Acme Corp'"
 
 ## Available Tools
 
