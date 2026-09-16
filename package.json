@@ -24,7 +24,7 @@
     "lint:eslint": "npx eslint . --ext .js,.ts",
     "lint:tsc": "tsc -p . --noEmit --incremental false",
     "build": "shx rm -rf dist && tsc --project tsconfig.build.json",
-    "prepublish": "npm run build && shx chmod +x dist/index.js",
+    "prepublishOnly": "npm run build && shx chmod +x dist/index.js",
     "dev": "npx @modelcontextprotocol/inspector node dist/index.js",
     "dev:mcpb": "npx @modelcontextprotocol/inspector node dist/index.js",
     "mcp:cli": "npx @modelcontextprotocol/inspector --cli  node dist/index.js",

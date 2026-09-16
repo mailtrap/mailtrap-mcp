@@ -49,6 +49,26 @@ Before using this MCP server, you need to:
 
 [![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%2C%22MAILTRAP_TEST_INBOX_ID%22%3A%22%24%7Binput%3AmailtrapTestInboxId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapTestInboxId%22%2C%22description%22%3A%22Mailtrap+Test+Inbox+ID+%28optional%29%22%7D%5D)
 
+### Docker
+
+Build and run the server over stdio:
+
+```bash
+docker build -t mcp/mailtrap .
+docker run --rm -i \
+  -e MAILTRAP_API_TOKEN \
+  -e MAILTRAP_ACCOUNT_ID \
+  -e DEFAULT_FROM_EMAIL \
+  -e MAILTRAP_SANDBOX_ID \
+  -e MAILTRAP_ORGANIZATION_ID \
+  -e MAILTRAP_ORGANIZATION_API_TOKEN \
+  mcp/mailtrap
+```
+
+Only `MAILTRAP_API_TOKEN` is required for all functionality. See [Prerequisites](#prerequisites) for when the other environment variables are needed.
+
+Once Docker lists this server in the [MCP Catalog](https://hub.docker.com/mcp), the same `docker run` works against the published `mcp/mailtrap` image (no local `docker build`).
+
 ### Smithery CLI
 
 [Smithery](https://github.com/smithery-ai/cli) is a registry installer and manager for MCP servers that works with all AI clients.
@@ -1620,7 +1640,7 @@ Bug reports and pull requests are welcome on [GitHub](https://github.com/mailtra
 
 ## License
 
-The package is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The package is available as open source under the terms of the [MIT License](LICENSE.txt).
 
 ## Code of Conduct
 
