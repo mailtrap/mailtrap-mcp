@@ -1,0 +1,50 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - mailtrapApiToken
+    properties:
+      mailtrapApiToken:
+        type: string
+        minLength: 1
+        title: Mailtrap API Token
+        description: Mailtrap API token from https://mailtrap.io/api-tokens
+      mailtrapAccountId:
+        type: string
+        title: Mailtrap Account ID
+        description: Mailtrap account ID used by account-scoped tools
+      defaultFromEmail:
+        type: string
+        format: email
+        title: Default From Email
+        description: Default sender email address when a send tool receives no from address
+      mailtrapSandboxId:
+        type: string
+        title: Mailtrap Sandbox ID
+        description: Default sandbox ID used by sandbox tools
+      mailtrapOrganizationId:
+        type: string
+        title: Mailtrap Organization ID
+        description: Organization ID used by organization tools
+      mailtrapOrganizationApiToken:
+        type: string
+        title: Mailtrap Organization API Token
+        description: Organization-scoped API token used by organization tools
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: {
+        MAILTRAP_API_TOKEN: config.mailtrapApiToken,
+        ...(config.mailtrapAccountId && { MAILTRAP_ACCOUNT_ID: config.mailtrapAccountId }),
+        ...(config.defaultFromEmail && { DEFAULT_FROM_EMAIL: config.defaultFromEmail }),
+        ...(config.mailtrapSandboxId && { MAILTRAP_SANDBOX_ID: config.mailtrapSandboxId }),
+        ...(config.mailtrapOrganizationId && { MAILTRAP_ORGANIZATION_ID: config.mailtrapOrganizationId }),
+        ...(config.mailtrapOrganizationApiToken && {
+          MAILTRAP_ORGANIZATION_API_TOKEN: config.mailtrapOrganizationApiToken
+        })
+      }
+    })
+  exampleConfig:
+    mailtrapApiToken: your_mailtrap_api_token
