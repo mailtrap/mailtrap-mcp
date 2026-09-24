@@ -230,5 +230,6 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 
 - **list-sub-accounts**: List sub-accounts in the organization (requires `MAILTRAP_ORGANIZATION_ID`).
 - **create-sub-account**: Create a sub-account under the organization (requires `MAILTRAP_ORGANIZATION_ID`).
+- **delete-sub-account**: Permanently delete a sub-account by ID; deleting the last one deletes the organization (requires `MAILTRAP_ORGANIZATION_ID`).
 
 Tools use input schemas (JSON Schema format) for MCP; handlers may validate input with Zod. Response format follows the MCP protocol.
