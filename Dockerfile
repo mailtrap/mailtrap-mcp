@@ -21,7 +21,8 @@ FROM node:22-alpine AS runtime
 LABEL org.opencontainers.image.title="Mailtrap MCP Server" \
       org.opencontainers.image.description="Official MCP server for Mailtrap" \
       org.opencontainers.image.source="https://github.com/mailtrap/mailtrap-mcp" \
-      org.opencontainers.image.licenses="MIT"
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.ref.name="mcp/mailtrap"
 
 WORKDIR /app
 

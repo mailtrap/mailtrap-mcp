@@ -51,23 +51,23 @@ Before using this MCP server, you need to:
 
 ### Docker
 
-Build and run the server over stdio:
+Run the server over stdio with the [Docker MCP Catalog](https://hub.docker.com/mcp) image:
 
 ```bash
-docker build -t mcp/mailtrap .
 docker run --rm -i \
-  -e MAILTRAP_API_TOKEN \
-  -e MAILTRAP_ACCOUNT_ID \
-  -e DEFAULT_FROM_EMAIL \
-  -e MAILTRAP_SANDBOX_ID \
-  -e MAILTRAP_ORGANIZATION_ID \
-  -e MAILTRAP_ORGANIZATION_API_TOKEN \
+  -e MAILTRAP_API_TOKEN="${MAILTRAP_API_TOKEN}" \
+  -e MAILTRAP_ACCOUNT_ID="${MAILTRAP_ACCOUNT_ID}" \
+  -e DEFAULT_FROM_EMAIL="${DEFAULT_FROM_EMAIL}" \
+  -e MAILTRAP_SANDBOX_ID="${MAILTRAP_SANDBOX_ID}" \
+  -e MAILTRAP_TEST_INBOX_ID="${MAILTRAP_TEST_INBOX_ID}" \
+  -e MAILTRAP_ORGANIZATION_ID="${MAILTRAP_ORGANIZATION_ID}" \
+  -e MAILTRAP_ORGANIZATION_API_TOKEN="${MAILTRAP_ORGANIZATION_API_TOKEN}" \
   mcp/mailtrap
 ```
 
-Only `MAILTRAP_API_TOKEN` is required for all functionality. See [Prerequisites](#prerequisites) for when the other environment variables are needed.
+See [Prerequisites](#prerequisites) for required and optional environment variables.
 
-Once Docker lists this server in the [MCP Catalog](https://hub.docker.com/mcp), the same `docker run` works against the published `mcp/mailtrap` image (no local `docker build`).
+To build from this repository: `docker build -t mcp/mailtrap .`
 
 ### Smithery CLI
 
