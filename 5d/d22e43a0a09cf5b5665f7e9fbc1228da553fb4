@@ -1,0 +1,21 @@
+smithery.yaml
+  s_e7f8ba638ae780::t_cf1a77267ddb5a 1-3,28,39-40
+README.md
+  s_e7f8ba638ae780::t_030126e6ab392e 39,41-44,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5dd22e43a0a09cf5b5665f7e9fbc1228da553fb4",
+  "prompts": {},
+  "sessions": {
+    "s_e7f8ba638ae780": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9ed024a0-342a-4e06-9bf4-5ee3730e64e9",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
