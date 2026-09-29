@@ -16,6 +16,22 @@ README.md
         "model": "auto-smart"
       },
       "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    },
+    "s_aa568569367349": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "e29025ac-461c-45d5-96ae-0bd3216a3a1b",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    },
+    "s_e7f8ba638ae780": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9ed024a0-342a-4e06-9bf4-5ee3730e64e9",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
     }
   }
 }
