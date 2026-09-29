@@ -1,11 +1,9 @@
+import { sandboxIdProperty } from "./sandboxId";
+
 const forwardSandboxMessageSchema = {
   type: "object",
   properties: {
-    sandbox_id: {
-      type: "number",
-      description:
-        "Sandbox ID. Falls back to MAILTRAP_SANDBOX_ID env var if omitted.",
-    },
+    ...sandboxIdProperty,
     message_id: {
       type: "number",
       description: "ID of the sandbox message to forward",

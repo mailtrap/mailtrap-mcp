@@ -1,10 +1,9 @@
+import { sandboxInboxIdProperties } from "./sandboxId";
+
 const updateSandboxInboxSchema = {
   type: "object",
   properties: {
-    inbox_id: {
-      type: "number",
-      description: "ID of the sandbox inbox to update",
-    },
+    ...sandboxInboxIdProperties,
     name: {
       type: "string",
       description: "New name for the inbox",
@@ -14,7 +13,7 @@ const updateSandboxInboxSchema = {
       description: "New email username for the inbox",
     },
   },
-  required: ["inbox_id"],
+  required: [],
   additionalProperties: false,
 };
 

@@ -6,8 +6,10 @@ import {
   normalizeAddressList,
   parseSandboxTo,
 } from "../../utils/mailtrapAddresses";
+import { resolveLegacySandboxInboxId } from "./utils/resolveSandboxId";
 
 async function sendSandboxEmail({
+  sandbox_id,
   test_inbox_id,
   from,
   to,
@@ -21,19 +23,7 @@ async function sendSandboxEmail({
   template_variables,
 }: SendSandboxEmailRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
-    if (inboxIdRaw === undefined || inboxIdRaw === null) {
-      throw new Error(
-        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
-      );
-    }
-
-    const inboxId = Number(inboxIdRaw);
-    if (Number.isNaN(inboxId)) {
-      throw new Error(
-        "test_inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
-      );
-    }
+    const inboxId = resolveLegacySandboxInboxId({ sandbox_id, test_inbox_id });
 
     if (template_uuid) {
       const forbidden = [

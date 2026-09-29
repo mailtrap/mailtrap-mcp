@@ -38,7 +38,7 @@ describe("getMessages", () => {
     (getSandboxClient as jest.Mock).mockReturnValue({
       testing: { messages: { get: mockGet } },
     });
-    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: String(inboxId) });
+    Object.assign(process.env, { MAILTRAP_SANDBOX_ID: String(inboxId) });
   });
 
   afterEach(() => {
@@ -90,10 +90,11 @@ describe("getMessages", () => {
     });
   });
 
-  it("should handle missing test_inbox_id and MAILTRAP_TEST_INBOX_ID", async () => {
+  it("should handle missing test_inbox_id and MAILTRAP_SANDBOX_ID", async () => {
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
+    delete process.env.MAILTRAP_SANDBOX_ID;
     delete process.env.MAILTRAP_TEST_INBOX_ID;
 
     const result = await getMessages({});
@@ -104,7 +105,7 @@ describe("getMessages", () => {
     );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
-      "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID"
+      "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID"
     );
     consoleErrorSpy.mockRestore();
   });
@@ -114,6 +115,14 @@ describe("getMessages", () => {
 
     expect(getSandboxClient).toHaveBeenCalledWith(456);
     expect(mockGet).toHaveBeenCalledWith(456, undefined);
+    expect(result.content[0].text).toContain("Found 2 message(s)");
+  });
+
+  it("should use sandbox_id when provided", async () => {
+    const result = await getMessages({ sandbox_id: 789 });
+
+    expect(getSandboxClient).toHaveBeenCalledWith(789);
+    expect(mockGet).toHaveBeenCalledWith(789, undefined);
     expect(result.content[0].text).toContain("Found 2 message(s)");
   });
 

@@ -44,7 +44,7 @@ function getDefaultClient(): MailtrapClient | null {
 
 /**
  * Returns a sandbox MailtrapClient for the given test inbox ID.
- * Use this when you have an inbox ID from tool parameters or env (MAILTRAP_TEST_INBOX_ID).
+ * Use this when you have an inbox ID from tool parameters or env (MAILTRAP_SANDBOX_ID).
  */
 function getSandboxClient(inboxId: number): MailtrapClient {
   if (!MAILTRAP_API_TOKEN) {

@@ -38,16 +38,16 @@ Before using this MCP server, you need to:
 **Optional (can be passed as tool parameters instead):**
 
 - `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email, send-sandbox-email, or the batch-send-\* tools (where it fills `base.from`). Enables switching sender per call via the `from` parameter.
-- `MAILTRAP_SANDBOX_ID` - Default sandbox ID for sandbox tools when `sandbox_id` is not provided. Enables switching between sandboxes per call via the `sandbox_id` parameter.
-- `MAILTRAP_TEST_INBOX_ID` - Default test inbox ID for sandbox tools when `test_inbox_id` is not provided. Enables switching between inboxes per call via the `test_inbox_id` parameter. Legacy alias for `MAILTRAP_SANDBOX_ID`, still honored as a fallback.
+- `MAILTRAP_SANDBOX_ID` - Default sandbox (test inbox) ID when a tool's `sandbox_id` is not provided (legacy `test_inbox_id` on send/list/show sandbox message tools still accepted). Enables switching inboxes per call via parameters.
+- `MAILTRAP_TEST_INBOX_ID` - Legacy alias for `MAILTRAP_SANDBOX_ID`; still read as a fallback for existing configs.
 - `MAILTRAP_ORGANIZATION_ID` - Required for organization tools (`list-sub-accounts`, `create-sub-account`).
 - `MAILTRAP_ORGANIZATION_API_TOKEN` - Organization-scoped API token. Required for organization tools (separate from `MAILTRAP_API_TOKEN`).
 
 ## Quick Install
 
-[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=mailtrap&config=eyJlbnYiOnsiTUFJTFRSQVBfQVBJX1RPS0VOIjoieW91cl9tYWlsdHJhcF9hcGlfdG9rZW4iLCJERUZBVUxUX0ZST01fRU1BSUwiOiJ5b3VyX3NlbmRlckBleGFtcGxlLmNvbSIsIk1BSUxUUkFQX0FDQ09VTlRfSUQiOiJ5b3VyX2FjY291bnRfaWQiLCJNQUlMVFJBUF9URVNUX0lOQk9YX0lEIjoieW91cl90ZXN0X2luYm94X2lkIn0sImNvbW1hbmQiOiJucHggLXkgbWNwLW1haWx0cmFwIn0%3D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=mailtrap&config=eyJlbnYiOnsiTUFJTFRSQVBfQVBJX1RPS0VOIjoieW91cl9tYWlsdHJhcF9hcGlfdG9rZW4iLCJERUZBVUxUX0ZST01fRU1BSUwiOiJ5b3VyX3NlbmRlckBleGFtcGxlLmNvbSIsIk1BSUxUUkFQX0FDQ09VTlRfSUQiOiJ5b3VyX2FjY291bnRfaWQiLCJNQUlMVFJBUF9TQU5EQk9YX0lEIjoieW91cl9zYW5kYm94X2lkIn0sImNvbW1hbmQiOiJucHggLXkgbWNwLW1haWx0cmFwIn0%3D)
 
-[![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%2C%22MAILTRAP_TEST_INBOX_ID%22%3A%22%24%7Binput%3AmailtrapTestInboxId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapTestInboxId%22%2C%22description%22%3A%22Mailtrap+Test+Inbox+ID+%28optional%29%22%7D%5D)
+[![Install with Node in VS Code](https://img.shields.io/badge/VS_Code-Node-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=mailtrap&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-mailtrap%22%5D%2C%22env%22%3A%7B%22MAILTRAP_API_TOKEN%22%3A%22%24%7Binput%3AmailtrapApiToken%7D%22%2C%22DEFAULT_FROM_EMAIL%22%3A%22%24%7Binput%3AsenderEmail%7D%22%2C%22MAILTRAP_ACCOUNT_ID%22%3A%22%24%7Binput%3AmailtrapAccountId%7D%22%2C%22MAILTRAP_SANDBOX_ID%22%3A%22%24%7Binput%3AmailtrapSandboxId%7D%22%7D%7D&inputs=%5B%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapApiToken%22%2C%22description%22%3A%22Mailtrap+API+Token%22%2C%22password%22%3Atrue%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22senderEmail%22%2C%22description%22%3A%22Sender+Email+Address%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapAccountId%22%2C%22description%22%3A%22Mailtrap+Account+ID%22%7D%2C%7B%22type%22%3A%22promptString%22%2C%22id%22%3A%22mailtrapSandboxId%22%2C%22description%22%3A%22Mailtrap+Sandbox+ID+%28optional%29%22%7D%5D)
 
 ### Smithery CLI
 
@@ -79,7 +79,7 @@ Add the following configuration:
         "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
         "DEFAULT_FROM_EMAIL": "your_sender@example.com",
         "MAILTRAP_ACCOUNT_ID": "your_account_id",
-        "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+        "MAILTRAP_SANDBOX_ID": "your_sandbox_id"
       }
     }
   }
@@ -102,7 +102,7 @@ If you are using `asdf` for managing Node.js you must use absolute path to execu
         "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
         "DEFAULT_FROM_EMAIL": "your_sender@example.com",
         "MAILTRAP_ACCOUNT_ID": "your_account_id",
-        "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+        "MAILTRAP_SANDBOX_ID": "your_sandbox_id"
       }
     }
   }
@@ -140,7 +140,7 @@ Then, in the settings file, add the following configuration:
           "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
           "DEFAULT_FROM_EMAIL": "your_sender@example.com",
           "MAILTRAP_ACCOUNT_ID": "your_account_id",
-          "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+          "MAILTRAP_SANDBOX_ID": "your_sandbox_id"
         }
       }
     }
@@ -414,7 +414,8 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 
 **Parameters:**
 
-- `test_inbox_id` (optional): Mailtrap test inbox ID. Required unless `MAILTRAP_TEST_INBOX_ID` is set; pass per call to target a specific inbox.
+- `sandbox_id` (optional): Preferred. Mailtrap sandbox (test inbox) ID. Required unless `MAILTRAP_SANDBOX_ID` is set.
+- `test_inbox_id` (optional): Legacy alias for `sandbox_id` when `sandbox_id` is omitted.
 - `from` (optional): Sender as `{ email, name? }` (a bare email string is also accepted at runtime). If not provided, `DEFAULT_FROM_EMAIL` is used.
 - `to` (optional): Array of recipients as `{ email, name? }` objects (bare email strings in the array, or a comma-separated string of plain emails, are also accepted at runtime). Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
 - `cc` (optional): Array of CC recipients as `{ email, name? }` objects (bare email strings also accepted at runtime).
@@ -436,7 +437,7 @@ Sends a batch of emails to your Mailtrap test inbox in one API call, without del
 - `base` (optional), `requests` (required): See `batch-send-transactional-email` above.
 
 > [!NOTE]
-> For sandbox tools, provide `test_inbox_id` in the tool call or set the `MAILTRAP_TEST_INBOX_ID` environment variable. You can switch between inboxes per call by passing `test_inbox_id`. Tools taking `sandbox_id` use `MAILTRAP_SANDBOX_ID` first.
+> Most sandbox tools take **`sandbox_id`** (or fall back to `MAILTRAP_SANDBOX_ID`; legacy env `MAILTRAP_TEST_INBOX_ID` still works). **`send-sandbox-email`**, **`get-sandbox-messages`**, and **`show-sandbox-email-message`** also accept legacy **`test_inbox_id`**. **`get-sandbox-inbox`**, **`update-sandbox-inbox`**, **`delete-sandbox-inbox`**, and **`clean-sandbox-inbox`** use **`sandbox_id`** with legacy **`inbox_id`** (same ID; `inbox_id` is not used on message tools). Inbound email tools use **`inbox_id`** for a different product (received mail), not the sandbox.
 
 ### get-sandbox-messages
 
@@ -444,12 +445,14 @@ Retrieves a list of messages from your Mailtrap test inbox. Useful for checking 
 
 **Parameters:**
 
+- `sandbox_id` (optional): Preferred. Sandbox (test inbox) ID unless `MAILTRAP_SANDBOX_ID` is set.
+- `test_inbox_id` (optional): Legacy alias for `sandbox_id`.
 - `page` (optional): Page number for pagination (minimum: 1)
 - `last_id` (optional): Pagination using last message ID. Returns messages after the specified message ID (minimum: 1)
 - `search` (optional): Search query to filter messages
 
 > [!NOTE]
-> All parameters are optional. If none are provided, the first page of messages from the inbox will be returned. Use page for traditional pagination, last_id for cursor-based pagination, or search to filter messages by content.
+> Inbox ID parameters are optional when `MAILTRAP_SANDBOX_ID` is set. If none of `sandbox_id`, `test_inbox_id`, or env are provided, the call fails. Pagination: use `page`, `last_id`, or `search` as needed.
 
 ### show-sandbox-email-message
 
@@ -457,10 +460,12 @@ Shows detailed information and content of a specific email message from your Mai
 
 **Parameters:**
 
+- `sandbox_id` (optional): Preferred. Sandbox (test inbox) ID unless `MAILTRAP_SANDBOX_ID` is set.
+- `test_inbox_id` (optional): Legacy alias for `sandbox_id`.
 - `message_id` (required): ID of the sandbox email message to retrieve
 
 > [!NOTE]
-> Use `get-sandbox-messages` first to get the list of messages and their IDs, then use this tool to view the full content of a specific message.
+> Use `get-sandbox-messages` first to get message IDs, then this tool for full content.
 
 ### get-sandbox-project
 
@@ -1447,7 +1452,7 @@ Add the following configuration:
         "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
         "DEFAULT_FROM_EMAIL": "your_sender@example.com",
         "MAILTRAP_ACCOUNT_ID": "your_account_id",
-        "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+        "MAILTRAP_SANDBOX_ID": "your_sandbox_id"
       }
     }
   }
@@ -1472,7 +1477,7 @@ If you are using `asdf` for managing Node.js you should use absolute path to exe
         "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
         "DEFAULT_FROM_EMAIL": "your_sender@example.com",
         "MAILTRAP_ACCOUNT_ID": "your_account_id",
-        "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+        "MAILTRAP_SANDBOX_ID": "your_sandbox_id"
       }
     }
   }
@@ -1495,7 +1500,7 @@ If you are using `asdf` for managing Node.js you should use absolute path to exe
           "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
           "DEFAULT_FROM_EMAIL": "your_sender@example.com",
           "MAILTRAP_ACCOUNT_ID": "your_account_id",
-          "MAILTRAP_TEST_INBOX_ID": "your_test_inbox_id"
+          "MAILTRAP_SANDBOX_ID": "your_sandbox_id"
         }
       }
     }
@@ -1610,7 +1615,7 @@ node dist/mcpb-server.js 2>&1 | jq 'select(.level == "debug")'
 Common issues:
 
 1. Missing API Token: ensure `MAILTRAP_API_TOKEN` is set
-2. Sandbox not working: provide `test_inbox_id` in the tool call or set `MAILTRAP_TEST_INBOX_ID` env
+2. Sandbox not working: provide `sandbox_id` in the tool call (or legacy `test_inbox_id` on send/list/show message tools), or set `MAILTRAP_SANDBOX_ID` env
 3. Timeout errors: check network connectivity and Mailtrap API status
 4. Validation errors: ensure all required fields are provided
 

@@ -64,8 +64,19 @@ describe("getSandboxInbox", () => {
     expect(result.isError).toBeUndefined();
   });
 
-  it("should fall back to MAILTRAP_TEST_INBOX_ID env var", async () => {
-    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: "20" });
+  it("should use sandbox_id when inbox_id is omitted", async () => {
+    mockClient.testing.inboxes.getInboxAttributes.mockResolvedValue(mockInbox);
+
+    const result = await getSandboxInbox({ sandbox_id: 30 });
+
+    expect(mockClient.testing.inboxes.getInboxAttributes).toHaveBeenCalledWith(
+      30
+    );
+    expect(result.isError).toBeUndefined();
+  });
+
+  it("should fall back to MAILTRAP_SANDBOX_ID env var", async () => {
+    Object.assign(process.env, { MAILTRAP_SANDBOX_ID: "20" });
     mockClient.testing.inboxes.getInboxAttributes.mockResolvedValue(mockInbox);
 
     const result = await getSandboxInbox({});
@@ -77,6 +88,7 @@ describe("getSandboxInbox", () => {
   });
 
   it("should error when no inbox_id and no env var", async () => {
+    delete process.env.MAILTRAP_SANDBOX_ID;
     delete process.env.MAILTRAP_TEST_INBOX_ID;
 
     const result = await getSandboxInbox({});
@@ -84,7 +96,9 @@ describe("getSandboxInbox", () => {
     expect(
       mockClient.testing.inboxes.getInboxAttributes
     ).not.toHaveBeenCalled();
-    expect(result.content[0].text).toContain("Provide inbox_id");
+    expect(result.content[0].text).toContain(
+      "Provide sandbox_id or set MAILTRAP_SANDBOX_ID"
+    );
     expect(result.isError).toBe(true);
   });
 

@@ -53,7 +53,8 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
 - `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the email campaign tools, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
-- `MAILTRAP_TEST_INBOX_ID`: Optional. Default test inbox ID for sandbox tools when the tool does not receive a `test_inbox_id` parameter. Enables switching inboxes per call via parameters.
+- `MAILTRAP_SANDBOX_ID`: Optional. Default sandbox (test inbox) ID when a tool does not receive `sandbox_id` (legacy `test_inbox_id` on send-sandbox-email, get-sandbox-messages, show-sandbox-email-message). Enables switching inboxes per call via parameters.
+- `MAILTRAP_TEST_INBOX_ID`: Legacy fallback for `MAILTRAP_SANDBOX_ID` (still honored).
 
 ### Testing Setup
 

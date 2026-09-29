@@ -560,7 +560,7 @@
         "MAILTRAP_API_TOKEN": "${user_config.mailtrap_api_token}",
         "DEFAULT_FROM_EMAIL": "${user_config.default_from_email}",
         "MAILTRAP_ACCOUNT_ID": "${user_config.mailtrap_account_id}",
-        "MAILTRAP_TEST_INBOX_ID": "${user_config.mailtrap_test_inbox_id}"
+        "MAILTRAP_SANDBOX_ID": "${user_config.mailtrap_test_inbox_id}"
       }
     }
   },

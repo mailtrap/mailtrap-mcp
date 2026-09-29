@@ -1,26 +1,18 @@
 import { requireClient } from "../../client";
 import { GetSandboxInboxRequest } from "../../types/mailtrap";
+import resolveSandboxId from "./utils/resolveSandboxId";
 
-async function getSandboxInbox({ inbox_id }: GetSandboxInboxRequest): Promise<{
+async function getSandboxInbox({
+  sandbox_id,
+  inbox_id,
+}: GetSandboxInboxRequest): Promise<{
   content: { type: string; text: string }[];
   isError?: boolean;
 }> {
   try {
     const mailtrap = requireClient("sandbox inboxes");
 
-    const inboxIdRaw = inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
-    if (inboxIdRaw === undefined || inboxIdRaw === null) {
-      throw new Error(
-        "Provide inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable"
-      );
-    }
-
-    const resolvedInboxId = Number(inboxIdRaw);
-    if (Number.isNaN(resolvedInboxId)) {
-      throw new Error(
-        "inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
-      );
-    }
+    const resolvedInboxId = resolveSandboxId(sandbox_id ?? inbox_id);
 
     const inbox = await mailtrap.testing.inboxes.getInboxAttributes(
       resolvedInboxId

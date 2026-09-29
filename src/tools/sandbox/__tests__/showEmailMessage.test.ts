@@ -57,7 +57,7 @@ describe("showEmailMessage", () => {
         },
       },
     });
-    Object.assign(process.env, { MAILTRAP_TEST_INBOX_ID: String(inboxId) });
+    Object.assign(process.env, { MAILTRAP_SANDBOX_ID: String(inboxId) });
   });
 
   afterEach(() => {
@@ -150,10 +150,11 @@ describe("showEmailMessage", () => {
     expect(result.content[0].text).toContain("Message with ID 999 not found");
   });
 
-  it("should handle missing test_inbox_id and MAILTRAP_TEST_INBOX_ID", async () => {
+  it("should handle missing test_inbox_id and MAILTRAP_SANDBOX_ID", async () => {
     const consoleErrorSpy = jest
       .spyOn(console, "error")
       .mockImplementation(() => {});
+    delete process.env.MAILTRAP_SANDBOX_ID;
     delete process.env.MAILTRAP_TEST_INBOX_ID;
 
     const result = await showEmailMessage({ message_id: 1 });
@@ -164,7 +165,7 @@ describe("showEmailMessage", () => {
     );
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
-      "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID"
+      "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID"
     );
     consoleErrorSpy.mockRestore();
   });

@@ -1,5 +1,6 @@
 import { getSandboxClient } from "../../client";
 import { ShowEmailMessageRequest } from "../../types/mailtrap";
+import { resolveLegacySandboxInboxId } from "./utils/resolveSandboxId";
 
 function formatSpamReport(data: unknown): string {
   if (data == null) return "No data.";
@@ -42,25 +43,14 @@ function formatHtmlAnalysis(data: unknown): string {
 }
 
 async function showEmailMessage({
+  sandbox_id,
   test_inbox_id,
   message_id,
   include_spam_report = false,
   include_html_analysis = false,
 }: ShowEmailMessageRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
-    if (inboxIdRaw === undefined || inboxIdRaw === null) {
-      throw new Error(
-        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
-      );
-    }
-
-    const inboxId = Number(inboxIdRaw);
-    if (Number.isNaN(inboxId)) {
-      throw new Error(
-        "test_inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
-      );
-    }
+    const inboxId = resolveLegacySandboxInboxId({ sandbox_id, test_inbox_id });
 
     const sandboxClient = getSandboxClient(inboxId);
 

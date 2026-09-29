@@ -1,7 +1,9 @@
 import { requireClient } from "../../client";
 import { DeleteSandboxInboxRequest } from "../../types/mailtrap";
+import { resolveRequiredSandboxInboxId } from "./utils/resolveSandboxId";
 
 async function deleteSandboxInbox({
+  sandbox_id,
   inbox_id,
 }: DeleteSandboxInboxRequest): Promise<{
   content: { type: string; text: string }[];
@@ -9,8 +11,12 @@ async function deleteSandboxInbox({
 }> {
   try {
     const mailtrap = requireClient("sandbox inboxes");
+    const resolvedInboxId = resolveRequiredSandboxInboxId({
+      sandbox_id,
+      inbox_id,
+    });
 
-    const inbox = await mailtrap.testing.inboxes.delete(inbox_id);
+    const inbox = await mailtrap.testing.inboxes.delete(resolvedInboxId);
 
     return {
       content: [

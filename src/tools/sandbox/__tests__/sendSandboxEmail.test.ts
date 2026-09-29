@@ -29,7 +29,7 @@ describe("sendSandboxEmail", () => {
     mockSend.mockResolvedValue(mockResponse);
     (getSandboxClient as jest.Mock).mockReturnValue({ send: mockSend });
     Object.assign(process.env, {
-      MAILTRAP_TEST_INBOX_ID: String(inboxId),
+      MAILTRAP_SANDBOX_ID: String(inboxId),
       DEFAULT_FROM_EMAIL: "default@example.com",
     });
   });
@@ -367,7 +367,8 @@ describe("sendSandboxEmail", () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it("should throw error when test_inbox_id and MAILTRAP_TEST_INBOX_ID are not set", async () => {
+    it("should throw error when test_inbox_id and MAILTRAP_SANDBOX_ID are not set", async () => {
+      delete process.env.MAILTRAP_SANDBOX_ID;
       delete process.env.MAILTRAP_TEST_INBOX_ID;
 
       const result = await sendSandboxEmail({
@@ -383,7 +384,7 @@ describe("sendSandboxEmail", () => {
       );
       expect(mockSend).not.toHaveBeenCalled();
       expect(result.content[0].text).toContain(
-        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID"
+        "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID"
       );
       expect(result.isError).toBe(true);
     });

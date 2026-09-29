@@ -1,7 +1,9 @@
 import { getSandboxClient } from "../../client";
 import { GetMessagesRequest } from "../../types/mailtrap";
+import { resolveLegacySandboxInboxId } from "./utils/resolveSandboxId";
 
 async function getMessages({
+  sandbox_id,
   test_inbox_id,
   page,
   last_id,
@@ -11,19 +13,7 @@ async function getMessages({
   isError?: boolean;
 }> {
   try {
-    const inboxIdRaw = test_inbox_id ?? process.env.MAILTRAP_TEST_INBOX_ID;
-    if (inboxIdRaw === undefined || inboxIdRaw === null) {
-      throw new Error(
-        "Provide test_inbox_id or set MAILTRAP_TEST_INBOX_ID environment variable for sandbox mode"
-      );
-    }
-
-    const inboxId = Number(inboxIdRaw);
-    if (Number.isNaN(inboxId)) {
-      throw new Error(
-        "test_inbox_id (or MAILTRAP_TEST_INBOX_ID) must be a valid number"
-      );
-    }
+    const inboxId = resolveLegacySandboxInboxId({ sandbox_id, test_inbox_id });
 
     const sandboxClient = getSandboxClient(inboxId);
 
