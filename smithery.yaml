@@ -1,3 +1,6 @@
+name: mailtrap-mcp
+target: local
+
 startCommand:
   type: stdio
   configSchema:
@@ -22,7 +25,7 @@ startCommand:
       mailtrapSandboxId:
         type: string
         title: Mailtrap Sandbox ID
-        description: Default sandbox ID used by sandbox tools
+        description: Default sandbox (test inbox) ID for sandbox tools
       mailtrapOrganizationId:
         type: string
         title: Mailtrap Organization ID
@@ -33,8 +36,8 @@ startCommand:
         description: Organization-scoped API token used by organization tools
   commandFunction: |-
     (config) => ({
-      command: 'node',
-      args: ['dist/index.js'],
+      command: 'npx',
+      args: ['-y', 'mcp-mailtrap'],
       env: {
         MAILTRAP_API_TOKEN: config.mailtrapApiToken,
         ...(config.mailtrapAccountId && { MAILTRAP_ACCOUNT_ID: config.mailtrapAccountId }),
