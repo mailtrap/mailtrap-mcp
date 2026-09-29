@@ -1,12 +1,11 @@
+import { sandboxInboxIdProperties } from "./sandboxId";
+
 const deleteSandboxInboxSchema = {
   type: "object",
   properties: {
-    inbox_id: {
-      type: "number",
-      description: "ID of the sandbox inbox to delete",
-    },
+    ...sandboxInboxIdProperties,
   },
-  required: ["inbox_id"],
+  required: [],
   additionalProperties: false,
 };
 

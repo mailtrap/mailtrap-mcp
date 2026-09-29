@@ -1,7 +1,9 @@
 import { requireClient } from "../../client";
 import { UpdateSandboxInboxRequest } from "../../types/mailtrap";
+import { resolveRequiredSandboxInboxId } from "./utils/resolveSandboxId";
 
 async function updateSandboxInbox({
+  sandbox_id,
   inbox_id,
   name,
   email_username,
@@ -11,6 +13,10 @@ async function updateSandboxInbox({
 }> {
   try {
     const mailtrap = requireClient("sandbox inboxes");
+    const resolvedInboxId = resolveRequiredSandboxInboxId({
+      sandbox_id,
+      inbox_id,
+    });
 
     if (!name && !email_username) {
       throw new Error(
@@ -27,7 +33,7 @@ async function updateSandboxInbox({
     }
 
     const inbox = await mailtrap.testing.inboxes.updateInbox(
-      inbox_id,
+      resolvedInboxId,
       params as { name: string; emailUsername: string }
     );
 

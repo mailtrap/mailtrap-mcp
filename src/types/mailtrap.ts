@@ -120,6 +120,7 @@ export interface GetTemplateRequest {
  * template (`template_uuid`). Mutual exclusion is enforced at runtime.
  */
 export interface SendSandboxEmailRequest {
+  sandbox_id?: number;
   test_inbox_id?: number;
   from?: MailtrapAddressParam;
   to?: string | MailtrapAddressParam[];
@@ -134,6 +135,7 @@ export interface SendSandboxEmailRequest {
 }
 
 export interface GetMessagesRequest {
+  sandbox_id?: number;
   test_inbox_id?: number;
   page?: number;
   last_id?: number;
@@ -141,6 +143,7 @@ export interface GetMessagesRequest {
 }
 
 export interface ShowEmailMessageRequest {
+  sandbox_id?: number;
   test_inbox_id?: number;
   message_id: number;
   /** When true, include spam report (SpamAssassin score and details). Useful for deliverability testing. */
@@ -276,19 +279,20 @@ export interface CreateSandboxInboxRequest {
   name: string;
 }
 
-export interface GetSandboxInboxRequest {
+export interface SandboxInboxIdRequest {
+  sandbox_id?: number;
+  /** Legacy alias for sandbox_id on sandbox inbox tools. */
   inbox_id?: number;
 }
 
-export interface UpdateSandboxInboxRequest {
-  inbox_id: number;
+export type GetSandboxInboxRequest = SandboxInboxIdRequest;
+
+export interface UpdateSandboxInboxRequest extends SandboxInboxIdRequest {
   name?: string;
   email_username?: string;
 }
 
-export interface DeleteSandboxInboxRequest {
-  inbox_id: number;
-}
+export type DeleteSandboxInboxRequest = SandboxInboxIdRequest;
 
 /** Common shape for sandbox-scoped actions identified by sandbox_id only. */
 export interface SandboxIdRequest {
@@ -313,9 +317,7 @@ export interface SandboxAttachmentRequest extends SandboxMessageRequest {
   attachment_id: number;
 }
 
-export interface CleanSandboxInboxRequest {
-  inbox_id: number;
-}
+export type CleanSandboxInboxRequest = SandboxInboxIdRequest;
 
 // --- Email log types ---
 
