@@ -1,0 +1,21 @@
+README.md
+  s_488c948d5b54ce::t_fa3e2a04274025 5,7-22,233-267
+  s_488c948d5b54ce::t_c747b84726abef 224-226
+  s_488c948d5b54ce::t_2ef5bd4df2bcff 268
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "59094478f793845005cdf18205eac8f9cf16a49e",
+  "prompts": {},
+  "sessions": {
+    "s_488c948d5b54ce": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8b7f79a3-2ebf-4f84-b4b6-fb605e634b56",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
