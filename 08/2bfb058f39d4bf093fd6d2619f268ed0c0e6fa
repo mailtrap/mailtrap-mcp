@@ -1,0 +1,154 @@
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_e7f8ba638ae780::t_151c9c086e6941 60,153,157
+  s_0c26e43d3f88a4::t_ddd910302fe521 168
+README.md
+  s_e7f8ba638ae780::t_2682cd9820c4b9 82,105,143,1455,1480,1503
+  s_e7f8ba638ae780::t_e6b71f63363b16 50
+  s_0c26e43d3f88a4::t_775e91d3bbc8d9 417-418
+  s_0c26e43d3f88a4::t_89ab187e06912d 463-464,468
+  s_0c26e43d3f88a4::t_29354e6258ab97 440
+  s_0c26e43d3f88a4::t_6dba27eabb095e 1618
+  s_e7f8ba638ae780::t_33997e2f3b1c84 48
+  s_0c26e43d3f88a4::t_e756e2c404a2c4 41
+  s_0c26e43d3f88a4::t_ad726b45762744 448-449,455
+  s_e7f8ba638ae780::t_30e1933b9c9a53 42
+src/client.ts
+  s_e7f8ba638ae780::t_77bffef11a7ce1 47
+src/tools/sandbox/sendSandboxEmail.ts
+  s_0c26e43d3f88a4::t_d4ef3f3bd9ae27 12
+  s_0c26e43d3f88a4::t_8b12b0301f9007 9
+  s_0c26e43d3f88a4::t_4ac1e25be7b349 26
+src/tools/sandbox/deleteSandboxInbox.ts
+  s_0c26e43d3f88a4::t_c3a6c61295f3a2 3,6
+  s_0c26e43d3f88a4::t_a54366911c22f7 14-17,19
+src/tools/sandbox/schemas/forwardSandboxMessage.ts
+  s_0c26e43d3f88a4::t_219bb9b4b7eeec 2
+  s_0c26e43d3f88a4::t_cb20457ea183a8 1,6
+src/tools/sandbox/schemas/updateSandboxInbox.ts
+  s_0c26e43d3f88a4::t_2515d893d6d0da 1-2,6,16
+src/tools/sandbox/schemas/showEmailMessage.ts
+  s_0c26e43d3f88a4::t_73a682f8febae0 6
+  s_0c26e43d3f88a4::t_9b6900e0f27cbc 1
+  s_0c26e43d3f88a4::t_e033fd3b34d6ba 2
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_0c26e43d3f88a4::t_d24daf90200196 46
+  s_0c26e43d3f88a4::t_bdb6f1d9f2b1b5 3
+  s_0c26e43d3f88a4::t_f14cdde912ef87 53
+src/tools/sandbox/schemas/sendSandboxEmail.ts
+  s_0c26e43d3f88a4::t_1d22f40dc247c0 7
+  s_0c26e43d3f88a4::t_da1b1fefd977d3 12
+src/tools/sandbox/getSandboxMessages.ts
+  s_0c26e43d3f88a4::t_486c6ae6e1d471 6
+  s_0c26e43d3f88a4::t_974a47e4378dbe 16
+  s_0c26e43d3f88a4::t_68ce469445c189 3
+src/tools/sandbox/schemas/getMessages.ts
+  s_0c26e43d3f88a4::t_a0f8885cf12376 2
+  s_0c26e43d3f88a4::t_9df41928dfac31 6
+  s_0c26e43d3f88a4::t_d1ad911b5ffbbc 1
+src/tools/sandbox/__tests__/resolveSandboxId.test.ts
+  s_0c26e43d3f88a4::t_c90f5e17c2221f 3
+  s_0c26e43d3f88a4::t_752b05b0cfe2ed 5-6,8-11,13-14,16-17,19-21,23-24,26-32,55-56,58,65-66,69,76-78
+  s_0c26e43d3f88a4::t_fb176c732c835d 7
+  s_0c26e43d3f88a4::t_c6b06fc62c6f1e 39-52
+  s_0c26e43d3f88a4::t_ac8182afce1f87 1-2,4,12,15,18,22,25,33-38,53-54,57,59-64,67-68,70-75
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_0c26e43d3f88a4::t_3a11e9a522e430 387
+  s_e7f8ba638ae780::t_0b8cce4044c1a1 32,370-371
+src/tools/sandbox/cleanSandboxInbox.ts
+  s_0c26e43d3f88a4::t_9205db7b31d5fd 3,6
+  s_0c26e43d3f88a4::t_4756f5d2da73a9 14-17,19
+src/tools/sandbox/schemas/deleteSandboxInbox.ts
+  s_0c26e43d3f88a4::t_c3afc4e3682f53 1-2,6,8
+src/tools/sandbox/schemas/sandboxMessage.ts
+  s_0c26e43d3f88a4::t_5f94770db84bf2 1,10
+  s_0c26e43d3f88a4::t_ed5c2f23fd96dc 2,4
+src/tools/sandbox/__tests__/getSandboxInbox.test.ts
+  s_0c26e43d3f88a4::t_4849d0d514dbe0 99,101
+  s_0c26e43d3f88a4::t_8510ac1d1501bf 67-77
+  s_e7f8ba638ae780::t_75471842e3ca4e 78-79,91
+  s_0c26e43d3f88a4::t_d4ac301fc29b8f 100
+src/tools/sandbox/schemas/sandboxId.ts
+  s_0c26e43d3f88a4::t_fb75ad4a60ad3a 10-22
+  s_0c26e43d3f88a4::t_10f24c977362cd 1-2,6,8-9,23-29
+  s_0c26e43d3f88a4::t_0291d8f1a7cfb8 3-5,7,30-35
+src/tools/sandbox/schemas/batchSendSandboxEmail.ts
+  s_0c26e43d3f88a4::t_3a6e164076275a 2
+  s_0c26e43d3f88a4::t_bd4fcbeebf4513 7
+src/tools/sandbox/updateSandboxInbox.ts
+  s_0c26e43d3f88a4::t_cb945dd674a1bd 16-19
+  s_0c26e43d3f88a4::t_6b4f6d8181d436 3,6
+  s_0c26e43d3f88a4::t_3c50abf7a8847f 36
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_0c26e43d3f88a4::t_b88a26adfc7241 11
+  s_0c26e43d3f88a4::t_d5ac0eefe16c4b 7-8
+  s_4a1992e0a36a14::t_e030def291ffc4 20,22
+  s_0c26e43d3f88a4::t_0a19b2a8d69723 43-44
+  s_0c26e43d3f88a4::t_ad3c3f91f23dbb 33-42,45-47
+  s_0c26e43d3f88a4::t_3805b62a3876b0 49-54,58,64
+  s_0c26e43d3f88a4::t_46656b12de452a 1-6,9-10,12-19,21,23-29,31,48,55
+src/tools/sandbox/schemas/getSandboxAttachment.ts
+  s_0c26e43d3f88a4::t_2bea033a34f471 1,6
+  s_0c26e43d3f88a4::t_6bd408f4ebf803 2
+CLAUDE.md
+  s_e7f8ba638ae780::t_c71a4819b8f703 57
+  s_0c26e43d3f88a4::t_37b9f8d8835715 56
+src/types/mailtrap.ts
+  s_0c26e43d3f88a4::t_a9141c35ab5bed 288,295
+  s_0c26e43d3f88a4::t_54c8e88db0ac4f 282,284,289-290
+  s_0c26e43d3f88a4::t_61d31c36879d03 320
+  s_0c26e43d3f88a4::t_420dba43464541 138
+  s_0c26e43d3f88a4::t_76fd2df241c83b 123
+  s_0c26e43d3f88a4::t_f9d11b11dc3341 146
+  s_0c26e43d3f88a4::t_98a9836479b495 283
+src/tools/sandbox/schemas/updateSandboxMessage.ts
+  s_0c26e43d3f88a4::t_6aa28f11ed4209 2
+  s_0c26e43d3f88a4::t_da249d9fdea99c 1,6
+src/tools/sandbox/schemas/getSandboxInbox.ts
+  s_0c26e43d3f88a4::t_dc12999d440837 2
+  s_0c26e43d3f88a4::t_d9b40c52de9599 1,6
+src/tools/sandbox/getSandboxInbox.ts
+  s_0c26e43d3f88a4::t_11f2affd6112a4 7
+  s_e7f8ba638ae780::t_6f20b22c5c2343 3
+  s_0c26e43d3f88a4::t_e6c17800b4d12a 5-6,8
+  s_0c26e43d3f88a4::t_ab20e540a18f25 15
+manifest.json
+  s_e7f8ba638ae780::t_ec5208fccb1c5f 563
+src/tools/sandbox/schemas/cleanSandboxInbox.ts
+  s_0c26e43d3f88a4::t_c6c53f78d15fd4 1-2,6,8
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_0c26e43d3f88a4::t_f9b5b76f0a8466 108
+  s_e7f8ba638ae780::t_d4fca3707c5b8b 41,93,97
+  s_0c26e43d3f88a4::t_cf486b339f91fd 121-128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "082bfb058f39d4bf093fd6d2619f268ed0c0e6fa",
+  "prompts": {},
+  "sessions": {
+    "s_0c26e43d3f88a4": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f4b22855-af55-45a8-b6fc-db7beffe24c4",
+        "model": "composer-2.5"
+      },
+      "human_author": null
+    },
+    "s_4a1992e0a36a14": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c35bf5f-8cf7-49ec-a54f-41ed7fb065e6",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Igor Dobryn <igor.dobryn@railsware.com>"
+    },
+    "s_e7f8ba638ae780": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9ed024a0-342a-4e06-9bf4-5ee3730e64e9",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
