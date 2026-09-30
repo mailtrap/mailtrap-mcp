@@ -1,5 +1,17 @@
+function isBlank(value: string | number | undefined | null): boolean {
+  return (
+    value === undefined ||
+    value === null ||
+    (typeof value === "string" && value.trim() === "")
+  );
+}
+
+/** First non-blank of MAILTRAP_SANDBOX_ID / MAILTRAP_TEST_INBOX_ID. */
 function envSandboxId(): string | undefined {
-  return process.env.MAILTRAP_SANDBOX_ID ?? process.env.MAILTRAP_TEST_INBOX_ID;
+  return [
+    process.env.MAILTRAP_SANDBOX_ID,
+    process.env.MAILTRAP_TEST_INBOX_ID,
+  ].find((value) => !isBlank(value));
 }
 
 function parseResolvedId(
@@ -7,7 +19,7 @@ function parseResolvedId(
   invalidMessage: string,
   missingMessage = "Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
 ): number {
-  if (raw === undefined || raw === null || raw === "") {
+  if (isBlank(raw)) {
     throw new Error(missingMessage);
   }
   const resolved = Number(raw);
@@ -27,9 +39,6 @@ function resolveSandboxId(sandbox_id?: number): number {
   );
 }
 
-/**
- * For tools that historically used `test_inbox_id`: sandbox_id, then test_inbox_id, then env.
- */
 /** Sandbox inbox admin tools: sandbox_id, then legacy inbox_id (no env fallback). */
 export function resolveRequiredSandboxInboxId({
   sandbox_id,
@@ -45,6 +54,9 @@ export function resolveRequiredSandboxInboxId({
   );
 }
 
+/**
+ * For tools that historically used `test_inbox_id`: sandbox_id, then test_inbox_id, then env.
+ */
 export function resolveLegacySandboxInboxId({
   sandbox_id,
   test_inbox_id,
@@ -52,19 +64,11 @@ export function resolveLegacySandboxInboxId({
   sandbox_id?: number;
   test_inbox_id?: number;
 } = {}): number {
-  const raw = sandbox_id ?? test_inbox_id ?? envSandboxId();
-  if (raw === undefined || raw === null || raw === "") {
-    throw new Error(
-      "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
-    );
-  }
-  const resolved = Number(raw);
-  if (!Number.isFinite(resolved)) {
-    throw new Error(
-      "sandbox_id (or test_inbox_id / MAILTRAP_SANDBOX_ID) must be a valid number"
-    );
-  }
-  return resolved;
+  return parseResolvedId(
+    sandbox_id ?? test_inbox_id ?? envSandboxId(),
+    "sandbox_id (or test_inbox_id / MAILTRAP_SANDBOX_ID) must be a valid number",
+    "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
+  );
 }
 
 export default resolveSandboxId;
