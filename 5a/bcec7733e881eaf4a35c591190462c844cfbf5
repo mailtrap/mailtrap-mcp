@@ -1,0 +1,21 @@
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_d20aef77159dde::t_fa0c1744786ba8 12-13
+src/tools/sandbox/__tests__/getSandboxInbox.test.ts
+  s_d20aef77159dde::t_2951819cb0c6af 101,103-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5abcec7733e881eaf4a35c591190462c844cfbf5",
+  "prompts": {},
+  "sessions": {
+    "s_d20aef77159dde": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "e9f11def-82a8-4220-a870-c39a39c16392",
+        "model": "grok-4.6"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}
