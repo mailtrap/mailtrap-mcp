@@ -1,7 +1,11 @@
 src/tools/sandbox/utils/resolveSandboxId.ts
   s_d20aef77159dde::t_fa0c1744786ba8 12-13
+  s_d0347906b41170::t_acd3ccad563479 1-9,11,14,22,57-59,67-70
+  s_d0347906b41170::t_3eba3aa9bc48cd 71
 src/tools/sandbox/__tests__/getSandboxInbox.test.ts
   s_d20aef77159dde::t_2951819cb0c6af 101,103-104
+src/tools/sandbox/__tests__/resolveSandboxId.test.ts
+  s_d0347906b41170::t_8171773a929e98 37-51
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -9,6 +13,14 @@ src/tools/sandbox/__tests__/getSandboxInbox.test.ts
   "base_commit_sha": "5abcec7733e881eaf4a35c591190462c844cfbf5",
   "prompts": {},
   "sessions": {
+    "s_d0347906b41170": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9519f38c-e3a8-4e75-99d4-357a9eeae56e",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    },
     "s_d20aef77159dde": {
       "agent_id": {
         "tool": "cursor",
