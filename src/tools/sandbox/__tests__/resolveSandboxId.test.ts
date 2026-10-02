@@ -34,6 +34,21 @@ describe("resolveSandboxId", () => {
       "Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
     );
   });
+
+  it("rejects a blank MAILTRAP_SANDBOX_ID instead of resolving to 0", () => {
+    process.env.MAILTRAP_SANDBOX_ID = " ";
+
+    expect(() => resolveSandboxId()).toThrow(
+      "Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
+    );
+  });
+
+  it("skips a blank MAILTRAP_SANDBOX_ID and uses MAILTRAP_TEST_INBOX_ID", () => {
+    process.env.MAILTRAP_SANDBOX_ID = "";
+    process.env.MAILTRAP_TEST_INBOX_ID = "20";
+
+    expect(resolveSandboxId()).toBe(20);
+  });
 });
 
 describe("resolveRequiredSandboxInboxId", () => {

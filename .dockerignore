@@ -1,0 +1,9 @@
+.git
+.github
+.idea
+.vscode
+coverage
+dist
+node_modules
+*.log
+*.mcpb
