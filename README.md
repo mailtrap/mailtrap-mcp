@@ -51,13 +51,15 @@ Before using this MCP server, you need to:
 
 ### Smithery CLI
 
-[Smithery](https://github.com/smithery-ai/cli) is a registry installer and manager for MCP servers that works with all AI clients.
+[Smithery](https://smithery.ai) is a registry and installer for MCP servers that works with AI clients.
 
-```
-npx @smithery/cli install mailtrap
+Install the published server (`mailtrap/mailtrap-mcp`) into a local client (replace the client name as needed):
+
+```bash
+npx -y smithery mcp add mailtrap/mailtrap-mcp --client claude
 ```
 
-> Smithery automatically handles client configuration and provides an interactive setup process. It's the easiest way to get started with MCP servers locally.
+See the [Smithery CLI docs](https://smithery.ai/docs/concepts/cli) for other clients (`cursor`, `windsurf`, etc.) and for publishing updates.
 
 ## Setup
 
