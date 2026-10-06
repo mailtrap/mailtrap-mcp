@@ -4,7 +4,7 @@ async function listTemplates(): Promise<{ content: any[]; isError?: boolean }> {
   try {
     const mailtrap = requireClient("templates");
 
-    const templates = await mailtrap.templates.getList();
+    const templates = await mailtrap.emailTemplates.getList();
 
     if (!templates || templates.length === 0) {
       return {

@@ -2,7 +2,7 @@ import updateTemplate from "../updateTemplate";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  templates: {
+  emailTemplates: {
     update: jest.fn(),
   },
 };
@@ -33,19 +33,22 @@ describe("updateTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.templates.update.mockResolvedValue(mockResponse);
+    mockClient.emailTemplates.update.mockResolvedValue(mockResponse);
   });
 
   it("should update template successfully with all fields", async () => {
     const result = await updateTemplate(mockUpdateData);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      name: mockUpdateData.name,
-      subject: mockUpdateData.subject,
-      body_html: mockUpdateData.html,
-      body_text: mockUpdateData.text,
-      category: mockUpdateData.category,
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        name: mockUpdateData.name,
+        subject: mockUpdateData.subject,
+        body_html: mockUpdateData.html,
+        body_text: mockUpdateData.text,
+        category: mockUpdateData.category,
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -65,9 +68,12 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyName);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      name: "New Template Name",
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        name: "New Template Name",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -87,9 +93,12 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlySubject);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      subject: "New Email Subject",
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        subject: "New Email Subject",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -109,9 +118,12 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyHtml);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      body_html: "<h1>New HTML Content</h1>",
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        body_html: "<h1>New HTML Content</h1>",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -131,9 +143,12 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyText);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      body_text: "New text content",
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        body_text: "New text content",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -153,9 +168,12 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithOnlyCategory);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      category: "New Category",
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        category: "New Category",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -177,11 +195,14 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithMultipleFields);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
-      name: "Updated Name",
-      subject: "Updated Subject",
-      category: "Updated Category",
-    });
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
+      mockTemplateId,
+      {
+        name: "Updated Name",
+        subject: "Updated Subject",
+        category: "Updated Category",
+      }
+    );
 
     expect(result).toEqual({
       content: [
@@ -202,7 +223,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithDifferentId);
 
-    expect(mockClient.templates.update).toHaveBeenCalledWith(
+    expect(mockClient.emailTemplates.update).toHaveBeenCalledWith(
       differentTemplateId,
       {
         name: "Different Template",
@@ -226,7 +247,7 @@ describe("updateTemplate", () => {
 
     const result = await updateTemplate(updateDataWithNoFields);
 
-    expect(mockClient.templates.update).not.toHaveBeenCalled();
+    expect(mockClient.emailTemplates.update).not.toHaveBeenCalled();
 
     expect(result).toEqual({
       content: [
@@ -252,9 +273,9 @@ describe("updateTemplate", () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it("should handle client.templates.update failure", async () => {
+    it("should handle client.emailTemplates.update failure", async () => {
       const mockError = new Error("Failed to update template");
-      mockClient.templates.update.mockRejectedValue(mockError);
+      mockClient.emailTemplates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
@@ -275,7 +296,7 @@ describe("updateTemplate", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      mockClient.templates.update.mockRejectedValue(mockError);
+      mockClient.emailTemplates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
@@ -296,7 +317,7 @@ describe("updateTemplate", () => {
 
     it("should handle template not found error", async () => {
       const mockError = new Error("Template not found");
-      mockClient.templates.update.mockRejectedValue(mockError);
+      mockClient.emailTemplates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 
@@ -317,7 +338,7 @@ describe("updateTemplate", () => {
 
     it("should handle validation error", async () => {
       const mockError = new Error("Validation failed");
-      mockClient.templates.update.mockRejectedValue(mockError);
+      mockClient.emailTemplates.update.mockRejectedValue(mockError);
 
       const result = await updateTemplate(mockUpdateData);
 

@@ -2,7 +2,7 @@ import listTemplates from "../listTemplates";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  templates: {
+  emailTemplates: {
     getList: jest.fn(),
   },
 };
@@ -45,11 +45,11 @@ describe("listTemplates", () => {
   });
 
   it("should list templates successfully when templates exist", async () => {
-    mockClient.templates.getList.mockResolvedValue(mockTemplates);
+    mockClient.emailTemplates.getList.mockResolvedValue(mockTemplates);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
 
     const expectedText = `Found 3 template(s):
 
@@ -80,11 +80,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle empty templates list", async () => {
-    mockClient.templates.getList.mockResolvedValue([]);
+    mockClient.emailTemplates.getList.mockResolvedValue([]);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -97,11 +97,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle null templates response", async () => {
-    mockClient.templates.getList.mockResolvedValue(null);
+    mockClient.emailTemplates.getList.mockResolvedValue(null);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -114,11 +114,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle undefined templates response", async () => {
-    mockClient.templates.getList.mockResolvedValue(undefined);
+    mockClient.emailTemplates.getList.mockResolvedValue(undefined);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
 
     expect(result).toEqual({
       content: [
@@ -132,11 +132,11 @@ describe("listTemplates", () => {
 
   it("should handle single template", async () => {
     const singleTemplate = [mockTemplates[0]];
-    mockClient.templates.getList.mockResolvedValue(singleTemplate);
+    mockClient.emailTemplates.getList.mockResolvedValue(singleTemplate);
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
 
     const expectedText = `Found 1 template(s):
 
@@ -169,9 +169,9 @@ describe("listTemplates", () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it("should handle client.templates.getList failure", async () => {
+    it("should handle client.emailTemplates.getList failure", async () => {
       const mockError = new Error("Failed to fetch templates");
-      mockClient.templates.getList.mockRejectedValue(mockError);
+      mockClient.emailTemplates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -192,7 +192,7 @@ describe("listTemplates", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      mockClient.templates.getList.mockRejectedValue(mockError);
+      mockClient.emailTemplates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -213,7 +213,7 @@ describe("listTemplates", () => {
 
     it("should handle network error", async () => {
       const mockError = new Error("Network error");
-      mockClient.templates.getList.mockRejectedValue(mockError);
+      mockClient.emailTemplates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
