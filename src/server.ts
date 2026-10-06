@@ -333,7 +333,8 @@ const tools = [
   },
   {
     name: "list-templates",
-    description: "List all email templates",
+    description:
+      "List the account's email templates with page-token pagination (`token`, `per_page`).",
     inputSchema: listTemplatesSchema,
     handler: listTemplates,
     annotations: {

@@ -391,11 +391,12 @@ Creates a new email template in your Mailtrap account.
 
 ### list-templates
 
-Lists all email templates in your Mailtrap account.
+Lists the email templates in your Mailtrap account with page-token pagination. When more templates exist, the result names the `token` for the next page.
 
 **Parameters:**
 
-- No parameters required
+- `token` (optional): Page number to retrieve (page-token pagination). Defaults to `1`
+- `per_page` (optional): Number of templates per page. Defaults to `50`, maximum `100`. Pass the same value on every page
 
 ### get-template
 

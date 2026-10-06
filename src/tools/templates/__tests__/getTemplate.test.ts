@@ -2,7 +2,7 @@ import getTemplate from "../getTemplate";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  emailTemplates: {
+  templates: {
     get: jest.fn(),
   },
 };
@@ -29,13 +29,13 @@ describe("getTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.emailTemplates.get.mockResolvedValue(mockTemplate);
+    mockClient.templates.get.mockResolvedValue({ data: mockTemplate });
   });
 
   it("returns template details", async () => {
     const result = await getTemplate({ template_id: mockTemplateId });
 
-    expect(mockClient.emailTemplates.get).toHaveBeenCalledWith(mockTemplateId);
+    expect(mockClient.templates.get).toHaveBeenCalledWith(mockTemplateId);
     expect(result.isError).toBeUndefined();
     expect(result.content[0].text).toContain(
       `Template: Welcome (ID: ${mockTemplateId}, UUID: abcd-uuid)`
@@ -46,15 +46,24 @@ describe("getTemplate", () => {
     expect(result.content[0].text).toContain("Text body:");
   });
 
-  it("omits text body section when body_text is missing", async () => {
-    mockClient.emailTemplates.get.mockResolvedValue({
-      ...mockTemplate,
-      body_text: undefined,
+  it("omits text body section when body_text is null", async () => {
+    mockClient.templates.get.mockResolvedValue({
+      data: { ...mockTemplate, body_text: null },
     });
 
     const result = await getTemplate({ template_id: mockTemplateId });
 
     expect(result.content[0].text).not.toContain("Text body:");
+  });
+
+  it("shows (none) when body_html is null", async () => {
+    mockClient.templates.get.mockResolvedValue({
+      data: { ...mockTemplate, body_html: null },
+    });
+
+    const result = await getTemplate({ template_id: mockTemplateId });
+
+    expect(result.content[0].text).toContain("HTML body:\n(none)");
   });
 
   describe("error handling", () => {
@@ -72,7 +81,7 @@ describe("getTemplate", () => {
 
     it("handles API errors", async () => {
       const mockError = new Error("Not found");
-      mockClient.emailTemplates.get.mockRejectedValue(mockError);
+      mockClient.templates.get.mockRejectedValue(mockError);
 
       const result = await getTemplate({ template_id: mockTemplateId });
 
@@ -92,7 +101,7 @@ describe("getTemplate", () => {
     });
 
     it("handles non-Error exceptions", async () => {
-      mockClient.emailTemplates.get.mockRejectedValue("Boom");
+      mockClient.templates.get.mockRejectedValue("Boom");
 
       const result = await getTemplate({ template_id: mockTemplateId });
 

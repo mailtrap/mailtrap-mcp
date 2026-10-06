@@ -2,7 +2,7 @@ import listTemplates from "../listTemplates";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  emailTemplates: {
+  templates: {
     getList: jest.fn(),
   },
 };
@@ -39,19 +39,27 @@ describe("listTemplates", () => {
     },
   ];
 
+  const page = (
+    data: typeof mockTemplates,
+    nextToken: number | null = null
+  ) => ({
+    data,
+    pagination: { token: 1, prev_token: null, next_token: nextToken },
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
   });
 
   it("should list templates successfully when templates exist", async () => {
-    mockClient.emailTemplates.getList.mockResolvedValue(mockTemplates);
+    mockClient.templates.getList.mockResolvedValue(page(mockTemplates));
 
     const result = await listTemplates();
 
-    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
-    const expectedText = `Found 3 template(s):
+    const expectedText = `Found 3 template(s) on this page:
 
 • Welcome Email (ID: 12345, UUID: abc-def-ghi)
   Subject: Welcome to our platform!
@@ -80,11 +88,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle empty templates list", async () => {
-    mockClient.emailTemplates.getList.mockResolvedValue([]);
+    mockClient.templates.getList.mockResolvedValue(page([]));
 
     const result = await listTemplates();
 
-    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
     expect(result).toEqual({
       content: [
@@ -97,11 +105,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle null templates response", async () => {
-    mockClient.emailTemplates.getList.mockResolvedValue(null);
+    mockClient.templates.getList.mockResolvedValue(null);
 
     const result = await listTemplates();
 
-    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
     expect(result).toEqual({
       content: [
@@ -114,11 +122,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle undefined templates response", async () => {
-    mockClient.emailTemplates.getList.mockResolvedValue(undefined);
+    mockClient.templates.getList.mockResolvedValue(undefined);
 
     const result = await listTemplates();
 
-    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
     expect(result).toEqual({
       content: [
@@ -132,13 +140,13 @@ describe("listTemplates", () => {
 
   it("should handle single template", async () => {
     const singleTemplate = [mockTemplates[0]];
-    mockClient.emailTemplates.getList.mockResolvedValue(singleTemplate);
+    mockClient.templates.getList.mockResolvedValue(page(singleTemplate));
 
     const result = await listTemplates();
 
-    expect(mockClient.emailTemplates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
-    const expectedText = `Found 1 template(s):
+    const expectedText = `Found 1 template(s) on this page:
 
 • Welcome Email (ID: 12345, UUID: abc-def-ghi)
   Subject: Welcome to our platform!
@@ -156,6 +164,28 @@ describe("listTemplates", () => {
     });
   });
 
+  it("passes token and per_page, and names the next page", async () => {
+    mockClient.templates.getList.mockResolvedValue(page([mockTemplates[0]], 3));
+
+    const result = await listTemplates({ token: 2, per_page: 1 });
+
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({
+      token: 2,
+      per_page: 1,
+    });
+    expect(result.content[0].text).toContain(
+      "Call list-templates with token 3 and per_page 1 for the next page."
+    );
+  });
+
+  it("rejects per_page above 100 before any request", async () => {
+    const result = await listTemplates({ per_page: 101 });
+
+    expect(mockClient.templates.getList).not.toHaveBeenCalled();
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain("Invalid input: per_page");
+  });
+
   describe("error handling", () => {
     let consoleErrorSpy: jest.SpyInstance;
 
@@ -169,9 +199,9 @@ describe("listTemplates", () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it("should handle client.emailTemplates.getList failure", async () => {
+    it("should handle client.templates.getList failure", async () => {
       const mockError = new Error("Failed to fetch templates");
-      mockClient.emailTemplates.getList.mockRejectedValue(mockError);
+      mockClient.templates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -192,7 +222,7 @@ describe("listTemplates", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      mockClient.emailTemplates.getList.mockRejectedValue(mockError);
+      mockClient.templates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 
@@ -213,7 +243,7 @@ describe("listTemplates", () => {
 
     it("should handle network error", async () => {
       const mockError = new Error("Network error");
-      mockClient.emailTemplates.getList.mockRejectedValue(mockError);
+      mockClient.templates.getList.mockRejectedValue(mockError);
 
       const result = await listTemplates();
 

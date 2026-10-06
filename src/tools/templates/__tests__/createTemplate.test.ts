@@ -2,7 +2,7 @@ import createTemplate from "../createTemplate";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  emailTemplates: {
+  templates: {
     create: jest.fn(),
   },
 };
@@ -31,13 +31,13 @@ describe("createTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.emailTemplates.create.mockResolvedValue(mockResponse);
+    mockClient.templates.create.mockResolvedValue({ data: mockResponse });
   });
 
   it("should create template successfully with all required fields", async () => {
     const result = await createTemplate(mockTemplateData);
 
-    expect(mockClient.emailTemplates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: mockTemplateData.category,
@@ -65,7 +65,7 @@ describe("createTemplate", () => {
 
     const result = await createTemplate(templateDataWithoutCategory);
 
-    expect(mockClient.emailTemplates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: "General",
@@ -93,7 +93,7 @@ describe("createTemplate", () => {
 
     const result = await createTemplate(templateDataWithoutText);
 
-    expect(mockClient.emailTemplates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: mockTemplateData.category,
@@ -120,7 +120,7 @@ describe("createTemplate", () => {
 
     const result = await createTemplate(templateDataWithCustomCategory);
 
-    expect(mockClient.emailTemplates.create).toHaveBeenCalledWith({
+    expect(mockClient.templates.create).toHaveBeenCalledWith({
       name: mockTemplateData.name,
       subject: mockTemplateData.subject,
       category: customCategory,
@@ -151,9 +151,9 @@ describe("createTemplate", () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it("should handle client.emailTemplates.create failure", async () => {
+    it("should handle client.templates.create failure", async () => {
       const mockError = new Error("Failed to create template");
-      mockClient.emailTemplates.create.mockRejectedValue(mockError);
+      mockClient.templates.create.mockRejectedValue(mockError);
 
       const result = await createTemplate(mockTemplateData);
 
@@ -174,7 +174,7 @@ describe("createTemplate", () => {
 
     it("should handle non-Error exceptions", async () => {
       const mockError = "String error";
-      mockClient.emailTemplates.create.mockRejectedValue(mockError);
+      mockClient.templates.create.mockRejectedValue(mockError);
 
       const result = await createTemplate(mockTemplateData);
 

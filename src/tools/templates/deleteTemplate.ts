@@ -7,7 +7,7 @@ async function deleteTemplate({
   try {
     const mailtrap = requireClient("templates");
 
-    await mailtrap.emailTemplates.delete(template_id);
+    await mailtrap.templates.delete(template_id);
 
     return {
       content: [

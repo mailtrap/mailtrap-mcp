@@ -52,7 +52,7 @@
     },
     {
       "name": "list-templates",
-      "description": "List all email templates in your Mailtrap account."
+      "description": "List the email templates in your Mailtrap account, one page at a time."
     },
     {
       "name": "get-template",
