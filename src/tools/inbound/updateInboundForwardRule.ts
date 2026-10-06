@@ -1,0 +1,44 @@
+import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
+import { updateInboundForwardRuleZod } from "./schemas/updateInboundForwardRule";
+
+async function updateInboundForwardRule(raw: unknown): Promise<ToolResponse> {
+  try {
+    const parsed = updateInboundForwardRuleZod.safeParse(raw ?? {});
+    if (!parsed.success) {
+      const msg = parsed.error.errors
+        .map((e) => `${e.path.join(".")}: ${e.message}`)
+        .join("; ");
+      return {
+        content: [{ type: "text", text: `Invalid input: ${msg}` }],
+        isError: true,
+      };
+    }
+
+    const {
+      inbox_id: inboxId,
+      forward_rule_id: forwardRuleId,
+      ...params
+    } = parsed.data;
+
+    const mailtrap = requireClient("inbound forward rules", {
+      requireAccountId: false,
+    });
+
+    const response = await mailtrap.inbound.forwardRules.update(
+      inboxId,
+      forwardRuleId,
+      params
+    );
+
+    return buildSuccessResponse(JSON.stringify(response.data, null, 2));
+  } catch (error) {
+    return buildErrorResponse("update inbound forward rule", error);
+  }
+}
+
+export default updateInboundForwardRule;

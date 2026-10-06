@@ -533,6 +533,26 @@
     {
       "name": "delete-inbound-thread",
       "description": "Delete a conversation thread and its messages."
+    },
+    {
+      "name": "list-inbound-forward-rules",
+      "description": "List the forward rules of an inbound inbox."
+    },
+    {
+      "name": "get-inbound-forward-rule",
+      "description": "Get a forward rule with its conditions and destinations."
+    },
+    {
+      "name": "create-inbound-forward-rule",
+      "description": "Create a rule that forwards matching received messages to other addresses."
+    },
+    {
+      "name": "update-inbound-forward-rule",
+      "description": "Update a forward rule's name, conditions, or destinations."
+    },
+    {
+      "name": "delete-inbound-forward-rule",
+      "description": "Delete a forward rule."
     }
   ],
   "prompts": [],

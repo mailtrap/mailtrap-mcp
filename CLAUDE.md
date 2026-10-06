@@ -119,7 +119,8 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **get-inbound-message**: Get a single message with body and attachment download URLs.
 - **delete-inbound-message**: Delete a message.
 - **reply-to-inbound-message** / **reply-all-to-inbound-message** / **forward-inbound-message**: Respond to a message — send real email. Address fields accept a bare email string or `{ email, name? }` (same as the send-email tools); `forward` requires at least one `to` recipient.
-- **list-inbound-threads** / **get-inbound-thread** / **delete-inbound-thread**: Browse conversation threads (list is cursor-paginated; get embeds the thread's messages).
+- **list-inbound-threads** / **get-inbound-thread** / **delete-inbound-thread**: Browse conversation threads (list is cursor-paginated and accepts an optional `search`; get embeds the thread's messages).
+- **list-inbound-forward-rules** / **get-inbound-forward-rule** / **create-inbound-forward-rule** / **update-inbound-forward-rule** / **delete-inbound-forward-rule**: Manage an inbox's forward rules (conditions + destinations). Update is partial; a provided `conditions` or `destinations` array replaces the whole set (`[]` clears it).
 
 
 #### Sending Domains

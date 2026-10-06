@@ -1416,12 +1416,13 @@ Forward an inbound message to new recipients. Sends a real email.
 
 ### list-inbound-threads
 
-List conversation threads in an inbound inbox (cursor-paginated). Returns a formatted summary with a next-page hint when more results exist.
+List conversation threads in an inbound inbox (cursor-paginated), optionally filtered by `search`. Returns a formatted summary with a next-page hint when more results exist.
 
 **Parameters:**
 
 - `inbox_id` (required): ID of the inbox
 - `last_id` (optional): Pagination cursor from a previous response's `last_id`
+- `search` (optional): Case-insensitive text matched against the thread subject and the from/to/cc/bcc addresses of its messages. Pass the same value when paginating
 
 ### get-inbound-thread
 
@@ -1440,6 +1441,55 @@ Permanently delete an inbound thread.
 
 - `inbox_id` (required): ID of the inbox
 - `thread_id` (required): ID of the thread
+
+### list-inbound-forward-rules
+
+List the forward rules of an inbound inbox. Returns a formatted summary.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+
+### get-inbound-forward-rule
+
+Get a single inbound forward rule by ID. Returns the full rule record, including its conditions and destinations, as JSON.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `forward_rule_id` (required): ID of the forward rule
+
+### create-inbound-forward-rule
+
+Create a forward rule on an inbound inbox. Received messages matching all conditions are forwarded to the rule's destinations.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `name` (required): Rule name, unique within the inbox
+- `conditions` (optional): Array of `{ match_type, operator, value?, header_key? }`. `match_type` is `sender`, `recipient`, or `header`; `operator` is `equal`, `not_equal`, `contains`, `starts_with`, `ends_with`, `empty`, or `not_empty` (`empty`/`not_empty` only for `header`, and take no `value`); `header_key` is required for `header`. Omit or pass `[]` to match every message
+- `destinations` (optional): Array of `{ email }` to forward matching messages to
+
+### update-inbound-forward-rule
+
+Update an inbound forward rule. Only the provided fields change; a provided `conditions` or `destinations` array replaces the whole set.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `forward_rule_id` (required): ID of the forward rule
+- `name` (optional): New rule name
+- `conditions` (optional): Replacement condition set (same shape as on create); `[]` removes all conditions, so the rule matches every message
+- `destinations` (optional): Replacement destination set; `[]` removes all destinations
+
+### delete-inbound-forward-rule
+
+Permanently delete an inbound forward rule.
+
+**Parameters:**
+
+- `inbox_id` (required): ID of the inbox
+- `forward_rule_id` (required): ID of the forward rule
 
 ## Development
 
