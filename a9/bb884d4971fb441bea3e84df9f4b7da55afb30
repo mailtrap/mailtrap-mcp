@@ -1,0 +1,33 @@
+CLAUDE.md
+  s_706d7cc42595ce::t_71e096bc2bf18c 92
+README.md
+  s_706d7cc42595ce::t_88ad9a208dce14 394
+manifest.json
+  s_706d7cc42595ce::t_93c30dc0a5de35 55
+package-lock.json
+  s_706d7cc42595ce::t_4b3d682fb19848 15
+package.json
+  s_706d7cc42595ce::t_385a8f0c03eb09 42
+src/server.ts
+  s_706d7cc42595ce::t_4ff93b7d2bc872 337-338
+src/tools/templates/__tests__/listTemplates.test.ts
+  s_706d7cc42595ce::t_67cf707a5630e0 191-203
+src/tools/templates/listTemplates.ts
+  s_706d7cc42595ce::t_7c50fd25ff636d 35,40-45,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a9bb884d4971fb441bea3e84df9f4b7da55afb30",
+  "prompts": {},
+  "sessions": {
+    "s_706d7cc42595ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "18c17467-c670-44c6-86b4-5565bc042e9f",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "IzikAJ <izikaj@gmail.com>"
+    }
+  }
+}
