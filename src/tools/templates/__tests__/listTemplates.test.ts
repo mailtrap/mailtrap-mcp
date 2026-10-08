@@ -178,6 +178,16 @@ describe("listTemplates", () => {
     );
   });
 
+  it("reports an empty later page as empty, keeping the next-page hint", async () => {
+    mockClient.templates.getList.mockResolvedValue(page([], 4));
+
+    const result = await listTemplates({ token: 3 });
+
+    expect(result.content[0].text).toBe(
+      "No templates on page 3.\n\nMore templates exist. Call list-templates with token 4 for the next page."
+    );
+  });
+
   it("rejects per_page above 100 before any request", async () => {
     const result = await listTemplates({ per_page: 101 });
 
