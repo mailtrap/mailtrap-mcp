@@ -188,6 +188,19 @@ describe("listTemplates", () => {
     );
   });
 
+  it("points an empty page at the last page that still has templates", async () => {
+    mockClient.templates.getList.mockResolvedValue({
+      data: [],
+      pagination: { token: 2, prev_token: 1, next_token: null },
+    });
+
+    const result = await listTemplates({ token: 2, per_page: 10 });
+
+    expect(result.content[0].text).toBe(
+      "No templates on page 2. The last page with templates is 1; call list-templates with token 1 and per_page 10 to see them."
+    );
+  });
+
   it("rejects per_page above 100 before any request", async () => {
     const result = await listTemplates({ per_page: 101 });
 

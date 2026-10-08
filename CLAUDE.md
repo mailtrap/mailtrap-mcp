@@ -89,7 +89,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Email Templates
 
 - **create-template**: Create new email templates.
-- **list-templates**: List email templates with page-token pagination (`token`, `per_page`).
+- **list-templates**: List email templates with page-token pagination (`token`, `per_page`). After deleting templates, list again from token 1.
 - **get-template**: Get a single email template by ID, including subject, category, and HTML/text body.
 - **update-template**: Update existing email templates.
 - **delete-template**: Delete email templates.

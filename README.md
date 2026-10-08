@@ -391,7 +391,7 @@ Creates a new email template in your Mailtrap account.
 
 ### list-templates
 
-Lists the email templates in your Mailtrap account with page-token pagination. When more templates exist, the result names the `token` for the next page.
+Lists the email templates in your Mailtrap account with page-token pagination. When more templates exist, the result names the `token` for the next page. Pages are offsets over the newest-first list, so after deleting templates list again from `token` 1 instead of continuing with the next token; an empty page names the last page that still has templates.
 
 **Parameters:**
 

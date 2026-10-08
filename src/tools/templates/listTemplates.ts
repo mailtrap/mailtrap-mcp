@@ -32,12 +32,19 @@ async function listTemplates(
         : "";
 
     if (templates.length === 0) {
+      const prevToken = response?.pagination?.prev_token;
       const emptyText =
         params.token != null && params.token > 1
           ? `No templates on page ${params.token}.`
           : "No templates found in your Mailtrap account.";
+      const prevPage =
+        prevToken != null
+          ? ` The last page with templates is ${prevToken}; call list-templates with token ${prevToken}${
+              params.per_page ? ` and per_page ${params.per_page}` : ""
+            } to see them.`
+          : "";
       return {
-        content: [{ type: "text", text: `${emptyText}${nextPage}` }],
+        content: [{ type: "text", text: `${emptyText}${prevPage}${nextPage}` }],
       };
     }
 
