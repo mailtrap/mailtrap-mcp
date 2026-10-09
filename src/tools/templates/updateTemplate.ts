@@ -51,7 +51,10 @@ async function updateTemplate({
     if (text !== undefined) updateData.body_text = text;
     if (category !== undefined) updateData.category = category;
 
-    const template = await mailtrap.templates.update(template_id, updateData);
+    const { data: template } = await mailtrap.templates.update(
+      template_id,
+      updateData
+    );
 
     return {
       content: [

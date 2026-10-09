@@ -52,7 +52,7 @@
     },
     {
       "name": "list-templates",
-      "description": "List all email templates in your Mailtrap account."
+      "description": "List the email templates in your Mailtrap account, one page at a time. Pages are offsets over the newest-first list, so after deleting templates list again from token 1 instead of continuing with the next token."
     },
     {
       "name": "get-template",

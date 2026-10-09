@@ -31,7 +31,7 @@ describe("createTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.templates.create.mockResolvedValue(mockResponse);
+    mockClient.templates.create.mockResolvedValue({ data: mockResponse });
   });
 
   it("should create template successfully with all required fields", async () => {

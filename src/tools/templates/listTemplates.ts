@@ -1,19 +1,50 @@
 import { requireClient } from "../../client";
+import { listTemplatesZod } from "./schemas/listTemplates";
 
-async function listTemplates(): Promise<{ content: any[]; isError?: boolean }> {
+async function listTemplates(
+  raw?: unknown
+): Promise<{ content: any[]; isError?: boolean }> {
   try {
+    const parsed = listTemplatesZod.safeParse(raw ?? {});
+    if (!parsed.success) {
+      const msg = parsed.error.errors
+        .map((e) => `${e.path.join(".")}: ${e.message}`)
+        .join("; ");
+      return {
+        content: [{ type: "text", text: `Invalid input: ${msg}` }],
+        isError: true,
+      };
+    }
+
+    const params = parsed.data;
+
     const mailtrap = requireClient("templates");
 
-    const templates = await mailtrap.templates.getList();
+    const response = await mailtrap.templates.getList(params);
+    const templates = response?.data ?? [];
 
-    if (!templates || templates.length === 0) {
+    const nextToken = response?.pagination?.next_token;
+    const nextPage =
+      nextToken != null
+        ? `\n\nMore templates exist. Call list-templates with token ${nextToken}${
+            params.per_page ? ` and per_page ${params.per_page}` : ""
+          } for the next page.`
+        : "";
+
+    if (templates.length === 0) {
+      const prevToken = response?.pagination?.prev_token;
+      const emptyText =
+        params.token != null && params.token > 1
+          ? `No templates on page ${params.token}.`
+          : "No templates found in your Mailtrap account.";
+      const prevPage =
+        prevToken != null
+          ? ` The last page with templates is ${prevToken}; call list-templates with token ${prevToken}${
+              params.per_page ? ` and per_page ${params.per_page}` : ""
+            } to see them.`
+          : "";
       return {
-        content: [
-          {
-            type: "text",
-            text: "No templates found in your Mailtrap account.",
-          },
-        ],
+        content: [{ type: "text", text: `${emptyText}${prevPage}${nextPage}` }],
       };
     }
 
@@ -28,7 +59,7 @@ async function listTemplates(): Promise<{ content: any[]; isError?: boolean }> {
       content: [
         {
           type: "text",
-          text: `Found ${templates.length} template(s):\n\n${templateList}`,
+          text: `Found ${templates.length} template(s) on this page:\n\n${templateList}${nextPage}`,
         },
       ],
     };

@@ -39,19 +39,27 @@ describe("listTemplates", () => {
     },
   ];
 
+  const page = (
+    data: typeof mockTemplates,
+    nextToken: number | null = null
+  ) => ({
+    data,
+    pagination: { token: 1, prev_token: null, next_token: nextToken },
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
   });
 
   it("should list templates successfully when templates exist", async () => {
-    mockClient.templates.getList.mockResolvedValue(mockTemplates);
+    mockClient.templates.getList.mockResolvedValue(page(mockTemplates));
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
-    const expectedText = `Found 3 template(s):
+    const expectedText = `Found 3 template(s) on this page:
 
 • Welcome Email (ID: 12345, UUID: abc-def-ghi)
   Subject: Welcome to our platform!
@@ -80,11 +88,11 @@ describe("listTemplates", () => {
   });
 
   it("should handle empty templates list", async () => {
-    mockClient.templates.getList.mockResolvedValue([]);
+    mockClient.templates.getList.mockResolvedValue(page([]));
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
     expect(result).toEqual({
       content: [
@@ -101,7 +109,7 @@ describe("listTemplates", () => {
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
     expect(result).toEqual({
       content: [
@@ -118,7 +126,7 @@ describe("listTemplates", () => {
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
     expect(result).toEqual({
       content: [
@@ -132,13 +140,13 @@ describe("listTemplates", () => {
 
   it("should handle single template", async () => {
     const singleTemplate = [mockTemplates[0]];
-    mockClient.templates.getList.mockResolvedValue(singleTemplate);
+    mockClient.templates.getList.mockResolvedValue(page(singleTemplate));
 
     const result = await listTemplates();
 
-    expect(mockClient.templates.getList).toHaveBeenCalledWith();
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({});
 
-    const expectedText = `Found 1 template(s):
+    const expectedText = `Found 1 template(s) on this page:
 
 • Welcome Email (ID: 12345, UUID: abc-def-ghi)
   Subject: Welcome to our platform!
@@ -154,6 +162,51 @@ describe("listTemplates", () => {
         },
       ],
     });
+  });
+
+  it("passes token and per_page, and names the next page", async () => {
+    mockClient.templates.getList.mockResolvedValue(page([mockTemplates[0]], 3));
+
+    const result = await listTemplates({ token: 2, per_page: 1 });
+
+    expect(mockClient.templates.getList).toHaveBeenCalledWith({
+      token: 2,
+      per_page: 1,
+    });
+    expect(result.content[0].text).toContain(
+      "Call list-templates with token 3 and per_page 1 for the next page."
+    );
+  });
+
+  it("reports an empty later page as empty, keeping the next-page hint", async () => {
+    mockClient.templates.getList.mockResolvedValue(page([], 4));
+
+    const result = await listTemplates({ token: 3 });
+
+    expect(result.content[0].text).toBe(
+      "No templates on page 3.\n\nMore templates exist. Call list-templates with token 4 for the next page."
+    );
+  });
+
+  it("points an empty page at the last page that still has templates", async () => {
+    mockClient.templates.getList.mockResolvedValue({
+      data: [],
+      pagination: { token: 2, prev_token: 1, next_token: null },
+    });
+
+    const result = await listTemplates({ token: 2, per_page: 10 });
+
+    expect(result.content[0].text).toBe(
+      "No templates on page 2. The last page with templates is 1; call list-templates with token 1 and per_page 10 to see them."
+    );
+  });
+
+  it("rejects per_page above 100 before any request", async () => {
+    const result = await listTemplates({ per_page: 101 });
+
+    expect(mockClient.templates.getList).not.toHaveBeenCalled();
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain("Invalid input: per_page");
   });
 
   describe("error handling", () => {

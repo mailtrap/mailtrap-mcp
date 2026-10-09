@@ -37,7 +37,7 @@ async function createTemplate({
       createParams.body_text = text;
     }
 
-    const template = await mailtrap.templates.create(createParams);
+    const { data: template } = await mailtrap.templates.create(createParams);
 
     return {
       content: [

@@ -333,7 +333,9 @@ const tools = [
   },
   {
     name: "list-templates",
-    description: "List all email templates",
+    description:
+      "List the account's email templates with page-token pagination (`token`, `per_page`)." +
+      " Pages are offsets over the newest-first list, so after deleting templates list again from token 1 instead of continuing with the next token.",
     inputSchema: listTemplatesSchema,
     handler: listTemplates,
     annotations: {

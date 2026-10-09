@@ -7,7 +7,7 @@ async function getTemplate({
   try {
     const mailtrap = requireClient("templates");
 
-    const template = await mailtrap.templates.get(template_id);
+    const { data: template } = await mailtrap.templates.get(template_id);
 
     const lines = [
       `Template: ${template.name} (ID: ${template.id}, UUID: ${template.uuid})`,

@@ -29,7 +29,7 @@ describe("getTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.templates.get.mockResolvedValue(mockTemplate);
+    mockClient.templates.get.mockResolvedValue({ data: mockTemplate });
   });
 
   it("returns template details", async () => {
@@ -46,15 +46,24 @@ describe("getTemplate", () => {
     expect(result.content[0].text).toContain("Text body:");
   });
 
-  it("omits text body section when body_text is missing", async () => {
+  it("omits text body section when body_text is null", async () => {
     mockClient.templates.get.mockResolvedValue({
-      ...mockTemplate,
-      body_text: undefined,
+      data: { ...mockTemplate, body_text: null },
     });
 
     const result = await getTemplate({ template_id: mockTemplateId });
 
     expect(result.content[0].text).not.toContain("Text body:");
+  });
+
+  it("shows (none) when body_html is null", async () => {
+    mockClient.templates.get.mockResolvedValue({
+      data: { ...mockTemplate, body_html: null },
+    });
+
+    const result = await getTemplate({ template_id: mockTemplateId });
+
+    expect(result.content[0].text).toContain("HTML body:\n(none)");
   });
 
   describe("error handling", () => {

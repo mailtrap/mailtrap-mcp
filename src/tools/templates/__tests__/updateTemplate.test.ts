@@ -33,7 +33,7 @@ describe("updateTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.templates.update.mockResolvedValue(mockResponse);
+    mockClient.templates.update.mockResolvedValue({ data: mockResponse });
   });
 
   it("should update template successfully with all fields", async () => {
