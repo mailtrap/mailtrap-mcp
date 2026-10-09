@@ -1,3 +1,21 @@
+## [0.10.0] - 2026-10-09
+
+## What's Changed
+* chore(deps): bump fast-uri from 3.1.5 to 3.1.7 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/142
+* chore(deps): bump qs from 6.15.2 to 6.16.0 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/143
+* docs: expand README intro, capabilities, and example prompts by @leonid-shevtsov in https://github.com/mailtrap/mailtrap-mcp/pull/148
+* chore(deps): bump hono from 4.13.0 to 4.13.7 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/145
+* Add smithery.yaml so Smithery deploys can validate by @leonid-shevtsov in https://github.com/mailtrap/mailtrap-mcp/pull/147
+* chore(deps): bump ip-address from 10.4.0 to 10.7.2 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/149
+* run CI on pull requests by @oshchyhol in https://github.com/mailtrap/mailtrap-mcp/pull/150
+* chore(deps): bump the npm_and_yarn group across 1 directory with 2 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/152
+* feat: unify sandbox tools on MAILTRAP_SANDBOX_ID by @leonid-shevtsov in https://github.com/mailtrap/mailtrap-mcp/pull/151
+* Add Dockerfile for Docker MCP Catalog by @leonid-shevtsov in https://github.com/mailtrap/mailtrap-mcp/pull/146
+* Move the template tools to the paginated /api/templates API by @izikaj in https://github.com/mailtrap/mailtrap-mcp/pull/154
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.9.0...v0.10.0
+
 ## [0.9.0] - 2026-09-01
 
 ## What's Changed
