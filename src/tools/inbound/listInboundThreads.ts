@@ -19,21 +19,30 @@ async function listInboundThreads(raw: unknown): Promise<ToolResponse> {
       };
     }
 
-    const { inbox_id: inboxId, last_id: lastId } = parsed.data;
+    const { inbox_id: inboxId, last_id: lastId, search } = parsed.data;
 
     const mailtrap = requireClient("inbound threads", {
       requireAccountId: false,
     });
 
+    const options = {
+      ...(lastId ? { last_id: lastId } : {}),
+      ...(search ? { search } : {}),
+    };
+
     const page = await mailtrap.inbound.threads.getList(
       inboxId,
-      lastId ? { last_id: lastId } : undefined
+      Object.keys(options).length > 0 ? options : undefined
     );
 
     const threads = page.data ?? [];
 
     if (threads.length === 0) {
-      return buildSuccessResponse("No threads found in this inbox.");
+      return buildSuccessResponse(
+        search
+          ? `No threads matching "${search}" found in this inbox.`
+          : "No threads found in this inbox."
+      );
     }
 
     const lines = threads
@@ -47,7 +56,9 @@ async function listInboundThreads(raw: unknown): Promise<ToolResponse> {
 
     let text = `Found ${threads.length} thread(s) of ${page.total_count} total:\n\n${lines}`;
     if (page.last_id) {
-      text += `\n\nNext page: pass last_id: "${page.last_id}" to fetch more.`;
+      text += search
+        ? `\n\nNext page: pass last_id: "${page.last_id}" with the same search to fetch more.`
+        : `\n\nNext page: pass last_id: "${page.last_id}" to fetch more.`;
     }
 
     return buildSuccessResponse(text);

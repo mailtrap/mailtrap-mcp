@@ -36,6 +36,16 @@ import getInboundThreadSchema from "./schemas/getInboundThread";
 import getInboundThread from "./getInboundThread";
 import deleteInboundThreadSchema from "./schemas/deleteInboundThread";
 import deleteInboundThread from "./deleteInboundThread";
+import listInboundForwardRulesSchema from "./schemas/listInboundForwardRules";
+import listInboundForwardRules from "./listInboundForwardRules";
+import getInboundForwardRuleSchema from "./schemas/getInboundForwardRule";
+import getInboundForwardRule from "./getInboundForwardRule";
+import createInboundForwardRuleSchema from "./schemas/createInboundForwardRule";
+import createInboundForwardRule from "./createInboundForwardRule";
+import updateInboundForwardRuleSchema from "./schemas/updateInboundForwardRule";
+import updateInboundForwardRule from "./updateInboundForwardRule";
+import deleteInboundForwardRuleSchema from "./schemas/deleteInboundForwardRule";
+import deleteInboundForwardRule from "./deleteInboundForwardRule";
 
 export {
   listInboundFoldersSchema,
@@ -76,4 +86,14 @@ export {
   getInboundThread,
   deleteInboundThreadSchema,
   deleteInboundThread,
+  listInboundForwardRulesSchema,
+  listInboundForwardRules,
+  getInboundForwardRuleSchema,
+  getInboundForwardRule,
+  createInboundForwardRuleSchema,
+  createInboundForwardRule,
+  updateInboundForwardRuleSchema,
+  updateInboundForwardRule,
+  deleteInboundForwardRuleSchema,
+  deleteInboundForwardRule,
 };
