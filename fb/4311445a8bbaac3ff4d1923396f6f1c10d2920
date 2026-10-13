@@ -1,0 +1,42 @@
+src/tools/marketingStats/__tests__/getMarketingStats.test.ts
+  s_352d2f8966be99::t_1c0038bc823801 1-136
+src/server.ts
+  s_352d2f8966be99::t_6680cbdbe7c8b7 701
+  s_352d2f8966be99::t_e467a34c6a7ece 94-96,698-700,702-703
+  s_352d2f8966be99::t_3434338a3eb1b8 93,704-707
+manifest.json
+  s_352d2f8966be99::t_9bb8c02fddbb89 202-204
+  s_352d2f8966be99::t_d909c5399f5cca 201
+CLAUDE.md
+  s_352d2f8966be99::t_9bb8c02fddbb89 88
+  s_352d2f8966be99::t_6680cbdbe7c8b7 54
+README.md
+  s_352d2f8966be99::t_6680cbdbe7c8b7 36
+  s_352d2f8966be99::t_9bb8c02fddbb89 214,381-390
+  s_352d2f8966be99::t_c5217ca7653310 391-392
+src/tools/marketingStats/getMarketingStats.ts
+  s_352d2f8966be99::t_6680cbdbe7c8b7 26
+  s_352d2f8966be99::t_dde200404325fc 1-25,27-34
+src/tools/marketingStats/index.ts
+  s_352d2f8966be99::t_ac49be454a8da3 1-4
+src/tools/marketingStats/schema.ts
+  s_352d2f8966be99::t_6680cbdbe7c8b7 6-7,13,19,50-51
+  s_352d2f8966be99::t_34745bd3e67f5b 14-15
+  s_352d2f8966be99::t_223ad9a45213a2 1-5,8-12,16-18,20-49,52-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fb4311445a8bbaac3ff4d1923396f6f1c10d2920",
+  "prompts": {},
+  "sessions": {
+    "s_352d2f8966be99": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fbe1f7b9-c7df-4ab6-8172-201f6fa0a7f4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
