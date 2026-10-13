@@ -51,7 +51,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 ### Environment Variables Required
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
-- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, get-sending-stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the email campaign tools, get-marketing-stats, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
+- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, get-sending-stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the batch-send-* tools, the email campaign tools, get-marketing-stats, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
 - `MAILTRAP_SANDBOX_ID`: Optional. Default sandbox (test inbox) ID when a tool does not receive `sandbox_id` (legacy `test_inbox_id` on send-sandbox-email, get-sandbox-messages, show-sandbox-email-message). Enables switching inboxes per call via parameters.
 - `MAILTRAP_TEST_INBOX_ID`: Legacy fallback for `MAILTRAP_SANDBOX_ID` (still honored).
@@ -85,7 +85,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Statistics
 
 - **get-sending-stats**: Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range; optionally break down by domain, category, email service provider, or date.
-- **get-marketing-stats**: Get aggregated Email Marketing statistics (counts and rates) across campaigns and/or automations for a date range; optionally filter by sending domain, source (`campaigns`/`automations`), or email service provider. Token-scoped (no `MAILTRAP_ACCOUNT_ID`).
+- **get-marketing-stats**: Get aggregated Email Marketing statistics (counts and rates) across campaigns and/or automations for a date range; optionally filter by sending domain, source (`campaigns`/`automations`), or email service provider.
 
 #### Email Templates
 

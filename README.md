@@ -206,7 +206,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Show email logs for emails sent to user@example.com"
 - "Get the email log message for ID abc-123-uuid to check delivery status"
 
-**Sending Statistics:**
+**Statistics:**
 
 - "Get sending stats for January 2025"
 - "Show delivery rates broken down by domain for last month"
@@ -380,7 +380,7 @@ Get email sending statistics (delivery, bounce, open, click, spam rates) for a d
 
 ### get-marketing-stats
 
-Get aggregated Email Marketing statistics across campaigns and automations for a date range: sent, delivery, bounce, open, click, spam and unsubscription counts and rates. `delivery_rate` and `bounce_rate` are shares of `sent_count`; the other rates are shares of `delivery_count`. Does not require `MAILTRAP_ACCOUNT_ID` (the account is resolved from the API token).
+Get aggregated Email Marketing statistics across campaigns and automations for a date range: sent, delivery, bounce, open, click, spam and unsubscription counts and rates. `delivery_rate` and `bounce_rate` are shares of `sent_count`; the other rates are shares of `delivery_count`.
 
 **Parameters:**
 

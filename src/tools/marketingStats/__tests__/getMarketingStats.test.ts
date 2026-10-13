@@ -82,16 +82,44 @@ describe("getMarketingStats", () => {
     expect(mockClient.marketingStats.get).not.toHaveBeenCalled();
   });
 
-  it("rejects dates that are not in YYYY-MM-DD format", async () => {
+  it("rejects impossible dates and dates not in YYYY-MM-DD format", async () => {
     const result = await getMarketingStats({
-      start_date: "invalid",
+      start_date: "2026-02-30",
       end_date: "2026-09-30T00:00:00Z",
     });
 
     expect(result.isError).toBe(true);
-    expect(result.content[0].text).toContain("start_date");
-    expect(result.content[0].text).toContain("end_date");
+    expect(result.content[0].text).toContain(
+      "start_date: must be a valid date in YYYY-MM-DD format"
+    );
+    expect(result.content[0].text).toContain(
+      "end_date: must be a valid date in YYYY-MM-DD format"
+    );
     expect(mockClient.marketingStats.get).not.toHaveBeenCalled();
+  });
+
+  it("rejects an end_date before the start_date", async () => {
+    const result = await getMarketingStats({
+      start_date: "2026-09-30",
+      end_date: "2026-09-01",
+    });
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain(
+      "end_date: must not be before start_date"
+    );
+    expect(mockClient.marketingStats.get).not.toHaveBeenCalled();
+  });
+
+  it("accepts a single-day range", async () => {
+    mockClient.marketingStats.get.mockResolvedValue({ data: stats });
+
+    const result = await getMarketingStats({
+      start_date: "2026-02-28",
+      end_date: "2026-02-28",
+    });
+
+    expect(result.isError).toBeUndefined();
   });
 
   it("rejects an unknown source", async () => {
