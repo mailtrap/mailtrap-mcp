@@ -199,6 +199,10 @@
       "description": "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range with optional breakdowns."
     },
     {
+      "name": "get-marketing-stats",
+      "description": "Get aggregated Email Marketing statistics across campaigns and automations for a date range."
+    },
+    {
       "name": "list-email-logs",
       "description": "List sent email logs (delivery history) with optional pagination and filters."
     },
