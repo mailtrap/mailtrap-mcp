@@ -1,0 +1,23 @@
+README.md
+  s_fd7f30f54056ab::t_a1ab1e0c5d59e2 919,940
+src/tools/apiTokens/schemas/createApiToken.ts
+  s_fd7f30f54056ab::t_2fe6f2d202aa05 11
+src/tools/apiTokens/schemas/resetApiToken.ts
+  s_fd7f30f54056ab::t_81b79e0720e9bf 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "ec18c0f65de67855d534eed4d6ed02771c04b60d",
+  "prompts": {},
+  "sessions": {
+    "s_fd7f30f54056ab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6c6a8bb2-a0f7-4555-af30-0d076487c6f4",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}

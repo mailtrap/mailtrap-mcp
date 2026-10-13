@@ -1,0 +1,84 @@
+src/tools/inbound/listInboundForwardRules.ts
+  s_ea02f2a89792e1::t_9385c32d4d7718 1-51
+src/tools/inbound/schemas/getInboundForwardRule.ts
+  s_ea02f2a89792e1::t_95b8a6dc4aeb88 1-26
+src/tools/inbound/schemas/listInboundForwardRules.ts
+  s_ea02f2a89792e1::t_4665692e84840b 1-21
+src/tools/inbound/index.ts
+  s_ea02f2a89792e1::t_2e30798018daff 39-48,89-98
+CLAUDE.md
+  s_ea02f2a89792e1::t_b5245f6f83d16e 122-123
+src/tools/inbound/__tests__/listInboundForwardRules.test.ts
+  s_ea02f2a89792e1::t_f938846e17f8f5 1-88
+src/tools/inbound/schemas/createInboundForwardRule.ts
+  s_ea02f2a89792e1::t_885fe791951674 1-2,7-30
+  s_ea02f2a89792e1::t_90320fd31ab313 3-6
+src/tools/inbound/listInboundThreads.ts
+  s_ea02f2a89792e1::t_ae3df072ff4074 22,28-32,35
+  s_ea02f2a89792e1::t_6bb322aa4b7ef0 41-45
+  s_ea02f2a89792e1::t_ece2143ec86d1a 59-61
+src/tools/inbound/__tests__/deleteInboundForwardRule.test.ts
+  s_ea02f2a89792e1::t_5d8d09be89899a 1-58
+src/tools/inbound/schemas/forwardRuleFields.ts
+  s_ea02f2a89792e1::t_a772fcfcf71f71 1-78,82
+  s_ea02f2a89792e1::t_d009d8ab1f16da 79-81
+src/tools/inbound/getInboundForwardRule.ts
+  s_ea02f2a89792e1::t_ee1b105ad724a9 1-39
+src/server.ts
+  s_ea02f2a89792e1::t_6f33cfa77853a8 1468-1486,1488-1506
+  s_ea02f2a89792e1::t_94319b13ae8ab7 1448
+  s_ea02f2a89792e1::t_46f2cb7568d559 1487
+  s_ea02f2a89792e1::t_2e30798018daff 291-300
+src/tools/inbound/__tests__/getInboundForwardRule.test.ts
+  s_ea02f2a89792e1::t_9a27922aa846cf 1-63
+src/tools/inbound/schemas/updateInboundForwardRule.ts
+  s_ea02f2a89792e1::t_90320fd31ab313 3-6
+  s_ea02f2a89792e1::t_b4b2ab725707b0 1-2,7-18,20-52
+  s_ea02f2a89792e1::t_0340a0b5695d42 19
+src/tools/inbound/updateInboundForwardRule.ts
+  s_ea02f2a89792e1::t_577211f0c0b9a9 1-44
+src/tools/inbound/__tests__/listInboundThreads.test.ts
+  s_ea02f2a89792e1::t_e8e6489fa4f579 43-45
+  s_ea02f2a89792e1::t_0b41c70bc35e4d 28-29
+  s_ea02f2a89792e1::t_6b52418375a7c0 64-109
+src/tools/inbound/createInboundForwardRule.ts
+  s_ea02f2a89792e1::t_fbeed7886e81cb 1-39
+src/tools/inbound/deleteInboundForwardRule.ts
+  s_ea02f2a89792e1::t_a922d973c16f5a 1-38
+src/tools/inbound/schemas/listInboundThreads.ts
+  s_ea02f2a89792e1::t_2352bedd2043d1 14-18
+  s_ea02f2a89792e1::t_cfac4afd7caebb 28
+src/tools/inbound/__tests__/updateInboundForwardRule.test.ts
+  s_ea02f2a89792e1::t_4cf7e3ba2c622e 1-99
+README.md
+  s_ea02f2a89792e1::t_75b4ce06100e7c 1425,1464,1469
+  s_ea02f2a89792e1::t_cbbf8c9759efbd 1419
+  s_ea02f2a89792e1::t_5d647c3e4e46b5 1445-1463,1465-1468,1470-1493
+src/tools/inbound/__tests__/createInboundForwardRule.test.ts
+  s_ea02f2a89792e1::t_c4d8ebf24ba592 1-110
+manifest.json
+  s_ea02f2a89792e1::t_dfed4c4d6b90f9 536-555
+src/tools/inbound/schemas/deleteInboundForwardRule.ts
+  s_ea02f2a89792e1::t_9588340e9f728e 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8d2a86a6446ce999a7ceda20cccfad4bd71bf293",
+  "prompts": {},
+  "humans": {
+    "h_36a957dc058c42": {
+      "author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_ea02f2a89792e1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "87ceb478-60a1-47fe-84f9-1458c02d71bf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

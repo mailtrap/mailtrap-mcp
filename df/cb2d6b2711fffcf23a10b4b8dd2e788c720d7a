@@ -1,0 +1,14 @@
+README.md
+  h_36a957dc058c42 673
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "dfcb2d6b2711fffcf23a10b4b8dd2e788c720d7a",
+  "prompts": {},
+  "humans": {
+    "h_36a957dc058c42": {
+      "author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

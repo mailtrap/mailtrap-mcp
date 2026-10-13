@@ -1,0 +1,23 @@
+Dockerfile
+  s_695dc9c0ac14d9::t_98f5c501d320d5 24-25
+README.md
+  s_695dc9c0ac14d9::t_ac7e7996643408 68
+  s_695dc9c0ac14d9::t_47cdafe7a54808 54,70
+  s_695dc9c0ac14d9::t_a8ea3fd86ff1d6 58-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ba412b1b86071386c3fa480013de55017a032b52",
+  "prompts": {},
+  "sessions": {
+    "s_695dc9c0ac14d9": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "0c850923-744d-4463-8e93-2fe02c4f0850",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}

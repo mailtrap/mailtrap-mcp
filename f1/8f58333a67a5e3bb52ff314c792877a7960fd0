@@ -1,0 +1,26 @@
+manifest.json
+  s_a416a2bbf03afd::t_119dcd954922fc 41-48,57-60,73-76,93-100,125-196,229-232,245-248,253-256,268-535
+package-lock.json
+  h_36a957dc058c42 679-681,790-792,1126-1128,3603-3615,4888-4890,5004-5006,5426-5428,5844-5846,6840-6842,7447-7449,9179-9181,9758-9760
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f18f58333a67a5e3bb52ff314c792877a7960fd0",
+  "prompts": {},
+  "humans": {
+    "h_36a957dc058c42": {
+      "author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  },
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+README.md
+  s_e7f8ba638ae780::t_e6b71f63363b16 50
+  s_e7f8ba638ae780::t_30e1933b9c9a53 42
+  s_e7f8ba638ae780::t_33997e2f3b1c84 48
+  s_e7f8ba638ae780::t_2682cd9820c4b9 101,124,162,1474,1499,1522
+  s_716eb594b4435c::t_2fde582a0f0bb7 54,64
+  s_716eb594b4435c::t_1d410d821fb4a0 52-53,55-63,65-68,1647
+CLAUDE.md
+  s_e7f8ba638ae780::t_c71a4819b8f703 57
+  s_716eb594b4435c::t_06661b8566f93f 11
+manifest.json
+  s_e7f8ba638ae780::t_ec5208fccb1c5f 563
+src/client.ts
+  s_e7f8ba638ae780::t_77bffef11a7ce1 47
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_e7f8ba638ae780::t_d4fca3707c5b8b 41,93,97
+src/tools/sandbox/__tests__/getSandboxInbox.test.ts
+  s_e7f8ba638ae780::t_75471842e3ca4e 78-79,91
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_e7f8ba638ae780::t_0b8cce4044c1a1 32,370-371
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_e7f8ba638ae780::t_151c9c086e6941 60,153,157
+src/tools/sandbox/getSandboxInbox.ts
+  s_e7f8ba638ae780::t_6f20b22c5c2343 3
+package.json
+  s_716eb594b4435c::t_48317494947cea 27
+.dockerignore
+  s_716eb594b4435c::t_88f1af5b6e9efe 1-9
+Dockerfile
+  s_716eb594b4435c::t_1e674e147a6718 10,12,14-20,31
+  s_716eb594b4435c::t_6a720761e26b6c 1,6
+  s_716eb594b4435c::t_3c47ef0f569a58 2-5,7-9,11,13,21-30,32-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9442c6cc993323795e041d438bd925b02f38a0f2",
+  "prompts": {},
+  "sessions": {
+    "s_716eb594b4435c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "93760f32-856e-4ad5-b70f-50ce743bd161",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    },
+    "s_e7f8ba638ae780": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9ed024a0-342a-4e06-9bf4-5ee3730e64e9",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+README.md
+  s_e7f8ba638ae780::t_e6b71f63363b16 50
+  s_e7f8ba638ae780::t_30e1933b9c9a53 41-42
+  s_e7f8ba638ae780::t_c570c25c8bb407 417
+  s_e7f8ba638ae780::t_0dc840aea46fb2 439
+  s_e7f8ba638ae780::t_33997e2f3b1c84 48
+  s_e7f8ba638ae780::t_2682cd9820c4b9 82,105,143,1450,1475,1498
+  s_e7f8ba638ae780::t_ed6a9c88061db6 1613
+CLAUDE.md
+  s_e7f8ba638ae780::t_c71a4819b8f703 56-57
+manifest.json
+  s_e7f8ba638ae780::t_ec5208fccb1c5f 563
+src/client.ts
+  s_e7f8ba638ae780::t_77bffef11a7ce1 47
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_e7f8ba638ae780::t_d4fca3707c5b8b 41,93,97,108
+src/tools/sandbox/__tests__/getSandboxInbox.test.ts
+  s_e7f8ba638ae780::t_75471842e3ca4e 67-68,80
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_e7f8ba638ae780::t_0b8cce4044c1a1 32,370-371,387
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_e7f8ba638ae780::t_151c9c086e6941 60,153,157,168
+src/tools/sandbox/getSandboxInbox.ts
+  s_e7f8ba638ae780::t_6f20b22c5c2343 3,12
+src/tools/sandbox/getSandboxMessages.ts
+  s_e7f8ba638ae780::t_482f4e3b241072 3,15
+src/tools/sandbox/schemas/getMessages.ts
+  s_e7f8ba638ae780::t_fe5c7433cd0fdd 7
+src/tools/sandbox/schemas/getSandboxInbox.ts
+  s_e7f8ba638ae780::t_6ed73d1f9c8058 7
+src/tools/sandbox/schemas/sendSandboxEmail.ts
+  s_e7f8ba638ae780::t_87fead63a69c16 14
+src/tools/sandbox/schemas/showEmailMessage.ts
+  s_e7f8ba638ae780::t_367811c42b9fd9 7
+src/tools/sandbox/sendSandboxEmail.ts
+  s_e7f8ba638ae780::t_7cdd369be14177 9,25
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_e7f8ba638ae780::t_c6e0bfdd926dc9 3,52
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_e7f8ba638ae780::t_3743d30574eb37 2-3,5-8,15,21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8d674177e26221c9dc5d6a3ab50d5f06d4fd153e",
+  "prompts": {},
+  "sessions": {
+    "s_e7f8ba638ae780": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9ed024a0-342a-4e06-9bf4-5ee3730e64e9",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}

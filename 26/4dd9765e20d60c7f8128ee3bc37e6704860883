@@ -1,0 +1,56 @@
+src/tools/trackingOptOuts/deleteTrackingOptOut.ts
+  s_a416a2bbf03afd::t_5869147ac8fbc7 1-27
+src/tools/trackingOptOuts/schemas/listTrackingOptOuts.ts
+  s_a416a2bbf03afd::t_0171e5b601477c 1-28
+src/tools/trackingOptOuts/__tests__/createTrackingOptOut.test.ts
+  s_a416a2bbf03afd::t_821e4883f21de6 1-95
+src/tools/suppressions/schemas/createSuppression.ts
+  s_a416a2bbf03afd::t_8d1bddf252f203 1-53
+src/tools/trackingOptOuts/__tests__/deleteTrackingOptOut.test.ts
+  s_a416a2bbf03afd::t_821e4883f21de6 1-54
+src/tools/suppressions/createSuppression.ts
+  s_a416a2bbf03afd::t_8d1bddf252f203 1-36
+src/types/mailtrap.ts
+  s_a416a2bbf03afd::t_ef26a3d7ec7bdd 372-377,389-390,401-407,953-977
+CLAUDE.md
+  s_a416a2bbf03afd::t_ef26a3d7ec7bdd 54,145,148-155
+  s_a416a2bbf03afd::t_11e442a43ab1b0 156
+src/tools/suppressions/index.ts
+  s_a416a2bbf03afd::t_52b49d317538a6 3-4,11-12
+src/tools/trackingOptOuts/listTrackingOptOuts.ts
+  s_a416a2bbf03afd::t_5869147ac8fbc7 1-54
+src/tools/trackingOptOuts/__tests__/listTrackingOptOuts.test.ts
+  s_a416a2bbf03afd::t_821e4883f21de6 1-105
+src/tools/trackingOptOuts/schemas/deleteTrackingOptOut.ts
+  s_a416a2bbf03afd::t_0171e5b601477c 1-13
+README.md
+  s_a416a2bbf03afd::t_ef26a3d7ec7bdd 21,204-210,684-694,703-729
+  s_a416a2bbf03afd::t_1adc1f588570e0 730
+src/tools/trackingOptOuts/createTrackingOptOut.ts
+  s_a416a2bbf03afd::t_5869147ac8fbc7 1-38
+src/tools/suppressions/__tests__/createSuppression.test.ts
+  s_a416a2bbf03afd::t_6d3ad1aab4633d 1-119
+src/tools/trackingOptOuts/schemas/createTrackingOptOut.ts
+  s_a416a2bbf03afd::t_0171e5b601477c 1-28
+src/server.ts
+  s_a416a2bbf03afd::t_ef26a3d7ec7bdd 124-125,129-136,798-807,818-844,846-847
+  s_a416a2bbf03afd::t_5249e02c3a2010 845
+src/tools/trackingOptOuts/index.ts
+  s_a416a2bbf03afd::t_5869147ac8fbc7 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "264dd9765e20d60c7f8128ee3bc37e6704860883",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
