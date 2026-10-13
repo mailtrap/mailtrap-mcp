@@ -33,7 +33,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, the company info tools, and the tracking opt-out tools.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, get-sending-stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, get-marketing-stats, the company info tools, and the tracking opt-out tools.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -211,6 +211,7 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Get sending stats for January 2025"
 - "Show delivery rates broken down by domain for last month"
 - "What are my email stats by category from 2025-01-01 to 2025-01-31?"
+- "How did my email marketing perform last month? Compare campaigns with automations"
 
 **Sandbox Operations:**
 
@@ -375,6 +376,18 @@ Get email sending statistics (delivery, bounce, open, click, spam rates) for a d
 - `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
 - `sending_streams` (optional): Limit to `transactional` and/or `bulk` (array of strings)
 - `categories` (optional): Limit to these email categories (array of strings)
+- `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
+
+### get-marketing-stats
+
+Get aggregated Email Marketing statistics across campaigns and automations for a date range: sent, delivery, bounce, open, click, spam and unsubscription counts and rates. `delivery_rate` and `bounce_rate` are shares of `sent_count`; the other rates are shares of `delivery_count`. Does not require `MAILTRAP_ACCOUNT_ID` (the account is resolved from the API token).
+
+**Parameters:**
+
+- `start_date` (required): Start of the date range (inclusive), `YYYY-MM-DD`
+- `end_date` (required): End of the date range (inclusive), `YYYY-MM-DD`
+- `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
+- `sources` (optional): `campaigns` or `automations` narrows the stats to that source; omit it, or pass both, for all Email Marketing traffic (array of strings)
 - `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
 
 ### create-template
