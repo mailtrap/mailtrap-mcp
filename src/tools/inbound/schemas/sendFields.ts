@@ -84,6 +84,6 @@ export const sendMessageZodShape = {
   html: z.string().optional(),
   category: z.string().optional(),
   attachments: z.array(attachmentZod).optional(),
-  headers: z.record(z.string()).optional(),
-  custom_variables: z.record(z.string()).optional(),
+  headers: z.record(z.string(), z.string()).optional(),
+  custom_variables: z.record(z.string(), z.string()).optional(),
 };
