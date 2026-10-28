@@ -9,7 +9,7 @@ import {
 async function removeAccountAccess(raw: unknown): Promise<ToolResponse> {
   const parsed = removeAccountAccessZod.safeParse(raw);
   if (!parsed.success) {
-    const msg = parsed.error.errors
+    const msg = parsed.error.issues
       .map((e) => `${e.path.join(".")}: ${e.message}`)
       .join("; ");
     return buildErrorResponse(
