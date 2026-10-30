@@ -10,7 +10,7 @@ async function deleteInboundForwardRule(raw: unknown): Promise<ToolResponse> {
   try {
     const parsed = deleteInboundForwardRuleZod.safeParse(raw ?? {});
     if (!parsed.success) {
-      const msg = parsed.error.errors
+      const msg = parsed.error.issues
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
       return {

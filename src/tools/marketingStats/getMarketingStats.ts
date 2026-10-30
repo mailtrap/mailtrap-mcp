@@ -10,7 +10,7 @@ async function getMarketingStats(raw: unknown): Promise<ToolResponse> {
   try {
     const parsed = getMarketingStatsZod.safeParse(raw ?? {});
     if (!parsed.success) {
-      const msg = parsed.error.errors
+      const msg = parsed.error.issues
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
       return {
