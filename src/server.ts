@@ -91,6 +91,10 @@ import {
 } from "./tools/sandbox";
 import { getSendingStats, getSendingStatsSchema } from "./tools/stats";
 import {
+  getMarketingStats,
+  getMarketingStatsSchema,
+} from "./tools/marketingStats";
+import {
   listEmailLogs,
   listEmailLogsSchema,
   getEmailLogMessage,
@@ -684,9 +688,19 @@ const tools = [
   {
     name: "get-sending-stats",
     description:
-      "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date.",
+      "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date. Covers Email API/SMTP traffic only; for Email Marketing campaigns and automations use get-marketing-stats.",
     inputSchema: getSendingStatsSchema,
     handler: getSendingStats,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-marketing-stats",
+    description:
+      "Get aggregated Email Marketing statistics (sent, delivery, bounce, open, click, spam and unsubscription counts and rates) across campaigns and/or automations for a date range; optionally filter by sending domain, source (campaigns or automations) or email service provider. Rates are fractions from 0 to 1: `delivery_rate` and `bounce_rate` are shares of `sent_count`, the other rates are shares of `delivery_count`. Email API/SMTP traffic is reported by get-sending-stats instead.",
+    inputSchema: getMarketingStatsSchema,
+    handler: getMarketingStats,
     annotations: {
       readOnlyHint: true,
     },
