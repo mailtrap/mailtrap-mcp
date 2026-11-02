@@ -3,7 +3,7 @@ import { z } from "zod";
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const SOURCES = ["campaigns", "automations"] as const;
 
-const dateZod = z.string().date("must be a valid date in YYYY-MM-DD format");
+const dateZod = z.iso.date("must be a valid date in YYYY-MM-DD format");
 
 const getMarketingStatsSchema = {
   type: "object",

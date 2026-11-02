@@ -29,6 +29,7 @@ Before using this MCP server, you need to:
 2. [Verify your domain](https://mailtrap.io/sending/domains)
 3. Get your API token from [Mailtrap API settings](https://mailtrap.io/api-tokens)
 4. Get your Account ID from [Mailtrap account management](https://mailtrap.io/account-management)
+5. Install [Node.js](https://nodejs.org) 22 or later, unless you run the [Docker](#docker) image
 
 **Required Environment Variables:**
 
@@ -119,7 +120,7 @@ If you are using `asdf` for managing Node.js you must use absolute path to execu
         "PATH": "/Users/<username>/.asdf/shims:/usr/bin:/bin",
         "ASDF_DIR": "/opt/homebrew/opt/asdf/libexec",
         "ASDF_DATA_DIR": "/Users/<username>/.asdf",
-        "ASDF_NODEJS_VERSION": "20.6.1",
+        "ASDF_NODEJS_VERSION": "22.14.0",
         "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
         "DEFAULT_FROM_EMAIL": "your_sender@example.com",
         "MAILTRAP_ACCOUNT_ID": "your_account_id",
@@ -1558,7 +1559,7 @@ If you are using `asdf` for managing Node.js you should use absolute path to exe
         "PATH": "/Users/<username>/.asdf/shims:/usr/bin:/bin",
         "ASDF_DIR": "/opt/homebrew/opt/asdf/libexec",
         "ASDF_DATA_DIR": "/Users/<username>/.asdf",
-        "ASDF_NODEJS_VERSION": "20.6.1",
+        "ASDF_NODEJS_VERSION": "22.14.0",
         "MAILTRAP_API_TOKEN": "your_mailtrap_api_token",
         "DEFAULT_FROM_EMAIL": "your_sender@example.com",
         "MAILTRAP_ACCOUNT_ID": "your_account_id",
