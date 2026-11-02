@@ -1,3 +1,13 @@
+## [1.0.0] - 2026-11-02
+
+## What's Changed
+* chore(deps): bump the npm_and_yarn group across 1 directory with 3 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/160
+* chore(deps): bump the npm_and_yarn group across 1 directory with 4 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/162
+* Add a get-marketing-stats tool (breaking: requires Node.js 22+) by @Rabsztok in https://github.com/mailtrap/mailtrap-mcp/pull/158
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.11.0...v1.0.0
+
 ## [0.11.0] - 2026-10-27
 
 ## What's Changed
