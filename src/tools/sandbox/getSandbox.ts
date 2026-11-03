@@ -1,14 +1,16 @@
 import { requireClient } from "../../client";
 import { GetSandboxRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 import resolveSandboxId from "./utils/resolveSandboxId";
 
 async function getSandbox({
   sandbox_id,
   inbox_id,
-}: GetSandboxRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}: GetSandboxRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandboxes");
 
@@ -37,25 +39,9 @@ async function getSandbox({
       `• Last message sent: ${inbox.last_message_sent_at ?? "never"}`,
     ].join("\n");
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox details:\n\n${lines}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(`Sandbox details:\n\n${lines}`);
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get sandbox: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get sandbox", error);
   }
 }
 

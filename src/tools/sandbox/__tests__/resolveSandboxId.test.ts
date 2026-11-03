@@ -43,6 +43,17 @@ describe("resolveSandboxId", () => {
     );
   });
 
+  it.each(["0", "-5", "1.5", "0x10", "1e3"])(
+    "rejects the out-of-range MAILTRAP_SANDBOX_ID %p",
+    (id) => {
+      process.env.MAILTRAP_SANDBOX_ID = id;
+
+      expect(() => resolveSandboxId()).toThrow(
+        "sandbox_id (or MAILTRAP_SANDBOX_ID) must be a positive integer"
+      );
+    }
+  );
+
   it("skips a blank MAILTRAP_SANDBOX_ID and uses MAILTRAP_TEST_INBOX_ID", () => {
     process.env.MAILTRAP_SANDBOX_ID = "";
     process.env.MAILTRAP_TEST_INBOX_ID = "20";

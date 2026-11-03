@@ -1,10 +1,16 @@
 import { requireClient } from "../../client";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 import { buildSetupInstructionsSection } from "./utils/setupInstructions";
 
-async function createDomain({ domain_name }: { domain_name: string }): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function createDomain({
+  domain_name,
+}: {
+  domain_name: string;
+}): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("domains");
 
@@ -19,20 +25,9 @@ async function createDomain({ domain_name }: { domain_name: string }): Promise<{
       domain.dns_records
     );
 
-    return {
-      content: [{ type: "text", text }],
-    };
+    return buildSuccessResponse(text);
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to create domain: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("create domain", error);
   }
 }
 

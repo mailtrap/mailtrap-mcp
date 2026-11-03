@@ -1234,7 +1234,7 @@ const tools = [
   {
     name: "list-account-accesses",
     description:
-      "List account accesses (users, invites, API tokens) for the account. Optionally scope by domain UUIDs, inbox IDs, or project IDs. Requires account admin/owner permissions.",
+      "List account accesses (users, invites, API tokens) for the account. Optionally scope by domain UUIDs, sandbox IDs, or project IDs. Requires account admin/owner permissions.",
     inputSchema: listAccountAccessesSchema,
     handler: listAccountAccesses,
     annotations: {
@@ -1562,7 +1562,7 @@ export function createServer(): Server {
       throw new Error(`Unknown tool: ${request.params.name}`);
     }
 
-    return tool.handler(request.params.arguments as any);
+    return tool.handler((request.params.arguments ?? {}) as any);
   });
 
   server.setRequestHandler(ListPromptsRequestSchema, async () => {

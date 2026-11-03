@@ -8,7 +8,7 @@ function resolveDomainId({
 }: DomainIdRequest): number {
   return parseResolvedId(
     domain_id ?? sending_domain_id,
-    "domain_id (or sending_domain_id) must be a valid number",
+    "domain_id (or sending_domain_id) must be a positive integer",
     "Provide domain_id"
   );
 }

@@ -103,7 +103,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 - **get-sandbox-messages**: Get list of messages from a sandbox.
 - **show-sandbox-email-message**: Show sandbox email message details and content from a sandbox.
 - **list-sandbox-projects** / **create-sandbox-project** / **get-sandbox-project** / **update-sandbox-project** / **delete-sandbox-project**: Manage sandbox projects (group of sandboxes).
-- **create-sandbox** / **get-sandbox** / **update-sandbox** / **delete-sandbox** / **clean-sandbox**: Manage a single sandbox (create returns its SMTP credentials; clean deletes all its messages). Take `sandbox_id`, legacy `inbox_id`.
+- **create-sandbox** / **get-sandbox** / **update-sandbox** / **delete-sandbox** / **clean-sandbox**: Manage a single sandbox (create returns its SMTP credentials; clean deletes all its messages). Create takes `project_id` and `name`; the other four take `sandbox_id`, legacy `inbox_id`.
 - **list-sandboxes**: List all sandboxes accessible to the API token across projects.
 - **mark-sandbox-as-read** / **reset-sandbox-credentials** / **enable-sandbox-email-address** / **reset-sandbox-email-address**: Single-action sandbox operations.
 - **forward-sandbox-message** / **update-sandbox-message** / **delete-sandbox-message**: Mutate a single sandbox message.
@@ -128,7 +128,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 
 #### Domains
 
-The domain and company info tools take `domain_id` (legacy `sending_domain_id` still accepted).
+The tools that act on an existing domain, and the company info tools, take `domain_id` (legacy `sending_domain_id` still accepted). `list-domains` and `create-domain` take no ID.
 
 - **list-domains**: List domains and their DNS verification status.
 - **get-domain**: Get a domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.

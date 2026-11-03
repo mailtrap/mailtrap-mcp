@@ -140,6 +140,22 @@ describe("deprecated tool aliases", () => {
     expect(consoleError).not.toHaveBeenCalled();
   });
 
+  it.each([
+    ["get-domain", "Failed to get domain: Provide domain_id"],
+    [
+      "delete-sandbox",
+      "Failed to delete sandbox: Provide sandbox_id or inbox_id",
+    ],
+  ])(
+    "reports a missing ID when %s is called without arguments",
+    async (name, text) => {
+      const result = await client.callTool({ name });
+
+      expect(result.isError).toBe(true);
+      expect(result.content).toEqual([{ type: "text", text }]);
+    }
+  );
+
   it("still rejects an unknown tool", async () => {
     await expect(
       client.callTool({ name: "no-such-tool", arguments: {} })

@@ -1,14 +1,16 @@
 import { requireClient } from "../../client";
 import { DeleteSandboxRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 import { resolveRequiredSandboxInboxId } from "./utils/resolveSandboxId";
 
 async function deleteSandbox({
   sandbox_id,
   inbox_id,
-}: DeleteSandboxRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}: DeleteSandboxRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandboxes");
     const resolvedInboxId = resolveRequiredSandboxInboxId({
@@ -18,25 +20,11 @@ async function deleteSandbox({
 
     const inbox = await mailtrap.testing.inboxes.delete(resolvedInboxId);
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox deleted successfully:\n\n• Name: ${inbox.name}\n• ID: ${inbox.id}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(
+      `Sandbox deleted successfully:\n\n• Name: ${inbox.name}\n• ID: ${inbox.id}`
+    );
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to delete sandbox: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("delete sandbox", error);
   }
 }
 

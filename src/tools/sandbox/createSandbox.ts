@@ -1,13 +1,15 @@
 import { requireClient } from "../../client";
 import { CreateSandboxRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 
 async function createSandbox({
   project_id,
   name,
-}: CreateSandboxRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+}: CreateSandboxRequest): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandboxes");
 
@@ -23,25 +25,9 @@ async function createSandbox({
       `• POP3 Ports: ${inbox.pop3_ports?.join(", ") ?? "N/A"}`,
     ].join("\n");
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Sandbox created successfully:\n\n${smtpInfo}`,
-        },
-      ],
-    };
+    return buildSuccessResponse(`Sandbox created successfully:\n\n${smtpInfo}`);
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to create sandbox: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("create sandbox", error);
   }
 }
 

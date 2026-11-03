@@ -1,12 +1,14 @@
 import { requireClient } from "../../client";
 import { GetDomainRequest } from "../../types/mailtrap";
+import {
+  buildErrorResponse,
+  buildSuccessResponse,
+  ToolResponse,
+} from "../utils/responses";
 import resolveDomainId from "../utils/resolveDomainId";
 import { buildSetupInstructionsSection } from "./utils/setupInstructions";
 
-async function getDomain(args: GetDomainRequest): Promise<{
-  content: { type: string; text: string }[];
-  isError?: boolean;
-}> {
+async function getDomain(args: GetDomainRequest): Promise<ToolResponse> {
   try {
     const domainId = resolveDomainId(args);
     const mailtrap = requireClient("domains");
@@ -49,20 +51,9 @@ async function getDomain(args: GetDomainRequest): Promise<{
       );
     }
 
-    return {
-      content: [{ type: "text", text }],
-    };
+    return buildSuccessResponse(text);
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get domain: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get domain", error);
   }
 }
 

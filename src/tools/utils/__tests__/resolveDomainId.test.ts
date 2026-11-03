@@ -23,9 +23,18 @@ describe("resolveDomainId", () => {
     ).toThrow("Provide domain_id");
   });
 
-  it("rejects a non-numeric domain_id", () => {
-    expect(() =>
-      resolveDomainId({ domain_id: "abc" as unknown as number })
-    ).toThrow("domain_id (or sending_domain_id) must be a valid number");
+  it.each(["abc", "0x10", "1e3"])(
+    "rejects the non-decimal domain_id %p",
+    (id) => {
+      expect(() =>
+        resolveDomainId({ domain_id: id as unknown as number })
+      ).toThrow("domain_id (or sending_domain_id) must be a positive integer");
+    }
+  );
+
+  it.each([0, -5, 1.5])("rejects the out-of-range domain_id %p", (id) => {
+    expect(() => resolveDomainId({ domain_id: id })).toThrow(
+      "domain_id (or sending_domain_id) must be a positive integer"
+    );
   });
 });

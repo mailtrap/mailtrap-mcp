@@ -20,7 +20,7 @@ function envSandboxId(): string | undefined {
 function resolveSandboxId(sandbox_id?: number): number {
   return parseResolvedId(
     sandbox_id ?? envSandboxId(),
-    "sandbox_id (or MAILTRAP_SANDBOX_ID) must be a valid number",
+    "sandbox_id (or MAILTRAP_SANDBOX_ID) must be a positive integer",
     "Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
   );
 }
@@ -35,7 +35,7 @@ export function resolveRequiredSandboxInboxId({
 }): number {
   return parseResolvedId(
     sandbox_id ?? inbox_id,
-    "sandbox_id (or inbox_id) must be a valid number",
+    "sandbox_id (or inbox_id) must be a positive integer",
     "Provide sandbox_id or inbox_id"
   );
 }
@@ -52,7 +52,7 @@ export function resolveLegacySandboxInboxId({
 } = {}): number {
   return parseResolvedId(
     sandbox_id ?? test_inbox_id ?? envSandboxId(),
-    "sandbox_id (or test_inbox_id / MAILTRAP_SANDBOX_ID) must be a valid number",
+    "sandbox_id (or test_inbox_id / MAILTRAP_SANDBOX_ID) must be a positive integer",
     "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
   );
 }
