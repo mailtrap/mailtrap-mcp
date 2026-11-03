@@ -1,0 +1,55 @@
+src/tools/domains/getDomain.ts
+  s_16eb35ffaa053c::t_1ff6182235e4d4 3-7,11,54,56
+src/tools/sandbox/updateSandbox.ts
+  s_16eb35ffaa053c::t_1426a52b08031b 3-7,15,42-44,46
+src/tools/sandbox/createSandbox.ts
+  s_16eb35ffaa053c::t_9160ac0a71e3e2 3-7,12,28,30
+src/tools/utils/resolveId.ts
+  s_16eb35ffaa053c::t_dcdfbbe0e0f38a 9
+  s_16eb35ffaa053c::t_67ed04a9787879 18,20-21
+src/tools/sandbox/deleteSandbox.ts
+  s_16eb35ffaa053c::t_5466fbc452dba9 3-7,13,23-25,27
+src/tools/utils/resolveDomainId.ts
+  s_16eb35ffaa053c::t_ae89fc5f710b3c 11
+src/tools/domains/createDomain.ts
+  s_16eb35ffaa053c::t_1ff6182235e4d4 2-6,9-13,28,30
+src/tools/utils/__tests__/resolveDomainId.test.ts
+  s_16eb35ffaa053c::t_e6a70bd5071925 26-33
+  s_16eb35ffaa053c::t_f02e26c8ac138a 34-38
+src/__tests__/deprecatedToolAliases.test.ts
+  s_16eb35ffaa053c::t_9a7054fb4439bd 143-144,153,158
+  s_16eb35ffaa053c::t_b5a5be001f3f73 145-152,154-157
+CLAUDE.md
+  s_16eb35ffaa053c::t_411f046d9ce525 131
+  s_16eb35ffaa053c::t_1b6a095dfc8ff9 106
+src/tools/domains/listDomains.ts
+  s_16eb35ffaa053c::t_1ff6182235e4d4 2-6,8,16,25,27
+src/tools/sandbox/cleanSandbox.ts
+  s_16eb35ffaa053c::t_4aceaf515cd878 3-7,13,23-25,27
+src/server.ts
+  s_16eb35ffaa053c::t_974c9d81cdf8b1 1565
+  s_16eb35ffaa053c::t_3c57016965342d 1237
+src/tools/sandbox/getSandbox.ts
+  s_16eb35ffaa053c::t_dd501d3e2f06e7 3-7,13,42,44
+src/tools/sandbox/__tests__/resolveSandboxId.test.ts
+  s_16eb35ffaa053c::t_e6a70bd5071925 46
+  s_16eb35ffaa053c::t_aa285c25fbded1 47-56
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_16eb35ffaa053c::t_8a60fe93beb123 23,38,55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b916d48e49b09b9581977e891aa3bb68fbfe363",
+  "prompts": {},
+  "sessions": {
+    "s_16eb35ffaa053c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8162d6f5-47d9-4668-b837-d381adbba950",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
