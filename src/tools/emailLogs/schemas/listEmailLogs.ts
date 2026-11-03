@@ -104,15 +104,15 @@ const listEmailLogsSchema = {
     },
     sending_domain_id: {
       oneOf: [
-        { type: "number", description: "Single sending domain ID" },
+        { type: "number", description: "Single domain ID" },
         {
           type: "array",
           items: { type: "number" },
-          description: "Multiple sending domain IDs (match any)",
+          description: "Multiple domain IDs (match any)",
         },
       ],
       description:
-        "Filter by sending domain ID. Single value or array. Find IDs in Mailtrap Sending Domains.",
+        "Filter by domain ID. Single value or array. Find IDs with list-domains.",
     },
     sending_domain_id_operator: {
       type: "string",

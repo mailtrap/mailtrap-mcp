@@ -40,6 +40,7 @@ All tools follow a consistent pattern in the `src/tools/` directory:
 - Tools export an **input schema** (JSON Schema–style object for MCP `inputSchema`) and a **handler** function
 - Template operations are grouped under `templates/` with individual files for each CRUD operation
 - **Runtime validation**: Handlers may validate input with Zod (see `stats/schema.ts` and `getSendingStats.ts`). Other tools use TypeScript types and ad-hoc checks; adding Zod validation in handlers is recommended for consistency
+- **Renamed tools**: when a tool is renamed, add its old name to `DEPRECATED_TOOL_ALIASES` in `src/tools/deprecatedToolAliases.ts`. `tools/list` shows only the new name; `tools/call` still accepts the old one and logs a deprecation once via `src/utils/deprecation.ts`
 
 ### Tool Structure Pattern
 
@@ -51,10 +52,10 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 ### Environment Variables Required
 
 - `MAILTRAP_API_TOKEN`: Required API token from Mailtrap
-- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, get-sending-stats, email logs, sandbox list/show, sending domains, suppressions. Not needed by send-email, send-sandbox-email, the batch-send-* tools, the email campaign tools, get-marketing-stats, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
+- `MAILTRAP_ACCOUNT_ID`: Required by account-scoped tools — templates, get-sending-stats, email logs, sandbox list/show, domains, suppressions. Not needed by send-email, send-sandbox-email, the batch-send-* tools, the email campaign tools, get-marketing-stats, the company info tools or the tracking opt-out tools, which resolve the account from the API token.
 - `DEFAULT_FROM_EMAIL`: Optional. Default sender email when the tool does not receive a `from` parameter (send-email, send-sandbox-email).
-- `MAILTRAP_SANDBOX_ID`: Optional. Default sandbox (test inbox) ID when a tool does not receive `sandbox_id` (legacy `test_inbox_id` on send-sandbox-email, get-sandbox-messages, show-sandbox-email-message). Enables switching inboxes per call via parameters.
-- `MAILTRAP_TEST_INBOX_ID`: Legacy fallback for `MAILTRAP_SANDBOX_ID` (still honored).
+- `MAILTRAP_SANDBOX_ID`: Optional. Default sandbox ID when a tool does not receive `sandbox_id` (legacy `test_inbox_id` on send-sandbox-email, get-sandbox-messages, show-sandbox-email-message). Enables switching sandboxes per call via parameters.
+- `MAILTRAP_TEST_INBOX_ID`: Deprecated fallback for `MAILTRAP_SANDBOX_ID` (still honored; logs a deprecation once when used).
 
 ### Testing Setup
 
@@ -85,7 +86,7 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 #### Statistics
 
 - **get-sending-stats**: Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range; optionally break down by domain, category, email service provider, or date.
-- **get-marketing-stats**: Get aggregated Email Marketing statistics (counts and rates) across campaigns and/or automations for a date range; optionally filter by sending domain, source (`campaigns`/`automations`), or email service provider.
+- **get-marketing-stats**: Get aggregated Email Marketing statistics (counts and rates) across campaigns and/or automations for a date range; optionally filter by domain, source (`campaigns`/`automations`), or email service provider.
 
 #### Email Templates
 
@@ -97,11 +98,12 @@ Schema files define a JSON Schema–shaped object for MCP; optional Zod schemas 
 
 #### Sandbox Testing
 
-- **send-sandbox-email**: Send email in sandbox mode to a test inbox.
-- **batch-send-sandbox-email**: Send a batch of emails in sandbox mode to a test inbox in one call. Same `base` + `requests[]` shape as the transactional/bulk batch tools, plus `sandbox_id` (falls back to `MAILTRAP_SANDBOX_ID`).
-- **get-sandbox-messages**: Get list of messages from the sandbox test inbox.
-- **show-sandbox-email-message**: Show sandbox email message details and content from the sandbox test inbox.
-- **list-sandbox-projects** / **create-sandbox-project** / **get-sandbox-project** / **update-sandbox-project** / **delete-sandbox-project**: Manage sandbox projects (group of inboxes).
+- **send-sandbox-email**: Send email in sandbox mode to a sandbox.
+- **batch-send-sandbox-email**: Send a batch of emails in sandbox mode to a sandbox in one call. Same `base` + `requests[]` shape as the transactional/bulk batch tools, plus `sandbox_id` (falls back to `MAILTRAP_SANDBOX_ID`).
+- **get-sandbox-messages**: Get list of messages from a sandbox.
+- **show-sandbox-email-message**: Show sandbox email message details and content from a sandbox.
+- **list-sandbox-projects** / **create-sandbox-project** / **get-sandbox-project** / **update-sandbox-project** / **delete-sandbox-project**: Manage sandbox projects (group of sandboxes).
+- **create-sandbox** / **get-sandbox** / **update-sandbox** / **delete-sandbox** / **clean-sandbox**: Manage a single sandbox (create returns its SMTP credentials; clean deletes all its messages). Take `sandbox_id`, legacy `inbox_id`.
 - **list-sandboxes**: List all sandboxes accessible to the API token across projects.
 - **mark-sandbox-as-read** / **reset-sandbox-credentials** / **enable-sandbox-email-address** / **reset-sandbox-email-address**: Single-action sandbox operations.
 - **forward-sandbox-message** / **update-sandbox-message** / **delete-sandbox-message**: Mutate a single sandbox message.
@@ -124,21 +126,23 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 - **list-inbound-forward-rules** / **get-inbound-forward-rule** / **create-inbound-forward-rule** / **update-inbound-forward-rule** / **delete-inbound-forward-rule**: Manage an inbox's forward rules (conditions + destinations). Update is partial; a provided `conditions` or `destinations` array replaces the whole set (`[]` clears it).
 
 
-#### Sending Domains
+#### Domains
 
-- **list-sending-domains**: List sending domains and their DNS verification status.
-- **get-sending-domain**: Get a sending domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
-- **create-sending-domain**: Create a new sending domain.
-- **update-sending-domain**: Update a domain's tracking and inbound settings.
-- **delete-sending-domain**: Delete a sending domain.
-- **send-sending-domain-setup-instructions**: Email DNS setup instructions for a sending domain to a given address.
+The domain and company info tools take `domain_id` (legacy `sending_domain_id` still accepted).
+
+- **list-domains**: List domains and their DNS verification status.
+- **get-domain**: Get a domain by ID and its verification status. With `include_setup_instructions: true`, append DNS setup instructions to the response.
+- **create-domain**: Create a new domain.
+- **update-domain**: Update a domain's tracking and inbound settings.
+- **delete-domain**: Delete a domain.
+- **send-domain-setup-instructions**: Email DNS setup instructions for a domain to a given address.
 
 
 #### Company Info
 
-- **get-company-info**: Get the company info of a sending domain.
-- **create-company-info**: Set the company info of a sending domain.
-- **update-company-info**: Update the company info of a sending domain.
+- **get-company-info**: Get the company info of a domain.
+- **create-company-info**: Set the company info of a domain.
+- **update-company-info**: Update the company info of a domain.
 
 
 #### Suppressions
@@ -151,7 +155,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 #### Tracking Opt-outs
 
 - **list-tracking-opt-outs**: List addresses excluded from open and click tracking.
-- **create-tracking-opt-out**: Exclude an address from tracking for a sending domain.
+- **create-tracking-opt-out**: Exclude an address from tracking for a domain.
 - **delete-tracking-opt-out**: Remove an address from the opt-out list, so tracking applies again.
 
 
@@ -203,7 +207,7 @@ Folders contain inboxes; inboxes receive messages, grouped into threads.
 
 - **list-email-campaigns**: List the account's email campaigns, newest first, with page-token pagination (`token`, `per_page`) and optional `search` filter by name.
 - **get-email-campaign**: Get an email campaign by ID.
-- **create-email-campaign**: Create a `draft` campaign. Requires `name`, `domain_id` (sending domain ID), `from_local_part`, and `template_attributes.subject`.
+- **create-email-campaign**: Create a `draft` campaign. Requires `name`, `domain_id` (from `list-domains`), `from_local_part`, and `template_attributes.subject`.
 - **update-email-campaign**: Update a `draft` campaign (partial; template edited in place). Only `draft` campaigns can be updated.
 - **delete-email-campaign**: Delete a campaign by ID (only a campaign in the `draft` state can be deleted).
 - **start-email-campaign**: Start sending a `draft` campaign immediately.

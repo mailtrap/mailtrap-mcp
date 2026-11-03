@@ -6,12 +6,12 @@ const listAccountAccessesSchema = {
     domain_uuids: {
       type: "array",
       items: { type: "string" },
-      description: "Optional: filter by sending domain UUIDs.",
+      description: "Optional: filter by domain UUIDs.",
     },
     inbox_ids: {
       type: "array",
       items: { type: "string" },
-      description: "Optional: filter by sandbox inbox IDs.",
+      description: "Optional: filter by sandbox IDs.",
     },
     project_ids: {
       type: "array",

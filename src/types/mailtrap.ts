@@ -274,25 +274,25 @@ export interface UpdateProjectRequest {
   name: string;
 }
 
-export interface CreateSandboxInboxRequest {
+export interface CreateSandboxRequest {
   project_id: number;
   name: string;
 }
 
 export interface SandboxInboxIdRequest {
   sandbox_id?: number;
-  /** Legacy alias for sandbox_id on sandbox inbox tools. */
+  /** Legacy alias for sandbox_id. */
   inbox_id?: number;
 }
 
-export type GetSandboxInboxRequest = SandboxInboxIdRequest;
+export type GetSandboxRequest = SandboxInboxIdRequest;
 
-export interface UpdateSandboxInboxRequest extends SandboxInboxIdRequest {
+export interface UpdateSandboxRequest extends SandboxInboxIdRequest {
   name?: string;
   email_username?: string;
 }
 
-export type DeleteSandboxInboxRequest = SandboxInboxIdRequest;
+export type DeleteSandboxRequest = SandboxInboxIdRequest;
 
 /** Common shape for sandbox-scoped actions identified by sandbox_id only. */
 export interface SandboxIdRequest {
@@ -317,7 +317,7 @@ export interface SandboxAttachmentRequest extends SandboxMessageRequest {
   attachment_id: number;
 }
 
-export type CleanSandboxInboxRequest = SandboxInboxIdRequest;
+export type CleanSandboxRequest = SandboxInboxIdRequest;
 
 // --- Email log types ---
 
@@ -896,18 +896,21 @@ export interface CreateSubAccountRequest {
   name: string;
 }
 
-// --- Sending domain types ---
+// --- Domain types ---
 
-export interface UpdateSendingDomainParams {
-  open_tracking_enabled?: boolean;
-  click_tracking_enabled?: boolean;
-  tracking_opt_out_enabled?: boolean;
-  auto_unsubscribe_link_enabled?: boolean;
-  inbound_enabled?: boolean;
+/** Domain-scoped tools take domain_id, or the legacy sending_domain_id. */
+export interface DomainIdRequest {
+  domain_id?: number;
+  /** Legacy alias for domain_id. */
+  sending_domain_id?: number;
 }
 
-export interface UpdateSendingDomainRequest extends UpdateSendingDomainParams {
-  sending_domain_id: number;
+export interface GetDomainRequest extends DomainIdRequest {
+  include_setup_instructions?: boolean;
+}
+
+export interface SendDomainSetupInstructionsRequest extends DomainIdRequest {
+  email: string;
 }
 
 // --- Company info types ---
@@ -927,37 +930,7 @@ export interface CompanyInfo {
   info_level: CompanyInfoLevel;
 }
 
-export interface GetCompanyInfoRequest {
-  sending_domain_id: number;
-}
-
-export interface CreateCompanyInfoRequest {
-  sending_domain_id: number;
-  name: string;
-  address: string;
-  city: string;
-  country: string;
-  zip_code: string;
-  website_url: string;
-  phone?: string;
-  privacy_policy_url?: string;
-  terms_of_service_url?: string;
-  info_level?: CompanyInfoLevel;
-}
-
-export interface UpdateCompanyInfoRequest {
-  sending_domain_id: number;
-  name?: string;
-  address?: string;
-  city?: string;
-  country?: string;
-  zip_code?: string;
-  website_url?: string;
-  phone?: string;
-  privacy_policy_url?: string;
-  terms_of_service_url?: string;
-  info_level?: CompanyInfoLevel;
-}
+export type GetCompanyInfoRequest = DomainIdRequest;
 
 // --- Tracking opt-out types ---
 

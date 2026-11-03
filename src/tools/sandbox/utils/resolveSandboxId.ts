@@ -1,32 +1,17 @@
-function isBlank(value: string | number | undefined | null): boolean {
-  return (
-    value === undefined ||
-    value === null ||
-    (typeof value === "string" && value.trim() === "")
-  );
-}
+import warnDeprecated from "../../../utils/deprecation";
+import { isBlank, parseResolvedId } from "../../utils/resolveId";
 
-/** First non-blank of MAILTRAP_SANDBOX_ID / MAILTRAP_TEST_INBOX_ID. */
+/** MAILTRAP_SANDBOX_ID, then the legacy MAILTRAP_TEST_INBOX_ID (logged as deprecated). */
 function envSandboxId(): string | undefined {
-  return [
-    process.env.MAILTRAP_SANDBOX_ID,
-    process.env.MAILTRAP_TEST_INBOX_ID,
-  ].find((value) => !isBlank(value));
-}
-
-function parseResolvedId(
-  raw: string | number | undefined | null,
-  invalidMessage: string,
-  missingMessage = "Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
-): number {
-  if (isBlank(raw)) {
-    throw new Error(missingMessage);
+  const { MAILTRAP_SANDBOX_ID, MAILTRAP_TEST_INBOX_ID } = process.env;
+  if (!isBlank(MAILTRAP_SANDBOX_ID)) {
+    return MAILTRAP_SANDBOX_ID;
   }
-  const resolved = Number(raw);
-  if (!Number.isFinite(resolved)) {
-    throw new Error(invalidMessage);
+  if (isBlank(MAILTRAP_TEST_INBOX_ID)) {
+    return undefined;
   }
-  return resolved;
+  warnDeprecated("MAILTRAP_TEST_INBOX_ID", "MAILTRAP_SANDBOX_ID");
+  return MAILTRAP_TEST_INBOX_ID;
 }
 
 /**
@@ -35,11 +20,12 @@ function parseResolvedId(
 function resolveSandboxId(sandbox_id?: number): number {
   return parseResolvedId(
     sandbox_id ?? envSandboxId(),
-    "sandbox_id (or MAILTRAP_SANDBOX_ID) must be a valid number"
+    "sandbox_id (or MAILTRAP_SANDBOX_ID) must be a valid number",
+    "Provide sandbox_id or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
   );
 }
 
-/** Sandbox inbox admin tools: sandbox_id, then legacy inbox_id (no env fallback). */
+/** update/delete/clean-sandbox: sandbox_id, then legacy inbox_id (no env fallback). */
 export function resolveRequiredSandboxInboxId({
   sandbox_id,
   inbox_id,

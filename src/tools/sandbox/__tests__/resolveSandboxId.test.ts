@@ -91,3 +91,49 @@ describe("resolveLegacySandboxInboxId", () => {
     );
   });
 });
+
+describe("MAILTRAP_TEST_INBOX_ID deprecation", () => {
+  let consoleError: jest.SpyInstance;
+  let resolveWithFreshWarnings: typeof resolveSandboxId;
+
+  beforeEach(() => {
+    delete process.env.MAILTRAP_SANDBOX_ID;
+    delete process.env.MAILTRAP_TEST_INBOX_ID;
+    consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.isolateModules(() => {
+      // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+      resolveWithFreshWarnings = require("../utils/resolveSandboxId").default;
+    });
+  });
+
+  afterEach(() => {
+    consoleError.mockRestore();
+  });
+
+  it("logs once when the legacy env var supplies the ID", () => {
+    process.env.MAILTRAP_TEST_INBOX_ID = "30";
+
+    expect(resolveWithFreshWarnings()).toBe(30);
+    expect(resolveWithFreshWarnings()).toBe(30);
+
+    expect(consoleError).toHaveBeenCalledTimes(1);
+    expect(consoleError).toHaveBeenCalledWith(
+      "[mailtrap-mcp] MAILTRAP_TEST_INBOX_ID is deprecated and will be removed in a future major release; use MAILTRAP_SANDBOX_ID instead."
+    );
+  });
+
+  it("stays silent when MAILTRAP_SANDBOX_ID is set", () => {
+    process.env.MAILTRAP_SANDBOX_ID = "20";
+    process.env.MAILTRAP_TEST_INBOX_ID = "30";
+
+    expect(resolveWithFreshWarnings()).toBe(20);
+    expect(consoleError).not.toHaveBeenCalled();
+  });
+
+  it("stays silent when sandbox_id is passed", () => {
+    process.env.MAILTRAP_TEST_INBOX_ID = "30";
+
+    expect(resolveWithFreshWarnings(10)).toBe(10);
+    expect(consoleError).not.toHaveBeenCalled();
+  });
+});

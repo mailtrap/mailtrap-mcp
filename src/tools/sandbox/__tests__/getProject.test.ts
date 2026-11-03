@@ -26,7 +26,7 @@ describe("getProject", () => {
     Object.assign(process.env, originalEnv);
   });
 
-  it("returns project with inboxes", async () => {
+  it("returns project with sandboxes", async () => {
     const mockProject = {
       id: 1,
       name: "Project A",
@@ -44,13 +44,13 @@ describe("getProject", () => {
     expect(result.content[0].text).toContain(
       "Sandbox project: Project A (ID: 1)"
     );
-    expect(result.content[0].text).toContain("Inboxes (2):");
+    expect(result.content[0].text).toContain("Sandboxes (2):");
     expect(result.content[0].text).toContain("- Inbox 1 (ID: 10, emails: 5)");
     expect(result.content[0].text).toContain("- Inbox 2 (ID: 11, emails: 0)");
     expect(result.isError).toBeUndefined();
   });
 
-  it("handles project with no inboxes", async () => {
+  it("handles project with no sandboxes", async () => {
     mockClient.testing.projects.getById.mockResolvedValue({
       id: 2,
       name: "Empty",
@@ -59,8 +59,8 @@ describe("getProject", () => {
 
     const result = await getProject({ project_id: 2 });
 
-    expect(result.content[0].text).toContain("Inboxes (0):");
-    expect(result.content[0].text).toContain("(no inboxes)");
+    expect(result.content[0].text).toContain("Sandboxes (0):");
+    expect(result.content[0].text).toContain("(no sandboxes)");
   });
 
   it("handles API failure", async () => {

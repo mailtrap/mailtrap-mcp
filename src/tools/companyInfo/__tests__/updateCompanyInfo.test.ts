@@ -23,7 +23,7 @@ describe("updateCompanyInfo", () => {
     });
 
     const result = await updateCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       city: "New York",
       zip_code: "10001",
     });
@@ -39,8 +39,22 @@ describe("updateCompanyInfo", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("accepts the legacy sending_domain_id", async () => {
+    mockClient.companyInfo.update.mockResolvedValue({ data: {} });
+
+    const result = await updateCompanyInfo({
+      sending_domain_id: 4321,
+      city: "New York",
+    });
+
+    expect(mockClient.companyInfo.update).toHaveBeenCalledWith(4321, {
+      city: "New York",
+    });
+    expect(result.isError).toBeUndefined();
+  });
+
   it("rejects an update with no fields", async () => {
-    const result = await updateCompanyInfo({ sending_domain_id: 4321 });
+    const result = await updateCompanyInfo({ domain_id: 4321 });
 
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
@@ -51,7 +65,7 @@ describe("updateCompanyInfo", () => {
 
   it("rejects unknown properties", async () => {
     const result = await updateCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       company_name: "Mailtrap",
     });
 
@@ -63,7 +77,7 @@ describe("updateCompanyInfo", () => {
     mockClient.companyInfo.update.mockRejectedValue(new Error("not found"));
 
     const result = await updateCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       city: "New York",
     });
 

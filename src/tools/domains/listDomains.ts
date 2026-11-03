@@ -1,0 +1,47 @@
+import { requireClient } from "../../client";
+
+async function listDomains(): Promise<{
+  content: { type: string; text: string }[];
+  isError?: boolean;
+}> {
+  try {
+    const mailtrap = requireClient("domains");
+
+    const response = await mailtrap.sendingDomains.getList();
+    const domains = response?.data ?? [];
+
+    if (domains.length === 0) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: "No domains found in your Mailtrap account.",
+          },
+        ],
+      };
+    }
+
+    const lines = domains.map(
+      (d) =>
+        `• ${d.domain_name} (ID: ${d.id})\n  DNS verified: ${d.dns_verified} | Compliance: ${d.compliance_status} | Inbound: ${d.inbound_enabled} (verified: ${d.inbound_verified})`
+    );
+    const text = `Domains (${domains.length}):\n\n${lines.join("\n\n")}`;
+
+    return {
+      content: [{ type: "text", text }],
+    };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Failed to list domains: ${errorMessage}`,
+        },
+      ],
+      isError: true,
+    };
+  }
+}
+
+export default listDomains;
