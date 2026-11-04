@@ -31,7 +31,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "mcpb:pack": "npm run build && npx @anthropic-ai/mcpb pack . mailtrap-mcp.mcpb",
+    "mcpb:stage": "shx rm -rf mcpb-build && shx mkdir mcpb-build && shx cp -R dist manifest.json icon.png LICENSE.txt package.json package-lock.json mcpb-build/ && npm ci --prefix mcpb-build --omit=dev --ignore-scripts --no-audit --no-fund",
+    "mcpb:pack": "npm run build && npm run mcpb:stage && npx @anthropic-ai/mcpb pack mcpb-build mailtrap-mcp.mcpb && shx rm -rf mcpb-build",
     "mcpb:sign": "npx @anthropic-ai/mcpb sign mailtrap-mcp.mcpb",
     "mcpb:info": "npx @anthropic-ai/mcpb info mailtrap-mcp.mcpb"
   },
