@@ -1344,7 +1344,7 @@ const tools = [
   {
     name: "delete-sub-account",
     description:
-      "Permanently delete a sub-account by ID, removing all of its data. Deleting the last sub-account deletes the organization; a repeated call returns 404. Requires `MAILTRAP_ORGANIZATION_ID` and sub-account management permissions.",
+      "Permanently delete a sub-account by ID, removing all of its data. Deleting the last sub-account deletes the organization; a repeated call returns 404. Requires `MAILTRAP_ORGANIZATION_ID` and organization admin permissions.",
     inputSchema: deleteSubAccountSchema,
     handler: deleteSubAccount,
     annotations: {
