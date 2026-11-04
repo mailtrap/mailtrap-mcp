@@ -43,7 +43,7 @@ describe("resolveSandboxId", () => {
     );
   });
 
-  it.each(["0", "-5", "1.5", "0x10", "1e3"])(
+  it.each(["0", "-5", "1.5", "0x10", "1e3", "9007199254740993"])(
     "rejects the out-of-range MAILTRAP_SANDBOX_ID %p",
     (id) => {
       process.env.MAILTRAP_SANDBOX_ID = id;

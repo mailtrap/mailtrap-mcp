@@ -15,10 +15,11 @@ export function parseResolvedId(
   if (isBlank(raw)) {
     throw new Error(missingMessage);
   }
-  // Number() alone would also take "0x10" and "1e3", so string IDs must be plain digits.
+  // Number() alone would also take "0x10" and "1e3", so string IDs must be plain digits;
+  // isSafeInteger rejects IDs from 2^53 up, which Number() can round to a different ID.
   const resolved = Number(raw);
   const isPlainDecimal = typeof raw !== "string" || /^\d+$/.test(raw.trim());
-  if (!isPlainDecimal || !Number.isInteger(resolved) || resolved < 1) {
+  if (!isPlainDecimal || !Number.isSafeInteger(resolved) || resolved < 1) {
     throw new Error(invalidMessage);
   }
   return resolved;

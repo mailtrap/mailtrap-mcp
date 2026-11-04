@@ -32,9 +32,12 @@ describe("resolveDomainId", () => {
     }
   );
 
-  it.each([0, -5, 1.5])("rejects the out-of-range domain_id %p", (id) => {
-    expect(() => resolveDomainId({ domain_id: id })).toThrow(
-      "domain_id (or sending_domain_id) must be a positive integer"
-    );
-  });
+  it.each([0, -5, 1.5, Number.MAX_SAFE_INTEGER + 1])(
+    "rejects the out-of-range domain_id %p",
+    (id) => {
+      expect(() => resolveDomainId({ domain_id: id })).toThrow(
+        "domain_id (or sending_domain_id) must be a positive integer"
+      );
+    }
+  );
 });
