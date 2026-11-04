@@ -1,0 +1,239 @@
+src/tools/inbound/schemas/createInboundInbox.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 17
+src/tools/domains/__tests__/deleteDomain.test.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-27,30-36,54-57,59-61,63-70,72,74-76
+  s_c6ccc5336939e2::t_113d678570dfb2 28-29,58,62,71,73
+  s_c6ccc5336939e2::t_cfd4567586d51c 37-53
+src/tools/sandbox/getSandboxMessages.ts
+  s_c6ccc5336939e2::t_ab1fe2080510a0 20
+  s_c6ccc5336939e2::t_ee94d06d52c852 48,69
+src/tools/companyInfo/__tests__/getCompanyInfo.test.ts
+  s_c6ccc5336939e2::t_113d678570dfb2 32,54
+  s_c6ccc5336939e2::t_08df3f2f928871 42-50
+src/tools/sandbox/schemas/getSandbox.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-12
+src/tools/utils/__tests__/resolveDomainId.test.ts
+  s_c6ccc5336939e2::t_23028db632f61c 1-31
+src/tools/companyInfo/updateCompanyInfo.ts
+  s_c6ccc5336939e2::t_ed2a7e3fb37859 29
+  s_c6ccc5336939e2::t_08148902b06f2f 7,23
+src/tools/webhooks/schemas/createWebhook.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 51
+src/tools/stats/schema.ts
+  s_c6ccc5336939e2::t_08148902b06f2f 32-33
+src/tools/utils/resolveDomainId.ts
+  s_c6ccc5336939e2::t_485f34d25a4c89 1-15,32
+  s_c6ccc5336939e2::t_6a3cff057af0f9 16-19,21-29
+  s_c6ccc5336939e2::t_7d30c5fe68a101 20,30-31
+src/tools/sandbox/__tests__/deleteSandbox.test.ts
+  s_c6ccc5336939e2::t_fc6a93e6c6d388 43-51
+  s_c6ccc5336939e2::t_d7d5db9730be94 29,33,59,69
+  s_c6ccc5336939e2::t_fa74064f42358f 1-28,30-32,34,36-42,52-54,56-58,60-68,70,72-75
+  s_c6ccc5336939e2::t_a2cb54b069226d 35,55,71
+src/tools/domains/index.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-29
+manifest.json
+  s_c6ccc5336939e2::t_d9ad8919fab387 215
+  s_c6ccc5336939e2::t_9cc4a6cc0d21e6 75,79,87,91,95,103,106-107,110-111,114-115,118-119,122-123,127,131,135,139,143,155,214,218-219,222-223,226-227,230-231,234-235,239,243,247,267,379,431
+src/tools/deprecatedToolAliases.ts
+  s_c6ccc5336939e2::t_7ad0ffd9bee025 1-31
+src/tools/emailLogs/utils/emailLogMessageSummary.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 53
+src/tools/companyInfo/createCompanyInfo.ts
+  s_c6ccc5336939e2::t_ed2a7e3fb37859 29
+  s_c6ccc5336939e2::t_08148902b06f2f 7,23
+src/tools/sandbox/deleteSandbox.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-12,14-24,26-34,36-43
+  s_c6ccc5336939e2::t_ee94d06d52c852 13,25,35
+src/tools/sandbox/schemas/updateSandbox.ts
+  s_c6ccc5336939e2::t_ee94d06d52c852 9,13
+  s_c6ccc5336939e2::t_fa74064f42358f 1-8,10-12,14-20
+src/tools/companyInfo/schemas/getCompanyInfo.ts
+  s_c6ccc5336939e2::t_ed2a7e3fb37859 1-2,6,8
+src/tools/sandbox/index.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 19-28,79-88
+src/tools/sandbox/getProject.ts
+  s_c6ccc5336939e2::t_ee94d06d52c852 24,28
+README.md
+  s_c6ccc5336939e2::t_ca501f19fcb7ad 9,16,37,42-43,219,221-223,233,235-241
+  s_c6ccc5336939e2::t_11584f663fbdb6 884,909,914,952
+  s_c6ccc5336939e2::t_ac62fdbe463b62 294-315,371,401,414,473,477,492,496,500,504,508,515,519,523,530-545,548,563-616,777,779,785,787,791,794,796,802,804,808,815,817,819,823,825,827,831,836,840,844,848,862,866,1177,1210,1281,1442,1730-1731
+src/tools/emailCampaigns/schemas/createEmailCampaign.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 14
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_c6ccc5336939e2::t_a2cb54b069226d 57,72,87
+src/utils/__tests__/deprecation.test.ts
+  s_c6ccc5336939e2::t_04f066201589e2 1-29
+src/tools/domains/__tests__/createDomain.test.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-39,41-58,60-76,78-81
+  s_c6ccc5336939e2::t_113d678570dfb2 40,59,77
+src/tools/domains/updateDomain.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-6,8-22,24,26,28-30,32-39,41-44
+  s_c6ccc5336939e2::t_15b74665c113eb 40
+  s_c6ccc5336939e2::t_68882c826530cb 25,27,31
+  s_c6ccc5336939e2::t_17ed09205371b0 23
+  s_c6ccc5336939e2::t_800c90cde31a03 7
+src/tools/sandbox/schemas/cleanSandbox.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-12
+src/tools/sandbox/__tests__/getSandbox.test.ts
+  s_c6ccc5336939e2::t_d7d5db9730be94 49,52,67,70,90,112,126
+  s_c6ccc5336939e2::t_fa74064f42358f 1-48,50-51,53,55-66,68-69,71-89,91-107,109-111,113-125,127,129-132
+  s_c6ccc5336939e2::t_a2cb54b069226d 54,108,128
+src/tools/sandbox/__tests__/getProject.test.ts
+  s_c6ccc5336939e2::t_8bf72a342bc904 29,47,53,62-63
+src/tools/domains/listDomains.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-7,9-17,19-27,29-38,40-47
+  s_c6ccc5336939e2::t_10057d617d1d78 8,18,28
+  s_c6ccc5336939e2::t_ab5b8d1e5b4ce1 39
+src/tools/schemas/domainId.ts
+  s_c6ccc5336939e2::t_dc897535a335a0 1-22
+src/tools/sandbox/listProjects.ts
+  s_c6ccc5336939e2::t_ee94d06d52c852 36-37
+smithery.yaml
+  s_c6ccc5336939e2::t_8309c0cb5eca68 28
+src/tools/domains/schema.ts
+  s_c6ccc5336939e2::t_b308105741ea7b 103-105
+  s_c6ccc5336939e2::t_9b7b453bb11418 3
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1,4-13,15-20,22-39,41,43-48,50-55,57-62,64-86,88-89,91-94,96-102,106-114
+  s_c6ccc5336939e2::t_898a58732a7c72 2,14,21,40,42,49,56,63,87,90,95
+src/tools/sandbox/__tests__/updateSandbox.test.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-28,30-38,40-42,44-51,66-75,77-96,98-109,111-121,123-126,128-141,143-145,147-150
+  s_c6ccc5336939e2::t_d18a3350e7197e 52-65
+  s_c6ccc5336939e2::t_a2cb54b069226d 43,122,146
+  s_c6ccc5336939e2::t_d7d5db9730be94 29,39,76,97,110,127,142
+src/tools/domains/sendSetupInstructions.ts
+  s_c6ccc5336939e2::t_4591267157212d 2,8,15
+  s_c6ccc5336939e2::t_03fdfe9c77195e 3-7,10-12,14,17,19-21,23
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1,9,13,16,18,22,24-27
+CLAUDE.md
+  s_c6ccc5336939e2::t_489cf80b4f1ef4 43,55,57-58,89,101-106,129,131-138,143-145,158,210
+src/tools/sandbox/schemas/deleteSandbox.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-12
+src/tools/domains/__tests__/listDomains.test.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-26,28-73,75-81,83-99,101-104
+  s_c6ccc5336939e2::t_113d678570dfb2 74,82,100
+  s_c6ccc5336939e2::t_8bf72a342bc904 27
+src/tools/sandbox/schemas/sandboxId.ts
+  s_c6ccc5336939e2::t_ab1fe2080510a0 6,10,15,19,28
+src/server.ts
+  s_c6ccc5336939e2::t_e7e636c965f611 391,401,410,420,430,439,449,467,475,477,485,487,495-496,504-505,513,515,702,730-731,739,741,749-750,758-759,767-768,776,778,788,798,807,857
+  s_c6ccc5336939e2::t_fa74064f42358f 54-63,478-479,488-489,497-498,506-507,516-517
+  s_c6ccc5336939e2::t_6a1b1ffc5ccfe5 1257
+  s_c6ccc5336939e2::t_66648d9f39a6df 1559-1560
+  s_c6ccc5336939e2::t_436fcfdfdd9218 104-116,732-733,742-743,751-752,760-761,769-770,779-780
+  s_c6ccc5336939e2::t_de2ed3675445cd 306
+src/tools/domains/__tests__/getDomain.test.ts
+  s_c6ccc5336939e2::t_113d678570dfb2 49-50,72,88,100,104,113,115
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-48,51-62,70-71,73-87,89-99,101-103,105-112,114,116-118
+  s_c6ccc5336939e2::t_7d4d62cbd52436 63-69
+src/tools/accountAccesses/schemas/listAccountAccesses.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 9
+  s_c6ccc5336939e2::t_9f23d6941f15fb 14
+src/tools/sandbox/cleanSandbox.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-12,14-24,26-34,36-43
+  s_c6ccc5336939e2::t_ee94d06d52c852 13,25,35
+src/tools/sandbox/getSandbox.ts
+  s_c6ccc5336939e2::t_ee94d06d52c852 13,44,54
+  s_c6ccc5336939e2::t_fa74064f42358f 1-12,14-43,45-53,55-62
+src/tools/emailCampaigns/schemas/updateEmailCampaign.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 19
+src/tools/emailLogs/schemas/listEmailLogs.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 107,111,115
+src/__tests__/deprecatedToolAliases.test.ts
+  s_c6ccc5336939e2::t_8cc3bb8201af41 1-148
+src/tools/utils/resolveId.ts
+  s_c6ccc5336939e2::t_26d2489d6f094c 1-23
+src/tools/domains/__tests__/sendSetupInstructions.test.ts
+  s_c6ccc5336939e2::t_113d678570dfb2 32,40,61,66,82,87
+  s_c6ccc5336939e2::t_61beff842cea20 45-56
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-31,33-39,41-44,57-60,62-65,67-81,83-86,88-92
+src/types/mailtrap.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 277,288,290,295,320
+  s_c6ccc5336939e2::t_2329875a5adfb2 899,901-905,908-913
+  s_c6ccc5336939e2::t_9f23d6941f15fb 284
+  s_c6ccc5336939e2::t_a871d5e7f3ddab 933
+src/tools/sandbox/schemas/createSandbox.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-5,7-9,11-17
+  s_c6ccc5336939e2::t_ee94d06d52c852 6,10
+src/tools/domains/deleteDomain.ts
+  s_c6ccc5336939e2::t_9e84da87280226 3-7,10,12,17-19,21
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1,9,11,14,16,20,22-25
+  s_c6ccc5336939e2::t_916843b124c891 2,8,13,15
+src/tools/companyInfo/schemas/createCompanyInfo.ts
+  s_c6ccc5336939e2::t_08148902b06f2f 50
+  s_c6ccc5336939e2::t_ed2a7e3fb37859 2,7,56
+src/tools/domains/getDomain.ts
+  s_c6ccc5336939e2::t_2692d2bb8e18ad 61
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1,4-5,7-10,13,15-44,46-60,62-69
+  s_c6ccc5336939e2::t_d5f7208c87c4e8 6,11
+  s_c6ccc5336939e2::t_1df1236b1d7548 2-3,12,14
+  s_c6ccc5336939e2::t_e297419c1d8546 45
+src/tools/sandbox/updateSandbox.ts
+  s_c6ccc5336939e2::t_ee94d06d52c852 15,44,54
+  s_c6ccc5336939e2::t_fa74064f42358f 1-14,16-43,45-53,55-62
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_c6ccc5336939e2::t_d49b30cbbb9891 1-2,4,6-8,10-11,13-14,23-24,28
+src/tools/trackingOptOuts/schemas/createTrackingOptOut.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 14
+src/tools/marketingStats/schema.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 26
+src/tools/companyInfo/schemas/updateCompanyInfo.ts
+  s_c6ccc5336939e2::t_9e9cf8fede9c48 3,72-74
+  s_c6ccc5336939e2::t_ed2a7e3fb37859 2,8,51,54,59
+src/tools/sandbox/__tests__/createSandbox.test.ts
+  s_c6ccc5336939e2::t_a2cb54b069226d 46,63,87
+  s_c6ccc5336939e2::t_fa74064f42358f 1-45,47-62,64-86,88-91
+src/tools/sandbox/__tests__/listProjects.test.ts
+  s_c6ccc5336939e2::t_8bf72a342bc904 29,57
+src/tools/domains/createDomain.ts
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-3,5-8,10-13,15-30,32-39
+  s_c6ccc5336939e2::t_08148902b06f2f 4
+  s_c6ccc5336939e2::t_3a94ebf0e68f6b 9,14
+  s_c6ccc5336939e2::t_fa2fb9f0fa3483 31
+src/tools/companyInfo/getCompanyInfo.ts
+  s_c6ccc5336939e2::t_ed2a7e3fb37859 8,19
+  s_c6ccc5336939e2::t_9e9cf8fede9c48 10-12,14
+src/tools/domains/__tests__/updateDomain.test.ts
+  s_c6ccc5336939e2::t_6d04f7d375d60c 52-75
+  s_c6ccc5336939e2::t_113d678570dfb2 34,39,45,80,90,101,113
+  s_c6ccc5336939e2::t_436fcfdfdd9218 1-33,35-38,40-44,46-51,76-79,81-89,91-100,102-112,114-117,119-120
+  s_c6ccc5336939e2::t_08148902b06f2f 118
+src/tools/sandbox/createSandbox.ts
+  s_c6ccc5336939e2::t_ee94d06d52c852 12,30,40
+  s_c6ccc5336939e2::t_fa74064f42358f 1-11,13-29,31-39,41-48
+src/tools/companyInfo/__tests__/createCompanyInfo.test.ts
+  s_c6ccc5336939e2::t_ad80440e455328 71-95
+  s_c6ccc5336939e2::t_113d678570dfb2 35,54,101,112,128
+src/tools/suppressions/schemas/createSuppression.ts
+  s_c6ccc5336939e2::t_df7ad2db425a17 14
+src/tools/companyInfo/__tests__/updateCompanyInfo.test.ts
+  s_c6ccc5336939e2::t_9d7443e4071102 42-55
+  s_c6ccc5336939e2::t_113d678570dfb2 26,57,68,80
+src/tools/sandbox/__tests__/resolveSandboxId.test.ts
+  s_c6ccc5336939e2::t_096355bce37cbf 94-139
+src/utils/deprecation.ts
+  s_c6ccc5336939e2::t_959cb9bc46124b 1-17
+src/tools/sandbox/__tests__/cleanSandbox.test.ts
+  s_c6ccc5336939e2::t_fa74064f42358f 1-28,30-32,34,36-43,57-59,61-63,65-75,77,79-82
+  s_c6ccc5336939e2::t_1e76a77e86076b 44-56
+  s_c6ccc5336939e2::t_d7d5db9730be94 29,33,64,76
+  s_c6ccc5336939e2::t_a2cb54b069226d 35,60,78
+src/client.ts
+  s_c6ccc5336939e2::t_9f23d6941f15fb 46,121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0c76eab76c593a421a0c6e202122d5a920edf507",
+  "prompts": {},
+  "sessions": {
+    "s_c6ccc5336939e2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "38250c4f-7827-4931-b761-12d7255fde25",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
