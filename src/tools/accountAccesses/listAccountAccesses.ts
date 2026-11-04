@@ -9,7 +9,7 @@ import {
 async function listAccountAccesses(raw: unknown = {}): Promise<ToolResponse> {
   const parsed = listAccountAccessesZod.safeParse(raw);
   if (!parsed.success) {
-    const msg = parsed.error.errors
+    const msg = parsed.error.issues
       .map((e) => `${e.path.join(".")}: ${e.message}`)
       .join("; ");
     return buildErrorResponse(

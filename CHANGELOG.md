@@ -1,3 +1,14 @@
+## [0.11.0] - 2026-10-27
+
+## What's Changed
+* chore(deps): bump proxy-addr from 2.0.7 to 2.0.8 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/155
+* chore(deps): bump the npm_and_yarn group across 1 directory with 2 updates by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/157
+* feat: add inbound forward rule tools and thread search by @mklocek in https://github.com/mailtrap/mailtrap-mcp/pull/153
+* chore(deps): bump hono from 4.13.7 to 4.13.13 in the npm_and_yarn group across 1 directory by @dependabot[bot] in https://github.com/mailtrap/mailtrap-mcp/pull/159
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.10.0...v0.11.0
+
 ## [0.10.0] - 2026-10-09
 
 ## What's Changed

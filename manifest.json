@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "mailtrap-mcpb",
   "display_name": "Mailtrap",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Send emails and manage templates using Mailtrap",
   "long_description": "**[Mailtrap.io](https://mailtrap.io)** is a comprehensive email platform that helps developers and teams test, debug, and deliver emails safely. It provides both email testing (sandbox) and email delivery services. \n This MCP (Model Context Protocol) server provides AI assistants with the ability to: \n - **Send emails** via Mailtrap's delivery API \n - **Test emails** using Mailtrap's sandbox environment \n - **Manage email templates** (create, update, delete, list).",
   "author": {
@@ -197,6 +197,10 @@
     {
       "name": "get-sending-stats",
       "description": "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range with optional breakdowns."
+    },
+    {
+      "name": "get-marketing-stats",
+      "description": "Get aggregated Email Marketing statistics across campaigns and automations for a date range."
     },
     {
       "name": "list-email-logs",
@@ -533,6 +537,26 @@
     {
       "name": "delete-inbound-thread",
       "description": "Delete a conversation thread and its messages."
+    },
+    {
+      "name": "list-inbound-forward-rules",
+      "description": "List the forward rules of an inbound inbox."
+    },
+    {
+      "name": "get-inbound-forward-rule",
+      "description": "Get a forward rule with its conditions and destinations."
+    },
+    {
+      "name": "create-inbound-forward-rule",
+      "description": "Create a rule that forwards matching received messages to other addresses."
+    },
+    {
+      "name": "update-inbound-forward-rule",
+      "description": "Update a forward rule's name, conditions, or destinations."
+    },
+    {
+      "name": "delete-inbound-forward-rule",
+      "description": "Delete a forward rule."
     }
   ],
   "prompts": [],
@@ -545,7 +569,7 @@
       "linux"
     ],
     "runtimes": {
-      "node": ">=16.0.0"
+      "node": ">=22.0.0"
     }
   },
   "server": {

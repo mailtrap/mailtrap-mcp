@@ -61,7 +61,7 @@ async function listEmailLogs(raw: unknown): Promise<{
   try {
     const parsed = listEmailLogsZod.safeParse(raw);
     if (!parsed.success) {
-      const msg = parsed.error.errors
+      const msg = parsed.error.issues
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
       return {
@@ -225,7 +225,7 @@ async function listEmailLogs(raw: unknown): Promise<{
     );
     const responseParsed = listEmailLogsResponseZod.safeParse(rawResponse);
     if (!responseParsed.success) {
-      const msg = responseParsed.error.errors
+      const msg = responseParsed.error.issues
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join("; ");
       return {

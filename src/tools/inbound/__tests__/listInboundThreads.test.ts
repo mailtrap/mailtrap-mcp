@@ -25,8 +25,8 @@ describe("listInboundThreads", () => {
         {
           id: "t1",
           subject: "Billing question",
-          messages_count: 3,
-          last_message_at: "2026-01-15T10:30:00Z",
+          message_count: 3,
+          last_activity_at: "2026-01-15T10:30:00Z",
         },
       ],
       total_count: 12,
@@ -40,6 +40,9 @@ describe("listInboundThreads", () => {
       undefined
     );
     expect(result.content[0].text).toContain("Found 1 thread(s) of 12 total");
+    expect(result.content[0].text).toContain(
+      '• [t1] "Billing question" — 3 message(s), last activity 2026-01-15T10:30:00Z'
+    );
     expect(result.content[0].text).toContain('Next page: pass last_id: "t1"');
     expect(result.isError).toBeUndefined();
   });
@@ -56,6 +59,52 @@ describe("listInboundThreads", () => {
     expect(mockClient.inbound.threads.getList).toHaveBeenCalledWith(473, {
       last_id: "t0",
     });
+  });
+
+  it("passes the search filter alongside the cursor", async () => {
+    mockClient.inbound.threads.getList.mockResolvedValue({
+      data: [
+        {
+          id: "t1",
+          subject: "Acme invoice",
+          message_count: 1,
+          last_activity_at: "2026-01-15T10:30:00Z",
+        },
+      ],
+      total_count: 2,
+      last_id: "t1",
+    });
+
+    const result = await listInboundThreads({
+      inbox_id: 473,
+      last_id: "t0",
+      search: "acme",
+    });
+
+    expect(mockClient.inbound.threads.getList).toHaveBeenCalledWith(473, {
+      last_id: "t0",
+      search: "acme",
+    });
+    expect(result.content[0].text).toContain(
+      'pass last_id: "t1" with the same search'
+    );
+  });
+
+  it("passes the search filter without a cursor", async () => {
+    mockClient.inbound.threads.getList.mockResolvedValue({
+      data: [],
+      total_count: 0,
+      last_id: null,
+    });
+
+    const result = await listInboundThreads({ inbox_id: 473, search: "acme" });
+
+    expect(mockClient.inbound.threads.getList).toHaveBeenCalledWith(473, {
+      search: "acme",
+    });
+    expect(result.content[0].text).toBe(
+      'No threads matching "acme" found in this inbox.'
+    );
   });
 
   it("returns the empty message when no threads exist", async () => {

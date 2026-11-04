@@ -91,6 +91,10 @@ import {
 } from "./tools/sandbox";
 import { getSendingStats, getSendingStatsSchema } from "./tools/stats";
 import {
+  getMarketingStats,
+  getMarketingStatsSchema,
+} from "./tools/marketingStats";
+import {
   listEmailLogs,
   listEmailLogsSchema,
   getEmailLogMessage,
@@ -288,6 +292,16 @@ import {
   getInboundThreadSchema,
   deleteInboundThread,
   deleteInboundThreadSchema,
+  listInboundForwardRules,
+  listInboundForwardRulesSchema,
+  getInboundForwardRule,
+  getInboundForwardRuleSchema,
+  createInboundForwardRule,
+  createInboundForwardRuleSchema,
+  updateInboundForwardRule,
+  updateInboundForwardRuleSchema,
+  deleteInboundForwardRule,
+  deleteInboundForwardRuleSchema,
 } from "./tools/inbound";
 
 // Define the tools registry
@@ -674,9 +688,19 @@ const tools = [
   {
     name: "get-sending-stats",
     description:
-      "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date.",
+      "Get email sending statistics (delivery, bounce, open, click, spam rates) for a date range. Optionally break down by domain, category, email service provider, or date. Covers Email API/SMTP traffic only; for Email Marketing campaigns and automations use get-marketing-stats.",
     inputSchema: getSendingStatsSchema,
     handler: getSendingStats,
+    annotations: {
+      readOnlyHint: true,
+    },
+  },
+  {
+    name: "get-marketing-stats",
+    description:
+      "Get aggregated Email Marketing statistics (sent, delivery, bounce, open, click, spam and unsubscription counts and rates) across campaigns and/or automations for a date range; optionally filter by sending domain, source (campaigns or automations) or email service provider. Rates are fractions from 0 to 1: `delivery_rate` and `bounce_rate` are shares of `sent_count`, the other rates are shares of `delivery_count`. Email API/SMTP traffic is reported by get-sending-stats instead.",
+    inputSchema: getMarketingStatsSchema,
+    handler: getMarketingStats,
     annotations: {
       readOnlyHint: true,
     },
@@ -1437,7 +1461,7 @@ const tools = [
   {
     name: "list-inbound-threads",
     description:
-      "List conversation threads in an inbound inbox (paginated). Pass `last_id` from a previous response to fetch the next page.",
+      "List conversation threads in an inbound inbox (paginated), optionally filtered by `search` (subject or from/to/cc/bcc address). Pass `last_id` from a previous response to fetch the next page.",
     inputSchema: listInboundThreadsSchema,
     handler: listInboundThreads,
     annotations: { readOnlyHint: true },
@@ -1455,6 +1479,45 @@ const tools = [
     description: "Permanently delete an inbound thread.",
     inputSchema: deleteInboundThreadSchema,
     handler: deleteInboundThread,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "list-inbound-forward-rules",
+    description:
+      "List the forward rules of an inbound inbox. Forward rules automatically forward copies of received messages to other addresses.",
+    inputSchema: listInboundForwardRulesSchema,
+    handler: listInboundForwardRules,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "get-inbound-forward-rule",
+    description:
+      "Get a single inbound forward rule by ID, with its conditions and destinations.",
+    inputSchema: getInboundForwardRuleSchema,
+    handler: getInboundForwardRule,
+    annotations: { readOnlyHint: true },
+  },
+  {
+    name: "create-inbound-forward-rule",
+    description:
+      "Create a forward rule on an inbound inbox. Received messages matching all `conditions` (none = every message) are forwarded to the `destinations`.",
+    inputSchema: createInboundForwardRuleSchema,
+    handler: createInboundForwardRule,
+    annotations: { destructiveHint: false },
+  },
+  {
+    name: "update-inbound-forward-rule",
+    description:
+      "Update an inbound forward rule. Only the provided fields change; a provided `conditions` or `destinations` array replaces the whole set (`[]` clears it).",
+    inputSchema: updateInboundForwardRuleSchema,
+    handler: updateInboundForwardRule,
+    annotations: { destructiveHint: true },
+  },
+  {
+    name: "delete-inbound-forward-rule",
+    description: "Permanently delete an inbound forward rule.",
+    inputSchema: deleteInboundForwardRuleSchema,
+    handler: deleteInboundForwardRule,
     annotations: { destructiveHint: true },
   },
 ];

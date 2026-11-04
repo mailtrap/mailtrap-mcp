@@ -378,7 +378,7 @@ export const listEmailLogsZod = z
 
 /** Runtime validation for client.emailLogs.getList() response. */
 export const listEmailLogsResponseZod = z.object({
-  messages: z.array(z.record(z.unknown())).optional(),
+  messages: z.array(z.record(z.string(), z.unknown())).optional(),
   total_count: z.number().optional(),
   next_page_cursor: z.string().nullable().optional(),
 });
