@@ -39,6 +39,7 @@ describe("updateTemplate", () => {
   it("should update template successfully with all fields", async () => {
     const result = await updateTemplate(mockUpdateData);
 
+    expect(requireClient).toHaveBeenCalledWith("templates");
     expect(mockClient.templates.update).toHaveBeenCalledWith(mockTemplateId, {
       name: mockUpdateData.name,
       subject: mockUpdateData.subject,

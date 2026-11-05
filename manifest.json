@@ -606,7 +606,7 @@
     "mailtrap_account_id": {
       "type": "string",
       "title": "Mailtrap Account ID",
-      "description": "Your Mailtrap account ID (optional). Find it at: https://mailtrap.io/account-management",
+      "description": "Your Mailtrap account ID (optional). Find it at: https://mailtrap.io/account-management, or ask the assistant to run list-accounts.",
       "sensitive": false,
       "required": false
     },

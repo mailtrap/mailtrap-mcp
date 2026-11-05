@@ -22,6 +22,18 @@ function getUserAgent(): string {
   return buildUserAgent(mcpClientInfoProvider?.());
 }
 
+function getEnvAccountId(): number | undefined {
+  const accountId = process.env.MAILTRAP_ACCOUNT_ID;
+  return accountId && !Number.isNaN(Number(accountId))
+    ? Number(accountId)
+    : undefined;
+}
+
+function accountIdOption(): { accountId?: number } {
+  const accountId = getEnvAccountId();
+  return accountId === undefined ? {} : { accountId };
+}
+
 /**
  * Default (transactional) MailtrapClient. Constructed on demand — like the
  * other getters below — so its User-Agent always reflects the current MCP
@@ -34,11 +46,7 @@ function getDefaultClient(): MailtrapClient | null {
   return new MailtrapClient({
     token: MAILTRAP_API_TOKEN,
     userAgent: getUserAgent(),
-    // conditionally set accountId if it's a valid number
-    ...(process.env.MAILTRAP_ACCOUNT_ID &&
-    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-      : {}),
+    ...accountIdOption(),
   });
 }
 
@@ -55,10 +63,7 @@ function getSandboxClient(inboxId: number): MailtrapClient {
     userAgent: getUserAgent(),
     testInboxId: inboxId,
     sandbox: true,
-    ...(process.env.MAILTRAP_ACCOUNT_ID &&
-    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-      : {}),
+    ...accountIdOption(),
   });
 }
 
@@ -73,10 +78,26 @@ function getBulkClient(): MailtrapClient {
     token: MAILTRAP_API_TOKEN,
     userAgent: getUserAgent(),
     bulk: true,
-    ...(process.env.MAILTRAP_ACCOUNT_ID &&
-    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-      : {}),
+    ...accountIdOption(),
+  });
+}
+
+// The SDK's `general` getter rejects a client without an account ID, even for
+// /api/accounts, which does not use one. The placeholder never reaches a URL.
+const ACCOUNTS_PLACEHOLDER_ACCOUNT_ID = 1;
+
+/**
+ * Returns a MailtrapClient for `general.accounts` that works without
+ * MAILTRAP_ACCOUNT_ID. Do not use it for other `general` resources.
+ */
+function getAccountsClient(): MailtrapClient {
+  if (!MAILTRAP_API_TOKEN) {
+    throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+  }
+  return new MailtrapClient({
+    token: MAILTRAP_API_TOKEN,
+    userAgent: getUserAgent(),
+    accountId: getEnvAccountId() ?? ACCOUNTS_PLACEHOLDER_ACCOUNT_ID,
   });
 }
 
@@ -129,13 +150,10 @@ function requireClient(
   if (!client) {
     throw new Error("MAILTRAP_API_TOKEN environment variable is required");
   }
-  if (requireAccountId) {
-    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-    if (!accountId || Number.isNaN(Number(accountId))) {
-      throw new Error(
-        `MAILTRAP_ACCOUNT_ID environment variable is required for ${feature}`
-      );
-    }
+  if (requireAccountId && getEnvAccountId() === undefined) {
+    throw new Error(
+      `MAILTRAP_ACCOUNT_ID environment variable is required for ${feature}`
+    );
   }
   return client;
 }
@@ -144,6 +162,7 @@ export {
   setMcpClientInfoProvider,
   getSandboxClient,
   getBulkClient,
+  getAccountsClient,
   getOrganizationClient,
   requireClient,
 };

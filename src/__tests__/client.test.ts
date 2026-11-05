@@ -1,5 +1,23 @@
 import { getOrganizationClient } from "../client";
 
+// The client module reads MAILTRAP_API_TOKEN at import time, so load a fresh
+// module instance per test with the token in place.
+function loadClientModule(
+  token: string | null = "test-token"
+): typeof import("../client") {
+  let mod: typeof import("../client") | undefined;
+  if (token === null) {
+    delete process.env.MAILTRAP_API_TOKEN;
+  } else {
+    process.env.MAILTRAP_API_TOKEN = token;
+  }
+  jest.isolateModules(() => {
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+    mod = require("../client");
+  });
+  return mod as typeof import("../client");
+}
+
 describe("MCP client info forwarding", () => {
   const originalEnv = { ...process.env };
 
@@ -7,18 +25,6 @@ describe("MCP client info forwarding", () => {
     process.env = { ...originalEnv };
     jest.resetModules();
   });
-
-  // The default client reads MAILTRAP_API_TOKEN at import time, so load a fresh
-  // module instance per test with the token in place.
-  function loadClientModule(): typeof import("../client") {
-    let mod: typeof import("../client") | undefined;
-    process.env.MAILTRAP_API_TOKEN = "test-token";
-    jest.isolateModules(() => {
-      // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
-      mod = require("../client");
-    });
-    return mod as typeof import("../client");
-  }
 
   function headerString(client: unknown): string {
     return JSON.stringify(
@@ -68,6 +74,50 @@ describe("MCP client info forwarding", () => {
     expect(headerString(client.getSandboxClient(123))).not.toContain(
       "(client:"
     );
+  });
+});
+
+describe("getAccountsClient", () => {
+  const originalEnv = { ...process.env };
+
+  afterEach(() => {
+    process.env = { ...originalEnv };
+    jest.resetModules();
+  });
+
+  it("reaches general.accounts without MAILTRAP_ACCOUNT_ID", () => {
+    delete process.env.MAILTRAP_ACCOUNT_ID;
+    const client = loadClientModule();
+
+    expect(() => client.getAccountsClient().general.accounts).not.toThrow();
+  });
+
+  it("uses MAILTRAP_ACCOUNT_ID when it is set", () => {
+    process.env.MAILTRAP_ACCOUNT_ID = "4242";
+    const client = loadClientModule();
+
+    expect(
+      (client.getAccountsClient() as unknown as { accountId: number }).accountId
+    ).toBe(4242);
+  });
+
+  it("requires MAILTRAP_API_TOKEN", () => {
+    const client = loadClientModule(null);
+
+    expect(() => client.getAccountsClient()).toThrow(
+      "MAILTRAP_API_TOKEN environment variable is required"
+    );
+  });
+
+  // Fails once the SDK stops requiring an account ID for `general`; then drop the placeholder.
+  it("works around the SDK rejecting general without an account ID", () => {
+    delete process.env.MAILTRAP_ACCOUNT_ID;
+    const client = loadClientModule();
+
+    expect(
+      () =>
+        client.requireClient("accounts", { requireAccountId: false }).general
+    ).toThrow("accountId is missing");
   });
 });
 
