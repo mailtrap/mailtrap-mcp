@@ -9,5 +9,9 @@ dxt-build/
 mcpb-build/
 mcpb-certs/
 *.pem
+*.key
+*.crt
+*.p12
+*.pfx
 *.sh
 .idea/
