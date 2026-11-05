@@ -1379,7 +1379,7 @@ Create a new sub-account under the organization. Requires `MAILTRAP_ORGANIZATION
 
 ### delete-sub-account
 
-Permanently delete a sub-account by ID, removing all of its data. Deleting the last sub-account deletes the organization; a repeated call returns 404. Requires `MAILTRAP_ORGANIZATION_ID` env var and organization admin permissions.
+Permanently delete a sub-account by ID, removing all of its data. Deleting the last sub-account deletes the organization; a repeated call returns 404. A concurrent deletion of the same sub-account returns 409. Requires `MAILTRAP_ORGANIZATION_ID` env var and organization admin permissions, and the organization must have the Organization & Sub-accounts feature enabled (403 otherwise).
 
 **Parameters:**
 
