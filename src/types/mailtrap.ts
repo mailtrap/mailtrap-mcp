@@ -896,6 +896,10 @@ export interface CreateSubAccountRequest {
   name: string;
 }
 
+export interface DeleteSubAccountRequest {
+  sub_account_id: number;
+}
+
 // --- Sending domain types ---
 
 export interface UpdateSendingDomainParams {

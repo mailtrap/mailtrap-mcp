@@ -252,6 +252,8 @@ import {
   listSubAccountsSchema,
   createSubAccount,
   createSubAccountSchema,
+  deleteSubAccount,
+  deleteSubAccountSchema,
 } from "./tools/organizations";
 import {
   listInboundFolders,
@@ -1337,6 +1339,16 @@ const tools = [
     handler: createSubAccount,
     annotations: {
       destructiveHint: false,
+    },
+  },
+  {
+    name: "delete-sub-account",
+    description:
+      "Permanently delete a sub-account by ID, removing all of its data. Deleting the last sub-account deletes the organization; a repeated call returns 404. A concurrent deletion of the same sub-account returns 409. Requires `MAILTRAP_ORGANIZATION_ID` and organization admin permissions, and the organization must have the Organization & Sub-accounts feature enabled (403 otherwise).",
+    inputSchema: deleteSubAccountSchema,
+    handler: deleteSubAccount,
+    annotations: {
+      destructiveHint: true,
     },
   },
   {
