@@ -29,7 +29,7 @@ describe("getCompanyInfo", () => {
     };
     mockClient.companyInfo.get.mockResolvedValue({ data: companyInfo });
 
-    const result = await getCompanyInfo({ sending_domain_id: 4321 });
+    const result = await getCompanyInfo({ domain_id: 4321 });
 
     expect(requireClient).toHaveBeenCalledWith("company info", {
       requireAccountId: false,
@@ -39,10 +39,19 @@ describe("getCompanyInfo", () => {
     expect(result.isError).toBeUndefined();
   });
 
+  it("accepts the legacy sending_domain_id", async () => {
+    mockClient.companyInfo.get.mockResolvedValue({ data: {} });
+
+    const result = await getCompanyInfo({ sending_domain_id: 4321 });
+
+    expect(mockClient.companyInfo.get).toHaveBeenCalledWith(4321);
+    expect(result.isError).toBeUndefined();
+  });
+
   it("surfaces API errors", async () => {
     mockClient.companyInfo.get.mockRejectedValue(new Error("not found"));
 
-    const result = await getCompanyInfo({ sending_domain_id: 4321 });
+    const result = await getCompanyInfo({ domain_id: 4321 });
 
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toBe(

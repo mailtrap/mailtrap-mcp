@@ -33,8 +33,8 @@ async function listProjects(): Promise<{
                     })`
                 )
                 .join("\n")
-            : "    (no inboxes)";
-        return `• ${project.name} (ID: ${project.id})\n  Inboxes (${inboxCount}):\n${inboxLines}`;
+            : "    (no sandboxes)";
+        return `• ${project.name} (ID: ${project.id})\n  Sandboxes (${inboxCount}):\n${inboxLines}`;
       })
       .join("\n\n");
 

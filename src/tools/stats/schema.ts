@@ -29,7 +29,8 @@ const getSendingStatsSchema = {
     sending_domain_ids: {
       type: "array",
       items: { type: "integer" },
-      description: "Optional filter: limit to these sending domain IDs",
+      description:
+        "Optional filter: limit to these domain IDs, as returned by list-domains",
     },
     sending_streams: {
       type: "array",

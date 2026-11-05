@@ -50,7 +50,7 @@ export function buildMessageSummaryLines(
     `Status: ${disp(entry.status)}`,
     `Category: ${disp(entry.category)}`,
     `Stream: ${disp(entry.sending_stream)}`,
-    `Sending domain ID: ${disp(entry.sending_domain_id)}`,
+    `Domain ID: ${disp(entry.sending_domain_id)}`,
     `Opens: ${disp(entry.opens_count)} · Link clicks: ${disp(
       entry.clicks_count
     )}`,

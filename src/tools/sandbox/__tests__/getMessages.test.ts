@@ -54,7 +54,7 @@ describe("getMessages", () => {
       content: [
         {
           type: "text",
-          text: `Found 2 message(s) in sandbox inbox:\n\n• Message ID: 1\n  From: sender@example.com\n  To: recipient@example.com\n  Subject: Test Subject 1\n  Sent: 2024-01-01T00:00:00Z\n  Read: No\n\n• Message ID: 2\n  From: sender2@example.com\n  To: recipient@example.com\n  Subject: Test Subject 2\n  Sent: 2024-01-02T00:00:00Z\n  Read: Yes\n`,
+          text: `Found 2 message(s) in the sandbox:\n\n• Message ID: 1\n  From: sender@example.com\n  To: recipient@example.com\n  Subject: Test Subject 1\n  Sent: 2024-01-01T00:00:00Z\n  Read: No\n\n• Message ID: 2\n  From: sender2@example.com\n  To: recipient@example.com\n  Subject: Test Subject 2\n  Sent: 2024-01-02T00:00:00Z\n  Read: Yes\n`,
         },
       ],
     });
@@ -69,7 +69,7 @@ describe("getMessages", () => {
       content: [
         {
           type: "text",
-          text: "No messages found in the sandbox inbox.",
+          text: "No messages found in the sandbox.",
         },
       ],
     });
@@ -84,7 +84,7 @@ describe("getMessages", () => {
       content: [
         {
           type: "text",
-          text: "No messages found in the sandbox inbox.",
+          text: "No messages found in the sandbox.",
         },
       ],
     });

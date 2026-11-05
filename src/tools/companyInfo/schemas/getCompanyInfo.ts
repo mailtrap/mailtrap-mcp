@@ -1,13 +1,11 @@
+import { domainIdProperties } from "../../schemas/domainId";
+
 const getCompanyInfoSchema = {
   type: "object",
   properties: {
-    sending_domain_id: {
-      type: "integer",
-      minimum: 1,
-      description: "Sending domain ID",
-    },
+    ...domainIdProperties,
   },
-  required: ["sending_domain_id"],
+  required: [],
   additionalProperties: false,
 };
 
