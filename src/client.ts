@@ -23,10 +23,8 @@ function getUserAgent(): string {
 }
 
 function getEnvAccountId(): number | undefined {
-  const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-  return accountId && !Number.isNaN(Number(accountId))
-    ? Number(accountId)
-    : undefined;
+  const accountId = Number(process.env.MAILTRAP_ACCOUNT_ID);
+  return Number.isInteger(accountId) && accountId > 0 ? accountId : undefined;
 }
 
 function accountIdOption(): { accountId?: number } {
@@ -97,7 +95,7 @@ function getAccountsClient(): MailtrapClient {
   return new MailtrapClient({
     token: MAILTRAP_API_TOKEN,
     userAgent: getUserAgent(),
-    accountId: getEnvAccountId() ?? ACCOUNTS_PLACEHOLDER_ACCOUNT_ID,
+    accountId: ACCOUNTS_PLACEHOLDER_ACCOUNT_ID,
   });
 }
 

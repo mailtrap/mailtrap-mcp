@@ -92,15 +92,6 @@ describe("getAccountsClient", () => {
     expect(() => client.getAccountsClient().general.accounts).not.toThrow();
   });
 
-  it("uses MAILTRAP_ACCOUNT_ID when it is set", () => {
-    process.env.MAILTRAP_ACCOUNT_ID = "4242";
-    const client = loadClientModule();
-
-    expect(
-      (client.getAccountsClient() as unknown as { accountId: number }).accountId
-    ).toBe(4242);
-  });
-
   it("requires MAILTRAP_API_TOKEN", () => {
     const client = loadClientModule(null);
 
@@ -118,6 +109,31 @@ describe("getAccountsClient", () => {
       () =>
         client.requireClient("accounts", { requireAccountId: false }).general
     ).toThrow("accountId is missing");
+  });
+});
+
+describe("requireClient account ID check", () => {
+  const originalEnv = { ...process.env };
+
+  afterEach(() => {
+    process.env = { ...originalEnv };
+    jest.resetModules();
+  });
+
+  it("accepts a positive integer", () => {
+    process.env.MAILTRAP_ACCOUNT_ID = "42";
+    const client = loadClientModule();
+
+    expect(() => client.requireClient("templates")).not.toThrow();
+  });
+
+  it.each(["", " ", "0", "-1", "1.5", "abc"])("rejects %p", (accountId) => {
+    process.env.MAILTRAP_ACCOUNT_ID = accountId;
+    const client = loadClientModule();
+
+    expect(() => client.requireClient("templates")).toThrow(
+      "MAILTRAP_ACCOUNT_ID environment variable is required for templates"
+    );
   });
 });
 
