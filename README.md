@@ -188,7 +188,9 @@ npm run mcpb:info
 npm run mcpb:sign
 ```
 
-This creates `mailtrap-mcp.mcpb` using the repository `manifest.json` and built artifacts in `dist/`.
+This creates `mailtrap-mcp.mcpb`. The script copies `dist/`, `manifest.json`, `icon.png` and the
+license into `mcpb-build/`, installs production dependencies there, and packs only that directory.
+Do not run `mcpb pack .` from the repository root.
 
 ## Usage
 
