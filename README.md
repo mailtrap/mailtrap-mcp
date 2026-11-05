@@ -295,6 +295,8 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 Mailtrap now calls test inboxes **sandboxes** and sending domains **domains**, and the tools follow suit. The old names no longer appear in the tool list, but calls to them still work and log a deprecation warning to stderr. They will be removed in a future major release.
 
+MCP clients and agent frameworks match allow, deny and filter lists against the advertised tool name, so move any per-tool entries to the new names: a deny entry for `delete-sending-domain` no longer blocks `delete-domain`.
+
 | Old name | New name |
 |---|---|
 | `create-sandbox-inbox` | `create-sandbox` |
@@ -1279,7 +1281,7 @@ List account accesses (users, invites, API tokens) for the account. Optional fil
 **Parameters:**
 
 - `domain_uuids` (optional): Filter by domain UUIDs (array of strings)
-- `inbox_ids` (optional): Filter by sandbox inbox IDs (array of strings)
+- `inbox_ids` (optional): Filter by sandbox IDs (array of strings)
 - `project_ids` (optional): Filter by sandbox project IDs (array of strings)
 
 ### remove-account-access
@@ -1292,7 +1294,7 @@ Remove an account access by ID. For `User` specifiers this revokes their permiss
 
 ### get-permission-resources
 
-Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.
+Get all resources (sandboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.
 
 **Parameters:**
 
