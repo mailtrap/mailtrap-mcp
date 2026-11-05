@@ -1,0 +1,7 @@
+# mcpb sign defaults to ./cert.pem and ./key.pem
+mcpb-certs/
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx

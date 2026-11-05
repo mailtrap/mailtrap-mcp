@@ -6,6 +6,12 @@ coverage
 *.dxt
 dxt-build/
 *.mcpb
+mcpb-build/
 mcpb-certs/
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
 *.sh
 .idea/
