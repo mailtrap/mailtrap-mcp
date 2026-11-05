@@ -222,9 +222,9 @@ The tools that act on an existing domain, and the company info tools, take `doma
 
 - **list-accounts**: List Mailtrap accounts the API token can access (with each account's `access_levels`).
 - **get-billing-usage**: Current billing cycle usage (plans, limits, current counts) for the account.
-- **list-account-accesses**: List users/invites/tokens with access to the account, optional filters by domain/inbox/project. Requires admin.
+- **list-account-accesses**: List users/invites/tokens with access to the account, optional filters by domain/sandbox/project. Requires admin.
 - **remove-account-access**: Revoke permissions (User) or delete the specifier (Invite/ApiToken). Requires admin.
-- **get-permission-resources**: Hierarchical list of inboxes/projects/domains/billing/account the token has admin access to.
+- **get-permission-resources**: Hierarchical list of sandboxes/projects/domains/billing/account the token has admin access to.
 - **bulk-update-permissions**: Create/update/destroy multiple permissions on an account access in one call.
 - **list-api-tokens**: List all API tokens for the account.
 - **create-api-token**: Create an API token. Response includes the secret `token` value (returned only on creation — must be stored).
