@@ -10,7 +10,7 @@ async function updateTemplate({
   category,
 }: UpdateTemplateRequest): Promise<{ content: any[]; isError?: boolean }> {
   try {
-    const mailtrap = requireClient("templates", { requireAccountId: false });
+    const mailtrap = requireClient("templates");
 
     // Validate that at least one update field is provided
     if (
