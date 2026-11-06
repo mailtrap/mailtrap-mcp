@@ -1,5 +1,5 @@
 import listAccounts from "../listAccounts";
-import { getAccountsClient } from "../../../client";
+import { requireClient } from "../../../client";
 
 const mockClient = {
   general: {
@@ -10,13 +10,13 @@ const mockClient = {
 };
 
 jest.mock("../../../client", () => ({
-  getAccountsClient: jest.fn(() => mockClient),
+  requireClient: jest.fn(() => mockClient),
 }));
 
 describe("listAccounts", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (getAccountsClient as jest.Mock).mockReturnValue(mockClient);
+    (requireClient as jest.Mock).mockReturnValue(mockClient);
   });
 
   it("returns accounts as JSON", async () => {
@@ -27,7 +27,9 @@ describe("listAccounts", () => {
 
     const result = await listAccounts();
 
-    expect(getAccountsClient).toHaveBeenCalled();
+    expect(requireClient).toHaveBeenCalledWith("accounts", {
+      requireAccountId: false,
+    });
     expect(result.content[0].text).toContain('"id": 1');
     expect(result.content[0].text).toContain('"name": "Work"');
     expect(result.isError).toBeUndefined();
@@ -55,7 +57,7 @@ describe("listAccounts", () => {
   });
 
   it("surfaces a missing API token", async () => {
-    (getAccountsClient as jest.Mock).mockImplementation(() => {
+    (requireClient as jest.Mock).mockImplementation(() => {
       throw new Error("MAILTRAP_API_TOKEN environment variable is required");
     });
 

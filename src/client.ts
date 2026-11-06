@@ -80,25 +80,6 @@ function getBulkClient(): MailtrapClient {
   });
 }
 
-// The SDK's `general` getter rejects a client without an account ID, even for
-// /api/accounts, which does not use one. The placeholder never reaches a URL.
-const ACCOUNTS_PLACEHOLDER_ACCOUNT_ID = 1;
-
-/**
- * Returns a MailtrapClient for `general.accounts` that works without
- * MAILTRAP_ACCOUNT_ID. Do not use it for other `general` resources.
- */
-function getAccountsClient(): MailtrapClient {
-  if (!MAILTRAP_API_TOKEN) {
-    throw new Error("MAILTRAP_API_TOKEN environment variable is required");
-  }
-  return new MailtrapClient({
-    token: MAILTRAP_API_TOKEN,
-    userAgent: getUserAgent(),
-    accountId: ACCOUNTS_PLACEHOLDER_ACCOUNT_ID,
-  });
-}
-
 /**
  * Returns an organization-scoped MailtrapClient. Organization endpoints
  * require a dedicated organization-level API token; both
@@ -160,7 +141,6 @@ export {
   setMcpClientInfoProvider,
   getSandboxClient,
   getBulkClient,
-  getAccountsClient,
   getOrganizationClient,
   requireClient,
 };

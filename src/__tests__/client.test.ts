@@ -2,15 +2,9 @@ import { getOrganizationClient } from "../client";
 
 // The client module reads MAILTRAP_API_TOKEN at import time, so load a fresh
 // module instance per test with the token in place.
-function loadClientModule(
-  token: string | null = "test-token"
-): typeof import("../client") {
+function loadClientModule(): typeof import("../client") {
   let mod: typeof import("../client") | undefined;
-  if (token === null) {
-    delete process.env.MAILTRAP_API_TOKEN;
-  } else {
-    process.env.MAILTRAP_API_TOKEN = token;
-  }
+  process.env.MAILTRAP_API_TOKEN = "test-token";
   jest.isolateModules(() => {
     // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
     mod = require("../client");
@@ -77,7 +71,7 @@ describe("MCP client info forwarding", () => {
   });
 });
 
-describe("getAccountsClient", () => {
+describe("requireClient account ID check", () => {
   const originalEnv = { ...process.env };
 
   afterEach(() => {
@@ -89,35 +83,11 @@ describe("getAccountsClient", () => {
     delete process.env.MAILTRAP_ACCOUNT_ID;
     const client = loadClientModule();
 
-    expect(() => client.getAccountsClient().general.accounts).not.toThrow();
-  });
-
-  it("requires MAILTRAP_API_TOKEN", () => {
-    const client = loadClientModule(null);
-
-    expect(() => client.getAccountsClient()).toThrow(
-      "MAILTRAP_API_TOKEN environment variable is required"
-    );
-  });
-
-  // Fails once the SDK stops requiring an account ID for `general`; then drop the placeholder.
-  it("works around the SDK rejecting general without an account ID", () => {
-    delete process.env.MAILTRAP_ACCOUNT_ID;
-    const client = loadClientModule();
-
     expect(
       () =>
         client.requireClient("accounts", { requireAccountId: false }).general
-    ).toThrow("accountId is missing");
-  });
-});
-
-describe("requireClient account ID check", () => {
-  const originalEnv = { ...process.env };
-
-  afterEach(() => {
-    process.env = { ...originalEnv };
-    jest.resetModules();
+          .accounts
+    ).not.toThrow();
   });
 
   it("accepts a positive integer", () => {

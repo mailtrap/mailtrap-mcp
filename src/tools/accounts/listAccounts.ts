@@ -1,4 +1,4 @@
-import { getAccountsClient } from "../../client";
+import { requireClient } from "../../client";
 import { MailtrapAccount } from "../../types/mailtrap";
 import {
   buildErrorResponse,
@@ -8,7 +8,7 @@ import {
 
 async function listAccounts(): Promise<ToolResponse> {
   try {
-    const mailtrap = getAccountsClient();
+    const mailtrap = requireClient("accounts", { requireAccountId: false });
 
     const accounts = (await mailtrap.general.accounts.getAllAccounts()) as
       | MailtrapAccount[]
