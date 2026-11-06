@@ -19,6 +19,7 @@ module.exports = {
   },
   ignorePatterns: [
     "dist/**",
+    "mcpb-build/**",
     "examples/**",
     ".eslintrc.js",
     "jest.config.js",
