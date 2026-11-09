@@ -896,6 +896,10 @@ export interface CreateSubAccountRequest {
   name: string;
 }
 
+export interface DeleteSubAccountRequest {
+  sub_account_id: number;
+}
+
 // --- Domain types ---
 
 /** Domain-scoped tools take domain_id, or the legacy sending_domain_id. */
