@@ -55,4 +55,17 @@ describe("listAccounts", () => {
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toBe("Failed to list accounts: boom");
   });
+
+  it("surfaces a missing API token", async () => {
+    (requireClient as jest.Mock).mockImplementation(() => {
+      throw new Error("MAILTRAP_API_TOKEN environment variable is required");
+    });
+
+    const result = await listAccounts();
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to list accounts: MAILTRAP_API_TOKEN environment variable is required"
+    );
+  });
 });
