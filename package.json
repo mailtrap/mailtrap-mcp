@@ -1,6 +1,6 @@
 {
   "name": "mcp-mailtrap",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "mcpName": "io.mailtrap/mcp",
   "description": "Official MCP Server for Mailtrap",
   "license": "MIT",

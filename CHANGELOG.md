@@ -1,11 +1,11 @@
-## [0.12.1] - 2026-11-09
+## [0.13.0] - 2026-11-09
 
 ## What's Changed
 * Let list-accounts run without MAILTRAP_ACCOUNT_ID by @izikaj in https://github.com/mailtrap/mailtrap-mcp/pull/166
 * feat: rename the sandbox inbox and sending domain tools by @Rabsztok in https://github.com/mailtrap/mailtrap-mcp/pull/164
 
 
-**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.12.0...v0.12.1
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.12.0...v0.13.0
 
 ## [0.12.0] - 2026-11-05
 
