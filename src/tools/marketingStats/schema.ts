@@ -23,7 +23,7 @@ const getMarketingStatsSchema = {
       type: "array",
       items: { type: "integer" },
       description:
-        "Optional filter: limit to these sending domain IDs, as returned by list-sending-domains.",
+        "Optional filter: limit to these domain IDs, as returned by list-domains.",
     },
     sources: {
       type: "array",

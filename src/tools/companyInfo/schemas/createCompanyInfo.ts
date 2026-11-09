@@ -1,13 +1,10 @@
 import { z } from "zod";
+import { domainIdProperties, domainIdZodShape } from "../../schemas/domainId";
 
 const createCompanyInfoSchema = {
   type: "object",
   properties: {
-    sending_domain_id: {
-      type: "integer",
-      minimum: 1,
-      description: "Sending domain ID",
-    },
+    ...domainIdProperties,
     name: {
       type: "string",
       description: "Company or individual name.",
@@ -50,21 +47,13 @@ const createCompanyInfoSchema = {
       description: "Whether the sender is a business or an individual.",
     },
   },
-  required: [
-    "sending_domain_id",
-    "name",
-    "address",
-    "city",
-    "country",
-    "zip_code",
-    "website_url",
-  ],
+  required: ["name", "address", "city", "country", "zip_code", "website_url"],
   additionalProperties: false,
 };
 
 export const createCompanyInfoZod = z
   .object({
-    sending_domain_id: z.number().int().min(1),
+    ...domainIdZodShape,
     name: z.string().min(1),
     address: z.string().min(1),
     city: z.string().min(1),

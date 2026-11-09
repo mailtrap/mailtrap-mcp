@@ -4,6 +4,7 @@ import {
   buildSuccessResponse,
   ToolResponse,
 } from "../utils/responses";
+import { splitDomainId } from "../utils/resolveDomainId";
 import { createCompanyInfoZod } from "./schemas/createCompanyInfo";
 
 async function createCompanyInfo(raw: unknown): Promise<ToolResponse> {
@@ -19,13 +20,13 @@ async function createCompanyInfo(raw: unknown): Promise<ToolResponse> {
       };
     }
 
-    const { sending_domain_id: sendingDomainId, ...params } = parsed.data;
+    const [domainId, params] = splitDomainId(parsed.data);
 
     const mailtrap = requireClient("company info", {
       requireAccountId: false,
     });
 
-    const response = await mailtrap.companyInfo.create(sendingDomainId, params);
+    const response = await mailtrap.companyInfo.create(domainId, params);
 
     return buildSuccessResponse(JSON.stringify(response.data, null, 2));
   } catch (error) {

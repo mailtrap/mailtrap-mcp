@@ -43,6 +43,17 @@ describe("resolveSandboxId", () => {
     );
   });
 
+  it.each(["0", "-5", "1.5", "0x10", "1e3", "9007199254740993"])(
+    "rejects the out-of-range MAILTRAP_SANDBOX_ID %p",
+    (id) => {
+      process.env.MAILTRAP_SANDBOX_ID = id;
+
+      expect(() => resolveSandboxId()).toThrow(
+        "sandbox_id (or MAILTRAP_SANDBOX_ID) must be a positive integer"
+      );
+    }
+  );
+
   it("skips a blank MAILTRAP_SANDBOX_ID and uses MAILTRAP_TEST_INBOX_ID", () => {
     process.env.MAILTRAP_SANDBOX_ID = "";
     process.env.MAILTRAP_TEST_INBOX_ID = "20";
@@ -89,5 +100,51 @@ describe("resolveLegacySandboxInboxId", () => {
     expect(() => resolveLegacySandboxInboxId()).toThrow(
       "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID environment variable for sandbox mode"
     );
+  });
+});
+
+describe("MAILTRAP_TEST_INBOX_ID deprecation", () => {
+  let consoleError: jest.SpyInstance;
+  let resolveWithFreshWarnings: typeof resolveSandboxId;
+
+  beforeEach(() => {
+    delete process.env.MAILTRAP_SANDBOX_ID;
+    delete process.env.MAILTRAP_TEST_INBOX_ID;
+    consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.isolateModules(() => {
+      // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+      resolveWithFreshWarnings = require("../utils/resolveSandboxId").default;
+    });
+  });
+
+  afterEach(() => {
+    consoleError.mockRestore();
+  });
+
+  it("logs once when the legacy env var supplies the ID", () => {
+    process.env.MAILTRAP_TEST_INBOX_ID = "30";
+
+    expect(resolveWithFreshWarnings()).toBe(30);
+    expect(resolveWithFreshWarnings()).toBe(30);
+
+    expect(consoleError).toHaveBeenCalledTimes(1);
+    expect(consoleError).toHaveBeenCalledWith(
+      "[mailtrap-mcp] MAILTRAP_TEST_INBOX_ID is deprecated and will be removed in a future major release; use MAILTRAP_SANDBOX_ID instead."
+    );
+  });
+
+  it("stays silent when MAILTRAP_SANDBOX_ID is set", () => {
+    process.env.MAILTRAP_SANDBOX_ID = "20";
+    process.env.MAILTRAP_TEST_INBOX_ID = "30";
+
+    expect(resolveWithFreshWarnings()).toBe(20);
+    expect(consoleError).not.toHaveBeenCalled();
+  });
+
+  it("stays silent when sandbox_id is passed", () => {
+    process.env.MAILTRAP_TEST_INBOX_ID = "30";
+
+    expect(resolveWithFreshWarnings(10)).toBe(10);
+    expect(consoleError).not.toHaveBeenCalled();
   });
 });

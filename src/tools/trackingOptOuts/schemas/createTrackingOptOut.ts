@@ -11,7 +11,7 @@ const createTrackingOptOutSchema = {
       type: "integer",
       minimum: 1,
       description:
-        "ID of the sending domain the opt-out applies to, as returned by the Sending Domains tools.",
+        "ID of the domain the opt-out applies to, as returned by list-domains.",
     },
   },
   required: ["email", "domain_id"],

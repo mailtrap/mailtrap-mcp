@@ -51,16 +51,16 @@ import {
   updateProjectSchema,
   deleteProject,
   deleteProjectSchema,
-  createSandboxInbox,
-  createSandboxInboxSchema,
-  getSandboxInbox,
-  getSandboxInboxSchema,
-  updateSandboxInbox,
-  updateSandboxInboxSchema,
-  deleteSandboxInbox,
-  deleteSandboxInboxSchema,
-  cleanSandboxInbox,
-  cleanSandboxInboxSchema,
+  createSandbox,
+  createSandboxSchema,
+  getSandbox,
+  getSandboxSchema,
+  updateSandbox,
+  updateSandboxSchema,
+  deleteSandbox,
+  deleteSandboxSchema,
+  cleanSandbox,
+  cleanSandboxSchema,
   // Sandbox management additions
   listSandboxes,
   listSandboxesSchema,
@@ -101,19 +101,19 @@ import {
   getEmailLogMessageSchema,
 } from "./tools/emailLogs";
 import {
-  listSendingDomains,
-  listSendingDomainsSchema,
-  getSendingDomain,
-  getSendingDomainSchema,
-  createSendingDomain,
-  createSendingDomainSchema,
-  updateSendingDomain,
-  updateSendingDomainSchema,
-  deleteSendingDomain,
-  deleteSendingDomainSchema,
-  sendSendingDomainSetupInstructions,
-  sendSendingDomainSetupInstructionsSchema,
-} from "./tools/sendingDomains";
+  listDomains,
+  listDomainsSchema,
+  getDomain,
+  getDomainSchema,
+  createDomain,
+  createDomainSchema,
+  updateDomain,
+  updateDomainSchema,
+  deleteDomain,
+  deleteDomainSchema,
+  sendDomainSetupInstructions,
+  sendDomainSetupInstructionsSchema,
+} from "./tools/domains";
 import {
   getCompanyInfo,
   getCompanyInfoSchema,
@@ -303,6 +303,7 @@ import {
   deleteInboundForwardRule,
   deleteInboundForwardRuleSchema,
 } from "./tools/inbound";
+import { resolveToolName } from "./tools/deprecatedToolAliases";
 
 // Define the tools registry
 const tools = [
@@ -387,7 +388,7 @@ const tools = [
   {
     name: "send-sandbox-email",
     description:
-      "Send an email in sandbox mode to a test inbox without delivering to your recipients",
+      "Send an email in sandbox mode to a sandbox without delivering to your recipients",
     inputSchema: sendSandboxEmailSchema,
     handler: sendSandboxEmail,
     annotations: {
@@ -397,7 +398,7 @@ const tools = [
   {
     name: "batch-send-sandbox-email",
     description:
-      "Send a batch of emails in sandbox mode to a test inbox in one Mailtrap API call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Requires `sandbox_id` or the MAILTRAP_SANDBOX_ID env var.",
+      "Send a batch of emails in sandbox mode to a sandbox in one Mailtrap API call. Shared fields go on `base`; per-recipient overrides go in `requests[]`. Requires `sandbox_id` or the MAILTRAP_SANDBOX_ID env var.",
     inputSchema: batchSendSandboxEmailSchema,
     handler: batchSendSandboxEmail,
     annotations: {
@@ -406,7 +407,7 @@ const tools = [
   },
   {
     name: "get-sandbox-messages",
-    description: "Get list of messages from the sandbox test inbox",
+    description: "Get list of messages from a sandbox",
     inputSchema: getMessagesSchema,
     handler: getMessages,
     annotations: {
@@ -416,7 +417,7 @@ const tools = [
   {
     name: "show-sandbox-email-message",
     description:
-      "Show sandbox email message details and content from the sandbox test inbox. Optionally include spam report (SpamAssassin score) and HTML analysis (client compatibility) for email testing workflows.",
+      "Show sandbox email message details and content from a sandbox. Optionally include spam report (SpamAssassin score) and HTML analysis (client compatibility) for email testing workflows.",
     inputSchema: showEmailMessageSchema,
     handler: showEmailMessage,
     annotations: {
@@ -426,7 +427,7 @@ const tools = [
   {
     name: "list-sandbox-projects",
     description:
-      "List all sandbox projects and their inboxes in your Mailtrap account",
+      "List all sandbox projects and their sandboxes in your Mailtrap account",
     inputSchema: listProjectsSchema,
     handler: listProjects,
     annotations: {
@@ -435,7 +436,7 @@ const tools = [
   },
   {
     name: "create-sandbox-project",
-    description: "Create a new sandbox project to group test inboxes",
+    description: "Create a new sandbox project to group sandboxes",
     inputSchema: createProjectSchema,
     handler: createProject,
     annotations: {
@@ -445,7 +446,7 @@ const tools = [
   {
     name: "get-sandbox-project",
     description:
-      "Get a sandbox project by ID, including its inboxes and email counts",
+      "Get a sandbox project by ID, including its sandboxes and email counts",
     inputSchema: getProjectSchema,
     handler: getProject,
     annotations: {
@@ -463,7 +464,7 @@ const tools = [
   },
   {
     name: "delete-sandbox-project",
-    description: "Delete a sandbox project and all its inboxes",
+    description: "Delete a sandbox project and all its sandboxes",
     inputSchema: deleteProjectSchema,
     handler: deleteProject,
     annotations: {
@@ -471,49 +472,49 @@ const tools = [
     },
   },
   {
-    name: "create-sandbox-inbox",
+    name: "create-sandbox",
     description:
-      "Create a new sandbox test inbox within a project. Returns SMTP credentials for the new inbox.",
-    inputSchema: createSandboxInboxSchema,
-    handler: createSandboxInbox,
+      "Create a new sandbox within a project. Returns SMTP credentials for the new sandbox.",
+    inputSchema: createSandboxSchema,
+    handler: createSandbox,
     annotations: {
       destructiveHint: false,
     },
   },
   {
-    name: "get-sandbox-inbox",
+    name: "get-sandbox",
     description:
-      "Get sandbox inbox details including SMTP credentials, email counts, and status",
-    inputSchema: getSandboxInboxSchema,
-    handler: getSandboxInbox,
+      "Get sandbox details including SMTP credentials, email counts, and status",
+    inputSchema: getSandboxSchema,
+    handler: getSandbox,
     annotations: {
       readOnlyHint: true,
     },
   },
   {
-    name: "update-sandbox-inbox",
-    description: "Update a sandbox inbox name or email username",
-    inputSchema: updateSandboxInboxSchema,
-    handler: updateSandboxInbox,
+    name: "update-sandbox",
+    description: "Update a sandbox name or email username",
+    inputSchema: updateSandboxSchema,
+    handler: updateSandbox,
     annotations: {
       destructiveHint: true,
     },
   },
   {
-    name: "delete-sandbox-inbox",
-    description: "Delete a sandbox inbox and all its messages",
-    inputSchema: deleteSandboxInboxSchema,
-    handler: deleteSandboxInbox,
+    name: "delete-sandbox",
+    description: "Delete a sandbox and all its messages",
+    inputSchema: deleteSandboxSchema,
+    handler: deleteSandbox,
     annotations: {
       destructiveHint: true,
     },
   },
   {
-    name: "clean-sandbox-inbox",
+    name: "clean-sandbox",
     description:
-      "Delete all messages from a sandbox inbox without deleting the inbox itself",
-    inputSchema: cleanSandboxInboxSchema,
-    handler: cleanSandboxInbox,
+      "Delete all messages from a sandbox without deleting the sandbox itself",
+    inputSchema: cleanSandboxSchema,
+    handler: cleanSandbox,
     annotations: {
       destructiveHint: true,
     },
@@ -698,7 +699,7 @@ const tools = [
   {
     name: "get-marketing-stats",
     description:
-      "Get aggregated Email Marketing statistics (sent, delivery, bounce, open, click, spam and unsubscription counts and rates) across campaigns and/or automations for a date range; optionally filter by sending domain, source (campaigns or automations) or email service provider. Rates are fractions from 0 to 1: `delivery_rate` and `bounce_rate` are shares of `sent_count`, the other rates are shares of `delivery_count`. Email API/SMTP traffic is reported by get-sending-stats instead.",
+      "Get aggregated Email Marketing statistics (sent, delivery, bounce, open, click, spam and unsubscription counts and rates) across campaigns and/or automations for a date range; optionally filter by domain, source (campaigns or automations) or email service provider. Rates are fractions from 0 to 1: `delivery_rate` and `bounce_rate` are shares of `sent_count`, the other rates are shares of `delivery_count`. Email API/SMTP traffic is reported by get-sending-stats instead.",
     inputSchema: getMarketingStatsSchema,
     handler: getMarketingStats,
     annotations: {
@@ -726,57 +727,57 @@ const tools = [
     },
   },
   {
-    name: "list-sending-domains",
-    description: "List sending domains and their DNS verification status",
-    inputSchema: listSendingDomainsSchema,
-    handler: listSendingDomains,
+    name: "list-domains",
+    description: "List domains and their DNS verification status",
+    inputSchema: listDomainsSchema,
+    handler: listDomains,
     annotations: {
       readOnlyHint: true,
     },
   },
   {
-    name: "get-sending-domain",
+    name: "get-domain",
     description:
-      "Get a sending domain by ID and its verification status. Optionally include DNS setup instructions via include_setup_instructions.",
-    inputSchema: getSendingDomainSchema,
-    handler: getSendingDomain,
+      "Get a domain by ID and its verification status. Optionally include DNS setup instructions via include_setup_instructions.",
+    inputSchema: getDomainSchema,
+    handler: getDomain,
     annotations: {
       readOnlyHint: true,
     },
   },
   {
-    name: "create-sending-domain",
-    description: "Create a new sending domain",
-    inputSchema: createSendingDomainSchema,
-    handler: createSendingDomain,
+    name: "create-domain",
+    description: "Create a new domain",
+    inputSchema: createDomainSchema,
+    handler: createDomain,
     annotations: {
       destructiveHint: false,
     },
   },
   {
-    name: "update-sending-domain",
-    description: "Update a sending domain's tracking and inbound settings.",
-    inputSchema: updateSendingDomainSchema,
-    handler: updateSendingDomain,
+    name: "update-domain",
+    description: "Update a domain's tracking and inbound settings.",
+    inputSchema: updateDomainSchema,
+    handler: updateDomain,
     annotations: {
       destructiveHint: true,
     },
   },
   {
-    name: "delete-sending-domain",
-    description: "Delete a sending domain",
-    inputSchema: deleteSendingDomainSchema,
-    handler: deleteSendingDomain,
+    name: "delete-domain",
+    description: "Delete a domain",
+    inputSchema: deleteDomainSchema,
+    handler: deleteDomain,
     annotations: {
       destructiveHint: true,
     },
   },
   {
-    name: "send-sending-domain-setup-instructions",
+    name: "send-domain-setup-instructions",
     description:
-      "Email DNS setup instructions for a sending domain to a given address.",
-    inputSchema: sendSendingDomainSetupInstructionsSchema,
-    handler: sendSendingDomainSetupInstructions,
+      "Email DNS setup instructions for a domain to a given address.",
+    inputSchema: sendDomainSetupInstructionsSchema,
+    handler: sendDomainSetupInstructions,
     annotations: {
       destructiveHint: false,
     },
@@ -784,7 +785,7 @@ const tools = [
   {
     name: "get-company-info",
     description:
-      "Get the company info of a sending domain, used for domain compliance verification.",
+      "Get the company info of a domain, used for domain compliance verification.",
     inputSchema: getCompanyInfoSchema,
     handler: getCompanyInfo,
     annotations: {
@@ -794,7 +795,7 @@ const tools = [
   {
     name: "create-company-info",
     description:
-      "Set the company info of a sending domain, required for domain compliance verification.",
+      "Set the company info of a domain, required for domain compliance verification.",
     inputSchema: createCompanyInfoSchema,
     handler: createCompanyInfo,
     annotations: {
@@ -803,7 +804,7 @@ const tools = [
   },
   {
     name: "update-company-info",
-    description: "Update the company info of a sending domain.",
+    description: "Update the company info of a domain.",
     inputSchema: updateCompanyInfoSchema,
     handler: updateCompanyInfo,
     annotations: {
@@ -853,7 +854,7 @@ const tools = [
   {
     name: "create-tracking-opt-out",
     description:
-      "Exclude an email address from open and click tracking for a sending domain.",
+      "Exclude an email address from open and click tracking for a domain.",
     inputSchema: createTrackingOptOutSchema,
     handler: createTrackingOptOut,
     annotations: {
@@ -1233,7 +1234,7 @@ const tools = [
   {
     name: "list-account-accesses",
     description:
-      "List account accesses (users, invites, API tokens) for the account. Optionally scope by domain UUIDs, inbox IDs, or project IDs. Requires account admin/owner permissions.",
+      "List account accesses (users, invites, API tokens) for the account. Optionally scope by domain UUIDs, sandbox IDs, or project IDs. Requires account admin/owner permissions.",
     inputSchema: listAccountAccessesSchema,
     handler: listAccountAccesses,
     annotations: {
@@ -1253,7 +1254,7 @@ const tools = [
   {
     name: "get-permission-resources",
     description:
-      "Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.",
+      "Get all resources (sandboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.",
     inputSchema: getPermissionResourcesSchema,
     handler: getPermissionResources,
     annotations: {
@@ -1555,12 +1556,13 @@ export function createServer(): Server {
   });
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const tool = tools.find((t) => t.name === request.params.name);
+    const name = resolveToolName(request.params.name);
+    const tool = tools.find((t) => t.name === name);
     if (!tool) {
       throw new Error(`Unknown tool: ${request.params.name}`);
     }
 
-    return tool.handler(request.params.arguments as any);
+    return tool.handler((request.params.arguments ?? {}) as any);
   });
 
   server.setRequestHandler(ListPromptsRequestSchema, async () => {

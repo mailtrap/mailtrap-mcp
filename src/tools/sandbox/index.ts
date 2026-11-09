@@ -16,16 +16,16 @@ import updateProjectSchema from "./schemas/updateProject";
 import updateProject from "./updateProject";
 import deleteProjectSchema from "./schemas/deleteProject";
 import deleteProject from "./deleteProject";
-import createSandboxInboxSchema from "./schemas/createSandboxInbox";
-import createSandboxInbox from "./createSandboxInbox";
-import getSandboxInboxSchema from "./schemas/getSandboxInbox";
-import getSandboxInbox from "./getSandboxInbox";
-import updateSandboxInboxSchema from "./schemas/updateSandboxInbox";
-import updateSandboxInbox from "./updateSandboxInbox";
-import deleteSandboxInboxSchema from "./schemas/deleteSandboxInbox";
-import deleteSandboxInbox from "./deleteSandboxInbox";
-import cleanSandboxInboxSchema from "./schemas/cleanSandboxInbox";
-import cleanSandboxInbox from "./cleanSandboxInbox";
+import createSandboxSchema from "./schemas/createSandbox";
+import createSandbox from "./createSandbox";
+import getSandboxSchema from "./schemas/getSandbox";
+import getSandbox from "./getSandbox";
+import updateSandboxSchema from "./schemas/updateSandbox";
+import updateSandbox from "./updateSandbox";
+import deleteSandboxSchema from "./schemas/deleteSandbox";
+import deleteSandbox from "./deleteSandbox";
+import cleanSandboxSchema from "./schemas/cleanSandbox";
+import cleanSandbox from "./cleanSandbox";
 
 // Sandbox management additions
 import listSandboxesSchema from "./schemas/listSandboxes";
@@ -76,16 +76,16 @@ export {
   updateProject,
   deleteProjectSchema,
   deleteProject,
-  createSandboxInboxSchema,
-  createSandboxInbox,
-  getSandboxInboxSchema,
-  getSandboxInbox,
-  updateSandboxInboxSchema,
-  updateSandboxInbox,
-  deleteSandboxInboxSchema,
-  deleteSandboxInbox,
-  cleanSandboxInboxSchema,
-  cleanSandboxInbox,
+  createSandboxSchema,
+  createSandbox,
+  getSandboxSchema,
+  getSandbox,
+  updateSandboxSchema,
+  updateSandbox,
+  deleteSandboxSchema,
+  deleteSandbox,
+  cleanSandboxSchema,
+  cleanSandbox,
   // Sandbox management additions
   listSandboxesSchema,
   listSandboxes,

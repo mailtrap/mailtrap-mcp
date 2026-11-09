@@ -17,7 +17,7 @@ async function getMessages({
 
     const sandboxClient = getSandboxClient(inboxId);
 
-    // Get messages from the inbox
+    // Get messages from the sandbox
     // MessageListOptions supports: page, last_id, and search
     const options: {
       page?: number;
@@ -45,7 +45,7 @@ async function getMessages({
         content: [
           {
             type: "text",
-            text: "No messages found in the sandbox inbox.",
+            text: "No messages found in the sandbox.",
           },
         ],
       };
@@ -66,7 +66,7 @@ async function getMessages({
       content: [
         {
           type: "text",
-          text: `Found ${messages.length} message(s) in sandbox inbox:\n\n${messageList}`,
+          text: `Found ${messages.length} message(s) in the sandbox:\n\n${messageList}`,
         },
       ],
     };

@@ -3,20 +3,20 @@ export const sandboxIdProperty = {
   sandbox_id: {
     type: "number",
     description:
-      "Mailtrap sandbox (test inbox) ID. Optional if MAILTRAP_SANDBOX_ID env var is set.",
+      "Mailtrap sandbox ID. Optional if MAILTRAP_SANDBOX_ID env var is set.",
   },
 };
 
-/** get/update/delete/clean-sandbox-inbox: preferred sandbox_id, legacy inbox_id. */
+/** get/update/delete/clean-sandbox: preferred sandbox_id, legacy inbox_id. */
 export const sandboxInboxIdProperties = {
   sandbox_id: {
     type: "number",
     description:
-      "Preferred. Sandbox (test inbox) ID. On get-sandbox-inbox, optional if MAILTRAP_SANDBOX_ID is set.",
+      "Preferred. Sandbox ID. On get-sandbox, optional if MAILTRAP_SANDBOX_ID is set.",
   },
   inbox_id: {
     type: "number",
-    description: "Legacy alias for sandbox_id on sandbox inbox tools.",
+    description: "Legacy alias for sandbox_id.",
   },
 };
 
@@ -25,7 +25,7 @@ export const legacySandboxInboxIdProperties = {
   sandbox_id: {
     type: "number",
     description:
-      "Preferred. Mailtrap sandbox (test inbox) ID. Optional if MAILTRAP_SANDBOX_ID env var is set.",
+      "Preferred. Mailtrap sandbox ID. Optional if MAILTRAP_SANDBOX_ID env var is set.",
   },
   test_inbox_id: {
     type: "number",

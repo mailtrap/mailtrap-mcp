@@ -4,6 +4,7 @@ import {
   buildSuccessResponse,
   ToolResponse,
 } from "../utils/responses";
+import { splitDomainId } from "../utils/resolveDomainId";
 import { updateCompanyInfoZod } from "./schemas/updateCompanyInfo";
 
 async function updateCompanyInfo(raw: unknown): Promise<ToolResponse> {
@@ -19,13 +20,13 @@ async function updateCompanyInfo(raw: unknown): Promise<ToolResponse> {
       };
     }
 
-    const { sending_domain_id: sendingDomainId, ...params } = parsed.data;
+    const [domainId, params] = splitDomainId(parsed.data);
 
     const mailtrap = requireClient("company info", {
       requireAccountId: false,
     });
 
-    const response = await mailtrap.companyInfo.update(sendingDomainId, params);
+    const response = await mailtrap.companyInfo.update(domainId, params);
 
     return buildSuccessResponse(JSON.stringify(response.data, null, 2));
   } catch (error) {
