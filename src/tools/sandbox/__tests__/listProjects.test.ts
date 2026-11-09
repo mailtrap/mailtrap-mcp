@@ -26,7 +26,7 @@ describe("listProjects", () => {
     Object.assign(process.env, originalEnv);
   });
 
-  it("should list projects with their inboxes", async () => {
+  it("should list projects with their sandboxes", async () => {
     const mockProjects = [
       {
         id: 1,
@@ -54,7 +54,7 @@ describe("listProjects", () => {
     expect(result.content[0].text).toContain("ID: 1");
     expect(result.content[0].text).toContain("Inbox 1");
     expect(result.content[0].text).toContain("emails: 5");
-    expect(result.content[0].text).toContain("(no inboxes)");
+    expect(result.content[0].text).toContain("(no sandboxes)");
     expect(result.isError).toBeUndefined();
   });
 

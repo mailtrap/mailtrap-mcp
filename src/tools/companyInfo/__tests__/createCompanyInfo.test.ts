@@ -32,7 +32,7 @@ describe("createCompanyInfo", () => {
     });
 
     const result = await createCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       ...requiredParams,
     });
 
@@ -51,7 +51,7 @@ describe("createCompanyInfo", () => {
     mockClient.companyInfo.create.mockResolvedValue({ data: requiredParams });
 
     await createCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       ...requiredParams,
       phone: "+1 555 0100",
       privacy_policy_url: "https://mailtrap.io/privacy",
@@ -68,12 +68,37 @@ describe("createCompanyInfo", () => {
     });
   });
 
+  it("accepts the legacy sending_domain_id", async () => {
+    mockClient.companyInfo.create.mockResolvedValue({ data: requiredParams });
+
+    const result = await createCompanyInfo({
+      sending_domain_id: 4321,
+      ...requiredParams,
+    });
+
+    expect(mockClient.companyInfo.create).toHaveBeenCalledWith(
+      4321,
+      requiredParams
+    );
+    expect(result.isError).toBeUndefined();
+  });
+
+  it("rejects a missing domain_id", async () => {
+    const result = await createCompanyInfo(requiredParams);
+
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toBe(
+      "Failed to create company info: Provide domain_id"
+    );
+    expect(mockClient.companyInfo.create).not.toHaveBeenCalled();
+  });
+
   it("rejects a missing required field", async () => {
     const withoutCity = { ...requiredParams };
     delete (withoutCity as Partial<typeof requiredParams>).city;
 
     const result = await createCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       ...withoutCity,
     });
 
@@ -84,7 +109,7 @@ describe("createCompanyInfo", () => {
 
   it("rejects an unknown info level", async () => {
     const result = await createCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       ...requiredParams,
       info_level: "enterprise",
     });
@@ -100,7 +125,7 @@ describe("createCompanyInfo", () => {
     );
 
     const result = await createCompanyInfo({
-      sending_domain_id: 4321,
+      domain_id: 4321,
       ...requiredParams,
     });
 

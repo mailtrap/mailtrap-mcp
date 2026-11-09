@@ -6,14 +6,14 @@
 
 The official MCP server for Mailtrap — the email delivery platform. It connects your Mailtrap account to Claude, Cursor, VS Code, and other MCP-compatible AI assistants.
 
-Send transactional and bulk email, test messages safely in Email Sandbox, manage templates, contacts, sending domains, and webhooks, inspect email logs and delivery statistics, troubleshoot deliverability, and manage account resources — all using natural-language prompts.
+Send transactional and bulk email, test messages safely in Email Sandbox, manage templates, contacts, domains, and webhooks, inspect email logs and delivery statistics, troubleshoot deliverability, and manage account resources — all using natural-language prompts.
 
 ## Capabilities
 
 - **Email API and SMTP** — Send transactional and bulk email, including batch and template-based messages.
 - **Email testing** — Test messages in Email Sandbox and inspect content, headers, attachments, spam scores, and HTML client compatibility.
 - **Delivery monitoring** — Search email logs, inspect event history, and analyze delivery, bounce, open, click, and spam rates.
-- **Email infrastructure** — Manage sending domains, DNS verification, webhooks, and suppressions.
+- **Email infrastructure** — Manage domains, DNS verification, webhooks, and suppressions.
 - **Contacts** — Manage contacts, lists, custom fields, and events, with imports and exports.
 - **Account management** — Review billing usage and manage access, permissions, API tokens, and sub-accounts.
 
@@ -34,13 +34,13 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, get-sending-stats, email logs, sandbox list/show, sending domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, get-marketing-stats, the company info tools, the tracking opt-out tools, and list-accounts.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, get-sending-stats, email logs, sandbox list/show, domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, get-marketing-stats, the company info tools, the tracking opt-out tools, and list-accounts.
 
 **Optional (can be passed as tool parameters instead):**
 
 - `DEFAULT_FROM_EMAIL` - Default sender email when `from` is not provided to send-email, send-sandbox-email, or the batch-send-\* tools (where it fills `base.from`). Enables switching sender per call via the `from` parameter.
-- `MAILTRAP_SANDBOX_ID` - Default sandbox (test inbox) ID when a tool's `sandbox_id` is not provided (legacy `test_inbox_id` on send/list/show sandbox message tools still accepted). Enables switching inboxes per call via parameters.
-- `MAILTRAP_TEST_INBOX_ID` - Legacy alias for `MAILTRAP_SANDBOX_ID`; still read as a fallback for existing configs.
+- `MAILTRAP_SANDBOX_ID` - Default sandbox ID when a tool's `sandbox_id` is not provided (legacy `test_inbox_id` on send/list/show sandbox message tools still accepted). Enables switching sandboxes per call via parameters.
+- `MAILTRAP_TEST_INBOX_ID` - Deprecated alias for `MAILTRAP_SANDBOX_ID`; still read as a fallback for existing configs, and logs a deprecation warning to stderr when used.
 - `MAILTRAP_ORGANIZATION_ID` - Required for organization tools (`list-sub-accounts`, `create-sub-account`).
 - `MAILTRAP_ORGANIZATION_API_TOKEN` - Organization-scoped API token. Required for organization tools (separate from `MAILTRAP_API_TOKEN`).
 
@@ -218,9 +218,11 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 **Sandbox Operations:**
 
-- "Get all messages from my sandbox inbox"
+- "Get all messages from my sandbox"
 - "Show me the first page of sandbox messages"
-- "Search for messages containing 'test' in my sandbox inbox"
+- "Search for messages containing 'test' in my sandbox"
+- "Create a sandbox called 'QA' in project 42 and give me its SMTP credentials"
+- "Delete all messages from sandbox 1234"
 - "Show me the details of sandbox message with ID 5159037506"
 
 **Template Operations:**
@@ -230,15 +232,15 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 - "Update the template with ID 12345 to change the subject to 'Updated Welcome Message'"
 - "Delete the template with ID 67890"
 
-**Sending Domains:**
+**Domains:**
 
-- "List my sending domains"
-- "Get sending domain with ID 3938"
-- "Create a sending domain for example.com"
-- "Turn on click tracking for sending domain 3938"
-- "Delete sending domain 3938"
-- "Get sending domain 3938 with DNS setup instructions"
-- "Show the company info for sending domain 3938"
+- "List my domains"
+- "Get domain with ID 3938"
+- "Create a domain for example.com"
+- "Turn on click tracking for domain 3938"
+- "Delete domain 3938"
+- "Get domain 3938 with DNS setup instructions"
+- "Show the company info for domain 3938"
 - "Set the company info for domain 3938 to Acme Inc, 123 Main St, San Francisco, US, 94105, https://acme.com"
 - "Change the company info city for domain 3938 to New York"
 
@@ -290,6 +292,30 @@ Once configured, you can ask agent to send emails and manage templates, for exam
 
 - "List all sub-accounts in my organization"
 - "Create a new sub-account for the client project 'Acme Corp'"
+
+## Renamed tools
+
+Mailtrap now calls test inboxes **sandboxes** and sending domains **domains**, and the tools follow suit. The old names no longer appear in the tool list, but calls to them still work and log a deprecation warning to stderr. They will be removed in a future major release.
+
+MCP clients and agent frameworks match allow, deny and filter lists against the advertised tool name, so move any per-tool entries to the new names: a deny entry for `delete-sending-domain` no longer blocks `delete-domain`.
+
+| Old name | New name |
+|---|---|
+| `create-sandbox-inbox` | `create-sandbox` |
+| `get-sandbox-inbox` | `get-sandbox` |
+| `update-sandbox-inbox` | `update-sandbox` |
+| `delete-sandbox-inbox` | `delete-sandbox` |
+| `clean-sandbox-inbox` | `clean-sandbox` |
+| `list-sending-domains` | `list-domains` |
+| `get-sending-domain` | `get-domain` |
+| `create-sending-domain` | `create-domain` |
+| `update-sending-domain` | `update-domain` |
+| `delete-sending-domain` | `delete-domain` |
+| `send-sending-domain-setup-instructions` | `send-domain-setup-instructions` |
+| `sending_domain_id` param of the domain and company info tools | `domain_id` |
+| `MAILTRAP_TEST_INBOX_ID` env var | `MAILTRAP_SANDBOX_ID` |
+
+Filters that mirror an API field keep their names: `sending_domain_id` on `list-email-logs` and `sending_domain_ids` on the stats tools.
 
 ## Available Tools
 
@@ -346,7 +372,7 @@ Lists sent email logs (delivery history) with optional pagination and filters. U
 - `to_email` (optional): Filter by recipient email; use with `to_operator` (default: ci_equal)
 - `status` (optional): Filter by delivery status: delivered, not_delivered, enqueued, opted_out; use with `status_operator` (default: equal)
 - `subject` (optional): Filter by email subject; use with `subject_operator` (default: ci_contain). Use `subject_operator`: empty/not_empty to filter by presence of subject.
-- `sending_domain_id` (optional): Filter by sending domain ID (number); use with `sending_domain_id_operator` (default: equal)
+- `sending_domain_id` (optional): Filter by domain ID (number); use with `sending_domain_id_operator` (default: equal)
 - `sending_stream` (optional): Filter by stream: transactional or bulk; use with `sending_stream_operator` (default: equal)
 - `events` (optional): Filter by event type(s): delivery, open, click, bounce, spam, unsubscribe, soft_bounce, reject, suspension; use with `events_operator` (include_event / not_include_event)
 - `clicks_count` / `opens_count` (optional): Filter by click/open count; use with `*_operator`: equal, greater_than, less_than
@@ -376,7 +402,7 @@ Get email sending statistics (delivery, bounce, open, click, spam rates) for a d
 - `start_date` (required): Start date for the stats range (YYYY-MM-DD)
 - `end_date` (required): End date for the stats range (YYYY-MM-DD)
 - `breakdown` (optional): How to break down the stats: `aggregated` (default), `by_domain`, `by_category`, `by_email_service_provider`, or `by_date`
-- `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
+- `sending_domain_ids` (optional): Limit results to these domain IDs (array of integers)
 - `sending_streams` (optional): Limit to `transactional` and/or `bulk` (array of strings)
 - `categories` (optional): Limit to these email categories (array of strings)
 - `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
@@ -389,7 +415,7 @@ Get aggregated Email Marketing statistics across campaigns and automations for a
 
 - `start_date` (required): Start of the date range (inclusive), `YYYY-MM-DD`
 - `end_date` (required): End of the date range (inclusive), `YYYY-MM-DD`
-- `sending_domain_ids` (optional): Limit results to these sending domain IDs (array of integers)
+- `sending_domain_ids` (optional): Limit results to these domain IDs (array of integers)
 - `sources` (optional): `campaigns` or `automations` narrows the stats to that source; omit it, or pass both, for all Email Marketing traffic (array of strings)
 - `email_service_providers` (optional): Limit to these providers, e.g. Google, Yahoo, Outlook (array of strings)
 
@@ -448,11 +474,11 @@ Deletes an existing email template.
 
 ### send-sandbox-email
 
-Sends an email to your Mailtrap test inbox for development and testing purposes. This is perfect for testing email templates without sending emails to real recipients. Supports the same two modes as `send-email` — **inline content** or **template-based** (`template_uuid`).
+Sends an email to your Mailtrap sandbox for development and testing purposes. This is perfect for testing email templates without sending emails to real recipients. Supports the same two modes as `send-email` — **inline content** or **template-based** (`template_uuid`).
 
 **Parameters:**
 
-- `sandbox_id` (optional): Preferred. Mailtrap sandbox (test inbox) ID. Required unless `MAILTRAP_SANDBOX_ID` is set.
+- `sandbox_id` (optional): Preferred. Mailtrap sandbox ID. Required unless `MAILTRAP_SANDBOX_ID` is set.
 - `test_inbox_id` (optional): Legacy alias for `sandbox_id` when `sandbox_id` is omitted.
 - `from` (optional): Sender as `{ email, name? }` (a bare email string is also accepted at runtime). If not provided, `DEFAULT_FROM_EMAIL` is used.
 - `to` (optional): Array of recipients as `{ email, name? }` objects (bare email strings in the array, or a comma-separated string of plain emails, are also accepted at runtime). Optional if `cc` or `bcc` is provided; at least one of `to` / `cc` / `bcc` must contain a recipient.
@@ -467,47 +493,63 @@ Sends an email to your Mailtrap test inbox for development and testing purposes.
 
 ### batch-send-sandbox-email
 
-Sends a batch of emails to your Mailtrap test inbox in one API call, without delivering to real recipients. Same `base` + `requests[]` shape, validation, and inline-vs-template rules as `batch-send-transactional-email` — the difference is that this tool routes the call through the sandbox endpoint for a single test inbox.
+Sends a batch of emails to your Mailtrap sandbox in one API call, without delivering to real recipients. Same `base` + `requests[]` shape, validation, and inline-vs-template rules as `batch-send-transactional-email` — the difference is that this tool routes the call through the sandbox endpoint for a single sandbox.
 
 **Parameters:**
 
-- `sandbox_id` (optional): Mailtrap sandbox (test inbox) ID. Required unless `MAILTRAP_SANDBOX_ID` is set; pass per call to target a specific sandbox.
+- `sandbox_id` (optional): Mailtrap sandbox ID. Required unless `MAILTRAP_SANDBOX_ID` is set; pass per call to target a specific sandbox.
 - `base` (optional), `requests` (required): See `batch-send-transactional-email` above.
 
 > [!NOTE]
-> Most sandbox tools take **`sandbox_id`** (or fall back to `MAILTRAP_SANDBOX_ID`; legacy env `MAILTRAP_TEST_INBOX_ID` still works). **`send-sandbox-email`**, **`get-sandbox-messages`**, and **`show-sandbox-email-message`** also accept legacy **`test_inbox_id`**. **`get-sandbox-inbox`**, **`update-sandbox-inbox`**, **`delete-sandbox-inbox`**, and **`clean-sandbox-inbox`** use **`sandbox_id`** with legacy **`inbox_id`** (same ID; `inbox_id` is not used on message tools). Inbound email tools use **`inbox_id`** for a different product (received mail), not the sandbox.
+> Most sandbox tools take **`sandbox_id`** (or fall back to `MAILTRAP_SANDBOX_ID`; the deprecated env `MAILTRAP_TEST_INBOX_ID` still works). **`send-sandbox-email`**, **`get-sandbox-messages`**, and **`show-sandbox-email-message`** also accept legacy **`test_inbox_id`**. **`get-sandbox`**, **`update-sandbox`**, **`delete-sandbox`**, and **`clean-sandbox`** use **`sandbox_id`** with legacy **`inbox_id`** (same ID; `inbox_id` is not used on message tools). Inbound email tools use **`inbox_id`** for a different product (received mail), not the sandbox.
 
 ### get-sandbox-messages
 
-Retrieves a list of messages from your Mailtrap test inbox. Useful for checking what emails have been received in your sandbox during testing.
+Retrieves a list of messages from your Mailtrap sandbox. Useful for checking what emails have been received in your sandbox during testing.
 
 **Parameters:**
 
-- `sandbox_id` (optional): Preferred. Sandbox (test inbox) ID unless `MAILTRAP_SANDBOX_ID` is set.
+- `sandbox_id` (optional): Preferred. Sandbox ID unless `MAILTRAP_SANDBOX_ID` is set.
 - `test_inbox_id` (optional): Legacy alias for `sandbox_id`.
 - `page` (optional): Page number for pagination (minimum: 1)
 - `last_id` (optional): Pagination using last message ID. Returns messages after the specified message ID (minimum: 1)
 - `search` (optional): Search query to filter messages
 
 > [!NOTE]
-> Inbox ID parameters are optional when `MAILTRAP_SANDBOX_ID` is set. If none of `sandbox_id`, `test_inbox_id`, or env are provided, the call fails. Pagination: use `page`, `last_id`, or `search` as needed.
+> Sandbox ID parameters are optional when `MAILTRAP_SANDBOX_ID` is set. If none of `sandbox_id`, `test_inbox_id`, or env are provided, the call fails. Pagination: use `page`, `last_id`, or `search` as needed.
 
 ### show-sandbox-email-message
 
-Shows detailed information and content of a specific email message from your Mailtrap test inbox, including HTML and text body content.
+Shows detailed information and content of a specific email message from your Mailtrap sandbox, including HTML and text body content.
 
 **Parameters:**
 
-- `sandbox_id` (optional): Preferred. Sandbox (test inbox) ID unless `MAILTRAP_SANDBOX_ID` is set.
+- `sandbox_id` (optional): Preferred. Sandbox ID unless `MAILTRAP_SANDBOX_ID` is set.
 - `test_inbox_id` (optional): Legacy alias for `sandbox_id`.
 - `message_id` (required): ID of the sandbox email message to retrieve
 
 > [!NOTE]
 > Use `get-sandbox-messages` first to get message IDs, then this tool for full content.
 
+### list-sandbox-projects
+
+List all sandbox projects and their sandboxes.
+
+**Parameters:**
+
+- No parameters required
+
+### create-sandbox-project
+
+Create a new sandbox project to group sandboxes.
+
+**Parameters:**
+
+- `name` (required): Name of the project (2–100 characters)
+
 ### get-sandbox-project
 
-Get a sandbox project by ID, including its inboxes and email counts.
+Get a sandbox project by ID, including its sandboxes and email counts.
 
 **Parameters:**
 
@@ -521,6 +563,60 @@ Rename an existing sandbox project.
 
 - `project_id` (required): ID of the project to update
 - `name` (required): New name for the project (2–100 characters)
+
+### delete-sandbox-project
+
+Delete a sandbox project and all its sandboxes.
+
+**Parameters:**
+
+- `project_id` (required): ID of the project to delete
+
+### create-sandbox
+
+Create a new sandbox within a project. Returns the new sandbox's SMTP credentials.
+
+**Parameters:**
+
+- `project_id` (required): ID of the project to create the sandbox in
+- `name` (required): Name of the sandbox
+
+### get-sandbox
+
+Get sandbox details, including SMTP credentials, email counts, and status.
+
+**Parameters:**
+
+- `sandbox_id` (optional): Sandbox ID. Required unless `MAILTRAP_SANDBOX_ID` is set.
+- `inbox_id` (optional): Legacy alias for `sandbox_id`.
+
+### update-sandbox
+
+Update a sandbox's name or email username.
+
+**Parameters:**
+
+- `sandbox_id` (required): Sandbox ID (legacy alias: `inbox_id`)
+- `name` (optional): New name for the sandbox
+- `email_username` (optional): New email username for the sandbox
+
+At least one of `name` or `email_username` must be provided.
+
+### delete-sandbox
+
+Delete a sandbox and all its messages.
+
+**Parameters:**
+
+- `sandbox_id` (required): Sandbox ID (legacy alias: `inbox_id`)
+
+### clean-sandbox
+
+Delete all messages from a sandbox without deleting the sandbox itself.
+
+**Parameters:**
+
+- `sandbox_id` (required): Sandbox ID (legacy alias: `inbox_id`)
 
 ### list-sandboxes
 
@@ -682,78 +778,78 @@ Get metadata and download URL for a single attachment.
 - `message_id` (required): ID of the sandbox message that contains the attachment
 - `attachment_id` (required): ID of the attachment to fetch
 
-### list-sending-domains
+### list-domains
 
-List sending domains and their DNS verification status.
+List domains and their DNS verification status.
 
 **Parameters:**
 
 - No parameters required
 
-### get-sending-domain
+### get-domain
 
-Get a sending domain by ID and its verification status (including DNS records). Optionally include DNS setup instructions by setting `include_setup_instructions` to `true`.
+Get a domain by ID and its verification status (including DNS records). Optionally include DNS setup instructions by setting `include_setup_instructions` to `true`.
 
 **Parameters:**
 
-- `sending_domain_id` (required): Sending domain ID
+- `domain_id` (required): Domain ID (legacy alias: `sending_domain_id`)
 - `include_setup_instructions` (optional): If `true`, append DNS setup instructions to the response. Default: `false`
 
-### create-sending-domain
+### create-domain
 
-Create a new sending domain. After creation, add DNS records to verify the domain (use get-sending-domain with `include_setup_instructions: true` to see the records).
+Create a new domain. After creation, add DNS records to verify the domain (use get-domain with `include_setup_instructions: true` to see the records).
 
 **Parameters:**
 
 - `domain_name` (required): Domain name (e.g. example.com)
 
-### update-sending-domain
+### update-domain
 
-Update a sending domain's tracking and inbound settings.
+Update a domain's tracking and inbound settings.
 
 **Parameters:**
 
-- `sending_domain_id` (required): Sending domain ID
+- `domain_id` (required): Domain ID (legacy alias: `sending_domain_id`)
 - `open_tracking_enabled` (optional): Track opens on emails sent from this domain
 - `click_tracking_enabled` (optional): Track clicks on links in emails sent from this domain
 - `tracking_opt_out_enabled` (optional): Add the tracking opt-out link to tracked emails. Requires open or click tracking
 - `auto_unsubscribe_link_enabled` (optional): Automatically add an unsubscribe link to emails
 - `inbound_enabled` (optional): Allow the domain to be attached to an inbound inbox as a catch-all
 
-At least one setting besides `sending_domain_id` must be provided.
+At least one setting besides `domain_id` must be provided.
 
-### delete-sending-domain
+### delete-domain
 
-Delete a sending domain.
-
-**Parameters:**
-
-- `sending_domain_id` (required): Sending domain ID to delete
-
-### send-sending-domain-setup-instructions
-
-Email DNS setup instructions for a sending domain to a given address. Useful for forwarding DNS records to a DevOps teammate.
+Delete a domain.
 
 **Parameters:**
 
-- `sending_domain_id` (required): Sending domain ID
+- `domain_id` (required): Domain ID to delete (legacy alias: `sending_domain_id`)
+
+### send-domain-setup-instructions
+
+Email DNS setup instructions for a domain to a given address. Useful for forwarding DNS records to a DevOps teammate.
+
+**Parameters:**
+
+- `domain_id` (required): Domain ID (legacy alias: `sending_domain_id`)
 - `email` (required): Email address to send DNS setup instructions to
 
 ### get-company-info
 
-Get the company info of a sending domain, used for domain compliance verification.
+Get the company info of a domain, used for domain compliance verification.
 
 **Parameters:**
 
-- `sending_domain_id` (required): Sending domain ID
+- `domain_id` (required): Domain ID (legacy alias: `sending_domain_id`)
 
 ### create-company-info
 
-Set the company info of a sending domain, required for domain compliance verification.
+Set the company info of a domain, required for domain compliance verification.
 
 **Parameters:**
 
-- `sending_domain_id` (required): Sending domain ID
+- `domain_id` (required): Domain ID (legacy alias: `sending_domain_id`)
 - `name` (required): Company or individual name
 - `address` (required): Street address
 - `city` (required): City
@@ -767,11 +863,11 @@ Set the company info of a sending domain, required for domain compliance verific
 
 ### update-company-info
 
-Update the company info of a sending domain.
+Update the company info of a domain.
 
 **Parameters:**
 
-- `sending_domain_id` (required): Sending domain ID
+- `domain_id` (required): Domain ID (legacy alias: `sending_domain_id`)
 - Every field of create-company-info, all optional. At least one must be provided; fields left out are unchanged.
 
 ### list-suppressions
@@ -789,7 +885,7 @@ Add an email address to the account's suppression list, so Mailtrap stops delive
 **Parameters:**
 
 - `email` (required): Email address to suppress
-- `domain_id` (required): ID of the sending domain the suppression applies to
+- `domain_id` (required): ID of the domain the suppression applies to
 - `sending_stream` (required): `transactional` or `bulk`
 - `type` (optional): `hard bounce`, `spam complaint`, `unsubscription` or `manual import`. Defaults to `manual import`
 
@@ -814,12 +910,12 @@ List email addresses excluded from open and click tracking. Returns up to 1000 r
 
 ### create-tracking-opt-out
 
-Exclude an email address from open and click tracking for a sending domain.
+Exclude an email address from open and click tracking for a domain.
 
 **Parameters:**
 
 - `email` (required): Email address to opt out of tracking
-- `domain_id` (required): ID of the sending domain the opt-out applies to
+- `domain_id` (required): ID of the domain the opt-out applies to
 
 ### delete-tracking-opt-out
 
@@ -857,7 +953,7 @@ Create a webhook. The response includes a `signing_secret` for verifying webhook
 - `payload_format` (optional): `"json"` or `"jsonlines"`. Defaults to `"json"`
 - `sending_stream` (optional, `email_sending` only): `"transactional"` or `"bulk"`
 - `event_types` (optional, `email_sending` only): array of `delivery`, `soft_bounce`, `bounce`, `suspension`, `unsubscribe`, `open`, `spam_complaint`, `click`, `reject`
-- `domain_id` (optional, `email_sending` only): sending domain ID to scope this webhook to
+- `domain_id` (optional, `email_sending` only): domain ID to scope this webhook to
 - `inbound_inbox_id` (optional, `inbound_receiving` only): ID of the inbound inbox the webhook is linked to; omit to apply to all inboxes in the account
 
 ### update-webhook
@@ -1082,7 +1178,7 @@ Create a new email campaign. The campaign is always created in the `draft` state
 **Parameters:**
 
 - `name` (required): Campaign name
-- `domain_id` (required): ID of the verified sending domain used for the campaign, as returned by the Sending Domains endpoints
+- `domain_id` (required): ID of the verified domain used for the campaign, as returned by `list-domains`
 - `from_local_part` (required): Local part (before the @) of the From address
 - `template_attributes` (required): Inline email template. Has:
   - `subject` (required): Email subject line (max 255 chars). Supports merge tags, e.g. `Hi {{first_name}}`
@@ -1115,7 +1211,7 @@ Delete an email campaign by ID. Only a campaign in the `draft` state can be dele
 
 ### start-email-campaign
 
-Start sending a `draft` email campaign immediately. Only `draft` campaigns can be started; the template must have a `body_html` design and the audience and verified sending domain must be set.
+Start sending a `draft` email campaign immediately. Only `draft` campaigns can be started; the template must have a `body_html` design and the audience and verified domain must be set.
 
 **Parameters:**
 
@@ -1186,8 +1282,8 @@ List account accesses (users, invites, API tokens) for the account. Optional fil
 
 **Parameters:**
 
-- `domain_uuids` (optional): Filter by sending domain UUIDs (array of strings)
-- `inbox_ids` (optional): Filter by sandbox inbox IDs (array of strings)
+- `domain_uuids` (optional): Filter by domain UUIDs (array of strings)
+- `inbox_ids` (optional): Filter by sandbox IDs (array of strings)
 - `project_ids` (optional): Filter by sandbox project IDs (array of strings)
 
 ### remove-account-access
@@ -1200,7 +1296,7 @@ Remove an account access by ID. For `User` specifiers this revokes their permiss
 
 ### get-permission-resources
 
-Get all resources (inboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.
+Get all resources (sandboxes, projects, domains, billing, account) to which the API token has admin access, nested by hierarchy.
 
 **Parameters:**
 
@@ -1347,7 +1443,7 @@ Create a new inbound inbox in a folder.
 
 - `folder_id` (required): ID of the inbound folder
 - `name` (required): The inbox name
-- `domain_id` (optional): Attach to a custom sending domain (catch-all inbox). Omit for a Mailtrap-hosted inbox
+- `domain_id` (optional): Attach to a custom domain (catch-all inbox). Omit for a Mailtrap-hosted inbox
 
 ### update-inbound-inbox
 
@@ -1635,8 +1731,8 @@ npm run mcp:cli -- \
 # Multiple --tool-arg flags for tools with several params
 npm run mcp:cli -- \
   --method tools/call \
-  --tool-name send-sending-domain-setup-instructions \
-  --tool-arg sending_domain_id=3938 \
+  --tool-name send-domain-setup-instructions \
+  --tool-arg domain_id=3938 \
   --tool-arg email=devops@example.com
 ```
 

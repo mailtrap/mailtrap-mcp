@@ -25,7 +25,7 @@ startCommand:
       mailtrapSandboxId:
         type: string
         title: Mailtrap Sandbox ID
-        description: Default sandbox (test inbox) ID for sandbox tools
+        description: Default sandbox ID for sandbox tools
       mailtrapOrganizationId:
         type: string
         title: Mailtrap Organization ID

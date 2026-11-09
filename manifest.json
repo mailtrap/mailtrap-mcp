@@ -72,11 +72,11 @@
     },
     {
       "name": "batch-send-sandbox-email",
-      "description": "Send a batch of emails in sandbox mode to a test inbox in one call."
+      "description": "Send a batch of emails in sandbox mode to a sandbox in one call."
     },
     {
       "name": "get-sandbox-messages",
-      "description": "Get list of messages from the sandbox test inbox."
+      "description": "Get list of messages from a sandbox."
     },
     {
       "name": "show-sandbox-email-message",
@@ -84,15 +84,15 @@
     },
     {
       "name": "list-sandbox-projects",
-      "description": "List all sandbox projects and their inboxes in your Mailtrap account."
+      "description": "List all sandbox projects and their sandboxes in your Mailtrap account."
     },
     {
       "name": "create-sandbox-project",
-      "description": "Create a new sandbox project to group test inboxes."
+      "description": "Create a new sandbox project to group sandboxes."
     },
     {
       "name": "get-sandbox-project",
-      "description": "Get a sandbox project and the inboxes it contains."
+      "description": "Get a sandbox project and the sandboxes it contains."
     },
     {
       "name": "update-sandbox-project",
@@ -100,47 +100,47 @@
     },
     {
       "name": "delete-sandbox-project",
-      "description": "Delete a sandbox project and all its inboxes."
+      "description": "Delete a sandbox project and all its sandboxes."
     },
     {
-      "name": "create-sandbox-inbox",
-      "description": "Create a new sandbox test inbox within a project."
+      "name": "create-sandbox",
+      "description": "Create a new sandbox within a project."
     },
     {
-      "name": "get-sandbox-inbox",
-      "description": "Get sandbox inbox details including SMTP credentials, email counts, and status."
+      "name": "get-sandbox",
+      "description": "Get sandbox details including SMTP credentials, email counts, and status."
     },
     {
-      "name": "update-sandbox-inbox",
-      "description": "Update a sandbox inbox name or email username."
+      "name": "update-sandbox",
+      "description": "Update a sandbox name or email username."
     },
     {
-      "name": "delete-sandbox-inbox",
-      "description": "Delete a sandbox inbox and all its messages."
+      "name": "delete-sandbox",
+      "description": "Delete a sandbox and all its messages."
     },
     {
-      "name": "clean-sandbox-inbox",
-      "description": "Delete all messages from a sandbox inbox without deleting the inbox itself."
+      "name": "clean-sandbox",
+      "description": "Delete all messages from a sandbox without deleting the sandbox itself."
     },
     {
       "name": "list-sandboxes",
-      "description": "List all sandbox inboxes accessible to the API token, across every project."
+      "description": "List all sandboxes accessible to the API token, across every project."
     },
     {
       "name": "mark-sandbox-as-read",
-      "description": "Mark all messages in a sandbox inbox as read."
+      "description": "Mark all messages in a sandbox as read."
     },
     {
       "name": "reset-sandbox-credentials",
-      "description": "Reset the SMTP credentials of a sandbox inbox."
+      "description": "Reset the SMTP credentials of a sandbox."
     },
     {
       "name": "enable-sandbox-email-address",
-      "description": "Enable the forwarding email address of a sandbox inbox."
+      "description": "Enable the forwarding email address of a sandbox."
     },
     {
       "name": "reset-sandbox-email-address",
-      "description": "Reset the forwarding email address of a sandbox inbox."
+      "description": "Reset the forwarding email address of a sandbox."
     },
     {
       "name": "forward-sandbox-message",
@@ -152,7 +152,7 @@
     },
     {
       "name": "delete-sandbox-message",
-      "description": "Delete a single message from a sandbox inbox."
+      "description": "Delete a single message from a sandbox."
     },
     {
       "name": "get-sandbox-message-spam-score",
@@ -211,40 +211,40 @@
       "description": "Get a single email log message by ID to inspect delivery status and event history."
     },
     {
-      "name": "list-sending-domains",
-      "description": "List sending domains and their DNS verification status."
+      "name": "list-domains",
+      "description": "List domains and their DNS verification status."
     },
     {
-      "name": "get-sending-domain",
-      "description": "Get a sending domain by ID and its verification status, with optional DNS setup instructions."
+      "name": "get-domain",
+      "description": "Get a domain by ID and its verification status, with optional DNS setup instructions."
     },
     {
-      "name": "create-sending-domain",
-      "description": "Create a new sending domain."
+      "name": "create-domain",
+      "description": "Create a new domain."
     },
     {
-      "name": "update-sending-domain",
-      "description": "Update a sending domain's tracking and inbound settings."
+      "name": "update-domain",
+      "description": "Update a domain's tracking and inbound settings."
     },
     {
-      "name": "delete-sending-domain",
-      "description": "Delete a sending domain."
+      "name": "delete-domain",
+      "description": "Delete a domain."
     },
     {
-      "name": "send-sending-domain-setup-instructions",
-      "description": "Email a sending domain's DNS setup instructions to a colleague."
+      "name": "send-domain-setup-instructions",
+      "description": "Email a domain's DNS setup instructions to a colleague."
     },
     {
       "name": "get-company-info",
-      "description": "Get the company info of a sending domain, used for domain compliance verification."
+      "description": "Get the company info of a domain, used for domain compliance verification."
     },
     {
       "name": "create-company-info",
-      "description": "Set the company info of a sending domain, required for domain compliance verification."
+      "description": "Set the company info of a domain, required for domain compliance verification."
     },
     {
       "name": "update-company-info",
-      "description": "Update the company info of a sending domain."
+      "description": "Update the company info of a domain."
     },
     {
       "name": "list-suppressions",
@@ -264,7 +264,7 @@
     },
     {
       "name": "create-tracking-opt-out",
-      "description": "Exclude an email address from open and click tracking for a sending domain."
+      "description": "Exclude an email address from open and click tracking for a domain."
     },
     {
       "name": "delete-tracking-opt-out",
@@ -376,7 +376,7 @@
     },
     {
       "name": "create-email-campaign",
-      "description": "Create a draft email campaign for a verified sending domain."
+      "description": "Create a draft email campaign for a verified domain."
     },
     {
       "name": "update-email-campaign",
@@ -428,7 +428,7 @@
     },
     {
       "name": "get-permission-resources",
-      "description": "List the inboxes, projects, domains, and billing resources the token administers."
+      "description": "List the sandboxes, projects, domains, and billing resources the token administers."
     },
     {
       "name": "bulk-update-permissions",

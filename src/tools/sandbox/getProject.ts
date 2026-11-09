@@ -21,11 +21,11 @@ async function getProject({ project_id }: GetProjectRequest): Promise<{
                 })`
             )
             .join("\n")
-        : "  (no inboxes)";
+        : "  (no sandboxes)";
 
     const text = [
       `Sandbox project: ${project.name} (ID: ${project.id})`,
-      `Inboxes (${inboxCount}):`,
+      `Sandboxes (${inboxCount}):`,
       inboxLines,
     ].join("\n");
 

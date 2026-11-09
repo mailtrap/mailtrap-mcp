@@ -16,7 +16,7 @@ const updateEmailCampaignSchema = {
       type: "integer",
       minimum: 1,
       description:
-        "ID of the verified sending domain used for the campaign, as returned by the Sending Domains endpoints.",
+        "ID of the verified domain used for the campaign, as returned by list-domains.",
     },
     from_local_part: {
       type: "string",

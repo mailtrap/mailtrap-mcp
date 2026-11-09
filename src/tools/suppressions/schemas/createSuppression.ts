@@ -11,7 +11,7 @@ const createSuppressionSchema = {
       type: "integer",
       minimum: 1,
       description:
-        "ID of the sending domain the suppression applies to, as returned by the Sending Domains tools.",
+        "ID of the domain the suppression applies to, as returned by list-domains.",
     },
     sending_stream: {
       type: "string",

@@ -1,13 +1,11 @@
 import { z } from "zod";
+import { domainIdProperties, domainIdZodShape } from "../../schemas/domainId";
+import { omitDomainId } from "../../utils/resolveDomainId";
 
 const updateCompanyInfoSchema = {
   type: "object",
   properties: {
-    sending_domain_id: {
-      type: "integer",
-      minimum: 1,
-      description: "Sending domain ID",
-    },
+    ...domainIdProperties,
     name: {
       type: "string",
       description: "Company or individual name.",
@@ -50,15 +48,15 @@ const updateCompanyInfoSchema = {
       description: "Whether the sender is a business or an individual.",
     },
   },
-  required: ["sending_domain_id"],
+  required: [],
   additionalProperties: false,
   description:
-    "At least one field besides `sending_domain_id` must be provided. Fields left out are unchanged.",
+    "At least one field besides `domain_id` must be provided. Fields left out are unchanged.",
 };
 
 export const updateCompanyInfoZod = z
   .object({
-    sending_domain_id: z.number().int().min(1),
+    ...domainIdZodShape,
     name: z.string().optional(),
     address: z.string().optional(),
     city: z.string().optional(),
@@ -71,10 +69,8 @@ export const updateCompanyInfoZod = z
     info_level: z.enum(["business", "individual"]).optional(),
   })
   .strict()
-  .refine(
-    ({ sending_domain_id: _sendingDomainId, ...updates }) =>
-      Object.keys(updates).length > 0,
-    { message: "Provide at least one field to update." }
-  );
+  .refine((input) => Object.keys(omitDomainId(input)).length > 0, {
+    message: "Provide at least one field to update.",
+  });
 
 export default updateCompanyInfoSchema;

@@ -48,7 +48,7 @@ const createWebhookSchema = {
     domain_id: {
       type: "number",
       description:
-        "Sending domain ID to scope this webhook to. Applies only to `email_sending` webhooks.",
+        "Domain ID to scope this webhook to. Applies only to `email_sending` webhooks.",
     },
     inbound_inbox_id: {
       type: "number",

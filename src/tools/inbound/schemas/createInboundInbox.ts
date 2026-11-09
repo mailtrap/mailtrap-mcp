@@ -14,7 +14,7 @@ const createInboundInboxSchema = {
     domain_id: {
       type: "number",
       description:
-        "Optional. Attach the inbox to a custom sending domain (catch-all inbox). Omit for a standard Mailtrap-hosted inbox.",
+        "Optional. Attach the inbox to a custom domain (catch-all inbox). Omit for a standard Mailtrap-hosted inbox.",
     },
   },
   required: ["folder_id", "name"],
