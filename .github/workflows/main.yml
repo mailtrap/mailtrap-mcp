@@ -34,3 +34,46 @@ jobs:
 
       - name: Run Tests
         run: npm run test
+
+  mcpb:
+    name: Pack and start the MCPB bundle
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read Node.JS version
+        id: versions
+        run: |
+          version_line=($(grep nodejs .tool-versions))
+          echo "node_version=${version_line[1]}" >> $GITHUB_OUTPUT
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.versions.outputs.node_version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pack the bundle
+        run: npm run mcpb:pack
+
+      # Unpack outside the workspace, so Node cannot fall back to the repo's node_modules.
+      - name: Unpack the bundle
+        run: npx @anthropic-ai/mcpb unpack mailtrap-mcp.mcpb "$RUNNER_TEMP/bundle"
+
+      - name: Start the server and list its tools
+        shell: bash
+        working-directory: ${{ runner.temp }}/bundle
+        env:
+          MAILTRAP_API_TOKEN: smoke-test
+        run: |
+          printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"1"}}}' \
+            '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+            | timeout 30 node dist/index.js > output.jsonl
+          grep '"id":2' output.jsonl | grep -q '"tools":\[' || { cat output.jsonl; exit 1; }

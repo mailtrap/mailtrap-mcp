@@ -22,6 +22,16 @@ function getUserAgent(): string {
   return buildUserAgent(mcpClientInfoProvider?.());
 }
 
+function getEnvAccountId(): number | undefined {
+  const accountId = Number(process.env.MAILTRAP_ACCOUNT_ID);
+  return Number.isInteger(accountId) && accountId > 0 ? accountId : undefined;
+}
+
+function accountIdOption(): { accountId?: number } {
+  const accountId = getEnvAccountId();
+  return accountId === undefined ? {} : { accountId };
+}
+
 /**
  * Default (transactional) MailtrapClient. Constructed on demand — like the
  * other getters below — so its User-Agent always reflects the current MCP
@@ -34,11 +44,7 @@ function getDefaultClient(): MailtrapClient | null {
   return new MailtrapClient({
     token: MAILTRAP_API_TOKEN,
     userAgent: getUserAgent(),
-    // conditionally set accountId if it's a valid number
-    ...(process.env.MAILTRAP_ACCOUNT_ID &&
-    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-      : {}),
+    ...accountIdOption(),
   });
 }
 
@@ -55,10 +61,7 @@ function getSandboxClient(inboxId: number): MailtrapClient {
     userAgent: getUserAgent(),
     testInboxId: inboxId,
     sandbox: true,
-    ...(process.env.MAILTRAP_ACCOUNT_ID &&
-    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-      : {}),
+    ...accountIdOption(),
   });
 }
 
@@ -73,10 +76,7 @@ function getBulkClient(): MailtrapClient {
     token: MAILTRAP_API_TOKEN,
     userAgent: getUserAgent(),
     bulk: true,
-    ...(process.env.MAILTRAP_ACCOUNT_ID &&
-    !Number.isNaN(Number(process.env.MAILTRAP_ACCOUNT_ID))
-      ? { accountId: Number(process.env.MAILTRAP_ACCOUNT_ID) }
-      : {}),
+    ...accountIdOption(),
   });
 }
 
@@ -129,13 +129,10 @@ function requireClient(
   if (!client) {
     throw new Error("MAILTRAP_API_TOKEN environment variable is required");
   }
-  if (requireAccountId) {
-    const accountId = process.env.MAILTRAP_ACCOUNT_ID;
-    if (!accountId || Number.isNaN(Number(accountId))) {
-      throw new Error(
-        `MAILTRAP_ACCOUNT_ID environment variable is required for ${feature}`
-      );
-    }
+  if (requireAccountId && getEnvAccountId() === undefined) {
+    throw new Error(
+      `MAILTRAP_ACCOUNT_ID environment variable is required for ${feature}`
+    );
   }
   return client;
 }

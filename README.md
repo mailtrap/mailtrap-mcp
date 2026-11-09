@@ -34,7 +34,7 @@ Before using this MCP server, you need to:
 **Required Environment Variables:**
 
 - `MAILTRAP_API_TOKEN` - Required for all functionality
-- `MAILTRAP_ACCOUNT_ID` - Required for templates, get-sending-stats, email logs, sandbox list/show, domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, get-marketing-stats, the company info tools, and the tracking opt-out tools.
+- `MAILTRAP_ACCOUNT_ID` - Required for templates, get-sending-stats, email logs, sandbox list/show, domains, and suppressions. Optional only for the send tools (send-email, send-sandbox-email, and the batch-send-\* tools), the email campaign tools, get-marketing-stats, the company info tools, the tracking opt-out tools, and list-accounts.
 
 **Optional (can be passed as tool parameters instead):**
 
@@ -188,7 +188,9 @@ npm run mcpb:info
 npm run mcpb:sign
 ```
 
-This creates `mailtrap-mcp.mcpb` using the repository `manifest.json` and built artifacts in `dist/`.
+This creates `mailtrap-mcp.mcpb`. The script copies `dist/`, `manifest.json`, `icon.png` and the
+license into `mcpb-build/`, installs production dependencies there, and packs only that directory.
+Do not run `mcpb pack .` from the repository root.
 
 ## Usage
 
@@ -1260,7 +1262,7 @@ Get aggregated performance statistics for an email campaign (counts and rates fo
 
 ### list-accounts
 
-List Mailtrap accounts the current API token can access, with each account's access levels.
+List Mailtrap accounts the current API token can access, with each account's access levels. Works without `MAILTRAP_ACCOUNT_ID`, so use it to find your account ID.
 
 **Parameters:**
 
