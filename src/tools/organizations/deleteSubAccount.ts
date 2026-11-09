@@ -22,13 +22,7 @@ async function deleteSubAccount(raw: unknown): Promise<ToolResponse> {
 
   try {
     const mailtrap = getOrganizationClient();
-
-    // TODO: drop the cast after bumping mailtrap to the release that ships subAccounts.delete
-    const subAccounts = mailtrap.organizations.subAccounts as unknown as {
-      delete(id: number): Promise<void>;
-    };
-
-    await subAccounts.delete(subAccountId);
+    await mailtrap.organizations.subAccounts.delete(subAccountId);
 
     return buildSuccessResponse(
       JSON.stringify({ sub_account_id: subAccountId, deleted: true }, null, 2)
