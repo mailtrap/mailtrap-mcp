@@ -1,0 +1,19 @@
+CHANGELOG.md
+  s_b9c42eb50c8974::t_7afc784c2fdfa8 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b868af160217f1c706bb90995a3fcaf326f8d189",
+  "prompts": {},
+  "sessions": {
+    "s_b9c42eb50c8974": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "df5a1abe-ac55-42d3-91ad-5bdff5971e62",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "IzikAJ <izikaj@gmail.com>"
+    }
+  }
+}
