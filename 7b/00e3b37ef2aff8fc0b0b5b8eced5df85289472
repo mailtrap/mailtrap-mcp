@@ -1,0 +1,35 @@
+src/server.ts
+  s_576b7c7847dbe9::t_61e9ca853a55b6 237-242
+  s_576b7c7847dbe9::t_de7c8121b11fa3 1190-1212
+src/tools/inbound/deleteInboundThread.ts
+  s_576b7c7847dbe9::t_264bbe33327ef4 1-38
+src/tools/inbound/listInboundThreads.ts
+  s_576b7c7847dbe9::t_b84a3ba3a72592 1-27,29-32,54-59
+  s_576b7c7847dbe9::t_ee207df6837266 28,33-53
+src/tools/inbound/schemas/deleteInboundThread.ts
+  s_576b7c7847dbe9::t_5abec483f20ec4 1-26
+src/tools/inbound/schemas/getInboundThread.ts
+  s_576b7c7847dbe9::t_5e9e6366a8ba60 1-26
+src/tools/inbound/getInboundThread.ts
+  s_576b7c7847dbe9::t_f4fc848d353d97 1-36
+src/tools/inbound/schemas/listInboundThreads.ts
+  s_576b7c7847dbe9::t_ca5c0c54d6c29f 1-26
+src/tools/inbound/index.ts
+  s_576b7c7847dbe9::t_1abc83012b7840 33-38,73-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "7b00e3b37ef2aff8fc0b0b5b8eced5df85289472",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

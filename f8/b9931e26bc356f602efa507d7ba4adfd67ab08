@@ -1,0 +1,58 @@
+src/tools/inbound/schemas/replyAllToInboundMessage.ts
+  s_576b7c7847dbe9::t_e689e991ea2be7 1-24
+src/tools/inbound/forwardInboundMessage.ts
+  s_576b7c7847dbe9::t_169a651797e966 23-27
+  s_576b7c7847dbe9::t_b5e9887bb0117e 1-7,9-22,42-59
+  s_576b7c7847dbe9::t_465ddd4975a68a 8,28-41
+src/server.ts
+  s_576b7c7847dbe9::t_c7152a00ea340b 225-236
+  s_576b7c7847dbe9::t_3923a0007c3d60 1137-1183
+src/tools/inbound/schemas/listInboundMessages.ts
+  s_576b7c7847dbe9::t_d81ccaade5db76 1-26
+src/tools/inbound/listInboundMessages.ts
+  s_576b7c7847dbe9::t_a68614126b5ed7 28,33-55
+  s_576b7c7847dbe9::t_06f63fcf13cf37 1-27,29-32,56-61
+src/tools/inbound/replyAllToInboundMessage.ts
+  s_576b7c7847dbe9::t_169a651797e966 23-27
+  s_576b7c7847dbe9::t_f053525fa6ff14 8,33-34,38
+  s_576b7c7847dbe9::t_e5fa610682f427 1-7,9-22,28-32,35-37,39-47
+src/tools/inbound/deleteInboundMessage.ts
+  s_576b7c7847dbe9::t_9977b898e575c2 1-38
+src/tools/inbound/getInboundMessage.ts
+  s_576b7c7847dbe9::t_19639953f400a2 1-36
+src/tools/inbound/replyToInboundMessage.ts
+  s_576b7c7847dbe9::t_2b4adda1f2a124 1-7,9-22,28-32,35-37,39-47
+  s_576b7c7847dbe9::t_169a651797e966 23-27
+  s_576b7c7847dbe9::t_81a70bac7ea007 8,33-34,38
+src/tools/inbound/schemas/forwardInboundMessage.ts
+  s_576b7c7847dbe9::t_c5c38e8f52ecce 1-27
+src/tools/inbound/schemas/sendFields.ts
+  s_576b7c7847dbe9::t_361cbf468052ea 1-2,9,15-17,19-21,33-73,77,83-89
+  s_576b7c7847dbe9::t_9b1ddc89e251e3 3-8,10-14,18,22-32,74-76,78-82
+src/tools/inbound/schemas/getInboundMessage.ts
+  s_576b7c7847dbe9::t_be62f769832551 1-26
+src/tools/inbound/schemas/deleteInboundMessage.ts
+  s_576b7c7847dbe9::t_9206c12c7848a5 1-26
+src/tools/inbound/index.ts
+  s_576b7c7847dbe9::t_c974b0fb5294c0 21-32,55-66
+src/tools/inbound/schemas/replyToInboundMessage.ts
+  s_576b7c7847dbe9::t_65a8ff6b2f8321 1-24
+src/tools/inbound/utils/sendParams.ts
+  s_576b7c7847dbe9::t_25092954fe0c3a 1-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "f8b9931e26bc356f602efa507d7ba4adfd67ab08",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

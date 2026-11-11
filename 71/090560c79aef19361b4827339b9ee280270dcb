@@ -1,0 +1,29 @@
+src/server.ts
+  s_84c25ad63d8c76::t_18fa0b9a224215 251-252,1318-1327
+src/tools/organizations/__tests__/deleteSubAccount.test.ts
+  s_84c25ad63d8c76::t_ceced3875f3e90 1-59
+src/tools/organizations/deleteSubAccount.ts
+  s_84c25ad63d8c76::t_2424cc1bd051ce 1-41
+src/tools/organizations/index.ts
+  s_84c25ad63d8c76::t_d69c09ab10c842 5-6,13-14
+src/tools/organizations/schemas/deleteSubAccount.ts
+  s_84c25ad63d8c76::t_1a763a99180a62 1-21
+src/types/mailtrap.ts
+  s_84c25ad63d8c76::t_9b718c2e77d194 897-900
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "71090560c79aef19361b4827339b9ee280270dcb",
+  "prompts": {},
+  "sessions": {
+    "s_84c25ad63d8c76": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1fbe9c4a-85b3-45c0-922e-f12aed1c5674",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}

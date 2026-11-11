@@ -1,0 +1,19 @@
+smithery.yaml
+  s_aa568569367349::t_2bd91e5210cd0a 1-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d62df85772a1d1ea41bfe7d4207857ad74db254a",
+  "prompts": {},
+  "sessions": {
+    "s_aa568569367349": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "e29025ac-461c-45d5-96ae-0bd3216a3a1b",
+        "model": "auto-smart"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}

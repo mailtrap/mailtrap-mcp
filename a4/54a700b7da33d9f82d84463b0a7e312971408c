@@ -1,0 +1,38 @@
+src/types/mailtrap.ts
+  s_a416a2bbf03afd::t_d39118ae46d8c0 953-968
+src/server.ts
+  s_a416a2bbf03afd::t_d39118ae46d8c0 130-132,812-819
+  s_a416a2bbf03afd::t_ab3279ebaf1f38 129,820-821
+  s_a416a2bbf03afd::t_8947054f8eb2e2 731
+  s_a416a2bbf03afd::t_34806a1cfa941f 779
+README.md
+  s_a416a2bbf03afd::t_92f801fb09f774 21,210-213,706-707,709-715
+  s_a416a2bbf03afd::t_93fbd51e06baf3 716
+CLAUDE.md
+  s_a416a2bbf03afd::t_92f801fb09f774 54,148-150
+  s_a416a2bbf03afd::t_ea2caaca58322d 151-152
+src/tools/trackingOptOuts/listTrackingOptOuts.ts
+  s_a416a2bbf03afd::t_8a758d26c6d7f8 1-54
+src/tools/trackingOptOuts/__tests__/listTrackingOptOuts.test.ts
+  s_a416a2bbf03afd::t_8a758d26c6d7f8 1-105
+src/tools/trackingOptOuts/schemas/listTrackingOptOuts.ts
+  s_a416a2bbf03afd::t_8a758d26c6d7f8 1-28
+src/tools/trackingOptOuts/index.ts
+  s_a416a2bbf03afd::t_d39118ae46d8c0 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a454a700b7da33d9f82d84463b0a7e312971408c",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

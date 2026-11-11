@@ -1,0 +1,21 @@
+README.md
+  s_d3ea2cfabc0202::t_34e452d240b974 1286
+src/server.ts
+  s_d3ea2cfabc0202::t_e42b89bcd0ef31 1347
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "79dcd57c559a363ccb120c68494345fe39c92453",
+  "prompts": {},
+  "sessions": {
+    "s_d3ea2cfabc0202": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "09a9789e-564d-4a57-8e87-237db8486b4f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}

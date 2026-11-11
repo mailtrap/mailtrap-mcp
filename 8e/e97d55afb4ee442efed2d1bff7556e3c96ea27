@@ -1,0 +1,74 @@
+src/tools/sandbox/getSandboxMessages.ts
+  s_e7f8ba638ae780::t_6e57f57d4225ed 3
+  s_e7f8ba638ae780::t_7cb928fbff2d14 15
+src/tools/sandbox/schemas/getSandboxInbox.ts
+  s_e7f8ba638ae780::t_ac9e67cbb6d473 7
+src/tools/sandbox/schemas/getMessages.ts
+  s_e7f8ba638ae780::t_cb70d6bc73fb2a 7
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_e7f8ba638ae780::t_783a544f2f6ba2 108
+  s_e7f8ba638ae780::t_9927451f96ef3e 93,97
+  s_e7f8ba638ae780::t_6f4154b3f28498 41
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_e7f8ba638ae780::t_fb6984b97e517f 32
+  s_e7f8ba638ae780::t_b97c8545da0141 370-371
+  s_e7f8ba638ae780::t_a3d070544661b4 387
+src/tools/sandbox/getSandboxInbox.ts
+  s_e7f8ba638ae780::t_ef74bec8a6406c 3
+  s_e7f8ba638ae780::t_d8d385f4017bd0 12
+src/client.ts
+  s_e7f8ba638ae780::t_eefaab9d90e5ca 47
+src/tools/sandbox/__tests__/getSandboxInbox.test.ts
+  s_e7f8ba638ae780::t_521c4736dcbfbf 80
+  s_e7f8ba638ae780::t_9a15187695941f 67-68
+src/tools/sandbox/schemas/showEmailMessage.ts
+  s_e7f8ba638ae780::t_bbd81fe096b21f 7
+manifest.json
+  s_e7f8ba638ae780::t_659cf252404bfe 563
+README.md
+  s_e7f8ba638ae780::t_7cb23979acf602 35
+  s_e7f8ba638ae780::t_28ee1773b68375 365
+  s_e7f8ba638ae780::t_e536275f1fc958 387
+  s_e7f8ba638ae780::t_9ef80b1f0139eb 33
+  s_e7f8ba638ae780::t_e41a4415a8942a 69,92,130,1398,1423,1446
+  s_e7f8ba638ae780::t_e9bf8a2cbd7bfb 26-27
+  s_e7f8ba638ae780::t_86b87cb7e29ccc 39,41-44,47
+  s_e7f8ba638ae780::t_cd1139b7b16df4 1561
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_e7f8ba638ae780::t_dcc095f85a21a9 168
+  s_e7f8ba638ae780::t_652f404e815d80 60
+  s_e7f8ba638ae780::t_620136040e6a59 153,157
+CLAUDE.md
+  s_e7f8ba638ae780::t_5cd93e4db20c59 56-57
+src/tools/sandbox/utils/resolveSandboxId.ts
+  s_e7f8ba638ae780::t_fecfeda6f88aa3 2-3,5-8,15,21
+smithery.yaml
+  s_e7f8ba638ae780::t_bd0c5f0ec7ffd7 1-3
+  s_e7f8ba638ae780::t_fad3d8aa734daf 45-46
+  s_e7f8ba638ae780::t_0019f31b4f3346 28
+  s_e7f8ba638ae780::t_b838e33c5eff4c 39-40,47
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_e7f8ba638ae780::t_ac445a10c5c8d6 3
+  s_e7f8ba638ae780::t_07cc4ae1b629ec 52
+src/tools/sandbox/sendSandboxEmail.ts
+  s_e7f8ba638ae780::t_e0c589aded06bb 25
+  s_e7f8ba638ae780::t_9c4d1b3a3434f8 9
+src/tools/sandbox/schemas/sendSandboxEmail.ts
+  s_e7f8ba638ae780::t_95fd956fb3c3e8 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8ee97d55afb4ee442efed2d1bff7556e3c96ea27",
+  "prompts": {},
+  "sessions": {
+    "s_e7f8ba638ae780": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9ed024a0-342a-4e06-9bf4-5ee3730e64e9",
+        "model": "composer-2.5"
+      },
+      "human_author": "Leonid Shevtsov <leonid@shevtsov.me>"
+    }
+  }
+}

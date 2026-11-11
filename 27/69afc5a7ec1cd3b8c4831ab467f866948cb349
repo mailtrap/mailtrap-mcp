@@ -1,0 +1,21 @@
+package-lock.json
+  s_fd7f30f54056ab::t_76615e32b0cc55 15,7692-7694
+package.json
+  s_fd7f30f54056ab::t_a9646a4c5a663d 42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "2769afc5a7ec1cd3b8c4831ab467f866948cb349",
+  "prompts": {},
+  "sessions": {
+    "s_fd7f30f54056ab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6c6a8bb2-a0f7-4555-af30-0d076487c6f4",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+README.md
+  s_576b7c7847dbe9::t_c7dc7431bd8922 966
+  s_576b7c7847dbe9::t_33e1afa9e9d5ca 964-965,967-1140
+CLAUDE.md
+  s_576b7c7847dbe9::t_a0fb8c8e5274b0 112
+  s_576b7c7847dbe9::t_048fb644dc6157 110-111,113-122
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "6e1ec569d8123d86836c1ac2df15369159646603",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

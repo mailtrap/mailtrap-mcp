@@ -1,0 +1,49 @@
+src/server.ts
+  s_576b7c7847dbe9::t_27d5fa7b951e18 732
+  s_73722281c0a0ba::t_2d312bd01f4837 742
+src/types/mailtrap.ts
+  s_73722281c0a0ba::t_2ba4e275149e19 406
+  s_73722281c0a0ba::t_8e134044502247 430,439
+  s_73722281c0a0ba::t_00ecf35b9e5970 381
+CLAUDE.md
+  s_73722281c0a0ba::t_0e4973ea12f63d 143
+  s_576b7c7847dbe9::t_c09dceb80cb682 142
+src/tools/webhooks/__tests__/createWebhook.test.ts
+  s_73722281c0a0ba::t_56995279b7e9d6 78-108
+README.md
+  s_576b7c7847dbe9::t_1c014d2f62d0df 652
+  s_73722281c0a0ba::t_62f0b33cfb2ad0 665
+  s_73722281c0a0ba::t_e2de5f81b8cef6 646
+src/tools/webhooks/__tests__/updateWebhook.test.ts
+  s_73722281c0a0ba::t_2a5a60ad7f32b7 72-90
+src/tools/webhooks/schemas/createWebhook.ts
+  s_576b7c7847dbe9::t_49716f3b67ddb8 56
+  s_73722281c0a0ba::t_75c0d45f52867d 10,12
+  s_73722281c0a0ba::t_c25e219c09d5d5 53-55,57
+src/tools/webhooks/schemas/updateWebhook.ts
+  s_73722281c0a0ba::t_01087af7a2aff7 40-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "4a8d4fa081e85205f6c2388cf4f4fd6b5cb70ddc",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    },
+    "s_73722281c0a0ba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "00ee1996-568c-4e2f-9526-e3f01656c9db",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

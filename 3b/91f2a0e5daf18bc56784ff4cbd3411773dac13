@@ -1,0 +1,19 @@
+src/tools/companyInfo/schemas/updateCompanyInfo.ts
+  s_a416a2bbf03afd::t_81e3fcbbf45d83 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3b91f2a0e5daf18bc56784ff4cbd3411773dac13",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

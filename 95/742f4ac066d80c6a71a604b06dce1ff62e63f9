@@ -1,0 +1,61 @@
+src/tools/sendingDomains/__tests__/updateSendingDomain.test.ts
+  s_a416a2bbf03afd::t_59c984f9279cf4 1-98
+src/tools/sendingDomains/schema.ts
+  s_a416a2bbf03afd::t_5f9879ce30bc8d 1-2,67-118,123
+src/server.ts
+  s_a416a2bbf03afd::t_6f8720fe63d78e 719-728,748-777
+  s_a416a2bbf03afd::t_1394a3beb991dc 106-107,113-120
+src/tools/companyInfo/getCompanyInfo.ts
+  s_a416a2bbf03afd::t_20df5fceb79f17 1-25
+src/tools/companyInfo/createCompanyInfo.ts
+  s_a416a2bbf03afd::t_ef96b01d8eb92d 28
+  s_a416a2bbf03afd::t_20df5fceb79f17 1-27,29-36
+src/tools/companyInfo/__tests__/getCompanyInfo.test.ts
+  s_a416a2bbf03afd::t_5aa21f6d6d70cb 1-52
+src/tools/companyInfo/__tests__/updateCompanyInfo.test.ts
+  s_a416a2bbf03afd::t_5aa21f6d6d70cb 1-75
+src/tools/companyInfo/index.ts
+  s_a416a2bbf03afd::t_20df5fceb79f17 1-15
+README.md
+  s_a416a2bbf03afd::t_763226e40e54ad 198,201-202,602-616,634-668
+  s_a416a2bbf03afd::t_87018345b4214d 21
+src/tools/sendingDomains/index.ts
+  s_a416a2bbf03afd::t_d2e7afee693fdf 5,12,23-24
+src/tools/companyInfo/updateCompanyInfo.ts
+  s_a416a2bbf03afd::t_ef96b01d8eb92d 28
+  s_a416a2bbf03afd::t_20df5fceb79f17 1-27,29-36
+src/tools/companyInfo/__tests__/createCompanyInfo.test.ts
+  s_a416a2bbf03afd::t_249c72c806c236 72-73
+  s_a416a2bbf03afd::t_5aa21f6d6d70cb 1-71,74-112
+src/types/mailtrap.ts
+  s_a416a2bbf03afd::t_ef96b01d8eb92d 886
+  s_a416a2bbf03afd::t_669217d0a4b2a3 875-885,887-937
+src/tools/companyInfo/schemas/createCompanyInfo.ts
+  s_a416a2bbf03afd::t_430da2cee960ed 1-80
+src/tools/companyInfo/schemas/updateCompanyInfo.ts
+  s_a416a2bbf03afd::t_430da2cee960ed 1-79
+src/tools/companyInfo/schemas/getCompanyInfo.ts
+  s_a416a2bbf03afd::t_430da2cee960ed 1-13
+src/tools/sendingDomains/updateSendingDomain.ts
+  s_a416a2bbf03afd::t_0a4bc55a22d05a 1-33,38-46
+  s_a416a2bbf03afd::t_67f6ea830381da 34-37
+CLAUDE.md
+  s_a416a2bbf03afd::t_87018345b4214d 54
+  s_a416a2bbf03afd::t_8c27c35981b55b 129,133-140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "95742f4ac066d80c6a71a604b06dce1ff62e63f9",
+  "prompts": {},
+  "sessions": {
+    "s_a416a2bbf03afd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73aab1cf-cfd1-42b8-b656-f26905d319ee",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

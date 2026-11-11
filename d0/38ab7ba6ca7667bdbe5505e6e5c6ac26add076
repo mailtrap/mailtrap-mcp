@@ -1,0 +1,34 @@
+src/tools/inbound/__tests__/replyAllToInboundMessage.test.ts
+  s_576b7c7847dbe9::t_f4039e980b5b6d 1-32,40-66
+  s_576b7c7847dbe9::t_9dadd2db59f138 33-39
+src/tools/inbound/__tests__/deleteInboundMessage.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 25-28,31-33,48-51,54-56
+  s_576b7c7847dbe9::t_412879fa29a694 1-24,29-30,34-47,52-53,57-58
+src/tools/inbound/__tests__/listInboundMessages.test.ts
+  s_576b7c7847dbe9::t_78d993b5d84498 1-43,47-90,94-95
+  s_576b7c7847dbe9::t_9dadd2db59f138 44-46,91-93
+src/tools/inbound/__tests__/forwardInboundMessage.test.ts
+  s_576b7c7847dbe9::t_3610566e39adc8 1-22,26-33,42-46,50-56,64-87,91-92
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-25,34-41,47-49,57-63,88-90
+src/tools/inbound/__tests__/replyToInboundMessage.test.ts
+  s_576b7c7847dbe9::t_9dadd2db59f138 23-25,41-43,76-78
+  s_576b7c7847dbe9::t_f8a2fea0ce0029 1-22,26-40,44-75,79-80
+src/tools/inbound/__tests__/getInboundMessage.test.ts
+  s_576b7c7847dbe9::t_5efc723c0d47b3 1-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "d038ab7ba6ca7667bdbe5505e6e5c6ac26add076",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

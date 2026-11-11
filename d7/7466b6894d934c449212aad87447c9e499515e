@@ -1,0 +1,117 @@
+package.json
+  s_9b9b758c02553b::t_3360919ff4bb7f 3,43
+src/tools/emailCampaigns/createEmailCampaign.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/emailCampaigns/getEmailCampaignStats.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/schemas/sendFields.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 87-88
+src/tools/accountAccesses/removeAccountAccess.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 12
+src/tools/inbound/deleteInboundInbox.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+manifest.json
+  s_9b9b758c02553b::t_3360919ff4bb7f 5
+src/tools/emailLogs/listEmailLogs.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 64,228
+src/tools/inbound/getInboundThread.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/listInboundMessages.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/companyInfo/createCompanyInfo.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/emailCampaigns/listEmailCampaigns.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 14
+src/tools/emailLogs/getEmailLogMessage.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 18
+src/tools/accountAccesses/listAccountAccesses.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 12
+src/tools/inbound/createInboundInbox.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/listInboundThreads.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/getInboundForwardRule.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/listInboundForwardRules.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/replyAllToInboundMessage.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 14
+src/tools/emailCampaigns/updateEmailCampaign.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+CHANGELOG.md
+  s_9b9b758c02553b::t_3360919ff4bb7f 1-11
+src/tools/inbound/createInboundForwardRule.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/listInboundFolders.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/replyToInboundMessage.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 14
+src/tools/emailCampaigns/scheduleEmailCampaign.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/updateInboundFolder.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/updateInboundForwardRule.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/updateInboundInbox.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/deleteInboundFolder.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/stats/getSendingStats.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 41
+src/tools/inbound/getInboundInbox.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/emailLogs/schemas/listEmailLogs.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 381
+src/tools/contactLists/listContactLists.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 14
+src/config/version.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 1
+src/tools/inbound/createInboundFolder.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/templates/listTemplates.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 10
+src/tools/trackingOptOuts/createTrackingOptOut.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/marketingStats/getMarketingStats.ts
+  s_9b9b758c02553b::t_df0be836b0d111 13
+src/tools/companyInfo/updateCompanyInfo.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/suppressions/createSuppression.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/deleteInboundForwardRule.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/getInboundMessage.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/getInboundFolder.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/deleteInboundThread.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/forwardInboundMessage.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 14
+src/tools/inbound/deleteInboundMessage.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+src/tools/inbound/listInboundInboxes.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+server.json
+  s_9b9b758c02553b::t_3360919ff4bb7f 11,23
+src/tools/sendingDomains/updateSendingDomain.ts
+  s_9b9b758c02553b::t_3360919ff4bb7f 13
+package-lock.json
+  s_9b9b758c02553b::t_d7ee5a491de273 3,9,16,78-87,1634-1643,1661-1680,3607-3609,3613,3616,3618,3631-3633,5380-5382,5559-5561,6066-6068,6241-6243,7954-7956,8636-8638,10670-10672
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d77466b6894d934c449212aad87447c9e499515e",
+  "prompts": {},
+  "sessions": {
+    "s_9b9b758c02553b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "067ca6c7-ba0d-4c40-a83b-c708b94c7c91",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}

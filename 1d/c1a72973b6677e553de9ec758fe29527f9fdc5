@@ -1,0 +1,44 @@
+src/tools/inbound/schemas/createInboundFolder.ts
+  s_576b7c7847dbe9::t_07a95ba2c622b2 1-21
+src/tools/inbound/schemas/listInboundFolders.ts
+  s_576b7c7847dbe9::t_860e9aef3997a8 1-12
+src/tools/inbound/deleteInboundFolder.ts
+  s_576b7c7847dbe9::t_ff7f9723296b52 1-38
+src/tools/inbound/index.ts
+  s_576b7c7847dbe9::t_a5664659fdfac3 1-23
+src/tools/inbound/schemas/updateInboundFolder.ts
+  s_576b7c7847dbe9::t_43cccf314b6104 1-26
+src/server.ts
+  s_576b7c7847dbe9::t_65703ed3236546 1043-1078
+  s_576b7c7847dbe9::t_efaf41794240c5 204-215
+src/tools/inbound/createInboundFolder.ts
+  s_576b7c7847dbe9::t_aede74c9d9e40a 1-36
+src/tools/inbound/updateInboundFolder.ts
+  s_576b7c7847dbe9::t_b6e0cc5bd553e7 1-36
+src/tools/inbound/listInboundFolders.ts
+  s_576b7c7847dbe9::t_9dfa8e3dfab4fd 28,32-38
+  s_576b7c7847dbe9::t_5a25c0bffca827 1-27,39-44
+  s_576b7c7847dbe9::t_188f166b2028da 29-31
+src/tools/inbound/schemas/deleteInboundFolder.ts
+  s_576b7c7847dbe9::t_aa453a30c84f62 1-21
+src/tools/inbound/getInboundFolder.ts
+  s_576b7c7847dbe9::t_f1b158406a9c3d 1-36
+src/tools/inbound/schemas/getInboundFolder.ts
+  s_576b7c7847dbe9::t_8418db62c9c009 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1dc1a72973b6677e553de9ec758fe29527f9fdc5",
+  "prompts": {},
+  "sessions": {
+    "s_576b7c7847dbe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48d8b14b-0d1c-434e-b1b9-68d02404448f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}

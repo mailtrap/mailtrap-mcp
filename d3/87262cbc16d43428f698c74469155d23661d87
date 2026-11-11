@@ -1,0 +1,103 @@
+src/tools/emailCampaigns/getEmailCampaignStats.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/getInboundFolder.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailCampaigns/listEmailCampaigns.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 14
+src/tools/inbound/replyAllToInboundMessage.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 14
+src/tools/inbound/updateInboundInbox.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/deleteInboundThread.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/templates/listTemplates.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 10
+src/tools/inbound/listInboundMessages.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/listInboundFolders.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/listInboundThreads.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/stats/getSendingStats.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 41
+src/tools/inbound/updateInboundFolder.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailLogs/schemas/listEmailLogs.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 381
+src/tools/inbound/getInboundMessage.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailCampaigns/updateEmailCampaign.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/deleteInboundInbox.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailCampaigns/createEmailCampaign.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/deleteInboundMessage.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/schemas/sendFields.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 87-88
+src/tools/inbound/listInboundForwardRules.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/sendingDomains/updateSendingDomain.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/trackingOptOuts/createTrackingOptOut.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailLogs/getEmailLogMessage.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 18
+src/tools/inbound/listInboundInboxes.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/deleteInboundForwardRule.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/contactLists/listContactLists.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 14
+src/tools/inbound/getInboundThread.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/updateInboundForwardRule.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/replyToInboundMessage.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 14
+src/tools/accountAccesses/listAccountAccesses.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 12
+src/tools/companyInfo/updateCompanyInfo.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailLogs/listEmailLogs.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 64,228
+src/tools/inbound/forwardInboundMessage.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 14
+src/tools/inbound/getInboundForwardRule.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/createInboundFolder.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/createInboundInbox.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/emailCampaigns/scheduleEmailCampaign.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/getInboundInbox.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/accountAccesses/removeAccountAccess.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 12
+src/tools/suppressions/createSuppression.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/createInboundForwardRule.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/companyInfo/createCompanyInfo.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+src/tools/inbound/deleteInboundFolder.ts
+  s_877cdb4e4713be::t_0c96078c3a5f1d 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d387262cbc16d43428f698c74469155d23661d87",
+  "prompts": {},
+  "sessions": {
+    "s_877cdb4e4713be": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5d9027ea-d69a-4ff7-a9c7-9a9b238fb8da",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Piotr Bednarz <piotr.bednarz@railsware.com>"
+    }
+  }
+}
