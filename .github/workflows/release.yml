@@ -175,15 +175,17 @@ jobs:
         if: always()
         run: rm -rf "$RUNNER_TEMP/signing"
 
-      # Publishing a tarball runs no package scripts, so nothing from the dependency tree runs here.
-      - name: Publish to npm
-        run: npm publish dist-pack/*.tgz
-
+      # Attached while still a draft (invisible to users) and before the registry publish, so the
+      # un-draft is the only step after it; --clobber lets a re-run overwrite assets.
       - name: Attach .mcpb bundles to GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.detect.outputs.tag }}
-        run: gh release upload "$TAG" dist-pack/mailtrap-mcp.mcpb dist-pack/mailtrap-mcp-unsigned.mcpb --repo "$GITHUB_REPOSITORY"
+        run: gh release upload "$TAG" dist-pack/mailtrap-mcp.mcpb dist-pack/mailtrap-mcp-unsigned.mcpb --clobber --repo "$GITHUB_REPOSITORY"
+
+      # Publishing a tarball runs no package scripts, so nothing from the dependency tree runs here.
+      - name: Publish to npm
+        run: npm publish dist-pack/*.tgz
 
       - name: Publish GitHub release
         uses: railsware/github-actions/publish-github-release@master
