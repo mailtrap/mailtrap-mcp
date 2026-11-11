@@ -1,8 +1,9 @@
 # Publishes the release drafted by draft-release.yml. Runs when the release PR lands on main
 # (or manually, as a fallback / dry run): detects the pending draft from CHANGELOG.md, tests,
 # packs the npm tarball and the .mcpb bundle without any secrets, then, from the `release`
-# environment, signs the bundle, publishes the tarball to npm, attaches the signed and unsigned
-# bundles and un-drafts the GitHub Release, which creates the tag.
+# environment, signs the bundle in its own job without publishing rights, and finally attaches the
+# signed and unsigned bundles, publishes the tarball to npm and un-drafts the GitHub Release,
+# which creates the tag. Each of the two `release` jobs needs its own approval.
 name: Release
 on:
   push:
@@ -119,9 +120,62 @@ jobs:
           path: dist-pack/
           if-no-files-found: error
 
+  # Signing runs on its own, with the signing key but no publishing rights (no id-token, read-only
+  # contents), so neither the mcpb CLI nor its dependencies can reach the npm publish token.
+  sign:
+    name: Sign .mcpb
+    needs: [detect, build]
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: package
+          path: dist-pack/
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      # The mcpb CLI is pinned to the lockfile version; its dependencies resolve from their ranges,
+      # so install scripts are off.
+      - name: Sign .mcpb
+        env:
+          MCPB_KEY: ${{ secrets.MCPB_KEY }}
+          MCPB_CERT: ${{ secrets.MCPB_CERT }}
+          MCPB_OPENSSL_CNF: ${{ secrets.MCPB_OPENSSL_CNF }}
+          MCPB_VERSION: ${{ needs.build.outputs.mcpb-version }}
+          SIGNING_DIR: ${{ runner.temp }}/signing
+        run: |
+          mkdir -m 700 "$SIGNING_DIR"
+          (
+            umask 077
+            echo "$MCPB_KEY" > "$SIGNING_DIR/key.pem"
+            echo "$MCPB_CERT" > "$SIGNING_DIR/cert.pem"
+            echo "$MCPB_OPENSSL_CNF" > "$SIGNING_DIR/openssl.cnf"
+          )
+          mkdir dist-signed
+          cp dist-pack/mailtrap-mcp.mcpb dist-signed/mailtrap-mcp-unsigned.mcpb
+          cp dist-pack/mailtrap-mcp.mcpb dist-signed/mailtrap-mcp.mcpb
+          npm_config_ignore_scripts=true OPENSSL_CONF="$SIGNING_DIR/openssl.cnf" \
+            npx --yes "@anthropic-ai/mcpb@$MCPB_VERSION" sign \
+            dist-signed/mailtrap-mcp.mcpb --cert "$SIGNING_DIR/cert.pem" --key "$SIGNING_DIR/key.pem"
+
+      - name: Remove signing material
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/signing"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mcpb
+          path: dist-signed/
+          if-no-files-found: error
+
   release:
     name: Publish
-    needs: [detect, build]
+    needs: [detect, build, sign]
     if: ${{ !inputs.dry_run }}
     runs-on: ubuntu-latest
     environment: release
@@ -133,6 +187,11 @@ jobs:
         with:
           name: package
           path: dist-pack/
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: mcpb
+          path: dist-signed/
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -151,37 +210,13 @@ jobs:
         with:
           tag: ${{ needs.detect.outputs.tag }}
 
-      # Signing comes first, so a signing failure publishes nothing.
-      - name: Sign .mcpb
-        env:
-          MCPB_KEY: ${{ secrets.MCPB_KEY }}
-          MCPB_CERT: ${{ secrets.MCPB_CERT }}
-          MCPB_OPENSSL_CNF: ${{ secrets.MCPB_OPENSSL_CNF }}
-          MCPB_VERSION: ${{ needs.build.outputs.mcpb-version }}
-          SIGNING_DIR: ${{ runner.temp }}/signing
-        run: |
-          mkdir -m 700 "$SIGNING_DIR"
-          (
-            umask 077
-            echo "$MCPB_KEY" > "$SIGNING_DIR/key.pem"
-            echo "$MCPB_CERT" > "$SIGNING_DIR/cert.pem"
-            echo "$MCPB_OPENSSL_CNF" > "$SIGNING_DIR/openssl.cnf"
-          )
-          cp dist-pack/mailtrap-mcp.mcpb dist-pack/mailtrap-mcp-unsigned.mcpb
-          OPENSSL_CONF="$SIGNING_DIR/openssl.cnf" npx --yes "@anthropic-ai/mcpb@$MCPB_VERSION" sign \
-            dist-pack/mailtrap-mcp.mcpb --cert "$SIGNING_DIR/cert.pem" --key "$SIGNING_DIR/key.pem"
-
-      - name: Remove signing material
-        if: always()
-        run: rm -rf "$RUNNER_TEMP/signing"
-
       # Attached while still a draft (invisible to users) and before the registry publish, so the
       # un-draft is the only step after it; --clobber lets a re-run overwrite assets.
       - name: Attach .mcpb bundles to GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.detect.outputs.tag }}
-        run: gh release upload "$TAG" dist-pack/mailtrap-mcp.mcpb dist-pack/mailtrap-mcp-unsigned.mcpb --clobber --repo "$GITHUB_REPOSITORY"
+        run: gh release upload "$TAG" dist-signed/mailtrap-mcp.mcpb dist-signed/mailtrap-mcp-unsigned.mcpb --clobber --repo "$GITHUB_REPOSITORY"
 
       # Publishing a tarball runs no package scripts, so nothing from the dependency tree runs here.
       - name: Publish to npm
