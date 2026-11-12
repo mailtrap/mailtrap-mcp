@@ -1,6 +1,6 @@
 # Publishes the release drafted by draft-release.yml. Runs when the release PR lands on main
-# (or manually, as a fallback / dry run): detects the pending draft from CHANGELOG.md, tests,
-# packs the npm tarball and the .mcpb bundle without any secrets, then, from the `release`
+# (or manually, as a fallback / dry run): detects the newest unreleased CHANGELOG.md version,
+# tests, packs the npm tarball and the .mcpb bundle without any secrets, then, from the `release`
 # environment, signs the bundle in its own job without publishing rights, and finally attaches the
 # signed and unsigned bundles, publishes the tarball to npm and un-drafts the GitHub Release,
 # which creates the tag. Each of the two `release` jobs needs its own approval.
@@ -28,6 +28,7 @@ jobs:
   detect:
     name: Detect pending release
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     outputs:
       version: ${{ steps.pending.outputs.version }}
       tag: ${{ steps.pending.outputs.tag }}
@@ -81,6 +82,7 @@ jobs:
     needs: detect
     if: needs.detect.outputs.go == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     outputs:
       mcpb-version: ${{ steps.mcpb.outputs.version }}
     steps:
@@ -93,17 +95,26 @@ jobs:
           node-version-file: .tool-versions
           package-manager-cache: false
 
-      - name: Check version matches CHANGELOG.md
+      # draft-release writes the version into all of these; a hand edit can miss one.
+      - name: Check versions match CHANGELOG.md
         env:
           EXPECTED: ${{ needs.detect.outputs.version }}
         run: |
-          actual=$(jq -r .version package.json)
-          if [ "$actual" != "$EXPECTED" ]; then
-            echo "::error::package.json is $actual but CHANGELOG.md is $EXPECTED"
-            exit 1
-          fi
+          status=0
+          check() {
+            if [ "$2" != "$EXPECTED" ]; then
+              echo "::error::$1 is $2 but CHANGELOG.md is $EXPECTED"
+              status=1
+            fi
+          }
+          check package.json "$(jq -r .version package.json)"
+          check manifest.json "$(jq -r .version manifest.json)"
+          check server.json "$(jq -r .version server.json)"
+          check "server.json mcp-mailtrap package" "$(jq -r '.packages[] | select(.identifier == "mcp-mailtrap") | .version' server.json)"
+          check src/config/version.ts "$(sed -E 's/^export default "(.*)";$/\1/' src/config/version.ts)"
+          exit "$status"
 
-      # The publish job signs with the same mcpb CLI version the lockfile packs with.
+      # The `sign` job uses the same mcpb CLI version the lockfile packs with.
       - name: Read mcpb CLI version
         id: mcpb
         run: echo "version=$(jq -r '.packages["node_modules/@anthropic-ai/mcpb"].version' package-lock.json)" >> "$GITHUB_OUTPUT"
@@ -138,6 +149,7 @@ jobs:
     needs: [detect, build]
     if: ${{ !inputs.dry_run }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: release
     steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -189,6 +201,7 @@ jobs:
     needs: [detect, build, sign]
     if: ${{ !inputs.dry_run }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: release
     permissions:
       contents: write # upload assets to and un-draft the release
