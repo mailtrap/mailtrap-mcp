@@ -1,0 +1,251 @@
+# Publishes the release drafted by draft-release.yml. Runs when the release PR lands on main
+# (or manually, as a fallback / dry run): detects the newest unreleased CHANGELOG.md version,
+# tests, packs the npm tarball and the .mcpb bundle without any secrets, then, from the `release`
+# environment, signs the bundle in its own job without publishing rights, and finally attaches the
+# signed and unsigned bundles, publishes the tarball to npm and un-drafts the GitHub Release,
+# which creates the tag. Each of the two `release` jobs needs its own approval.
+name: Release
+on:
+  push:
+    branches: [main]
+    paths: [CHANGELOG.md]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: detect the release, test and pack, but do not sign or publish"
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    name: Detect pending release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      version: ${{ steps.pending.outputs.version }}
+      tag: ${{ steps.pending.outputs.tag }}
+      pending: ${{ steps.pending.outputs.pending }}
+      go: ${{ steps.decide.outputs.go }}
+    steps:
+      - name: Refuse to release from a non-default branch
+        env:
+          REF: ${{ github.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [ "$REF" != "refs/heads/$DEFAULT_BRANCH" ]; then
+            echo "::error::Releases must run from $DEFAULT_BRANCH, got $REF"
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Resolve pending release
+        id: pending
+        uses: railsware/github-actions/resolve-pending-release@master
+
+      # push: skip quietly when nothing is pending (an ordinary CHANGELOG edit).
+      # dispatch: a real run needs an unreleased version; a dry run doesn't. detect can't see drafts
+      # (read-only token), so the publish job confirms the draft after approval.
+      - name: Decide
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          PENDING: ${{ steps.pending.outputs.pending }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          echo "pending=$PENDING dry_run=$DRY_RUN"
+          if [ "$DRY_RUN" = "true" ] && [ "$PENDING" != "true" ]; then
+            echo "::warning::The top CHANGELOG.md version is already released, so this dry run doesn't exercise detection"
+          fi
+          if [ "$PENDING" = "true" ] || [ "$DRY_RUN" = "true" ]; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT" = "workflow_dispatch" ]; then
+            echo "::error::The top CHANGELOG.md version is already released; run Draft SDK Release first"
+            exit 1
+          else
+            echo "Nothing to release"
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    name: Test and pack
+    needs: detect
+    if: needs.detect.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .tool-versions
+          package-manager-cache: false
+
+      # draft-release writes the version into all of these; a hand edit can miss one.
+      - name: Check versions match CHANGELOG.md
+        env:
+          EXPECTED: ${{ needs.detect.outputs.version }}
+        run: |
+          status=0
+          check() {
+            if [ "$2" != "$EXPECTED" ]; then
+              echo "::error::$1 is $2 but CHANGELOG.md is $EXPECTED"
+              status=1
+            fi
+          }
+          check package.json "$(jq -r .version package.json)"
+          check manifest.json "$(jq -r .version manifest.json)"
+          check server.json "$(jq -r .version server.json)"
+          check "server.json mcp-mailtrap package" "$(jq -r '.packages[] | select(.identifier == "mcp-mailtrap") | .version' server.json)"
+          check src/config/version.ts "$(sed -E 's/^export default "(.*)";$/\1/' src/config/version.ts)"
+          exit "$status"
+
+      # `npm pack` does not run prepublishOnly (build + chmod), so run it first.
+      - name: Install, test, pack
+        run: |
+          npm ci
+          npm test
+          npm run prepublishOnly
+          mkdir dist-pack
+          npm pack --pack-destination dist-pack
+          npm run mcpb:pack
+          mv mailtrap-mcp.mcpb dist-pack/
+
+      # Exercises the publish job's `npm publish` argument before anyone approves it. Skipped on a
+      # dry run of an already released version: npm 11 refuses a version the registry already has.
+      - name: Check the tarball publishes
+        if: needs.detect.outputs.pending == 'true'
+        run: npm publish --dry-run ./dist-pack/*.tgz
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: package
+          path: dist-pack/
+          if-no-files-found: error
+
+  # Signing runs on its own, with the signing key but no publishing rights (no id-token, read-only
+  # contents), so neither the mcpb CLI nor its dependencies can reach the npm publish token.
+  sign:
+    name: Sign .mcpb
+    needs: [detect, build]
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: package
+          path: dist-pack/
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .tool-versions
+          package-manager-cache: false
+
+      # The mcpb CLI and every package it loads come from the reviewed package-lock.json, the same
+      # tree the build job packed with. Install scripts stay off, so only `mcpb sign` runs code here.
+      - name: Install the locked mcpb CLI
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Sign .mcpb
+        env:
+          MCPB_KEY: ${{ secrets.MCPB_KEY }}
+          MCPB_CERT: ${{ secrets.MCPB_CERT }}
+          MCPB_OPENSSL_CNF: ${{ secrets.MCPB_OPENSSL_CNF }}
+          SIGNING_DIR: ${{ runner.temp }}/signing
+        run: |
+          mkdir -m 700 "$SIGNING_DIR"
+          (
+            umask 077
+            echo "$MCPB_KEY" > "$SIGNING_DIR/key.pem"
+            echo "$MCPB_CERT" > "$SIGNING_DIR/cert.pem"
+            echo "$MCPB_OPENSSL_CNF" > "$SIGNING_DIR/openssl.cnf"
+          )
+          mkdir dist-signed
+          cp dist-pack/mailtrap-mcp.mcpb dist-signed/mailtrap-mcp-unsigned.mcpb
+          cp dist-pack/mailtrap-mcp.mcpb dist-signed/mailtrap-mcp.mcpb
+          OPENSSL_CONF="$SIGNING_DIR/openssl.cnf" npx --no-install mcpb sign \
+            dist-signed/mailtrap-mcp.mcpb --cert "$SIGNING_DIR/cert.pem" --key "$SIGNING_DIR/key.pem"
+
+      - name: Remove signing material
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/signing"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mcpb
+          path: dist-signed/
+          if-no-files-found: error
+
+  release:
+    name: Publish
+    needs: [detect, build, sign]
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: release
+    permissions:
+      contents: write # upload assets to and un-draft the release
+      id-token: write # npm trusted publishing
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: package
+          path: dist-pack/
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: mcpb
+          path: dist-signed/
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24' # npm >= 11.5 for trusted publishing
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Check npm release
+        uses: railsware/github-actions/check-sdk-npm-release@master
+        with:
+          package: mcp-mailtrap
+          version: ${{ needs.detect.outputs.version }}
+
+      - name: Check GitHub release
+        uses: railsware/github-actions/check-sdk-github-release@master
+        with:
+          tag: ${{ needs.detect.outputs.tag }}
+
+      # Attached while still a draft (invisible to users) and before the registry publish, so the
+      # un-draft is the only step after it; --clobber lets a re-run overwrite assets.
+      - name: Attach .mcpb bundles to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.detect.outputs.tag }}
+        run: gh release upload "$TAG" dist-signed/mailtrap-mcp.mcpb dist-signed/mailtrap-mcp-unsigned.mcpb --clobber --repo "$GITHUB_REPOSITORY"
+
+      # Publishing a tarball runs no package scripts, so nothing from the dependency tree runs here.
+      - name: Publish to npm
+        run: npm publish ./dist-pack/*.tgz
+
+      - name: Publish GitHub release
+        uses: railsware/github-actions/publish-github-release@master
+        with:
+          tag: ${{ needs.detect.outputs.tag }}
+          target: ${{ github.sha }}
