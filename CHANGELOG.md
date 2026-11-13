@@ -1,3 +1,12 @@
+## [0.13.1] - 2026-11-13
+
+## What's Changed
+* add delete-sub-account tool by @oshchyhol in https://github.com/mailtrap/mailtrap-mcp/pull/144
+* Add release workflow by @IgorDobryn in https://github.com/mailtrap/mailtrap-mcp/pull/168
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-mcp/compare/v0.13.0...v0.13.1
+
 ## [0.13.0] - 2026-11-09
 
 ## What's Changed
