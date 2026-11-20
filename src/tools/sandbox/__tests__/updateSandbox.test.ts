@@ -2,9 +2,9 @@ import updateSandbox from "../updateSandbox";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    inboxes: {
-      updateInbox: jest.fn(),
+  sandbox: {
+    sandboxes: {
+      updateSandbox: jest.fn(),
     },
   },
 };
@@ -33,7 +33,7 @@ describe("updateSandbox", () => {
       email_username: "inbox10",
       email_domain: "inbox.mailtrap.io",
     };
-    mockClient.testing.inboxes.updateInbox.mockResolvedValue(mockInbox);
+    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue(mockInbox);
 
     const result = await updateSandbox({
       sandbox_id: 10,
@@ -41,25 +41,31 @@ describe("updateSandbox", () => {
     });
 
     expect(requireClient).toHaveBeenCalledWith("sandboxes");
-    expect(mockClient.testing.inboxes.updateInbox).toHaveBeenCalledWith(10, {
-      name: "Updated Name",
-    });
+    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
+      10,
+      {
+        name: "Updated Name",
+      }
+    );
     expect(result.content[0].text).toContain("updated successfully");
     expect(result.content[0].text).toContain("Updated Name");
     expect(result.isError).toBeUndefined();
   });
 
   it("should accept the legacy inbox_id", async () => {
-    mockClient.testing.inboxes.updateInbox.mockResolvedValue({
+    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue({
       id: 30,
       name: "Renamed",
     });
 
     const result = await updateSandbox({ inbox_id: 30, name: "Renamed" });
 
-    expect(mockClient.testing.inboxes.updateInbox).toHaveBeenCalledWith(30, {
-      name: "Renamed",
-    });
+    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
+      30,
+      {
+        name: "Renamed",
+      }
+    );
     expect(result.isError).toBeUndefined();
   });
 
@@ -70,16 +76,19 @@ describe("updateSandbox", () => {
       email_username: "new-username",
       email_domain: "inbox.mailtrap.io",
     };
-    mockClient.testing.inboxes.updateInbox.mockResolvedValue(mockInbox);
+    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue(mockInbox);
 
     const result = await updateSandbox({
       sandbox_id: 10,
       email_username: "new-username",
     });
 
-    expect(mockClient.testing.inboxes.updateInbox).toHaveBeenCalledWith(10, {
-      emailUsername: "new-username",
-    });
+    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
+      10,
+      {
+        emailUsername: "new-username",
+      }
+    );
     expect(result.content[0].text).toContain("new-username@inbox.mailtrap.io");
     expect(result.isError).toBeUndefined();
   });
@@ -91,7 +100,7 @@ describe("updateSandbox", () => {
       email_username: "new-user",
       email_domain: "inbox.mailtrap.io",
     };
-    mockClient.testing.inboxes.updateInbox.mockResolvedValue(mockInbox);
+    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue(mockInbox);
 
     const result = await updateSandbox({
       sandbox_id: 10,
@@ -99,17 +108,20 @@ describe("updateSandbox", () => {
       email_username: "new-user",
     });
 
-    expect(mockClient.testing.inboxes.updateInbox).toHaveBeenCalledWith(10, {
-      name: "New Name",
-      emailUsername: "new-user",
-    });
+    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
+      10,
+      {
+        name: "New Name",
+        emailUsername: "new-user",
+      }
+    );
     expect(result.isError).toBeUndefined();
   });
 
   it("should error when neither name nor email_username provided", async () => {
     const result = await updateSandbox({ sandbox_id: 10 });
 
-    expect(mockClient.testing.inboxes.updateInbox).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.sandboxes.updateSandbox).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain(
       "At least one of 'name' or 'email_username'"
     );
@@ -128,13 +140,13 @@ describe("updateSandbox", () => {
       name: "Test",
     });
 
-    expect(mockClient.testing.inboxes.updateInbox).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.sandboxes.updateSandbox).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.testing.inboxes.updateInbox.mockRejectedValue(
+    mockClient.sandbox.sandboxes.updateSandbox.mockRejectedValue(
       new Error("Not found")
     );
 

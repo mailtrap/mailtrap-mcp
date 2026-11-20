@@ -16,7 +16,7 @@ async function getSandbox({
 
     const resolvedInboxId = resolveSandboxId(sandbox_id ?? inbox_id);
 
-    const inbox = await mailtrap.testing.inboxes.getInboxAttributes(
+    const inbox = await mailtrap.sandbox.sandboxes.getSandboxAttributes(
       resolvedInboxId
     );
 

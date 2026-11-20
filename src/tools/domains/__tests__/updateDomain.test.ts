@@ -2,7 +2,7 @@ import updateDomain from "../updateDomain";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  sendingDomains: {
+  domains: {
     update: jest.fn(),
   },
 };
@@ -28,7 +28,7 @@ describe("updateDomain", () => {
   });
 
   it("sends only the settings provided and reports every setting back", async () => {
-    mockClient.sendingDomains.update.mockResolvedValue(updatedDomain);
+    mockClient.domains.update.mockResolvedValue(updatedDomain);
 
     const result = await updateDomain({
       domain_id: 4321,
@@ -37,7 +37,7 @@ describe("updateDomain", () => {
     });
 
     expect(requireClient).toHaveBeenCalledWith("domains");
-    expect(mockClient.sendingDomains.update).toHaveBeenCalledWith(4321, {
+    expect(mockClient.domains.update).toHaveBeenCalledWith(4321, {
       open_tracking_enabled: true,
       tracking_opt_out_enabled: true,
     });
@@ -50,14 +50,14 @@ describe("updateDomain", () => {
   });
 
   it("accepts the legacy sending_domain_id", async () => {
-    mockClient.sendingDomains.update.mockResolvedValue(updatedDomain);
+    mockClient.domains.update.mockResolvedValue(updatedDomain);
 
     const result = await updateDomain({
       sending_domain_id: 4321,
       inbound_enabled: false,
     });
 
-    expect(mockClient.sendingDomains.update).toHaveBeenCalledWith(4321, {
+    expect(mockClient.domains.update).toHaveBeenCalledWith(4321, {
       inbound_enabled: false,
     });
     expect(result.isError).toBeUndefined();
@@ -66,7 +66,7 @@ describe("updateDomain", () => {
   it("rejects a missing domain_id", async () => {
     const result = await updateDomain({ inbound_enabled: false });
 
-    expect(mockClient.sendingDomains.update).not.toHaveBeenCalled();
+    expect(mockClient.domains.update).not.toHaveBeenCalled();
     expect(result.content[0].text).toBe(
       "Failed to update domain: Provide domain_id"
     );
@@ -74,14 +74,14 @@ describe("updateDomain", () => {
   });
 
   it("forwards a setting turned off", async () => {
-    mockClient.sendingDomains.update.mockResolvedValue(updatedDomain);
+    mockClient.domains.update.mockResolvedValue(updatedDomain);
 
     await updateDomain({
       domain_id: 4321,
       click_tracking_enabled: false,
     });
 
-    expect(mockClient.sendingDomains.update).toHaveBeenCalledWith(4321, {
+    expect(mockClient.domains.update).toHaveBeenCalledWith(4321, {
       click_tracking_enabled: false,
     });
   });
@@ -93,7 +93,7 @@ describe("updateDomain", () => {
     expect(result.content[0].text).toContain(
       "Provide at least one setting to update."
     );
-    expect(mockClient.sendingDomains.update).not.toHaveBeenCalled();
+    expect(mockClient.domains.update).not.toHaveBeenCalled();
   });
 
   it("rejects unknown properties", async () => {
@@ -103,11 +103,11 @@ describe("updateDomain", () => {
     });
 
     expect(result.isError).toBe(true);
-    expect(mockClient.sendingDomains.update).not.toHaveBeenCalled();
+    expect(mockClient.domains.update).not.toHaveBeenCalled();
   });
 
   it("surfaces API errors", async () => {
-    mockClient.sendingDomains.update.mockRejectedValue(new Error("not found"));
+    mockClient.domains.update.mockRejectedValue(new Error("not found"));
 
     const result = await updateDomain({
       domain_id: 4321,

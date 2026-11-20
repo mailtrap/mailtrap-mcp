@@ -2,7 +2,7 @@ import createProject from "../createProject";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
+  sandbox: {
     projects: {
       create: jest.fn(),
     },
@@ -28,12 +28,12 @@ describe("createProject", () => {
 
   it("should create a project successfully", async () => {
     const mockProject = { id: 1, name: "New Project" };
-    mockClient.testing.projects.create.mockResolvedValue(mockProject);
+    mockClient.sandbox.projects.create.mockResolvedValue(mockProject);
 
     const result = await createProject({ name: "New Project" });
 
     expect(requireClient).toHaveBeenCalledWith("sandbox projects");
-    expect(mockClient.testing.projects.create).toHaveBeenCalledWith(
+    expect(mockClient.sandbox.projects.create).toHaveBeenCalledWith(
       "New Project"
     );
     expect(result.content[0].text).toContain("created successfully");
@@ -51,13 +51,13 @@ describe("createProject", () => {
 
     const result = await createProject({ name: "Test" });
 
-    expect(mockClient.testing.projects.create).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.projects.create).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.testing.projects.create.mockRejectedValue(
+    mockClient.sandbox.projects.create.mockRejectedValue(
       new Error("Validation failed")
     );
 

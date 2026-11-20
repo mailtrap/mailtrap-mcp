@@ -5,8 +5,8 @@ import resetSandboxEmailAddress from "../resetSandboxEmailAddress";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    inboxes: {
+  sandbox: {
+    sandboxes: {
       markAsRead: jest.fn(),
       resetCredentials: jest.fn(),
       enableEmailAddress: jest.fn(),
@@ -29,14 +29,14 @@ describe("sandbox single-action tools", () => {
 
   describe("markSandboxAsRead", () => {
     it("marks sandbox as read", async () => {
-      mockClient.testing.inboxes.markAsRead.mockResolvedValue({
+      mockClient.sandbox.sandboxes.markAsRead.mockResolvedValue({
         id: sandboxId,
         name: "Test",
       });
 
       const result = await markSandboxAsRead({ sandbox_id: sandboxId });
 
-      expect(mockClient.testing.inboxes.markAsRead).toHaveBeenCalledWith(
+      expect(mockClient.sandbox.sandboxes.markAsRead).toHaveBeenCalledWith(
         sandboxId
       );
       expect(result.content[0].text).toContain(
@@ -46,7 +46,7 @@ describe("sandbox single-action tools", () => {
     });
 
     it("handles failure", async () => {
-      mockClient.testing.inboxes.markAsRead.mockRejectedValue(
+      mockClient.sandbox.sandboxes.markAsRead.mockRejectedValue(
         new Error("not found")
       );
       const result = await markSandboxAsRead({ sandbox_id: sandboxId });
@@ -56,7 +56,7 @@ describe("sandbox single-action tools", () => {
 
   describe("resetSandboxCredentials", () => {
     it("returns new credentials", async () => {
-      mockClient.testing.inboxes.resetCredentials.mockResolvedValue({
+      mockClient.sandbox.sandboxes.resetCredentials.mockResolvedValue({
         id: sandboxId,
         name: "Test",
         username: "u",
@@ -65,9 +65,9 @@ describe("sandbox single-action tools", () => {
 
       const result = await resetSandboxCredentials({ sandbox_id: sandboxId });
 
-      expect(mockClient.testing.inboxes.resetCredentials).toHaveBeenCalledWith(
-        sandboxId
-      );
+      expect(
+        mockClient.sandbox.sandboxes.resetCredentials
+      ).toHaveBeenCalledWith(sandboxId);
       expect(result.content[0].text).toContain("Username: u");
       expect(result.content[0].text).toContain("Password: p");
     });
@@ -75,7 +75,7 @@ describe("sandbox single-action tools", () => {
 
   describe("enableSandboxEmailAddress", () => {
     it("returns the resolved address", async () => {
-      mockClient.testing.inboxes.enableEmailAddress.mockResolvedValue({
+      mockClient.sandbox.sandboxes.enableEmailAddress.mockResolvedValue({
         id: sandboxId,
         name: "Test",
         email_username: "u",
@@ -85,7 +85,7 @@ describe("sandbox single-action tools", () => {
       const result = await enableSandboxEmailAddress({ sandbox_id: sandboxId });
 
       expect(
-        mockClient.testing.inboxes.enableEmailAddress
+        mockClient.sandbox.sandboxes.enableEmailAddress
       ).toHaveBeenCalledWith(sandboxId);
       expect(result.content[0].text).toContain("Address: u@d.com");
     });
@@ -93,7 +93,7 @@ describe("sandbox single-action tools", () => {
 
   describe("resetSandboxEmailAddress", () => {
     it("returns the new address", async () => {
-      mockClient.testing.inboxes.resetEmailAddress.mockResolvedValue({
+      mockClient.sandbox.sandboxes.resetEmailAddress.mockResolvedValue({
         id: sandboxId,
         name: "Test",
         email_username: "new",

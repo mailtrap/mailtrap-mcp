@@ -3,7 +3,7 @@ import getSandboxAttachment from "../getSandboxAttachment";
 import { getSandboxClient } from "../../../client";
 
 const mockSandboxClient = {
-  testing: {
+  sandbox: {
     attachments: {
       getList: jest.fn(),
       get: jest.fn(),
@@ -30,7 +30,7 @@ describe("sandbox attachment tools", () => {
 
   describe("listSandboxAttachments", () => {
     it("renders the attachment list", async () => {
-      mockSandboxClient.testing.attachments.getList.mockResolvedValue([
+      mockSandboxClient.sandbox.attachments.getList.mockResolvedValue([
         {
           id: 1,
           filename: "a.png",
@@ -48,7 +48,7 @@ describe("sandbox attachment tools", () => {
       const result = await listSandboxAttachments({ message_id: 99 });
 
       expect(
-        mockSandboxClient.testing.attachments.getList
+        mockSandboxClient.sandbox.attachments.getList
       ).toHaveBeenCalledWith(1234, 99);
       expect(result.content[0].text).toContain(
         "Attachments on sandbox message 99 (2)"
@@ -59,7 +59,7 @@ describe("sandbox attachment tools", () => {
     });
 
     it("handles empty list", async () => {
-      mockSandboxClient.testing.attachments.getList.mockResolvedValue([]);
+      mockSandboxClient.sandbox.attachments.getList.mockResolvedValue([]);
 
       const result = await listSandboxAttachments({ message_id: 99 });
 
@@ -71,7 +71,7 @@ describe("sandbox attachment tools", () => {
 
   describe("getSandboxAttachment", () => {
     it("returns attachment metadata as JSON", async () => {
-      mockSandboxClient.testing.attachments.get.mockResolvedValue({
+      mockSandboxClient.sandbox.attachments.get.mockResolvedValue({
         id: 1,
         filename: "a.png",
         download_path: "/api/.../1",
@@ -82,7 +82,7 @@ describe("sandbox attachment tools", () => {
         attachment_id: 1,
       });
 
-      expect(mockSandboxClient.testing.attachments.get).toHaveBeenCalledWith(
+      expect(mockSandboxClient.sandbox.attachments.get).toHaveBeenCalledWith(
         1234,
         99,
         1
@@ -92,7 +92,7 @@ describe("sandbox attachment tools", () => {
     });
 
     it("handles failure", async () => {
-      mockSandboxClient.testing.attachments.get.mockRejectedValue(
+      mockSandboxClient.sandbox.attachments.get.mockRejectedValue(
         new Error("not found")
       );
 

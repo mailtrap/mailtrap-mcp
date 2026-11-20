@@ -2,9 +2,9 @@ import cleanSandbox from "../cleanSandbox";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    inboxes: {
-      cleanInbox: jest.fn(),
+  sandbox: {
+    sandboxes: {
+      cleanSandbox: jest.fn(),
     },
   },
 };
@@ -28,12 +28,12 @@ describe("cleanSandbox", () => {
 
   it("should clean a sandbox successfully", async () => {
     const mockInbox = { id: 10, name: "Test Inbox", emails_count: 0 };
-    mockClient.testing.inboxes.cleanInbox.mockResolvedValue(mockInbox);
+    mockClient.sandbox.sandboxes.cleanSandbox.mockResolvedValue(mockInbox);
 
     const result = await cleanSandbox({ sandbox_id: 10 });
 
     expect(requireClient).toHaveBeenCalledWith("sandboxes");
-    expect(mockClient.testing.inboxes.cleanInbox).toHaveBeenCalledWith(10);
+    expect(mockClient.sandbox.sandboxes.cleanSandbox).toHaveBeenCalledWith(10);
     expect(result.content[0].text).toContain("All messages deleted");
     expect(result.content[0].text).toContain("Test Inbox");
     expect(result.content[0].text).toContain("ID: 10");
@@ -42,7 +42,7 @@ describe("cleanSandbox", () => {
   });
 
   it("should accept the legacy inbox_id", async () => {
-    mockClient.testing.inboxes.cleanInbox.mockResolvedValue({
+    mockClient.sandbox.sandboxes.cleanSandbox.mockResolvedValue({
       id: 30,
       name: "x",
       emails_count: 0,
@@ -50,7 +50,7 @@ describe("cleanSandbox", () => {
 
     const result = await cleanSandbox({ inbox_id: 30 });
 
-    expect(mockClient.testing.inboxes.cleanInbox).toHaveBeenCalledWith(30);
+    expect(mockClient.sandbox.sandboxes.cleanSandbox).toHaveBeenCalledWith(30);
     expect(result.isError).toBeUndefined();
   });
 
@@ -63,13 +63,13 @@ describe("cleanSandbox", () => {
 
     const result = await cleanSandbox({ sandbox_id: 10 });
 
-    expect(mockClient.testing.inboxes.cleanInbox).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.sandboxes.cleanSandbox).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.testing.inboxes.cleanInbox.mockRejectedValue(
+    mockClient.sandbox.sandboxes.cleanSandbox.mockRejectedValue(
       new Error("Not found")
     );
 

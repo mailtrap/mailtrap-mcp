@@ -15,7 +15,7 @@ async function getSandboxMessageSpamScore({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const report = await sandboxClient.testing.messages.getSpamScore(
+    const report = await sandboxClient.sandbox.messages.getSpamScore(
       sandboxId,
       message_id
     );

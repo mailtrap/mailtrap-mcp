@@ -24,7 +24,7 @@ async function updateDomain(raw: unknown): Promise<ToolResponse> {
 
     const mailtrap = requireClient("domains");
 
-    const domain = await mailtrap.sendingDomains.update(domainId, params);
+    const domain = await mailtrap.domains.update(domainId, params);
 
     return buildSuccessResponse(
       [

@@ -15,7 +15,7 @@ async function getSandboxMessageRaw({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const raw = await sandboxClient.testing.messages.getRawMessage(
+    const raw = await sandboxClient.sandbox.messages.getRawMessage(
       sandboxId,
       message_id
     );

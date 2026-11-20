@@ -4,16 +4,16 @@ import { createServer } from "../server";
 import { DEPRECATED_TOOL_ALIASES } from "../tools/deprecatedToolAliases";
 
 const mockClient = {
-  testing: {
-    inboxes: {
+  sandbox: {
+    sandboxes: {
       create: jest.fn(),
-      getInboxAttributes: jest.fn(),
-      updateInbox: jest.fn(),
+      getSandboxAttributes: jest.fn(),
+      updateSandbox: jest.fn(),
       delete: jest.fn(),
-      cleanInbox: jest.fn(),
+      cleanSandbox: jest.fn(),
     },
   },
-  sendingDomains: {
+  domains: {
     getList: jest.fn(),
     get: jest.fn(),
     create: jest.fn(),
@@ -28,33 +28,33 @@ jest.mock("../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
 
-const { inboxes } = mockClient.testing;
-const { sendingDomains } = mockClient;
+const { sandboxes } = mockClient.sandbox;
+const { domains } = mockClient;
 
 // Old tool names called with the params a hard-coded caller would still send.
 const legacyCalls: [string, Record<string, unknown>, jest.Mock][] = [
-  ["create-sandbox-inbox", { project_id: 1, name: "QA" }, inboxes.create],
-  ["get-sandbox-inbox", { inbox_id: 10 }, inboxes.getInboxAttributes],
-  ["update-sandbox-inbox", { inbox_id: 10, name: "QA" }, inboxes.updateInbox],
-  ["delete-sandbox-inbox", { inbox_id: 10 }, inboxes.delete],
-  ["clean-sandbox-inbox", { inbox_id: 10 }, inboxes.cleanInbox],
-  ["list-sending-domains", {}, sendingDomains.getList],
-  ["get-sending-domain", { sending_domain_id: 3938 }, sendingDomains.get],
+  ["create-sandbox-inbox", { project_id: 1, name: "QA" }, sandboxes.create],
+  ["get-sandbox-inbox", { inbox_id: 10 }, sandboxes.getSandboxAttributes],
   [
-    "create-sending-domain",
-    { domain_name: "example.com" },
-    sendingDomains.create,
+    "update-sandbox-inbox",
+    { inbox_id: 10, name: "QA" },
+    sandboxes.updateSandbox,
   ],
+  ["delete-sandbox-inbox", { inbox_id: 10 }, sandboxes.delete],
+  ["clean-sandbox-inbox", { inbox_id: 10 }, sandboxes.cleanSandbox],
+  ["list-sending-domains", {}, domains.getList],
+  ["get-sending-domain", { sending_domain_id: 3938 }, domains.get],
+  ["create-sending-domain", { domain_name: "example.com" }, domains.create],
   [
     "update-sending-domain",
     { sending_domain_id: 3938, inbound_enabled: true },
-    sendingDomains.update,
+    domains.update,
   ],
-  ["delete-sending-domain", { sending_domain_id: 3938 }, sendingDomains.delete],
+  ["delete-sending-domain", { sending_domain_id: 3938 }, domains.delete],
   [
     "send-sending-domain-setup-instructions",
     { sending_domain_id: 3938, email: "devops@example.com" },
-    sendingDomains.sendSetupInstructions,
+    domains.sendSetupInstructions,
   ],
 ];
 
@@ -136,7 +136,7 @@ describe("deprecated tool aliases", () => {
     });
 
     expect(result.isError).toBeUndefined();
-    expect(sendingDomains.get).toHaveBeenCalledWith(3938);
+    expect(domains.get).toHaveBeenCalledWith(3938);
     expect(consoleError).not.toHaveBeenCalled();
   });
 

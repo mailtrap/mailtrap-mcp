@@ -2,7 +2,7 @@ import updateSandboxMessage from "../updateSandboxMessage";
 import { getSandboxClient } from "../../../client";
 
 const mockSandboxClient = {
-  testing: {
+  sandbox: {
     messages: {
       updateMessage: jest.fn(),
     },
@@ -27,7 +27,7 @@ describe("updateSandboxMessage", () => {
   });
 
   it("marks the message as read", async () => {
-    mockSandboxClient.testing.messages.updateMessage.mockResolvedValue({
+    mockSandboxClient.sandbox.messages.updateMessage.mockResolvedValue({
       id: 99,
       is_read: true,
     });
@@ -38,7 +38,7 @@ describe("updateSandboxMessage", () => {
     });
 
     expect(
-      mockSandboxClient.testing.messages.updateMessage
+      mockSandboxClient.sandbox.messages.updateMessage
     ).toHaveBeenCalledWith(1234, 99, { isRead: true });
     expect(result.content[0].text).toContain(
       "Sandbox message 99 marked as read"
@@ -46,7 +46,7 @@ describe("updateSandboxMessage", () => {
   });
 
   it("marks the message as unread", async () => {
-    mockSandboxClient.testing.messages.updateMessage.mockResolvedValue({
+    mockSandboxClient.sandbox.messages.updateMessage.mockResolvedValue({
       id: 99,
       is_read: false,
     });
@@ -62,7 +62,7 @@ describe("updateSandboxMessage", () => {
   });
 
   it("handles failure", async () => {
-    mockSandboxClient.testing.messages.updateMessage.mockRejectedValue(
+    mockSandboxClient.sandbox.messages.updateMessage.mockRejectedValue(
       new Error("not found")
     );
 

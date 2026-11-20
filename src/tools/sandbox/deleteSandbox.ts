@@ -18,7 +18,7 @@ async function deleteSandbox({
       inbox_id,
     });
 
-    const inbox = await mailtrap.testing.inboxes.delete(resolvedInboxId);
+    const inbox = await mailtrap.sandbox.sandboxes.delete(resolvedInboxId);
 
     return buildSuccessResponse(
       `Sandbox deleted successfully:\n\n• Name: ${inbox.name}\n• ID: ${inbox.id}`

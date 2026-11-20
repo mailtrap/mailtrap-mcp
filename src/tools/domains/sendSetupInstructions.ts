@@ -14,7 +14,7 @@ async function sendDomainSetupInstructions(
     const domainId = resolveDomainId(args);
     const mailtrap = requireClient("domains");
 
-    await mailtrap.sendingDomains.sendSetupInstructions(domainId, args.email);
+    await mailtrap.domains.sendSetupInstructions(domainId, args.email);
 
     return buildSuccessResponse(
       `DNS setup instructions for domain ${domainId} sent to ${args.email}.`

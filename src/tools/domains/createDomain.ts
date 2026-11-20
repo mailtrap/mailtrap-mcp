@@ -14,7 +14,7 @@ async function createDomain({
   try {
     const mailtrap = requireClient("domains");
 
-    const domain = await mailtrap.sendingDomains.create({ domain_name });
+    const domain = await mailtrap.domains.create({ domain_name });
 
     let text = [
       `Domain "${domain_name}" created successfully.`,

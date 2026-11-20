@@ -13,7 +13,7 @@ async function createSandbox({
   try {
     const mailtrap = requireClient("sandboxes");
 
-    const inbox = await mailtrap.testing.inboxes.create(project_id, name);
+    const inbox = await mailtrap.sandbox.sandboxes.create(project_id, name);
 
     const smtpInfo = [
       `• Name: ${inbox.name}`,

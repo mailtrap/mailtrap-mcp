@@ -9,7 +9,7 @@ const mockGetHtmlAnalysis = jest.fn();
 
 jest.mock("../../../client", () => ({
   getSandboxClient: jest.fn(() => ({
-    testing: {
+    sandbox: {
       messages: {
         showEmailMessage: mockShowEmailMessage,
         getHtmlMessage: mockGetHtmlMessage,
@@ -47,7 +47,7 @@ describe("showEmailMessage", () => {
     mockGetHtmlMessage.mockResolvedValue(mockHtmlContent);
     mockGetTextMessage.mockResolvedValue(mockTextContent);
     (getSandboxClient as jest.Mock).mockReturnValue({
-      testing: {
+      sandbox: {
         messages: {
           showEmailMessage: mockShowEmailMessage,
           getHtmlMessage: mockGetHtmlMessage,

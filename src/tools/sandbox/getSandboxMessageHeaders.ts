@@ -15,7 +15,7 @@ async function getSandboxMessageHeaders({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const headers = await sandboxClient.testing.messages.getMailHeaders(
+    const headers = await sandboxClient.sandbox.messages.getMailHeaders(
       sandboxId,
       message_id
     );

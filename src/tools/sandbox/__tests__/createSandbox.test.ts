@@ -2,8 +2,8 @@ import createSandbox from "../createSandbox";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    inboxes: {
+  sandbox: {
+    sandboxes: {
       create: jest.fn(),
     },
   },
@@ -36,7 +36,7 @@ describe("createSandbox", () => {
       smtp_ports: [25, 465, 587, 2525],
       pop3_ports: [1100, 9950],
     };
-    mockClient.testing.inboxes.create.mockResolvedValue(mockInbox);
+    mockClient.sandbox.sandboxes.create.mockResolvedValue(mockInbox);
 
     const result = await createSandbox({
       project_id: 1,
@@ -44,7 +44,7 @@ describe("createSandbox", () => {
     });
 
     expect(requireClient).toHaveBeenCalledWith("sandboxes");
-    expect(mockClient.testing.inboxes.create).toHaveBeenCalledWith(
+    expect(mockClient.sandbox.sandboxes.create).toHaveBeenCalledWith(
       1,
       "Test Inbox"
     );
@@ -69,13 +69,13 @@ describe("createSandbox", () => {
       name: "Test",
     });
 
-    expect(mockClient.testing.inboxes.create).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.sandboxes.create).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.testing.inboxes.create.mockRejectedValue(
+    mockClient.sandbox.sandboxes.create.mockRejectedValue(
       new Error("Project not found")
     );
 

@@ -16,7 +16,7 @@ async function getSandboxAttachment({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const attachment = await sandboxClient.testing.attachments.get(
+    const attachment = await sandboxClient.sandbox.attachments.get(
       sandboxId,
       message_id,
       attachment_id

@@ -12,7 +12,9 @@ async function resetSandboxCredentials({
   try {
     const mailtrap = requireClient("sandboxes");
 
-    const sandbox = await mailtrap.testing.inboxes.resetCredentials(sandbox_id);
+    const sandbox = await mailtrap.sandbox.sandboxes.resetCredentials(
+      sandbox_id
+    );
 
     return buildSuccessResponse(
       [

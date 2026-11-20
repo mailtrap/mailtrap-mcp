@@ -35,7 +35,7 @@ async function getMessages({
       options.search = search;
     }
 
-    const messages = await sandboxClient.testing.messages.get(
+    const messages = await sandboxClient.sandbox.messages.get(
       inboxId,
       Object.keys(options).length > 0 ? options : undefined
     );

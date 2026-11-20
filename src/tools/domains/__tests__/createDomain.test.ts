@@ -2,7 +2,7 @@ import createDomain from "../createDomain";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  sendingDomains: {
+  domains: {
     create: jest.fn(),
   },
 };
@@ -18,7 +18,7 @@ describe("createDomain", () => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.sendingDomains.create.mockResolvedValue({
+    mockClient.domains.create.mockResolvedValue({
       id: 3938,
       domain_name: "example.com",
       dns_records: [
@@ -40,7 +40,7 @@ describe("createDomain", () => {
   it("should create domain successfully and show DNS setup instructions", async () => {
     const result = await createDomain({ domain_name: "example.com" });
 
-    expect(mockClient.sendingDomains.create).toHaveBeenCalledWith({
+    expect(mockClient.domains.create).toHaveBeenCalledWith({
       domain_name: "example.com",
     });
     expect(result.content[0].text).toContain("example.com");
@@ -62,12 +62,12 @@ describe("createDomain", () => {
 
     const result = await createDomain({ domain_name: "example.com" });
 
-    expect(mockClient.sendingDomains.create).not.toHaveBeenCalled();
+    expect(mockClient.domains.create).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.sendingDomains.create.mockRejectedValue(
+    mockClient.domains.create.mockRejectedValue(
       new Error("Domain already exists")
     );
 

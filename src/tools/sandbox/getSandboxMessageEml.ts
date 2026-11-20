@@ -15,7 +15,7 @@ async function getSandboxMessageEml({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const eml = await sandboxClient.testing.messages.getMessageAsEml(
+    const eml = await sandboxClient.sandbox.messages.getMessageAsEml(
       sandboxId,
       message_id
     );
