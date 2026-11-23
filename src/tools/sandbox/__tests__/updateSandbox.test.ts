@@ -9,6 +9,8 @@ const mockClient = {
   },
 };
 
+const { sandboxes } = mockClient.sandbox;
+
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
@@ -33,7 +35,7 @@ describe("updateSandbox", () => {
       email_username: "inbox10",
       email_domain: "inbox.mailtrap.io",
     };
-    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue(mockInbox);
+    sandboxes.updateSandbox.mockResolvedValue(mockInbox);
 
     const result = await updateSandbox({
       sandbox_id: 10,
@@ -41,31 +43,25 @@ describe("updateSandbox", () => {
     });
 
     expect(requireClient).toHaveBeenCalledWith("sandboxes");
-    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
-      10,
-      {
-        name: "Updated Name",
-      }
-    );
+    expect(sandboxes.updateSandbox).toHaveBeenCalledWith(10, {
+      name: "Updated Name",
+    });
     expect(result.content[0].text).toContain("updated successfully");
     expect(result.content[0].text).toContain("Updated Name");
     expect(result.isError).toBeUndefined();
   });
 
   it("should accept the legacy inbox_id", async () => {
-    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue({
+    sandboxes.updateSandbox.mockResolvedValue({
       id: 30,
       name: "Renamed",
     });
 
     const result = await updateSandbox({ inbox_id: 30, name: "Renamed" });
 
-    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
-      30,
-      {
-        name: "Renamed",
-      }
-    );
+    expect(sandboxes.updateSandbox).toHaveBeenCalledWith(30, {
+      name: "Renamed",
+    });
     expect(result.isError).toBeUndefined();
   });
 
@@ -76,19 +72,16 @@ describe("updateSandbox", () => {
       email_username: "new-username",
       email_domain: "inbox.mailtrap.io",
     };
-    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue(mockInbox);
+    sandboxes.updateSandbox.mockResolvedValue(mockInbox);
 
     const result = await updateSandbox({
       sandbox_id: 10,
       email_username: "new-username",
     });
 
-    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
-      10,
-      {
-        emailUsername: "new-username",
-      }
-    );
+    expect(sandboxes.updateSandbox).toHaveBeenCalledWith(10, {
+      emailUsername: "new-username",
+    });
     expect(result.content[0].text).toContain("new-username@inbox.mailtrap.io");
     expect(result.isError).toBeUndefined();
   });
@@ -100,7 +93,7 @@ describe("updateSandbox", () => {
       email_username: "new-user",
       email_domain: "inbox.mailtrap.io",
     };
-    mockClient.sandbox.sandboxes.updateSandbox.mockResolvedValue(mockInbox);
+    sandboxes.updateSandbox.mockResolvedValue(mockInbox);
 
     const result = await updateSandbox({
       sandbox_id: 10,
@@ -108,20 +101,17 @@ describe("updateSandbox", () => {
       email_username: "new-user",
     });
 
-    expect(mockClient.sandbox.sandboxes.updateSandbox).toHaveBeenCalledWith(
-      10,
-      {
-        name: "New Name",
-        emailUsername: "new-user",
-      }
-    );
+    expect(sandboxes.updateSandbox).toHaveBeenCalledWith(10, {
+      name: "New Name",
+      emailUsername: "new-user",
+    });
     expect(result.isError).toBeUndefined();
   });
 
   it("should error when neither name nor email_username provided", async () => {
     const result = await updateSandbox({ sandbox_id: 10 });
 
-    expect(mockClient.sandbox.sandboxes.updateSandbox).not.toHaveBeenCalled();
+    expect(sandboxes.updateSandbox).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain(
       "At least one of 'name' or 'email_username'"
     );
@@ -140,15 +130,13 @@ describe("updateSandbox", () => {
       name: "Test",
     });
 
-    expect(mockClient.sandbox.sandboxes.updateSandbox).not.toHaveBeenCalled();
+    expect(sandboxes.updateSandbox).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.sandbox.sandboxes.updateSandbox.mockRejectedValue(
-      new Error("Not found")
-    );
+    sandboxes.updateSandbox.mockRejectedValue(new Error("Not found"));
 
     const result = await updateSandbox({
       sandbox_id: 999,

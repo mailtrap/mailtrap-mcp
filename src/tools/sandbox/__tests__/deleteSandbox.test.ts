@@ -9,6 +9,8 @@ const mockClient = {
   },
 };
 
+const { sandboxes } = mockClient.sandbox;
+
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
@@ -28,12 +30,12 @@ describe("deleteSandbox", () => {
 
   it("should delete a sandbox successfully", async () => {
     const mockInbox = { id: 10, name: "Old Inbox" };
-    mockClient.sandbox.sandboxes.delete.mockResolvedValue(mockInbox);
+    sandboxes.delete.mockResolvedValue(mockInbox);
 
     const result = await deleteSandbox({ sandbox_id: 10 });
 
     expect(requireClient).toHaveBeenCalledWith("sandboxes");
-    expect(mockClient.sandbox.sandboxes.delete).toHaveBeenCalledWith(10);
+    expect(sandboxes.delete).toHaveBeenCalledWith(10);
     expect(result.content[0].text).toContain("deleted successfully");
     expect(result.content[0].text).toContain("Old Inbox");
     expect(result.content[0].text).toContain("ID: 10");
@@ -41,14 +43,14 @@ describe("deleteSandbox", () => {
   });
 
   it("should accept the legacy inbox_id", async () => {
-    mockClient.sandbox.sandboxes.delete.mockResolvedValue({
+    sandboxes.delete.mockResolvedValue({
       id: 30,
       name: "x",
     });
 
     const result = await deleteSandbox({ inbox_id: 30 });
 
-    expect(mockClient.sandbox.sandboxes.delete).toHaveBeenCalledWith(30);
+    expect(sandboxes.delete).toHaveBeenCalledWith(30);
     expect(result.isError).toBeUndefined();
   });
 
@@ -61,15 +63,13 @@ describe("deleteSandbox", () => {
 
     const result = await deleteSandbox({ sandbox_id: 10 });
 
-    expect(mockClient.sandbox.sandboxes.delete).not.toHaveBeenCalled();
+    expect(sandboxes.delete).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.sandbox.sandboxes.delete.mockRejectedValue(
-      new Error("Not found")
-    );
+    sandboxes.delete.mockRejectedValue(new Error("Not found"));
 
     const result = await deleteSandbox({ sandbox_id: 999 });
 

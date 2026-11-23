@@ -69,6 +69,16 @@ describe("MCP client info forwarding", () => {
       "(client:"
     );
   });
+});
+
+describe("SDK deprecation warnings", () => {
+  const originalEnv = { ...process.env };
+
+  afterEach(() => {
+    process.env = { ...originalEnv };
+    jest.resetModules();
+    jest.restoreAllMocks();
+  });
 
   it("builds the sandbox client without an SDK deprecation warning", () => {
     const emitWarning = jest
@@ -79,7 +89,6 @@ describe("MCP client info forwarding", () => {
     client.getSandboxClient(123);
 
     expect(emitWarning).not.toHaveBeenCalled();
-    emitWarning.mockRestore();
   });
 });
 

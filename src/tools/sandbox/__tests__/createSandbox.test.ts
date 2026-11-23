@@ -9,6 +9,8 @@ const mockClient = {
   },
 };
 
+const { sandboxes } = mockClient.sandbox;
+
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
 }));
@@ -36,7 +38,7 @@ describe("createSandbox", () => {
       smtp_ports: [25, 465, 587, 2525],
       pop3_ports: [1100, 9950],
     };
-    mockClient.sandbox.sandboxes.create.mockResolvedValue(mockInbox);
+    sandboxes.create.mockResolvedValue(mockInbox);
 
     const result = await createSandbox({
       project_id: 1,
@@ -44,10 +46,7 @@ describe("createSandbox", () => {
     });
 
     expect(requireClient).toHaveBeenCalledWith("sandboxes");
-    expect(mockClient.sandbox.sandboxes.create).toHaveBeenCalledWith(
-      1,
-      "Test Inbox"
-    );
+    expect(sandboxes.create).toHaveBeenCalledWith(1, "Test Inbox");
     expect(result.content[0].text).toContain("created successfully");
     expect(result.content[0].text).toContain("Test Inbox");
     expect(result.content[0].text).toContain("ID: 10");
@@ -69,15 +68,13 @@ describe("createSandbox", () => {
       name: "Test",
     });
 
-    expect(mockClient.sandbox.sandboxes.create).not.toHaveBeenCalled();
+    expect(sandboxes.create).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.sandbox.sandboxes.create.mockRejectedValue(
-      new Error("Project not found")
-    );
+    sandboxes.create.mockRejectedValue(new Error("Project not found"));
 
     const result = await createSandbox({
       project_id: 999,
