@@ -1,0 +1,19 @@
+src/tools/sandbox/__tests__/deleteSandbox.test.ts
+  s_acc8eaec6c2e72::t_304fcecc0c5a02 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6ecad856148fc02c08fddcaec86c77e8a1be1647",
+  "prompts": {},
+  "sessions": {
+    "s_acc8eaec6c2e72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c461126-43ba-4a95-93ad-fbfdc7c997bd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
