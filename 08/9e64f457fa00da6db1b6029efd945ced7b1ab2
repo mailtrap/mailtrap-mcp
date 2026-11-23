@@ -1,0 +1,29 @@
+server.json
+  s_b9c42eb50c8974::t_80516c9fb4fa80 11,23
+CHANGELOG.md
+  s_b9c42eb50c8974::t_80516c9fb4fa80 1,8
+manifest.json
+  s_b9c42eb50c8974::t_80516c9fb4fa80 5
+src/config/version.ts
+  s_b9c42eb50c8974::t_80516c9fb4fa80 1
+package.json
+  s_b9c42eb50c8974::t_80516c9fb4fa80 3
+package-lock.json
+  s_b9c42eb50c8974::t_13d4fe5e2277ba 3,9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "089e64f457fa00da6db1b6029efd945ced7b1ab2",
+  "prompts": {},
+  "sessions": {
+    "s_b9c42eb50c8974": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "df5a1abe-ac55-42d3-91ad-5bdff5971e62",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "IzikAJ <izikaj@gmail.com>"
+    }
+  }
+}
