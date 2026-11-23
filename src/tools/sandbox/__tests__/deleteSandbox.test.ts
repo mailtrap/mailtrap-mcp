@@ -43,10 +43,7 @@ describe("deleteSandbox", () => {
   });
 
   it("should accept the legacy inbox_id", async () => {
-    sandboxes.delete.mockResolvedValue({
-      id: 30,
-      name: "x",
-    });
+    sandboxes.delete.mockResolvedValue({ id: 30, name: "x" });
 
     const result = await deleteSandbox({ inbox_id: 30 });
 
