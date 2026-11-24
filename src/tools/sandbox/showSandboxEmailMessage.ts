@@ -55,7 +55,7 @@ async function showEmailMessage({
     const sandboxClient = getSandboxClient(inboxId);
 
     // Get message details
-    // The showEmailMessage method takes inboxId and messageId
+    // The showEmailMessage method takes sandboxId and messageId
     const message = await sandboxClient.sandbox.messages.showEmailMessage(
       inboxId,
       message_id

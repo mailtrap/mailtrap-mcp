@@ -16,6 +16,18 @@ module.exports = {
   rules: {
     "import/extensions": "off",
     "no-console": "off",
+    // The mailtrap SDK logs a DeprecationWarning for these names.
+    "no-restricted-properties": [
+      "error",
+      {
+        property: "testing",
+        message: "Deprecated in the mailtrap SDK: use client.sandbox.",
+      },
+      {
+        property: "sendingDomains",
+        message: "Deprecated in the mailtrap SDK: use client.domains.",
+      },
+    ],
   },
   ignorePatterns: [
     "dist/**",
