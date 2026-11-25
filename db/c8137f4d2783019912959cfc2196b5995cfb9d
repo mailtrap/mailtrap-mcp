@@ -1,0 +1,31 @@
+src/tools/sandbox/listProjects.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 2,51
+src/tools/sandbox/updateProject.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 3,26
+src/tools/sandbox/getProject.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 3,37
+src/tools/sendEmail/sendEmail.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 10,112
+src/tools/sandbox/createProject.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 3,23
+src/tools/sandbox/deleteProject.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 3,23
+src/tools/stats/getSendingStats.ts
+  s_cea22dceea33f7::t_2d63375fa9dad9 3,122
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dbc8137f4d2783019912959cfc2196b5995cfb9d",
+  "prompts": {},
+  "sessions": {
+    "s_cea22dceea33f7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "33fe3580-678a-4d33-a9ee-9b6119b5a8b4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
