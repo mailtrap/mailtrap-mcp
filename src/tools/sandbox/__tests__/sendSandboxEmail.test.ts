@@ -520,10 +520,6 @@ describe("sendSandboxEmail", () => {
     });
 
     it("should reject template_uuid combined with subject/text/html/category", async () => {
-      const consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
       const result = await sendSandboxEmail({
         test_inbox_id: inboxId,
         to: "recipient@example.com",
@@ -542,15 +538,9 @@ describe("sendSandboxEmail", () => {
         ],
         isError: true,
       });
-
-      consoleErrorSpy.mockRestore();
     });
 
     it("should reject template_variables without template_uuid", async () => {
-      const consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
       const result = await sendSandboxEmail({
         test_inbox_id: inboxId,
         to: "recipient@example.com",
@@ -569,15 +559,9 @@ describe("sendSandboxEmail", () => {
         ],
         isError: true,
       });
-
-      consoleErrorSpy.mockRestore();
     });
 
     it("should require subject for inline (non-template) sandbox sends", async () => {
-      const consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
       const result = await sendSandboxEmail({
         test_inbox_id: inboxId,
         to: "recipient@example.com",
@@ -594,8 +578,6 @@ describe("sendSandboxEmail", () => {
         ],
         isError: true,
       });
-
-      consoleErrorSpy.mockRestore();
     });
   });
 

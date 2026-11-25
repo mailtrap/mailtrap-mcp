@@ -74,27 +74,13 @@ async function showEmailMessage({
       };
     }
 
-    // Get HTML and text content
-    let htmlContent = "";
-    let textContent = "";
-
-    try {
-      htmlContent = await sandboxClient.testing.messages.getHtmlMessage(
-        inboxId,
-        message_id
-      );
-    } catch {
-      // HTML might not be available
-    }
-
-    try {
-      textContent = await sandboxClient.testing.messages.getTextMessage(
-        inboxId,
-        message_id
-      );
-    } catch {
-      // Text might not be available
-    }
+    // Get HTML and text content; either may not be available
+    const htmlContent = await sandboxClient.testing.messages
+      .getHtmlMessage(inboxId, message_id)
+      .catch(() => "");
+    const textContent = await sandboxClient.testing.messages
+      .getTextMessage(inboxId, message_id)
+      .catch(() => "");
 
     const messageDetails = [
       `Message ID: ${message.id}`,
