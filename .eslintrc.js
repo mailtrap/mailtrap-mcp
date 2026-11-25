@@ -1,3 +1,10 @@
+// Setting a rule replaces the list airbnb-base gives it, so its entries are
+// spread back in below.
+const [, ...airbnbRestrictedProperties] =
+  require("eslint-config-airbnb-base/rules/best-practices").rules[
+    "no-restricted-properties"
+  ];
+
 module.exports = {
   env: {
     node: true,
@@ -21,6 +28,7 @@ module.exports = {
     // still have a `testing` property: add a new client variable name here.
     "no-restricted-properties": [
       "error",
+      ...airbnbRestrictedProperties,
       ...["mailtrap", "sandboxClient", "client"].flatMap((object) => [
         {
           object,
