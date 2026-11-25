@@ -1,6 +1,7 @@
 import { getSandboxClient } from "../../client";
 import { ShowEmailMessageRequest } from "../../types/mailtrap";
 import { resolveLegacySandboxInboxId } from "./utils/resolveSandboxId";
+import { buildErrorResponse } from "../utils/responses";
 
 function formatSpamReport(data: unknown): string {
   if (data == null) return "No data.";
@@ -82,9 +83,8 @@ async function showEmailMessage({
         inboxId,
         message_id
       );
-    } catch (error) {
+    } catch {
       // HTML might not be available
-      console.warn("Could not retrieve HTML content:", error);
     }
 
     try {
@@ -92,9 +92,8 @@ async function showEmailMessage({
         inboxId,
         message_id
       );
-    } catch (error) {
+    } catch {
       // Text might not be available
-      console.warn("Could not retrieve text content:", error);
     }
 
     const messageDetails = [
@@ -138,8 +137,7 @@ async function showEmailMessage({
         contentText += `\n\n--- Spam Report ---\n${formatSpamReport(
           spamReport
         )}`;
-      } catch (error) {
-        console.warn("Could not retrieve spam report:", error);
+      } catch {
         contentText +=
           "\n\n--- Spam Report ---\nSpam report could not be retrieved.";
       }
@@ -155,8 +153,7 @@ async function showEmailMessage({
         contentText += `\n\n--- HTML Analysis ---\n${formatHtmlAnalysis(
           htmlAnalysis
         )}`;
-      } catch (error) {
-        console.warn("Could not retrieve HTML analysis:", error);
+      } catch {
         contentText +=
           "\n\n--- HTML Analysis ---\nHTML analysis could not be retrieved.";
       }
@@ -171,19 +168,7 @@ async function showEmailMessage({
       ],
     };
   } catch (error) {
-    console.error("Error showing sandbox email message:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to show sandbox email message: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("show sandbox email message", error);
   }
 }
 

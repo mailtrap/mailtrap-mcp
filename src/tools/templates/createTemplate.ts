@@ -1,5 +1,6 @@
 import { CreateTemplateRequest } from "../../types/mailtrap";
 import { requireClient } from "../../client";
+import { buildErrorResponse } from "../utils/responses";
 
 async function createTemplate({
   name,
@@ -48,19 +49,7 @@ async function createTemplate({
       ],
     };
   } catch (error) {
-    console.error("Error creating template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to create template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("create template", error);
   }
 }
 

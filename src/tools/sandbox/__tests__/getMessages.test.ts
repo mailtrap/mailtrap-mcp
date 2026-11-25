@@ -99,10 +99,7 @@ describe("getMessages", () => {
 
     const result = await getMessages({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error getting messages:",
-      expect.anything()
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID"
@@ -135,10 +132,7 @@ describe("getMessages", () => {
 
     const result = await getMessages({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error getting messages:",
-      mockError
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Failed to get messages");
     expect(result.content[0].text).toContain("API Error");

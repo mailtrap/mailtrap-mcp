@@ -1,5 +1,6 @@
 import { requireClient } from "../../client";
 import { listTemplatesZod } from "./schemas/listTemplates";
+import { buildErrorResponse } from "../utils/responses";
 
 async function listTemplates(
   raw?: unknown
@@ -64,19 +65,7 @@ async function listTemplates(
       ],
     };
   } catch (error) {
-    console.error("Error listing templates:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list templates: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list templates", error);
   }
 }
 

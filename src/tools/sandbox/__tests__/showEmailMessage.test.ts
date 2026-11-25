@@ -89,10 +89,7 @@ describe("showEmailMessage", () => {
 
     const result = await showEmailMessage({ message_id: 1 });
 
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Could not retrieve HTML content:",
-      expect.any(Error)
-    );
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain("Text Content");
     expect(result.content[0].text).not.toContain("HTML Content");
@@ -107,10 +104,7 @@ describe("showEmailMessage", () => {
 
     const result = await showEmailMessage({ message_id: 1 });
 
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Could not retrieve text content:",
-      expect.any(Error)
-    );
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain("HTML Content");
     expect(result.content[0].text).not.toContain("Text Content");
@@ -126,14 +120,7 @@ describe("showEmailMessage", () => {
 
     const result = await showEmailMessage({ message_id: 1 });
 
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Could not retrieve HTML content:",
-      expect.any(Error)
-    );
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Could not retrieve text content:",
-      expect.any(Error)
-    );
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("Sandbox Email Message Details");
     expect(result.content[0].text).toContain(
       "Message body content could not be retrieved"
@@ -159,10 +146,7 @@ describe("showEmailMessage", () => {
 
     const result = await showEmailMessage({ message_id: 1 });
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error showing sandbox email message:",
-      expect.anything()
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID"
@@ -245,6 +229,7 @@ describe("showEmailMessage", () => {
     expect(result.content[0].text).toContain(
       "Spam report could not be retrieved"
     );
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
     consoleWarnSpy.mockRestore();
   });
 
@@ -263,6 +248,7 @@ describe("showEmailMessage", () => {
     expect(result.content[0].text).toContain(
       "HTML analysis could not be retrieved"
     );
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
     consoleWarnSpy.mockRestore();
   });
 
@@ -275,10 +261,7 @@ describe("showEmailMessage", () => {
 
     const result = await showEmailMessage({ message_id: 1 });
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error showing sandbox email message:",
-      mockError
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "Failed to show sandbox email message"

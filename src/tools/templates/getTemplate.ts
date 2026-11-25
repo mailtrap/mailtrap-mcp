@@ -1,5 +1,6 @@
 import { requireClient } from "../../client";
 import { GetTemplateRequest } from "../../types/mailtrap";
+import { buildErrorResponse } from "../utils/responses";
 
 async function getTemplate({
   template_id,
@@ -28,19 +29,7 @@ async function getTemplate({
       content: [{ type: "text", text: lines.join("\n") }],
     };
   } catch (error) {
-    console.error("Error getting template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get template", error);
   }
 }
 

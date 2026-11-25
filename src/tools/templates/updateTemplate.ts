@@ -1,5 +1,6 @@
 import { UpdateTemplateRequest } from "../../types/mailtrap";
 import { requireClient } from "../../client";
+import { buildErrorResponse } from "../utils/responses";
 
 async function updateTemplate({
   template_id,
@@ -65,19 +66,7 @@ async function updateTemplate({
       ],
     };
   } catch (error) {
-    console.error("Error updating template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to update template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("update template", error);
   }
 }
 

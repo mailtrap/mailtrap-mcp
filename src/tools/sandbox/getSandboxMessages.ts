@@ -1,6 +1,7 @@
 import { getSandboxClient } from "../../client";
 import { GetMessagesRequest } from "../../types/mailtrap";
 import { resolveLegacySandboxInboxId } from "./utils/resolveSandboxId";
+import { buildErrorResponse } from "../utils/responses";
 
 async function getMessages({
   sandbox_id,
@@ -71,19 +72,7 @@ async function getMessages({
       ],
     };
   } catch (error) {
-    console.error("Error getting messages:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get messages: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get messages", error);
   }
 }
 

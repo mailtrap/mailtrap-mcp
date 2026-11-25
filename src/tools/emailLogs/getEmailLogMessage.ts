@@ -4,6 +4,7 @@ import { formatEmailLogEvent } from "./utils/emailLogEventFormat";
 import { buildMessageSummaryLines } from "./utils/emailLogMessageSummary";
 import { getEmailLogMessageZod } from "./schemas/getEmailLogMessage";
 import parseEmlBuffer from "./utils/parseEmlBuffer";
+import { buildErrorResponse } from "../utils/responses";
 
 /** API may include an error summary on the row (not always in SDK typings). */
 type EmailLogMessageRow = EmailLogMessageDetails & { error?: string };
@@ -109,19 +110,7 @@ async function getEmailLogMessage(raw: unknown): Promise<{
       content: [{ type: "text", text: contentText }],
     };
   } catch (error) {
-    console.error("Error getting email log message:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get email log message: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get email log message", error);
   }
 }
 

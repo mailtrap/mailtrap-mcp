@@ -72,10 +72,7 @@ describe("deleteTemplate", () => {
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error deleting template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -93,10 +90,7 @@ describe("deleteTemplate", () => {
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error deleting template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -114,10 +108,7 @@ describe("deleteTemplate", () => {
 
       const result = await deleteTemplate({ template_id: mockTemplateId });
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error deleting template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {

@@ -61,10 +61,7 @@ describe("getEmailLogMessage", () => {
 
     const result = await getEmailLogMessage({ message_id: "msg-uuid-123" });
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error getting email log message:",
-      expect.anything()
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(mockClient.emailLogs.get).not.toHaveBeenCalled();
@@ -84,10 +81,7 @@ describe("getEmailLogMessage", () => {
 
     const result = await getEmailLogMessage({ message_id: "msg-uuid-123" });
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error getting email log message:",
-      expect.anything()
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     consoleErrorSpy.mockRestore();
@@ -102,10 +96,7 @@ describe("getEmailLogMessage", () => {
 
     const result = await getEmailLogMessage({ message_id: "msg-uuid-123" });
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error getting email log message:",
-      mockError
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("Failed to get email log message");
     expect(result.content[0].text).toContain("Not found");
