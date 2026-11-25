@@ -16,17 +16,23 @@ module.exports = {
   rules: {
     "import/extensions": "off",
     "no-console": "off",
-    // The mailtrap SDK logs a DeprecationWarning for these names.
+    // The mailtrap SDK logs a DeprecationWarning for these names. Checked
+    // only on the variables that hold a MailtrapClient, so other objects can
+    // still have a `testing` property: add a new client variable name here.
     "no-restricted-properties": [
       "error",
-      {
-        property: "testing",
-        message: "Deprecated in the mailtrap SDK: use client.sandbox.",
-      },
-      {
-        property: "sendingDomains",
-        message: "Deprecated in the mailtrap SDK: use client.domains.",
-      },
+      ...["mailtrap", "sandboxClient", "client"].flatMap((object) => [
+        {
+          object,
+          property: "testing",
+          message: "Deprecated in the mailtrap SDK: use client.sandbox.",
+        },
+        {
+          object,
+          property: "sendingDomains",
+          message: "Deprecated in the mailtrap SDK: use client.domains.",
+        },
+      ]),
     ],
   },
   ignorePatterns: [
