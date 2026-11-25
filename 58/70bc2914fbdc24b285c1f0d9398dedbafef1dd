@@ -1,0 +1,20 @@
+.eslintrc.js
+  s_714ed37f01dc85::t_27dd933a4f56c0 19-21
+  s_714ed37f01dc85::t_94649472e580da 24-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5870bc2914fbdc24b285c1f0d9398dedbafef1dd",
+  "prompts": {},
+  "sessions": {
+    "s_714ed37f01dc85": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1a63b2bf-b516-4e48-adfb-cbabb48b6160",
+        "model": "unknown"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
