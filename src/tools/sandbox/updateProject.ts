@@ -1,5 +1,6 @@
 import { requireClient } from "../../client";
 import { UpdateProjectRequest } from "../../types/mailtrap";
+import { buildErrorResponse } from "../utils/responses";
 
 async function updateProject({
   project_id,
@@ -22,16 +23,7 @@ async function updateProject({
       ],
     };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to update sandbox project: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("update sandbox project", error);
   }
 }
 

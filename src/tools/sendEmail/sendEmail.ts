@@ -7,6 +7,7 @@ import {
 } from "../../utils/mailtrapAddresses";
 
 import { requireClient } from "../../client";
+import { buildErrorResponse } from "../utils/responses";
 
 const { DEFAULT_FROM_EMAIL } = process.env;
 
@@ -108,17 +109,7 @@ async function sendEmail({
       ],
     };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to send email: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("send email", error);
   }
 }
 

@@ -1,4 +1,5 @@
 import { requireClient } from "../../client";
+import { buildErrorResponse } from "../utils/responses";
 
 async function listProjects(): Promise<{
   content: { type: string; text: string }[];
@@ -47,16 +48,7 @@ async function listProjects(): Promise<{
       ],
     };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list sandbox projects: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list sandbox projects", error);
   }
 }
 

@@ -1,5 +1,6 @@
 import { requireClient } from "../../client";
 import { getSendingStatsZod } from "./schema";
+import { buildErrorResponse } from "../utils/responses";
 
 type SendingStats = {
   delivery_count: number;
@@ -118,16 +119,7 @@ async function getSendingStats(raw: unknown): Promise<{
       content: [{ type: "text", text: lines.join("\n") }],
     };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to get sending stats: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("get sending stats", error);
   }
 }
 
