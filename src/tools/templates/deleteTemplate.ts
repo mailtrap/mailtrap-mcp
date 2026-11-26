@@ -1,5 +1,6 @@
 import { DeleteTemplateRequest } from "../../types/mailtrap";
 import { requireClient } from "../../client";
+import { buildErrorResponse } from "../utils/responses";
 
 async function deleteTemplate({
   template_id,
@@ -18,19 +19,7 @@ async function deleteTemplate({
       ],
     };
   } catch (error) {
-    console.error("Error deleting template:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to delete template: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("delete template", error);
   }
 }
 

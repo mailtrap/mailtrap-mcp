@@ -378,10 +378,7 @@ describe("sendSandboxEmail", () => {
         text: mockEmailData.text,
       });
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error sending sandbox email:",
-        expect.anything()
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(mockSend).not.toHaveBeenCalled();
       expect(result.content[0].text).toContain(
         "Provide sandbox_id or test_inbox_id, or set MAILTRAP_SANDBOX_ID"
@@ -397,10 +394,7 @@ describe("sendSandboxEmail", () => {
         subject: mockEmailData.subject,
       });
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error sending sandbox email:",
-        expect.anything()
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(mockSend).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
@@ -439,10 +433,7 @@ describe("sendSandboxEmail", () => {
 
       const result = await sendSandboxEmail(mockEmailData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error sending sandbox email:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -529,10 +520,6 @@ describe("sendSandboxEmail", () => {
     });
 
     it("should reject template_uuid combined with subject/text/html/category", async () => {
-      const consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
       const result = await sendSandboxEmail({
         test_inbox_id: inboxId,
         to: "recipient@example.com",
@@ -551,15 +538,9 @@ describe("sendSandboxEmail", () => {
         ],
         isError: true,
       });
-
-      consoleErrorSpy.mockRestore();
     });
 
     it("should reject template_variables without template_uuid", async () => {
-      const consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
       const result = await sendSandboxEmail({
         test_inbox_id: inboxId,
         to: "recipient@example.com",
@@ -578,15 +559,9 @@ describe("sendSandboxEmail", () => {
         ],
         isError: true,
       });
-
-      consoleErrorSpy.mockRestore();
     });
 
     it("should require subject for inline (non-template) sandbox sends", async () => {
-      const consoleErrorSpy = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
-
       const result = await sendSandboxEmail({
         test_inbox_id: inboxId,
         to: "recipient@example.com",
@@ -603,8 +578,6 @@ describe("sendSandboxEmail", () => {
         ],
         isError: true,
       });
-
-      consoleErrorSpy.mockRestore();
     });
   });
 

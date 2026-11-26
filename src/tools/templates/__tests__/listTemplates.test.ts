@@ -228,10 +228,7 @@ describe("listTemplates", () => {
 
       const result = await listTemplates();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error listing templates:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -249,10 +246,7 @@ describe("listTemplates", () => {
 
       const result = await listTemplates();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error listing templates:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -270,10 +264,7 @@ describe("listTemplates", () => {
 
       const result = await listTemplates();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error listing templates:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {

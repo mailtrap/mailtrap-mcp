@@ -259,10 +259,7 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error updating template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -280,10 +277,7 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error updating template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -301,10 +295,7 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error updating template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -322,10 +313,7 @@ describe("updateTemplate", () => {
 
       const result = await updateTemplate(mockUpdateData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error updating template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {

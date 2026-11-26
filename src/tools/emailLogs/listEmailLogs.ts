@@ -5,6 +5,7 @@ import {
   listEmailLogsResponseZod,
 } from "./schemas/listEmailLogs";
 import { buildMessageSummaryLines } from "./utils/emailLogMessageSummary";
+import { buildErrorResponse } from "../utils/responses";
 
 /** Normalize to array. Only splits on commas when allowCommaSplit is true. */
 function toValueArray(
@@ -280,19 +281,7 @@ async function listEmailLogs(raw: unknown): Promise<{
       ],
     };
   } catch (error) {
-    console.error("Error listing email log messages:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to list email log messages: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("list email log messages", error);
   }
 }
 

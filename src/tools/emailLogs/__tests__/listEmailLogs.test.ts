@@ -80,10 +80,7 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error listing email log messages:",
-      expect.anything()
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(mockClient.emailLogs.getList).not.toHaveBeenCalled();
@@ -103,10 +100,7 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error listing email log messages:",
-      expect.anything()
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     consoleErrorSpy.mockRestore();
@@ -177,10 +171,7 @@ describe("listEmailLogs", () => {
 
     const result = await listEmailLogs({});
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error listing email log messages:",
-      mockError
-    );
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain(
       "Failed to list email log messages"

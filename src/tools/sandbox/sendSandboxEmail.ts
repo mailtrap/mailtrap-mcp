@@ -7,6 +7,7 @@ import {
   parseSandboxTo,
 } from "../../utils/mailtrapAddresses";
 import { resolveLegacySandboxInboxId } from "./utils/resolveSandboxId";
+import { buildErrorResponse } from "../utils/responses";
 
 async function sendSandboxEmail({
   sandbox_id,
@@ -108,19 +109,7 @@ async function sendSandboxEmail({
       ],
     };
   } catch (error) {
-    console.error("Error sending sandbox email:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to send sandbox email: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("send sandbox email", error);
   }
 }
 

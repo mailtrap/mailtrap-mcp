@@ -1,5 +1,6 @@
 import { requireClient } from "../../client";
 import { CreateProjectRequest } from "../../types/mailtrap";
+import { buildErrorResponse } from "../utils/responses";
 
 async function createProject({ name }: CreateProjectRequest): Promise<{
   content: { type: string; text: string }[];
@@ -19,16 +20,7 @@ async function createProject({ name }: CreateProjectRequest): Promise<{
       ],
     };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Failed to create sandbox project: ${errorMessage}`,
-        },
-      ],
-      isError: true,
-    };
+    return buildErrorResponse("create sandbox project", error);
   }
 }
 

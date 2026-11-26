@@ -157,10 +157,7 @@ describe("createTemplate", () => {
 
       const result = await createTemplate(mockTemplateData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error creating template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
@@ -178,10 +175,7 @@ describe("createTemplate", () => {
 
       const result = await createTemplate(mockTemplateData);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error creating template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {

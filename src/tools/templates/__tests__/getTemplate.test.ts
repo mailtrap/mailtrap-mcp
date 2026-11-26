@@ -85,10 +85,7 @@ describe("getTemplate", () => {
 
       const result = await getTemplate({ template_id: mockTemplateId });
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error getting template:",
-        mockError
-      );
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(result).toEqual({
         content: [
           {
