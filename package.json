@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@anthropic-ai/mcpb": "^2.1.2",
-    "@modelcontextprotocol/inspector": "^0.16.6",
+    "@modelcontextprotocol/inspector": "^2.16.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.13.13",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
