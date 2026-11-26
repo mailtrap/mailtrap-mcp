@@ -1,0 +1,41 @@
+src/tools/accounts/listAccounts.ts
+  s_b6aaf2456ffc22::t_6709619a1a6ec6 1,11
+src/tools/templates/updateTemplate.ts
+  s_b6aaf2456ffc22::t_6709619a1a6ec6 13
+src/client.ts
+  s_b6aaf2456ffc22::t_0017675e94fcda 153-156
+  s_b6aaf2456ffc22::t_6709619a1a6ec6 25-36,49,66,81-100,165
+src/__tests__/client.test.ts
+  s_b6aaf2456ffc22::t_36d3eff54ea716 3-5,7-8,10-20,80-104,106-117,120-121
+  s_b6aaf2456ffc22::t_272fc12a74e0c4 6,9,105
+  s_b6aaf2456ffc22::t_7e575d4336d2ec 118-119
+  s_b6aaf2456ffc22::t_cc91330d4d8db6 122-123
+manifest.json
+  s_b6aaf2456ffc22::t_d46ee07686f5ee 609
+src/tools/accounts/__tests__/listAccounts.test.ts
+  s_b6aaf2456ffc22::t_36d3eff54ea716 2,13,19,30,56-67
+  s_b6aaf2456ffc22::t_8328e0c39d3608 68
+src/tools/templates/__tests__/updateTemplate.test.ts
+  s_b6aaf2456ffc22::t_36d3eff54ea716 42
+README.md
+  s_b6aaf2456ffc22::t_ea6863c2eccc54 37
+  s_b6aaf2456ffc22::t_d46ee07686f5ee 1167
+CLAUDE.md
+  s_b6aaf2456ffc22::t_ea6863c2eccc54 54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bbc128ff1b7888a63e2dda9aa50cf8e2cd326171",
+  "prompts": {},
+  "sessions": {
+    "s_b6aaf2456ffc22": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7cd60a2f-ed82-4afa-a178-2b85609748ba",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "IzikAJ <izikaj@gmail.com>"
+    }
+  }
+}

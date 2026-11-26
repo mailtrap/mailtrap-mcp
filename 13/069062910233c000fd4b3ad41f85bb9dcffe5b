@@ -1,0 +1,14 @@
+src/tools/organizations/deleteSubAccount.ts
+  h_68ae9308e52348 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "13069062910233c000fd4b3ad41f85bb9dcffe5b",
+  "prompts": {},
+  "humans": {
+    "h_68ae9308e52348": {
+      "author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}

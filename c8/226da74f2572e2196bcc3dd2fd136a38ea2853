@@ -1,0 +1,27 @@
+package.json
+  s_b7973165b78ab8::t_fbc6ae6f4a6bbc 34-35
+.mcpbignore
+  s_b7973165b78ab8::t_b9d90bfd28567c 1-7
+.eslintrc.js
+  s_b7973165b78ab8::t_a6c4809a815e41 22
+README.md
+  s_b7973165b78ab8::t_79a47f4d5216bc 190-192
+.gitignore
+  s_b7973165b78ab8::t_8250147d6b66a6 9,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c8226da74f2572e2196bcc3dd2fd136a38ea2853",
+  "prompts": {},
+  "sessions": {
+    "s_b7973165b78ab8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6ce7bd4a-1fdd-41c3-b155-944253d23234",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "IzikAJ <izikaj@gmail.com>"
+    }
+  }
+}

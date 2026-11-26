@@ -1,0 +1,22 @@
+README.md
+  s_f195815e25de3e::t_ad7fa8364593c4 299
+  s_f195815e25de3e::t_9f378ef78c4bde 1297
+  s_f195815e25de3e::t_761f1a717ddc7a 1284
+  s_f195815e25de3e::t_901e747573b685 298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "24b50aedbfd9a5b042280d7f49ffb4839fa26190",
+  "prompts": {},
+  "sessions": {
+    "s_f195815e25de3e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f105e720-b10a-47d3-845c-bd6c7bf8fca6",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}

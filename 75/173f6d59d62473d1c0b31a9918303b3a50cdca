@@ -1,0 +1,156 @@
+src/tools/sandbox/listSandboxAttachments.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/__tests__/deprecatedToolAliases.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 7-8,10-11,13,16
+  s_a44eecfa071a94::t_e2fd6ae255cc16 31-32,36-37,43-46,51,53,57,139
+  s_a44eecfa071a94::t_b595faee818852 39-41,47
+src/tools/sandbox/getSandboxMessages.ts
+  s_a44eecfa071a94::t_5beea118f844a1 38
+src/tools/sandbox/forwardSandboxMessage.ts
+  s_a44eecfa071a94::t_5beea118f844a1 19
+src/tools/sandbox/getSandbox.ts
+  s_a44eecfa071a94::t_5beea118f844a1 19
+src/tools/sandbox/updateSandbox.ts
+  s_a44eecfa071a94::t_5beea118f844a1 37
+src/tools/sandbox/getSandboxMessageHeaders.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/__tests__/createProject.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,31,36,54,60
+src/tools/sandbox/__tests__/getProject.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,38,43,54,67
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_a44eecfa071a94::t_5beea118f844a1 59,81,91,134,151
+src/tools/sandbox/__tests__/updateSandboxMessage.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,30,41,49,65
+src/tools/sandbox/__tests__/deleteSandbox.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5-6,31,36,51,64
+  s_a44eecfa071a94::t_b595faee818852 44-47,70-72
+src/tools/sandbox/getSandboxMessageHtmlAnalysis.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/getSandboxMessageText.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/getProject.ts
+  s_a44eecfa071a94::t_5beea118f844a1 11
+src/tools/domains/__tests__/deleteDomain.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,21,31,40,47,64,69
+src/tools/domains/__tests__/listDomains.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,48,52,68,88
+  s_a44eecfa071a94::t_b595faee818852 94
+src/tools/sandbox/getSandboxMessageHtml.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/domains/getDomain.ts
+  s_a44eecfa071a94::t_5beea118f844a1 16
+src/tools/domains/__tests__/updateDomain.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,31,40,53,60,69,77,84,96,106,110
+src/tools/sandbox/__tests__/updateSandbox.test.ts
+  s_a44eecfa071a94::t_b595faee818852 44-49,63-68,86-91,111-117
+  s_a44eecfa071a94::t_ef82b66e44a09a 5-7,36,56,79,103,124,143,149
+src/tools/sandbox/resetSandboxCredentials.ts
+  s_a44eecfa071a94::t_b595faee818852 15-17
+src/tools/sandbox/cleanSandbox.ts
+  s_a44eecfa071a94::t_b595faee818852 21-23
+src/tools/sandbox/enableSandboxEmailAddress.ts
+  s_a44eecfa071a94::t_5beea118f844a1 15
+src/tools/sandbox/getSandboxAttachment.ts
+  s_a44eecfa071a94::t_5beea118f844a1 19
+src/tools/domains/__tests__/createDomain.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,21,43,65,70
+src/tools/sandbox/getSandboxMessageHtmlSource.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/__tests__/listProjects.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,45,50,62,79,85
+src/tools/domains/updateDomain.ts
+  s_a44eecfa071a94::t_5beea118f844a1 27
+src/tools/sandbox/__tests__/sandboxAttachments.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 6,33,51,62,74,85,95
+src/tools/domains/createDomain.ts
+  s_a44eecfa071a94::t_5beea118f844a1 17
+src/tools/sandbox/__tests__/cleanSandbox.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5-7,31,36,45,53,66,72
+src/tools/sandbox/__tests__/createSandbox.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5-6,39,47,72,78
+src/client.ts
+  s_a44eecfa071a94::t_5beea118f844a1 119
+  s_a44eecfa071a94::t_14f51f2a3be915 53,55,62
+src/tools/sandbox/__tests__/listSandboxes.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5-6,23,42,50
+src/tools/sandbox/updateProject.ts
+  s_a44eecfa071a94::t_5beea118f844a1 14
+src/tools/sandbox/createSandbox.ts
+  s_a44eecfa071a94::t_5beea118f844a1 16
+src/tools/sandbox/getSandboxMessageEml.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/deleteSandboxMessage.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/domains/sendSetupInstructions.ts
+  s_a44eecfa071a94::t_5beea118f844a1 17
+src/tools/sandbox/getSandboxMessageRaw.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/deleteProject.ts
+  s_a44eecfa071a94::t_5beea118f844a1 11
+src/tools/sandbox/getSandboxMessageSpamScore.ts
+  s_a44eecfa071a94::t_5beea118f844a1 18
+src/tools/sandbox/__tests__/getSandbox.test.ts
+  s_a44eecfa071a94::t_b595faee818852 50-52,57-59,70-72,76-78,84-86,90-92
+  s_a44eecfa071a94::t_ef82b66e44a09a 5-7,103,121,128
+src/tools/sandbox/__tests__/sandboxActions.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 8-9,32,39,49,59,78,88,96
+  s_a44eecfa071a94::t_b595faee818852 68-70
+src/tools/sandbox/listSandboxes.ts
+  s_a44eecfa071a94::t_5beea118f844a1 12
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 7,39
+src/tools/sandbox/deleteSandbox.ts
+  s_a44eecfa071a94::t_5beea118f844a1 21
+src/tools/sandbox/__tests__/forwardSandboxMessage.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,30,38,49
+src/tools/sandbox/__tests__/updateProject.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,30,38,49
+src/tools/sandbox/listProjects.ts
+  s_a44eecfa071a94::t_5beea118f844a1 10
+src/tools/sandbox/markSandboxAsRead.ts
+  s_a44eecfa071a94::t_5beea118f844a1 15
+package.json
+  s_a44eecfa071a94::t_cc98e197a3f3af 43
+src/tools/sandbox/__tests__/deleteProject.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,31,36,52,58
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 12,50
+src/tools/sandbox/createProject.ts
+  s_a44eecfa071a94::t_5beea118f844a1 11
+src/tools/sandbox/updateSandboxMessage.ts
+  s_a44eecfa071a94::t_5beea118f844a1 19
+src/tools/sandbox/resetSandboxEmailAddress.ts
+  s_a44eecfa071a94::t_5beea118f844a1 15
+src/tools/domains/__tests__/sendSetupInstructions.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,75
+  s_a44eecfa071a94::t_b595faee818852 21,34-37,50-53,70
+src/tools/domains/listDomains.ts
+  s_a44eecfa071a94::t_5beea118f844a1 12
+src/__tests__/client.test.ts
+  s_a44eecfa071a94::t_0fe1d4eacbcbfd 72-83
+src/tools/domains/deleteDomain.ts
+  s_a44eecfa071a94::t_5beea118f844a1 15
+src/tools/domains/__tests__/getDomain.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 5,42,52,66,76,106,111
+src/tools/sandbox/__tests__/sandboxMessageGetters.test.ts
+  s_a44eecfa071a94::t_ef82b66e44a09a 13,37,121,126,136
+package-lock.json
+  s_a44eecfa071a94::t_c5f82e206b175a 15,7732-7734
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "75173f6d59d62473d1c0b31a9918303b3a50cdca",
+  "prompts": {},
+  "sessions": {
+    "s_a44eecfa071a94": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e9db2970-0896-49b6-a369-56d038687f70",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}

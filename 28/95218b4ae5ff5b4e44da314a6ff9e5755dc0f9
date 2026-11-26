@@ -1,0 +1,53 @@
+package.json
+  s_84de4d408c7b02::t_2315bf43bafc2d 3,34-35,43
+src/config/version.ts
+  s_84de4d408c7b02::t_2315bf43bafc2d 1
+.eslintrc.js
+  s_84de4d408c7b02::t_2315bf43bafc2d 22
+manifest.json
+  s_84de4d408c7b02::t_2315bf43bafc2d 5,609
+src/client.ts
+  s_84de4d408c7b02::t_2315bf43bafc2d 25-34,47,64,79,132-135
+.gitignore
+  s_84de4d408c7b02::t_2315bf43bafc2d 9,11-15
+src/tools/templates/__tests__/updateTemplate.test.ts
+  s_84de4d408c7b02::t_2315bf43bafc2d 42
+src/tools/accounts/__tests__/listAccounts.test.ts
+  s_84de4d408c7b02::t_2315bf43bafc2d 58-70
+src/__tests__/client.test.ts
+  s_84de4d408c7b02::t_2315bf43bafc2d 3-14,74-105,107
+  s_84de4d408c7b02::t_6991cff8291a2f 106,108-109
+.mcpbignore
+  s_84de4d408c7b02::t_2315bf43bafc2d 1-7
+src/tools/templates/updateTemplate.ts
+  s_84de4d408c7b02::t_2315bf43bafc2d 13
+CHANGELOG.md
+  s_84de4d408c7b02::t_2315bf43bafc2d 1-11
+server.json
+  s_84de4d408c7b02::t_2315bf43bafc2d 11,23
+.github/workflows/main.yml
+  s_84de4d408c7b02::t_2315bf43bafc2d 37-79
+README.md
+  s_84de4d408c7b02::t_9ff86df8d77dcb 37
+  s_84de4d408c7b02::t_2315bf43bafc2d 191-193,1265
+CLAUDE.md
+  s_84de4d408c7b02::t_9ff86df8d77dcb 55
+package-lock.json
+  s_84de4d408c7b02::t_b3c8629c907a39 3,9,15,7732-7734
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2895218b4ae5ff5b4e44da314a6ff9e5755dc0f9",
+  "prompts": {},
+  "sessions": {
+    "s_84de4d408c7b02": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "295ed913-1fff-441a-941a-2760639a9b7b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+src/tools/accounts/__tests__/listAccounts.test.ts
+  s_239a7a57f731cc::t_128fb6562b3d8f 2,13,19,30-32,60
+src/tools/accounts/listAccounts.ts
+  s_239a7a57f731cc::t_a52cb926952c78 1,11
+package.json
+  s_239a7a57f731cc::t_2980a3b9939c03 43
+src/__tests__/client.test.ts
+  s_239a7a57f731cc::t_128fb6562b3d8f 5,7,74,89-90
+package-lock.json
+  s_239a7a57f731cc::t_81a718858ae0db 15,7732-7734
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a2ada6746bccd88d49206fef83612d38d2f614a",
+  "prompts": {},
+  "sessions": {
+    "s_239a7a57f731cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "37db043e-ebae-4199-968f-7ff3d76a0475",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "IzikAJ <izikaj@gmail.com>"
+    }
+  }
+}

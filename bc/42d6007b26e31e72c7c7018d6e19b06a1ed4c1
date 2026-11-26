@@ -1,0 +1,60 @@
+src/tools/__tests__/apiErrorLogging.test.ts
+  s_9bb638d4216151::t_0e1027eb06cd94 1-134
+  s_9bb638d4216151::t_511357c8ba26e8 135-160
+src/tools/emailLogs/__tests__/getEmailLogMessage.test.ts
+  s_9bb638d4216151::t_0b6fd6468f6294 64,84,99
+src/tools/emailLogs/__tests__/listEmailLogs.test.ts
+  s_9bb638d4216151::t_61ad5c06477e65 83,103,174
+src/tools/emailLogs/getEmailLogMessage.ts
+  s_9bb638d4216151::t_e5d7d60c5600b3 7,113
+src/tools/emailLogs/listEmailLogs.ts
+  s_9bb638d4216151::t_d7a755eb4deca4 8,284
+src/tools/sandbox/__tests__/getMessages.test.ts
+  s_9bb638d4216151::t_d7418485fafbaf 102,135
+src/tools/sandbox/__tests__/sendSandboxEmail.test.ts
+  s_9bb638d4216151::t_54f793bb3559a7 381,397,436
+src/tools/sandbox/__tests__/showEmailMessage.test.ts
+  s_9bb638d4216151::t_0f37d36751b893 92,107,123,149,232,251,264
+src/tools/sandbox/getSandboxMessages.ts
+  s_9bb638d4216151::t_1278880ec46f48 4,75
+src/tools/sandbox/sendSandboxEmail.ts
+  s_9bb638d4216151::t_e2e74efd236c75 10,112
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_9bb638d4216151::t_6a7c3d41e7ca75 4,86,95,140,156,171
+src/tools/templates/__tests__/createTemplate.test.ts
+  s_9bb638d4216151::t_a35792e8b9180e 160,178
+src/tools/templates/__tests__/deleteTemplate.test.ts
+  s_9bb638d4216151::t_c5b57aadc9b39a 75,93,111
+src/tools/templates/__tests__/getTemplate.test.ts
+  s_9bb638d4216151::t_972ce23bff9e98 88
+src/tools/templates/__tests__/listTemplates.test.ts
+  s_9bb638d4216151::t_9157cc8646f7d2 231,249,267
+src/tools/templates/__tests__/updateTemplate.test.ts
+  s_9bb638d4216151::t_b369f1413ee314 262,280,298,316
+src/tools/templates/createTemplate.ts
+  s_9bb638d4216151::t_d7248f85d89d06 3,52
+src/tools/templates/deleteTemplate.ts
+  s_9bb638d4216151::t_41f5251418cbfa 3,22
+src/tools/templates/getTemplate.ts
+  s_9bb638d4216151::t_f94a34ad8d9cd1 3,32
+src/tools/templates/listTemplates.ts
+  s_9bb638d4216151::t_c6790274f09a36 3,68
+src/tools/templates/updateTemplate.ts
+  s_9bb638d4216151::t_d1de41751ecd0e 3,69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bc42d6007b26e31e72c7c7018d6e19b06a1ed4c1",
+  "prompts": {},
+  "sessions": {
+    "s_9bb638d4216151": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "59d09b00-bfc9-4287-95ef-c69e18730c39",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}

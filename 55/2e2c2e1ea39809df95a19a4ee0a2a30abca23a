@@ -1,0 +1,22 @@
+.eslintrc.js
+  s_3c597d3b195702::t_2767d1a17447b4 1-2,7
+  s_3c597d3b195702::t_6c6c982feccb52 3,6
+  s_3c597d3b195702::t_b4a6adf4416158 31
+  s_3c597d3b195702::t_c69431b2654834 4-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "552e2c2e1ea39809df95a19a4ee0a2a30abca23a",
+  "prompts": {},
+  "sessions": {
+    "s_3c597d3b195702": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b67f5953-eace-4bb3-93f8-4cef86df55b2",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}

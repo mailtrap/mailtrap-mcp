@@ -1,0 +1,24 @@
+manifest.json
+  s_18f9b176146719::t_4bcbe4fdd26da8 572
+package.json
+  s_18f9b176146719::t_4bcbe4fdd26da8 19
+  s_18f9b176146719::t_c1b10f0de1c50c 42
+package-lock.json
+  s_18f9b176146719::t_91667270688cd8 15,43,7692-7694,7701
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d668d46a4d8250a527bd27f85ece1896be67aa0",
+  "prompts": {},
+  "sessions": {
+    "s_18f9b176146719": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7441905c-2d31-4429-b173-3f4791fc0016",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
