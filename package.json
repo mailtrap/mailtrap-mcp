@@ -76,6 +76,6 @@
     "shx": "^0.4.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^7.0.2"
   }
 }
