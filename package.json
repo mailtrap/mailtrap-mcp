@@ -40,7 +40,7 @@
     "@modelcontextprotocol/sdk": "^1.18.2",
     "dotenv": "^16.4.7",
     "mailsplit": "^5.4.6",
-    "mailtrap": "~6.1.0",
+    "mailtrap": "~6.2.1",
     "zod": "^4.6.6"
   },
   "overrides": {
@@ -74,7 +74,7 @@
     "jest": "^30.5.2",
     "jest-util": "^30.5.1",
     "prettier": "^2.8.8",
-    "shx": "^0.3.4",
+    "shx": "^0.4.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
