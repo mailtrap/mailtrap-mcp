@@ -1,0 +1,21 @@
+.eslintrc.js
+  s_43e753b475a1ec::t_d6a35a72b41578 19-30
+src/tools/sandbox/showSandboxEmailMessage.ts
+  s_43e753b475a1ec::t_f4ad68729cf604 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a3f7892dea28319357b6ca90c2c1b3a311fa103d",
+  "prompts": {},
+  "sessions": {
+    "s_43e753b475a1ec": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3c68a58a-737c-488b-b137-08a33b004332",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
