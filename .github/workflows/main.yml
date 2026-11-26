@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Read Node.JS version
         id: versions
@@ -21,7 +21,7 @@ jobs:
           echo "node_version=${version_line[1]}" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ steps.versions.outputs.node_version }}
           cache: "npm"
@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Read Node.JS version
         id: versions
@@ -50,7 +50,7 @@ jobs:
           echo "node_version=${version_line[1]}" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ steps.versions.outputs.node_version }}
           cache: "npm"
