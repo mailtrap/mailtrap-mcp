@@ -1,0 +1,25 @@
+.github/workflows/draft-release.yml
+  s_732fdd814de933::t_b709243fea9bba 31,36,42,62,81,93,104,124,151,184
+.github/workflows/main.yml
+  s_732fdd814de933::t_4839096594284a 15,24,44,53
+package-lock.json
+  s_732fdd814de933::t_fa8fd083d0ca6e 15,38,5756-5765,10090-10092,10335-10341,10612-10621,11032-11042,11823-11825,11829-11830,11837-11908,11913-11968,11970-11972,11976-11977,11983,12290-12299
+package.json
+  s_732fdd814de933::t_262c135d18d61d 43,77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e728f57393f80a7c1cc91c9a62afb255e1edfcbb",
+  "prompts": {},
+  "sessions": {
+    "s_732fdd814de933": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d10ed1c-21a2-414e-86f8-a53be6bb7115",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marcin Klocek <marcin.klocek@railsware.com>"
+    }
+  }
+}
