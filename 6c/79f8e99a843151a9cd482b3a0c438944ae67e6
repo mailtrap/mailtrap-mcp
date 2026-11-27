@@ -1,0 +1,29 @@
+.github/dependabot.yml
+  s_653ef2a6fc76f8::t_0e16962cec4cd3 1-66
+.github/release.yml
+  s_653ef2a6fc76f8::t_0e16962cec4cd3 1-9
+.github/workflows/main.yml
+  s_653ef2a6fc76f8::t_0e16962cec4cd3 15,24,44,53
+package.json
+  s_653ef2a6fc76f8::t_0e16962cec4cd3 43,76
+.github/workflows/draft-release.yml
+  s_653ef2a6fc76f8::t_0e16962cec4cd3 31,36,42,62,81,93,104,124,151,184
+package-lock.json
+  s_653ef2a6fc76f8::t_e555f20cb9d585 15,37,1682-1684,2790-2792,2796,3294-3296,3300-3301,3303-3307,3748-3750,3754-3756,4528-4537,4549-4551,4559,4565,4569-4570,4582,4584,4588,4590,4594,4599,4608,4636-4638,4826-4828,4861-4863,4889-4891,4896-4899,4903,4905,4910,4912,4987-4989,6541-6553,7981-7987,8251-8260,8653-8663,9461-9463,9467-9468,9475-9556,9561-9606,9608-9610,9614-9615,9621,9791-9804,9916-9925,10454-10456,10879-10881
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6c79f8e99a843151a9cd482b3a0c438944ae67e6",
+  "prompts": {},
+  "sessions": {
+    "s_653ef2a6fc76f8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "75e11dac-4d09-4b7a-928f-c0d6c7c84667",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
