@@ -16,7 +16,7 @@ async function updateSandboxMessage({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const message = await sandboxClient.testing.messages.updateMessage(
+    const message = await sandboxClient.sandbox.messages.updateMessage(
       sandboxId,
       message_id,
       { isRead: is_read }

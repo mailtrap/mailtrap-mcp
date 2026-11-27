@@ -12,7 +12,7 @@ async function enableSandboxEmailAddress({
   try {
     const mailtrap = requireClient("sandboxes");
 
-    const sandbox = await mailtrap.testing.inboxes.enableEmailAddress(
+    const sandbox = await mailtrap.sandbox.sandboxes.enableEmailAddress(
       sandbox_id
     );
 

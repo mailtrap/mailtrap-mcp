@@ -2,7 +2,7 @@ import getProject from "../getProject";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
+  sandbox: {
     projects: {
       getById: jest.fn(),
     },
@@ -35,12 +35,12 @@ describe("getProject", () => {
         { id: 11, name: "Inbox 2", emails_count: 0 },
       ],
     };
-    mockClient.testing.projects.getById.mockResolvedValue(mockProject);
+    mockClient.sandbox.projects.getById.mockResolvedValue(mockProject);
 
     const result = await getProject({ project_id: 1 });
 
     expect(requireClient).toHaveBeenCalledWith("sandbox projects");
-    expect(mockClient.testing.projects.getById).toHaveBeenCalledWith(1);
+    expect(mockClient.sandbox.projects.getById).toHaveBeenCalledWith(1);
     expect(result.content[0].text).toContain(
       "Sandbox project: Project A (ID: 1)"
     );
@@ -51,7 +51,7 @@ describe("getProject", () => {
   });
 
   it("handles project with no sandboxes", async () => {
-    mockClient.testing.projects.getById.mockResolvedValue({
+    mockClient.sandbox.projects.getById.mockResolvedValue({
       id: 2,
       name: "Empty",
       inboxes: [],
@@ -64,7 +64,7 @@ describe("getProject", () => {
   });
 
   it("handles API failure", async () => {
-    mockClient.testing.projects.getById.mockRejectedValue(
+    mockClient.sandbox.projects.getById.mockRejectedValue(
       new Error("Not found")
     );
 

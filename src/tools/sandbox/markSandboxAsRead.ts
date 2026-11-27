@@ -12,7 +12,7 @@ async function markSandboxAsRead({
   try {
     const mailtrap = requireClient("sandboxes");
 
-    const sandbox = await mailtrap.testing.inboxes.markAsRead(sandbox_id);
+    const sandbox = await mailtrap.sandbox.sandboxes.markAsRead(sandbox_id);
 
     return buildSuccessResponse(
       `Marked all messages in sandbox "${sandbox.name}" (ID: ${sandbox.id}) as read.`

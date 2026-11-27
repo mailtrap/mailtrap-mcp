@@ -11,7 +11,7 @@ async function updateProject({
   try {
     const mailtrap = requireClient("sandbox projects");
 
-    const project = await mailtrap.testing.projects.update(project_id, name);
+    const project = await mailtrap.sandbox.projects.update(project_id, name);
 
     return {
       content: [

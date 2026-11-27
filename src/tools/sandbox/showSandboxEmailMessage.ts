@@ -55,8 +55,8 @@ async function showEmailMessage({
     const sandboxClient = getSandboxClient(inboxId);
 
     // Get message details
-    // The showEmailMessage method takes inboxId and messageId
-    const message = await sandboxClient.testing.messages.showEmailMessage(
+    // The showEmailMessage method takes sandboxId and messageId
+    const message = await sandboxClient.sandbox.messages.showEmailMessage(
       inboxId,
       message_id
     );
@@ -78,7 +78,7 @@ async function showEmailMessage({
     let textContent = "";
 
     try {
-      htmlContent = await sandboxClient.testing.messages.getHtmlMessage(
+      htmlContent = await sandboxClient.sandbox.messages.getHtmlMessage(
         inboxId,
         message_id
       );
@@ -88,7 +88,7 @@ async function showEmailMessage({
     }
 
     try {
-      textContent = await sandboxClient.testing.messages.getTextMessage(
+      textContent = await sandboxClient.sandbox.messages.getTextMessage(
         inboxId,
         message_id
       );
@@ -131,7 +131,7 @@ async function showEmailMessage({
 
     if (include_spam_report) {
       try {
-        const spamReport = await sandboxClient.testing.messages.getSpamScore(
+        const spamReport = await sandboxClient.sandbox.messages.getSpamScore(
           inboxId,
           message_id
         );
@@ -148,7 +148,7 @@ async function showEmailMessage({
     if (include_html_analysis) {
       try {
         const htmlAnalysis =
-          await sandboxClient.testing.messages.getHtmlAnalysis(
+          await sandboxClient.sandbox.messages.getHtmlAnalysis(
             inboxId,
             message_id
           );

@@ -8,7 +8,7 @@ async function deleteProject({ project_id }: DeleteProjectRequest): Promise<{
   try {
     const mailtrap = requireClient("sandbox projects");
 
-    const project = await mailtrap.testing.projects.delete(project_id);
+    const project = await mailtrap.sandbox.projects.delete(project_id);
 
     return {
       content: [

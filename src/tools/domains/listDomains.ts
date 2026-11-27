@@ -9,7 +9,7 @@ async function listDomains(): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("domains");
 
-    const response = await mailtrap.sendingDomains.getList();
+    const response = await mailtrap.domains.getList();
     const domains = response?.data ?? [];
 
     if (domains.length === 0) {

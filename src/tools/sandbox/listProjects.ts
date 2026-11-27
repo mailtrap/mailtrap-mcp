@@ -7,7 +7,7 @@ async function listProjects(): Promise<{
   try {
     const mailtrap = requireClient("sandbox projects");
 
-    const projects = await mailtrap.testing.projects.getList();
+    const projects = await mailtrap.sandbox.projects.getList();
 
     if (!projects || projects.length === 0) {
       return {

@@ -2,7 +2,7 @@ import deleteProject from "../deleteProject";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
+  sandbox: {
     projects: {
       delete: jest.fn(),
     },
@@ -28,12 +28,12 @@ describe("deleteProject", () => {
 
   it("should delete a project successfully", async () => {
     const mockProject = { id: 1, name: "Old Project" };
-    mockClient.testing.projects.delete.mockResolvedValue(mockProject);
+    mockClient.sandbox.projects.delete.mockResolvedValue(mockProject);
 
     const result = await deleteProject({ project_id: 1 });
 
     expect(requireClient).toHaveBeenCalledWith("sandbox projects");
-    expect(mockClient.testing.projects.delete).toHaveBeenCalledWith(1);
+    expect(mockClient.sandbox.projects.delete).toHaveBeenCalledWith(1);
     expect(result.content[0].text).toContain("deleted successfully");
     expect(result.content[0].text).toContain("Old Project");
     expect(result.content[0].text).toContain("ID: 1");
@@ -49,13 +49,13 @@ describe("deleteProject", () => {
 
     const result = await deleteProject({ project_id: 1 });
 
-    expect(mockClient.testing.projects.delete).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.projects.delete).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.testing.projects.delete.mockRejectedValue(
+    mockClient.sandbox.projects.delete.mockRejectedValue(
       new Error("Not found")
     );
 

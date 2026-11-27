@@ -15,7 +15,7 @@ async function getSandboxMessageText({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const text = await sandboxClient.testing.messages.getTextMessage(
+    const text = await sandboxClient.sandbox.messages.getTextMessage(
       sandboxId,
       message_id
     );

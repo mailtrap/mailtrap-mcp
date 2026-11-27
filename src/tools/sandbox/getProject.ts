@@ -8,7 +8,7 @@ async function getProject({ project_id }: GetProjectRequest): Promise<{
   try {
     const mailtrap = requireClient("sandbox projects");
 
-    const project = await mailtrap.testing.projects.getById(project_id);
+    const project = await mailtrap.sandbox.projects.getById(project_id);
 
     const inboxCount = project.inboxes?.length ?? 0;
     const inboxLines =

@@ -16,7 +16,7 @@ async function forwardSandboxMessage({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    await sandboxClient.testing.messages.forward(sandboxId, message_id, email);
+    await sandboxClient.sandbox.messages.forward(sandboxId, message_id, email);
 
     return buildSuccessResponse(
       `Sandbox message ${message_id} forwarded to ${email}.`

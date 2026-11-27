@@ -2,7 +2,7 @@ import listDomains from "../listDomains";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  sendingDomains: {
+  domains: {
     getList: jest.fn(),
   },
 };
@@ -45,11 +45,11 @@ describe("listDomains", () => {
         },
       ],
     };
-    mockClient.sendingDomains.getList.mockResolvedValue(mockDomains);
+    mockClient.domains.getList.mockResolvedValue(mockDomains);
 
     const result = await listDomains();
 
-    expect(mockClient.sendingDomains.getList).toHaveBeenCalledWith();
+    expect(mockClient.domains.getList).toHaveBeenCalledWith();
     expect(result.content).toHaveLength(1);
     expect(result.content[0].type).toBe("text");
     expect(result.content[0].text).toContain("example.com");
@@ -65,7 +65,7 @@ describe("listDomains", () => {
   });
 
   it("should handle empty domains list", async () => {
-    mockClient.sendingDomains.getList.mockResolvedValue({
+    mockClient.domains.getList.mockResolvedValue({
       data: [],
     });
 
@@ -85,15 +85,13 @@ describe("listDomains", () => {
 
     const result = await listDomains();
 
-    expect(mockClient.sendingDomains.getList).not.toHaveBeenCalled();
+    expect(mockClient.domains.getList).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.sendingDomains.getList.mockRejectedValue(
-      new Error("Network error")
-    );
+    mockClient.domains.getList.mockRejectedValue(new Error("Network error"));
 
     const result = await listDomains();
 

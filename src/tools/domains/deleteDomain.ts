@@ -12,7 +12,7 @@ async function deleteDomain(args: DomainIdRequest): Promise<ToolResponse> {
     const domainId = resolveDomainId(args);
     const mailtrap = requireClient("domains");
 
-    await mailtrap.sendingDomains.delete(domainId);
+    await mailtrap.domains.delete(domainId);
 
     return buildSuccessResponse(
       `Domain with ID ${domainId} deleted successfully.`

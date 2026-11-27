@@ -12,7 +12,7 @@ async function resetSandboxEmailAddress({
   try {
     const mailtrap = requireClient("sandboxes");
 
-    const sandbox = await mailtrap.testing.inboxes.resetEmailAddress(
+    const sandbox = await mailtrap.sandbox.sandboxes.resetEmailAddress(
       sandbox_id
     );
 

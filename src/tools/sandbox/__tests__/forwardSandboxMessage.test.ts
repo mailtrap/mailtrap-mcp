@@ -2,7 +2,7 @@ import forwardSandboxMessage from "../forwardSandboxMessage";
 import { getSandboxClient } from "../../../client";
 
 const mockSandboxClient = {
-  testing: {
+  sandbox: {
     messages: {
       forward: jest.fn(),
     },
@@ -27,7 +27,7 @@ describe("forwardSandboxMessage", () => {
   });
 
   it("forwards the message", async () => {
-    mockSandboxClient.testing.messages.forward.mockResolvedValue({});
+    mockSandboxClient.sandbox.messages.forward.mockResolvedValue({});
 
     const result = await forwardSandboxMessage({
       message_id: 99,
@@ -35,7 +35,7 @@ describe("forwardSandboxMessage", () => {
     });
 
     expect(getSandboxClient).toHaveBeenCalledWith(1234);
-    expect(mockSandboxClient.testing.messages.forward).toHaveBeenCalledWith(
+    expect(mockSandboxClient.sandbox.messages.forward).toHaveBeenCalledWith(
       1234,
       99,
       "user@example.com"
@@ -46,7 +46,7 @@ describe("forwardSandboxMessage", () => {
   });
 
   it("uses explicit sandbox_id over env", async () => {
-    mockSandboxClient.testing.messages.forward.mockResolvedValue({});
+    mockSandboxClient.sandbox.messages.forward.mockResolvedValue({});
 
     await forwardSandboxMessage({
       sandbox_id: 555,

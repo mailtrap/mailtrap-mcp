@@ -2,7 +2,7 @@ import sendDomainSetupInstructions from "../sendSetupInstructions";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  sendingDomains: {
+  domains: {
     sendSetupInstructions: jest.fn(),
   },
 };
@@ -18,9 +18,7 @@ describe("sendDomainSetupInstructions", () => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.sendingDomains.sendSetupInstructions.mockResolvedValue(
-      undefined
-    );
+    mockClient.domains.sendSetupInstructions.mockResolvedValue(undefined);
   });
 
   afterEach(() => {
@@ -33,9 +31,10 @@ describe("sendDomainSetupInstructions", () => {
       email: "devops@example.com",
     });
 
-    expect(
-      mockClient.sendingDomains.sendSetupInstructions
-    ).toHaveBeenCalledWith(3938, "devops@example.com");
+    expect(mockClient.domains.sendSetupInstructions).toHaveBeenCalledWith(
+      3938,
+      "devops@example.com"
+    );
     expect(result.content[0].text).toContain(
       "DNS setup instructions for domain 3938 sent to devops@example.com"
     );
@@ -48,9 +47,10 @@ describe("sendDomainSetupInstructions", () => {
       email: "devops@example.com",
     });
 
-    expect(
-      mockClient.sendingDomains.sendSetupInstructions
-    ).toHaveBeenCalledWith(3938, "devops@example.com");
+    expect(mockClient.domains.sendSetupInstructions).toHaveBeenCalledWith(
+      3938,
+      "devops@example.com"
+    );
     expect(result.isError).toBeUndefined();
   });
 
@@ -67,14 +67,12 @@ describe("sendDomainSetupInstructions", () => {
       email: "devops@example.com",
     });
 
-    expect(
-      mockClient.sendingDomains.sendSetupInstructions
-    ).not.toHaveBeenCalled();
+    expect(mockClient.domains.sendSetupInstructions).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
   });
 
   it("handles API failure", async () => {
-    mockClient.sendingDomains.sendSetupInstructions.mockRejectedValue(
+    mockClient.domains.sendSetupInstructions.mockRejectedValue(
       new Error("Invalid email")
     );
 

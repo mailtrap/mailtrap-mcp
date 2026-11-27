@@ -2,12 +2,14 @@ import listSandboxes from "../listSandboxes";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
-    inboxes: {
+  sandbox: {
+    sandboxes: {
       getList: jest.fn(),
     },
   },
 };
+
+const { sandboxes } = mockClient.sandbox;
 
 jest.mock("../../../client", () => ({
   requireClient: jest.fn(() => mockClient),
@@ -20,7 +22,7 @@ describe("listSandboxes", () => {
   });
 
   it("renders all sandboxes", async () => {
-    mockClient.testing.inboxes.getList.mockResolvedValue([
+    sandboxes.getList.mockResolvedValue([
       { id: 1, name: "A", project_id: 10, emails_count: 4 },
       { id: 2, name: "B", project_id: 11, emails_count: 0 },
     ]);
@@ -39,7 +41,7 @@ describe("listSandboxes", () => {
   });
 
   it("handles empty list", async () => {
-    mockClient.testing.inboxes.getList.mockResolvedValue([]);
+    sandboxes.getList.mockResolvedValue([]);
 
     const result = await listSandboxes();
 
@@ -47,7 +49,7 @@ describe("listSandboxes", () => {
   });
 
   it("handles API failure", async () => {
-    mockClient.testing.inboxes.getList.mockRejectedValue(new Error("boom"));
+    sandboxes.getList.mockRejectedValue(new Error("boom"));
 
     const result = await listSandboxes();
 

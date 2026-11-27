@@ -8,7 +8,7 @@ async function createProject({ name }: CreateProjectRequest): Promise<{
   try {
     const mailtrap = requireClient("sandbox projects");
 
-    const project = await mailtrap.testing.projects.create(name);
+    const project = await mailtrap.sandbox.projects.create(name);
 
     return {
       content: [

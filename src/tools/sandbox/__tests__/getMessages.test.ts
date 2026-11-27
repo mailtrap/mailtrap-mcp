@@ -4,7 +4,7 @@ import { getSandboxClient } from "../../../client";
 const mockGet = jest.fn();
 jest.mock("../../../client", () => ({
   getSandboxClient: jest.fn(() => ({
-    testing: { messages: { get: mockGet } },
+    sandbox: { messages: { get: mockGet } },
   })),
 }));
 
@@ -36,7 +36,7 @@ describe("getMessages", () => {
     jest.resetModules();
     mockGet.mockResolvedValue(mockMessages);
     (getSandboxClient as jest.Mock).mockReturnValue({
-      testing: { messages: { get: mockGet } },
+      sandbox: { messages: { get: mockGet } },
     });
     Object.assign(process.env, { MAILTRAP_SANDBOX_ID: String(inboxId) });
   });

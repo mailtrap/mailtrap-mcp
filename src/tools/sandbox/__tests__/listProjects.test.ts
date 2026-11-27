@@ -2,7 +2,7 @@ import listProjects from "../listProjects";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
+  sandbox: {
     projects: {
       getList: jest.fn(),
     },
@@ -42,12 +42,12 @@ describe("listProjects", () => {
         inboxes: [],
       },
     ];
-    mockClient.testing.projects.getList.mockResolvedValue(mockProjects);
+    mockClient.sandbox.projects.getList.mockResolvedValue(mockProjects);
 
     const result = await listProjects();
 
     expect(requireClient).toHaveBeenCalledWith("sandbox projects");
-    expect(mockClient.testing.projects.getList).toHaveBeenCalledWith();
+    expect(mockClient.sandbox.projects.getList).toHaveBeenCalledWith();
     expect(result.content).toHaveLength(1);
     expect(result.content[0].text).toContain("Sandbox projects (2)");
     expect(result.content[0].text).toContain("My Project");
@@ -59,7 +59,7 @@ describe("listProjects", () => {
   });
 
   it("should handle empty projects list", async () => {
-    mockClient.testing.projects.getList.mockResolvedValue([]);
+    mockClient.sandbox.projects.getList.mockResolvedValue([]);
 
     const result = await listProjects();
 
@@ -76,13 +76,13 @@ describe("listProjects", () => {
 
     const result = await listProjects();
 
-    expect(mockClient.testing.projects.getList).not.toHaveBeenCalled();
+    expect(mockClient.sandbox.projects.getList).not.toHaveBeenCalled();
     expect(result.content[0].text).toContain("MAILTRAP_ACCOUNT_ID");
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.testing.projects.getList.mockRejectedValue(
+    mockClient.sandbox.projects.getList.mockRejectedValue(
       new Error("Network error")
     );
 

@@ -15,7 +15,7 @@ async function getSandboxMessageHtmlSource({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const source = await sandboxClient.testing.messages.getMessageHtmlSource(
+    const source = await sandboxClient.sandbox.messages.getMessageHtmlSource(
       sandboxId,
       message_id
     );

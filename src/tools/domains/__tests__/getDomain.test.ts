@@ -2,7 +2,7 @@ import getDomain from "../getDomain";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  sendingDomains: {
+  domains: {
     get: jest.fn(),
   },
 };
@@ -39,7 +39,7 @@ describe("getDomain", () => {
     jest.clearAllMocks();
     Object.assign(process.env, { MAILTRAP_ACCOUNT_ID: "12345" });
     (requireClient as jest.Mock).mockReturnValue(mockClient);
-    mockClient.sendingDomains.get.mockResolvedValue(mockDomain);
+    mockClient.domains.get.mockResolvedValue(mockDomain);
   });
 
   afterEach(() => {
@@ -49,7 +49,7 @@ describe("getDomain", () => {
   it("should get domain successfully", async () => {
     const result = await getDomain({ domain_id: 3938 });
 
-    expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
+    expect(mockClient.domains.get).toHaveBeenCalledWith(3938);
     expect(result.content[0].text).toContain("example.com");
     expect(result.content[0].text).toContain("ID: 3938");
     expect(result.content[0].text).toContain("DNS verified: true");
@@ -63,7 +63,7 @@ describe("getDomain", () => {
   it("should accept the legacy sending_domain_id", async () => {
     const result = await getDomain({ sending_domain_id: 3938 });
 
-    expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
+    expect(mockClient.domains.get).toHaveBeenCalledWith(3938);
     expect(result.isError).toBeUndefined();
   });
 
@@ -73,7 +73,7 @@ describe("getDomain", () => {
       include_setup_instructions: true,
     });
 
-    expect(mockClient.sendingDomains.get).toHaveBeenCalledWith(3938);
+    expect(mockClient.domains.get).toHaveBeenCalledWith(3938);
     expect(result.content[0].text).toContain("Domain: example.com");
     expect(result.content[0].text).toContain("Add DNS records for example.com");
     expect(result.content[0].text).toContain("What?");
@@ -103,12 +103,12 @@ describe("getDomain", () => {
 
     const result = await getDomain({ domain_id: 3938 });
 
-    expect(mockClient.sendingDomains.get).not.toHaveBeenCalled();
+    expect(mockClient.domains.get).not.toHaveBeenCalled();
     expect(result.isError).toBe(true);
   });
 
   it("should handle API failure", async () => {
-    mockClient.sendingDomains.get.mockRejectedValue(new Error("Not found"));
+    mockClient.domains.get.mockRejectedValue(new Error("Not found"));
 
     const result = await getDomain({ domain_id: 999 });
 

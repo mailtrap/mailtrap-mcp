@@ -10,7 +10,7 @@ import getSandboxMessageHtmlSource from "../getSandboxMessageHtmlSource";
 import { getSandboxClient } from "../../../client";
 
 const mockSandboxClient = {
-  testing: {
+  sandbox: {
     messages: {
       deleteMessage: jest.fn(),
       getSpamScore: jest.fn(),
@@ -34,7 +34,7 @@ const originalEnv = { ...process.env };
 const cases: Array<{
   name: string;
   handler: any;
-  method: keyof typeof mockSandboxClient.testing.messages;
+  method: keyof typeof mockSandboxClient.sandbox.messages;
   mockValue: unknown;
   expectedFragment: string;
 }> = [
@@ -118,12 +118,12 @@ describe("sandbox message getter tools", () => {
     "$name calls the SDK and returns the response",
     async ({ handler, method, mockValue, expectedFragment }) => {
       (
-        mockSandboxClient.testing.messages[method] as jest.Mock
+        mockSandboxClient.sandbox.messages[method] as jest.Mock
       ).mockResolvedValue(mockValue);
 
       const result = await handler({ message_id: 99 });
 
-      expect(mockSandboxClient.testing.messages[method]).toHaveBeenCalledWith(
+      expect(mockSandboxClient.sandbox.messages[method]).toHaveBeenCalledWith(
         1234,
         99
       );
@@ -133,7 +133,7 @@ describe("sandbox message getter tools", () => {
   );
 
   it.each(cases)("$name surfaces API errors", async ({ handler, method }) => {
-    (mockSandboxClient.testing.messages[method] as jest.Mock).mockRejectedValue(
+    (mockSandboxClient.sandbox.messages[method] as jest.Mock).mockRejectedValue(
       new Error("boom")
     );
 

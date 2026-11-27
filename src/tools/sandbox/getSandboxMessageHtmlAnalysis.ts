@@ -15,7 +15,7 @@ async function getSandboxMessageHtmlAnalysis({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    const analysis = await sandboxClient.testing.messages.getHtmlAnalysis(
+    const analysis = await sandboxClient.sandbox.messages.getHtmlAnalysis(
       sandboxId,
       message_id
     );

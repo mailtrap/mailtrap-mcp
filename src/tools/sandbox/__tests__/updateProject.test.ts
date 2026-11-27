@@ -2,7 +2,7 @@ import updateProject from "../updateProject";
 import { requireClient } from "../../../client";
 
 const mockClient = {
-  testing: {
+  sandbox: {
     projects: {
       update: jest.fn(),
     },
@@ -27,7 +27,7 @@ describe("updateProject", () => {
   });
 
   it("updates project name", async () => {
-    mockClient.testing.projects.update.mockResolvedValue({
+    mockClient.sandbox.projects.update.mockResolvedValue({
       id: 1,
       name: "Renamed",
     });
@@ -35,7 +35,7 @@ describe("updateProject", () => {
     const result = await updateProject({ project_id: 1, name: "Renamed" });
 
     expect(requireClient).toHaveBeenCalledWith("sandbox projects");
-    expect(mockClient.testing.projects.update).toHaveBeenCalledWith(
+    expect(mockClient.sandbox.projects.update).toHaveBeenCalledWith(
       1,
       "Renamed"
     );
@@ -46,7 +46,7 @@ describe("updateProject", () => {
   });
 
   it("handles API failure", async () => {
-    mockClient.testing.projects.update.mockRejectedValue(
+    mockClient.sandbox.projects.update.mockRejectedValue(
       new Error("Validation failed")
     );
 

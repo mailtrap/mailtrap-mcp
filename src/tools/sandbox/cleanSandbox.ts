@@ -18,7 +18,9 @@ async function cleanSandbox({
       inbox_id,
     });
 
-    const inbox = await mailtrap.testing.inboxes.cleanInbox(resolvedInboxId);
+    const inbox = await mailtrap.sandbox.sandboxes.cleanSandbox(
+      resolvedInboxId
+    );
 
     return buildSuccessResponse(
       `All messages deleted from sandbox:\n\n• Name: ${inbox.name}\n• ID: ${inbox.id}\n• Emails remaining: ${inbox.emails_count}`

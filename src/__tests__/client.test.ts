@@ -71,6 +71,27 @@ describe("MCP client info forwarding", () => {
   });
 });
 
+describe("SDK deprecation warnings", () => {
+  const originalEnv = { ...process.env };
+
+  afterEach(() => {
+    process.env = { ...originalEnv };
+    jest.resetModules();
+    jest.restoreAllMocks();
+  });
+
+  it("builds the sandbox client without an SDK deprecation warning", () => {
+    const emitWarning = jest
+      .spyOn(process, "emitWarning")
+      .mockImplementation(() => {});
+    const client = loadClientModule();
+
+    client.getSandboxClient(123);
+
+    expect(emitWarning).not.toHaveBeenCalled();
+  });
+});
+
 describe("requireClient account ID check", () => {
   const originalEnv = { ...process.env };
 

@@ -15,7 +15,7 @@ async function deleteSandboxMessage({
     const sandboxId = resolveSandboxId(sandbox_id);
     const sandboxClient = getSandboxClient(sandboxId);
 
-    await sandboxClient.testing.messages.deleteMessage(sandboxId, message_id);
+    await sandboxClient.sandbox.messages.deleteMessage(sandboxId, message_id);
 
     return buildSuccessResponse(`Sandbox message ${message_id} deleted.`);
   } catch (error) {

@@ -50,16 +50,16 @@ function getDefaultClient(): MailtrapClient | null {
 
 /**
  * Returns a sandbox MailtrapClient for the given sandbox ID.
- * Use this when you have an inbox ID from tool parameters or env (MAILTRAP_SANDBOX_ID).
+ * Use this when you have a sandbox ID from tool parameters or env (MAILTRAP_SANDBOX_ID).
  */
-function getSandboxClient(inboxId: number): MailtrapClient {
+function getSandboxClient(sandboxId: number): MailtrapClient {
   if (!MAILTRAP_API_TOKEN) {
     throw new Error("MAILTRAP_API_TOKEN environment variable is required");
   }
   return new MailtrapClient({
     token: MAILTRAP_API_TOKEN,
     userAgent: getUserAgent(),
-    testInboxId: inboxId,
+    sandboxId,
     sandbox: true,
     ...accountIdOption(),
   });
@@ -116,7 +116,7 @@ function getOrganizationClient(): MailtrapClient {
  * directly:
  *
  *   const mailtrap = requireClient("sandbox projects");
- *   const projects = await mailtrap.testing.projects.getList();
+ *   const projects = await mailtrap.sandbox.projects.getList();
  *
  * @param feature  Human-readable label used in error messages, e.g. "sandboxes".
  * @param opts.requireAccountId  When true (the default), also assert MAILTRAP_ACCOUNT_ID.

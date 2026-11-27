@@ -9,7 +9,7 @@ async function listSandboxes(): Promise<ToolResponse> {
   try {
     const mailtrap = requireClient("sandboxes");
 
-    const sandboxes = await mailtrap.testing.inboxes.getList();
+    const sandboxes = await mailtrap.sandbox.sandboxes.getList();
 
     if (!sandboxes || sandboxes.length === 0) {
       return buildSuccessResponse(

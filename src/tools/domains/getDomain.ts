@@ -13,7 +13,7 @@ async function getDomain(args: GetDomainRequest): Promise<ToolResponse> {
     const domainId = resolveDomainId(args);
     const mailtrap = requireClient("domains");
 
-    const domain = await mailtrap.sendingDomains.get(domainId);
+    const domain = await mailtrap.domains.get(domainId);
 
     const dnsSummary =
       domain.dns_records?.length > 0

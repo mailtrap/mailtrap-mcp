@@ -34,7 +34,7 @@ async function updateSandbox({
       params.emailUsername = email_username;
     }
 
-    const inbox = await mailtrap.testing.inboxes.updateInbox(
+    const inbox = await mailtrap.sandbox.sandboxes.updateSandbox(
       resolvedInboxId,
       params as { name: string; emailUsername: string }
     );
